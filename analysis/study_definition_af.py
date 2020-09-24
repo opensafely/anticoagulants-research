@@ -1,6 +1,12 @@
 from cohortextractor import (
-    StudyDefinition, patients, filter_codes_by_category, combine_codelists,
-    )
+    StudyDefinition,
+    patients,
+    codelist_from_csv,
+    codelist,
+    combine_codelists,
+    filter_codes_by_category,
+)
+
 from common_variables import common_variables
 from codelists import *
 
