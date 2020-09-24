@@ -84,7 +84,7 @@ common_variables = dict(
 
     covid_admission_primary_diagnosis=patients.admitted_to_hospital(
         returning="primary_diagnosis",
-        with_these_diagnoses=covid_codelist,
+        with_these_diagnoses=covid_identification,
         on_or_after="2020-03-01",
         find_first_match_in_period=True,  
         date_format="YYYY-MM-DD", 
