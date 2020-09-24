@@ -1,10 +1,9 @@
 opensafely/aplastic-anaemia/2020-04-24
 opensafely/asplenia/2020-06-02
-opensafely/aspirin/2020-07-01
-opensafely/asthma-oral-prednisolone-medication/2020-04-27
 opensafely/cancer-excluding-lung-and-haematological/2020-04-15
 opensafely/chronic-kidney-disease/2020-04-14
 opensafely/covid-identification/2020-06-03
+opensafely/current-copd/2020-05-06
 opensafely/diabetes/2020-04-15
 opensafely/ethnicity/2020-04-27
 opensafely/haematological-cancer/2020-04-15
@@ -17,7 +16,7 @@ opensafely/influenza-vaccination-clinical-codes-not-given/2020-05-19
 opensafely/lung-cancer/2020-04-15
 opensafely/myocardial-infarction/2020-06-25
 opensafely/nsaids-oral/2020-06-09
-opensafely/other-respiratory-conditions/2020-05-14
+opensafely/other-respiratory-conditions/2020-07-21
 opensafely/permanent-immunosuppression/2020-06-02
 opensafely/proton-pump-inhibitors-ppi-oral/2020-04-20
 opensafely/smoking-clear/2020-04-29
