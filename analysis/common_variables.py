@@ -11,6 +11,16 @@ common_variables = dict(
 
     ),
 
+    # Inclusion criteria (PLACEHOLDER)
+    af=patients.with_these_clinical_events(
+        heart_failure_codes,
+        on_or_before="2020-03-01",
+        return_first_date_in_period=True,
+        include_month=True,
+        return_expectations={"date": {"latest": "2020-03-01"}},
+    ),
+
+
     # Exclusion criteria (PLACEHOLDER)
     valvular_AF=patients.with_these_clinical_events(
         heart_failure_codes,
