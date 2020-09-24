@@ -1,3 +1,4 @@
+opensafely/atrial-fibrillation-or-flutter/2020-07-30/
 opensafely/aplastic-anaemia/2020-04-24
 opensafely/asplenia/2020-06-02
 opensafely/cancer-excluding-lung-and-haematological/2020-04-15
