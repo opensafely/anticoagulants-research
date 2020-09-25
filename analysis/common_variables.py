@@ -187,6 +187,16 @@ common_variables = dict(
         },
     ),
 
+        # GP practice ID 
+    practice_id=patients.registered_practice_as_of(
+        "2020-02-01", 
+        returning="pseudo_id", 
+        return_expectations={
+            "int": {"distribution": "normal", "mean": 1000, "stddev": 100},
+            "incidence": 1,
+        },
+    ),
+
     care_home_type=patients.care_home_status_as_of(
         "2020-02-01",
         categorised_as={
