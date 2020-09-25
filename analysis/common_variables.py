@@ -76,6 +76,16 @@ common_variables = dict(
             "rate": "exponential_increase",
         },
     ),
+
+    covid_admission_date=patients.admitted_to_hospital(
+        returning= "date_admitted" ,  # defaults to "binary_flag"
+        with_these_diagnoses=covid_identification,  # optional
+        on_or_after="2020-03-01",
+        find_first_match_in_period=True,
+        date_format="YYYY-MM-DD",
+        return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
+   ),
+
     covid_admission_primary_diagnosis=patients.admitted_to_hospital(
         returning="primary_diagnosis",
         with_these_diagnoses=covid_identification,
