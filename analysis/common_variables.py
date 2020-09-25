@@ -5,7 +5,7 @@ from codelists import *
 common_variables = dict(
     dereg_date=patients.date_deregistered_from_all_supported_practices(
         on_or_before="2020-12-01",
-        date_format="YYYY-MM",
+        date_format="YYYY-MM-DD",
         return_expectations={"date": {"earliest": "2020-02-01"}},
     ),
     # Inclusion criteria (PLACEHOLDER)
