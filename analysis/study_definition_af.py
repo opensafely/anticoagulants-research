@@ -26,7 +26,6 @@ study = StudyDefinition(
         (age >=18 AND age <= 110) AND
         imd >0 AND NOT (
         valvular_AF OR
-        ESRD OR
         antiphospholipid_syndrome
         )
 
