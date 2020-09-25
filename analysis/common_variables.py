@@ -1,16 +1,13 @@
-from cohortextractor import patients
+from cohortextractor import patients, combine_codelists, filter_codes_by_category
 from codelists import *
 
 
 common_variables = dict(
-
     dereg_date=patients.date_deregistered_from_all_supported_practices(
-        on_or_before="2020-12-01", 
+        on_or_before="2020-12-01",
         date_format="YYYY-MM",
         return_expectations={"date": {"earliest": "2020-02-01"}},
-
     ),
-
     # Inclusion criteria (PLACEHOLDER)
     af=patients.with_these_clinical_events(
         heart_failure_codes,
@@ -19,8 +16,6 @@ common_variables = dict(
         include_month=True,
         return_expectations={"date": {"latest": "2020-03-01"}},
     ),
-
-
     # Exclusion criteria (PLACEHOLDER)
     valvular_AF=patients.with_these_clinical_events(
         heart_failure_codes,
@@ -29,7 +24,6 @@ common_variables = dict(
         include_month=True,
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
-
     # Exclusion criteria (PLACEHOLDER)
     antiphospholipid_syndrome=patients.with_these_clinical_events(
         heart_failure_codes,
@@ -38,7 +32,6 @@ common_variables = dict(
         include_month=True,
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
-
     # OUTCOMES
     died_ons_covid_flag_any=patients.with_these_codes_on_death_certificate(
         covid_identification,
@@ -59,7 +52,6 @@ common_variables = dict(
         include_day=True,
         return_expectations={"date": {"earliest": "2020-03-01"}},
     ),
-
     first_tested_for_covid=patients.with_test_result_in_sgss(
         pathogen="SARS-CoV-2",
         test_result="any",
@@ -67,10 +59,11 @@ common_variables = dict(
         find_first_match_in_period=True,
         returning="date",
         date_format="YYYY-MM-DD",
-        return_expectations={"date": {"earliest" : "2020-02-01"},
-        "rate" : "exponential_increase"},
+        return_expectations={
+            "date": {"earliest": "2020-02-01"},
+            "rate": "exponential_increase",
+        },
     ),
-
     first_positive_test_date=patients.with_test_result_in_sgss(
         pathogen="SARS-CoV-2",
         test_result="positive",
@@ -78,23 +71,24 @@ common_variables = dict(
         find_first_match_in_period=True,
         returning="date",
         date_format="YYYY-MM-DD",
-        return_expectations={"date": {"earliest" : "2020-02-01"},
-        "rate" : "exponential_increase"},
+        return_expectations={
+            "date": {"earliest": "2020-02-01"},
+            "rate": "exponential_increase",
+        },
     ),
-
     covid_admission_primary_diagnosis=patients.admitted_to_hospital(
         returning="primary_diagnosis",
         with_these_diagnoses=covid_identification,
         on_or_after="2020-03-01",
-        find_first_match_in_period=True,  
-        date_format="YYYY-MM-DD", 
-        return_expectations={"date": {"earliest": "2020-03-01"},"incidence" : 0.95,
-            "category": {"ratios": {"U071":0.5, "U072":0.5}},
+        find_first_match_in_period=True,
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-03-01"},
+            "incidence": 0.95,
+            "category": {"ratios": {"U071": 0.5, "U072": 0.5}},
         },
     ),
-
     # MEDICATIONS
-
     # Exposure variable (warfarin) - PLACEHOLDER
     warfarin_last_four_months=patients.with_these_medications(
         nsaid_codes,
@@ -107,7 +101,6 @@ common_variables = dict(
             "date": {"earliest": "2019-11-01", "latest": "2020-02-29"}
         },
     ),
-
     # Exposure variable (DAOCs) - PLACEHOLDER
     doac_last_four_months=patients.with_these_medications(
         nsaid_codes,
@@ -120,29 +113,29 @@ common_variables = dict(
             "date": {"earliest": "2019-11-01", "latest": "2020-02-29"}
         },
     ),
-
     # Right censoring variables - PLACEHOLDER
     warfarin_after_march=patients.with_these_medications(
-    nsaid_codes,
-    on_or_after="2020-03-01",
-    returning="date",
-    find_first_match_in_period=True,
-    include_month=True,
-    include_day=True,
-    return_expectations={"date": {"earliest": "2020-03-01", "latest": "2020-09-30"}},
+        nsaid_codes,
+        on_or_after="2020-03-01",
+        returning="date",
+        find_first_match_in_period=True,
+        include_month=True,
+        include_day=True,
+        return_expectations={
+            "date": {"earliest": "2020-03-01", "latest": "2020-09-30"}
+        },
     ),
-
     doac_after_march=patients.with_these_medications(
-    nsaid_codes,
-    on_or_after="2020-03-01",
-    returning="date",
-    find_first_match_in_period=True,
-    include_month=True,
-    include_day=True,
-    return_expectations={"date": {"earliest": "2020-03-01", "latest": "2020-09-30"}},
+        nsaid_codes,
+        on_or_after="2020-03-01",
+        returning="date",
+        find_first_match_in_period=True,
+        include_month=True,
+        include_day=True,
+        return_expectations={
+            "date": {"earliest": "2020-03-01", "latest": "2020-09-30"}
+        },
     ),
-
-
     # COVARIATES
     age=patients.age_as_of(
         "2020-03-01",
@@ -157,7 +150,6 @@ common_variables = dict(
             "category": {"ratios": {"M": 0.49, "F": 0.51}},
         }
     ),
-
     bmi=patients.most_recent_bmi(
         on_or_after="2010-03-01",
         minimum_age_at_measurement=16,
@@ -168,7 +160,6 @@ common_variables = dict(
             "float": {"distribution": "normal", "mean": 35, "stddev": 10},
         },
     ),
-
     stp=patients.registered_practice_as_of(
         "2020-02-29",
         returning="stp_code",
@@ -194,7 +185,6 @@ common_variables = dict(
             "category": {"ratios": {"100": 0.1, "200": 0.2, "300": 0.7}},
         },
     ),
-
     ethnicity=patients.with_these_clinical_events(
         ethnicity_codes,
         returning="category",
@@ -205,7 +195,6 @@ common_variables = dict(
             "incidence": 0.75,
         },
     ),
-
     # SMOKING
     smoking_status=patients.categorised_as(
         {
@@ -239,7 +228,6 @@ common_variables = dict(
         include_month=True,
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
-
     # HYPERTENSION - CLINICAL CODES ONLY
     hypertension=patients.with_these_clinical_events(
         hypertension_codes,
@@ -248,7 +236,6 @@ common_variables = dict(
         include_month=True,
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
-
     # HEART FAILURE
     heart_failure=patients.with_these_clinical_events(
         heart_failure_codes,
@@ -257,7 +244,6 @@ common_variables = dict(
         include_month=True,
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
-
     # DIABETES
     diabetes=patients.with_these_clinical_events(
         diabetes_codes,
@@ -308,7 +294,6 @@ common_variables = dict(
         include_month=True,
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
-
     # CANCER - 3 TYPES
     cancer=patients.with_these_clinical_events(
         combine_codelists(lung_cancer_codes, haem_cancer_codes, other_cancer_codes),
@@ -389,7 +374,6 @@ common_variables = dict(
         include_month=True,
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
-
     #### Peripheral artery disease (PLACEHOLDER)
     pad=patients.with_these_clinical_events(
         mi_codes,
@@ -398,7 +382,6 @@ common_variables = dict(
         include_month=True,
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
-
     #### Venous thromboembolism (PLACEHOLDER)
     vte=patients.with_these_clinical_events(
         mi_codes,
@@ -407,7 +390,6 @@ common_variables = dict(
         include_month=True,
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
-
     # FLU VACCINATION STATUS
     flu_vaccine_tpp_table=patients.with_tpp_vaccination_record(
         target_disease_matches="INFLUENZA",
@@ -446,8 +428,7 @@ common_variables = dict(
         flu_vaccine_clinical
         """,
     ),
-
-        # A&E ATTENDANCE IN PREVIOUS YEAR
+    # A&E ATTENDANCE IN PREVIOUS YEAR
     ae_attendance_last_year=patients.attended_emergency_care(
         between=["2019-03-01", "2020-02-29"],
         returning="number_of_matches_in_period",
@@ -457,8 +438,7 @@ common_variables = dict(
             "incidence": 0.3,
         },
     ),
-
-       # OESTROGEN USAGE (PLACEHOLDER)
+    # OESTROGEN USAGE (PLACEHOLDER)
     oestrogen=patients.with_these_medications(
         ppi_med_codes,
         between=["2019-11-01", "2020-02-29"],
@@ -470,9 +450,7 @@ common_variables = dict(
             "date": {"earliest": "2019-11-01", "latest": "2020-02-29"}
         },
     ),
-
-
-       # ANTIPLATELET USAGE (PLACEHOLDER)
+    # ANTIPLATELET USAGE (PLACEHOLDER)
     antiplatelet=patients.with_these_medications(
         ppi_med_codes,
         between=["2019-11-01", "2020-02-29"],
