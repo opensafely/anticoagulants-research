@@ -409,6 +409,14 @@ common_variables = dict(
         include_month=True,
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
+    #### Transient ischaemic attack (PLACEHOLDER)
+    tia=patients.with_these_clinical_events(
+        stroke_codes,
+        on_or_before="2020-02-29",
+        return_last_date_in_period=True,
+        include_month=True,
+        return_expectations={"date": {"latest": "2020-02-29"}},
+    ),
     #### Myocardial infarction
     mi=patients.with_these_clinical_events(
         mi_codes,
