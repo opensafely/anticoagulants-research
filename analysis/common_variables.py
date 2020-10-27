@@ -123,27 +123,151 @@ common_variables = dict(
             "date": {"earliest": "2019-11-01", "latest": "2020-02-29"}
         },
     ),
-    # Right censoring variables - PLACEHOLDER
+    # Time updated oral anticoagulant exposure (March) - PLACEHOLDER
     warfarin_after_march=patients.with_these_medications(
         nsaid_codes,
-        on_or_after="2020-03-01",
         returning="date",
         find_first_match_in_period=True,
-        include_month=True,
-        include_day=True,
+        between=["2020-03-01", "2020-03-31"],
+        date_format="YYYY-MM-DD",
         return_expectations={
-            "date": {"earliest": "2020-03-01", "latest": "2020-09-30"}
+            "date": {"earliest": "2020-03-01", "latest": "2020-03-31"}
         },
     ),
     doac_after_march=patients.with_these_medications(
         nsaid_codes,
-        on_or_after="2020-03-01",
         returning="date",
         find_first_match_in_period=True,
-        include_month=True,
-        include_day=True,
+        between=["2020-03-01", "2020-03-31"],
+        date_format="YYYY-MM-DD",
         return_expectations={
-            "date": {"earliest": "2020-03-01", "latest": "2020-09-30"}
+            "date": {"earliest": "2020-03-01", "latest": "2020-03-31"}
+        },
+    ),
+    # Time updated oral anticoagulant exposure (April) - PLACEHOLDER
+    warfarin_after_apr=patients.with_these_medications(
+        nsaid_codes,
+        returning="date",
+        find_first_match_in_period=True,
+        between=["2020-04-01", "2020-04-30"],
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-04-01", "latest": "2020-04-30"}
+        },
+    ),
+    doac_after_apr=patients.with_these_medications(
+        nsaid_codes,
+        returning="date",
+        find_first_match_in_period=True,
+        between=["2020-04-01", "2020-04-30"],
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-04-01", "latest": "2020-04-30"}
+        },
+    ),
+    # Time updated oral anticoagulant exposure (May) - PLACEHOLDER
+    warfarin_after_may=patients.with_these_medications(
+        nsaid_codes,
+        returning="date",
+        find_first_match_in_period=True,
+        between=["2020-05-01", "2020-05-31"],
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-05-01", "latest": "2020-05-31"}
+        },
+    ),
+    doac_after_may=patients.with_these_medications(
+        nsaid_codes,
+        returning="date",
+        find_first_match_in_period=True,
+        between=["2020-05-01", "2020-05-31"],
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-05-01", "latest": "2020-05-31"}
+        },
+    ),
+    # Time updated oral anticoagulant exposure (Jun) - PLACEHOLDER
+    warfarin_after_jun=patients.with_these_medications(
+        nsaid_codes,
+        returning="date",
+        find_first_match_in_period=True,
+        between=["2020-06-01", "2020-06-30"],
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-06-01", "latest": "2020-06-30"}
+        },
+    ),
+    doac_after_jun=patients.with_these_medications(
+        nsaid_codes,
+        returning="date",
+        find_first_match_in_period=True,
+        between=["2020-06-01", "2020-06-30"],
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-06-01", "latest": "2020-06-30"}
+        },
+    ),
+    # Time updated oral anticoagulant exposure (Jul) - PLACEHOLDER
+    warfarin_after_jul=patients.with_these_medications(
+        nsaid_codes,
+        returning="date"
+        find_first_match_in_period=True,
+        between=["2020-07-01", "2020-07-31"],
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-07-01", "latest": "2020-07-31"}
+        },
+    ),
+    doac_after_jul=patients.with_these_medications(
+        nsaid_codes,
+        returning="date",
+        find_first_match_in_period=True,
+        between=["2020-07-01", "2020-07-31"],
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-07-01", "latest": "2020-07-31"}
+        },
+    ),
+    # Time updated oral anticoagulant exposure (Aug) - PLACEHOLDER
+    warfarin_after_aug=patients.with_these_medications(
+        nsaid_codes,
+        returning="date",
+        find_first_match_in_period=True,
+        between=["2020-08-01", "2020-08-31"],
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-08-01", "latest": "2020-08-31"}
+        },
+    ),
+    doac_after_aug=patients.with_these_medications(
+        nsaid_codes,
+        returning="date",
+        find_first_match_in_period=True,
+        between=["2020-08-01", "2020-08-31"],
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-08-01", "latest": "2020-08-31"}
+        },
+    ),
+    # Time updated oral anticoagulant exposure (Sep) - PLACEHOLDER
+    warfarin_after_sep=patients.with_these_medications(
+        nsaid_codes,
+        returning="date",
+        find_first_match_in_period=True,
+        between=["2020-09-01", "2020-09-30"],
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-09-01", "latest": "2020-09-30"}
+        },
+    ),
+    doac_after_sep=patients.with_these_medications(
+        nsaid_codes,
+        returning="date",
+        find_first_match_in_period=True,
+        between=["2020-09-01", "2020-09-30"],
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-09-01", "latest": "2020-09-30"}
         },
     ),
     # COVARIATES
