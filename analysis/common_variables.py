@@ -8,7 +8,7 @@ common_variables = dict(
         date_format="YYYY-MM-DD",
         return_expectations={"date": {"earliest": "2020-02-01"}},
     ),
-    # Inclusion criteria (PLACEHOLDER)
+    # Inclusion criteria
     af=patients.with_these_clinical_events(
         af_codes,
         on_or_before="2020-03-01",
