@@ -158,13 +158,13 @@ flu_clinical_not_given_codes = codelist_from_csv(
 warfarin_codes = codelist_from_csv(
     "codelists/opensafely-warfarin.csv",
     system="snomed",
-    column="snomed_id",
+    column="id",
     )
 
 doac_codes = codelist_from_csv(
     "codelists/opensafely-direct-acting-oral-anticoagulants-doac.csv",
     system="snomed",
-    column="snomed_id",
+    column="id",
     )
 
 ppi_med_codes = codelist_from_csv(
