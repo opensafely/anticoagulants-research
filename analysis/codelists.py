@@ -130,7 +130,7 @@ mi_codes = codelist_from_csv(
 vte_codes = codelist_from_csv(
     "codelists/opensafely-venous-thromboembolic-disease.csv",
     system="ctv3",
-    column="CTV3ID",
+    column="CTV3Code",
 )
 
 
