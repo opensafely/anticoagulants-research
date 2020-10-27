@@ -549,7 +549,7 @@ common_variables = dict(
     ),
     #### end stage renal disease codes incl. dialysis / transplant
     esrf=patients.with_these_clinical_events(
-        ckd_codes,  # CHECK IS THIS DEF RIGHT HERE
+        esrf_codes,  # CHECK IS THIS DEF RIGHT HERE
         on_or_before="2020-02-29",
         return_last_date_in_period=True,
         include_month=True,
