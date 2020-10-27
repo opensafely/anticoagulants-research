@@ -48,8 +48,7 @@ common_variables = dict(
     died_date_ons=patients.died_from_any_cause(
         on_or_after="2020-03-01",
         returning="date_of_death",
-        include_month=True,
-        include_day=True,
+        date_format="YYYY-MM-DD",
         return_expectations={"date": {"earliest": "2020-03-01"}},
     ),
     first_tested_for_covid=patients.with_test_result_in_sgss(
@@ -592,8 +591,7 @@ common_variables = dict(
         between=["2019-09-01", "2020-02-29"],  # current flu season
         returning="date",
         find_last_match_in_period=True,
-        include_month=True,
-        include_day=True,
+        date_format="YYYY-MM-DD",
         return_expectations={
             "date": {"earliest": "2019-09-01", "latest": "2020-02-29"}
         },
