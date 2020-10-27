@@ -127,6 +127,12 @@ mi_codes = codelist_from_csv(
     column="CTV3ID",
 )
 
+vte_codes = codelist_from_csv(
+    "codelists/opensafely-venous-thromboembolic-disease.csv",
+    system="ctv3",
+    column="CTV3ID",
+)
+
 
 # VACCINATION
 flu_med_codes = codelist_from_csv(
@@ -149,8 +155,14 @@ flu_clinical_not_given_codes = codelist_from_csv(
 
 
 # MEDICATIONS
-nsaid_codes = codelist_from_csv(
-    "codelists/opensafely-nsaids-oral.csv",
+wafarin_codes = codelist_from_csv(
+    "codelists/opensafely-warfarin.csv",
+    system="snomed",
+    column="snomed_id",
+    )
+
+doac_codes = codelist_from_csv(
+    "codelists/opensafely-direct-acting-oral-anticoagulants-doac.csv",
     system="snomed",
     column="snomed_id",
     )

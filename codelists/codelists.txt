@@ -16,7 +16,9 @@ opensafely/influenza-vaccination-clinical-codes-given/2020-05-21
 opensafely/influenza-vaccination-clinical-codes-not-given/2020-05-19
 opensafely/lung-cancer/2020-04-15
 opensafely/myocardial-infarction/2020-06-25
-opensafely/nsaids-oral/2020-06-09
+opensafely/warfarin/2020-10-05
+opensafely/direct-acting-oral-anticoagulants-doac/2020-10-05
+opensafely/venous-thromboembolic-disease/2020-09-14
 opensafely/other-respiratory-conditions/2020-07-21
 opensafely/permanent-immunosuppression/2020-06-02
 opensafely/proton-pump-inhibitors-ppi-oral/2020-04-20
