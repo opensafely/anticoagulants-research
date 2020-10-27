@@ -155,7 +155,7 @@ flu_clinical_not_given_codes = codelist_from_csv(
 
 
 # MEDICATIONS
-wafarin_codes = codelist_from_csv(
+warfarin_codes = codelist_from_csv(
     "codelists/opensafely-warfarin.csv",
     system="snomed",
     column="snomed_id",
