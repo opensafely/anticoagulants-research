@@ -279,6 +279,27 @@ common_variables = dict(
             "date": {"earliest": "2020-09-01", "latest": "2020-09-30"}
         },
     ),
+    # Time updated oral anticoagulant exposure (Sep) - last prescription 
+    warfarin_after_sep_last=patients.with_these_medications(
+        warfarin_codes,
+        returning="date",
+        find_last_match_in_period=True,
+        between=["2020-09-01", "2020-09-30"],
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-09-01", "latest": "2020-09-30"}
+        },
+    ),
+    doac_after_sep_last=patients.with_these_medications(
+        doac_codes,
+        returning="date",
+        find_last_match_in_period=True,
+        between=["2020-09-01", "2020-09-30"],
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-09-01", "latest": "2020-09-30"}
+        },
+    ),
     # COVARIATES
     age=patients.age_as_of(
         "2020-03-01",
