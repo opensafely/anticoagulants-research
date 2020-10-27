@@ -133,6 +133,12 @@ vte_codes = codelist_from_csv(
     column="CTV3Code",
 )
 
+af_codes = codelist_from_csv(
+    "codelists/opensafely-atrial-fibrillation-or-flutter.csv",
+    system="ctv3",
+    column="CTV3Code",
+)
+
 
 # VACCINATION
 flu_med_codes = codelist_from_csv(

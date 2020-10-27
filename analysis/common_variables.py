@@ -10,7 +10,7 @@ common_variables = dict(
     ),
     # Inclusion criteria (PLACEHOLDER)
     af=patients.with_these_clinical_events(
-        heart_failure_codes,
+        af_codes,
         on_or_before="2020-03-01",
         return_first_date_in_period=True,
         include_month=True,
