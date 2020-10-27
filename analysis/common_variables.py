@@ -99,9 +99,21 @@ common_variables = dict(
         },
     ),
     # MEDICATIONS
-    # Exposure variable (warfarin) - PLACEHOLDER
+    # LMWH - PLACEHOLDER
+    lmwh_last_four_months=patients.with_these_medications(
+        warfarin_codes,
+        between=["2019-11-01", "2020-02-29"],
+        returning="date",
+        find_last_match_in_period=True,
+        include_month=True,
+        include_day=False,
+        return_expectations={
+            "date": {"earliest": "2019-11-01", "latest": "2020-02-29"}
+        },
+    ),
+    # Exposure variable (warfarin) 
     warfarin_last_four_months=patients.with_these_medications(
-        nsaid_codes,
+        warfarin_codes,
         between=["2019-11-01", "2020-02-29"],
         returning="date",
         find_last_match_in_period=True,
@@ -111,9 +123,9 @@ common_variables = dict(
             "date": {"earliest": "2019-11-01", "latest": "2020-02-29"}
         },
     ),
-    # Exposure variable (DAOCs) - PLACEHOLDER
+    # Exposure variable (DAOCs)
     doac_last_four_months=patients.with_these_medications(
-        nsaid_codes,
+        doac_codes,
         between=["2019-11-01", "2020-02-29"],
         returning="date",
         find_last_match_in_period=True,
@@ -123,9 +135,9 @@ common_variables = dict(
             "date": {"earliest": "2019-11-01", "latest": "2020-02-29"}
         },
     ),
-    # Time updated oral anticoagulant exposure (March) - PLACEHOLDER
+    # Time updated oral anticoagulant exposure (March)
     warfarin_after_march=patients.with_these_medications(
-        nsaid_codes,
+        warfarin_codes,
         returning="date",
         find_first_match_in_period=True,
         between=["2020-03-01", "2020-03-31"],
@@ -135,7 +147,7 @@ common_variables = dict(
         },
     ),
     doac_after_march=patients.with_these_medications(
-        nsaid_codes,
+        doac_codes,
         returning="date",
         find_first_match_in_period=True,
         between=["2020-03-01", "2020-03-31"],
@@ -144,9 +156,9 @@ common_variables = dict(
             "date": {"earliest": "2020-03-01", "latest": "2020-03-31"}
         },
     ),
-    # Time updated oral anticoagulant exposure (April) - PLACEHOLDER
+    # Time updated oral anticoagulant exposure (April) 
     warfarin_after_apr=patients.with_these_medications(
-        nsaid_codes,
+        warfarin_codes,
         returning="date",
         find_first_match_in_period=True,
         between=["2020-04-01", "2020-04-30"],
@@ -156,7 +168,7 @@ common_variables = dict(
         },
     ),
     doac_after_apr=patients.with_these_medications(
-        nsaid_codes,
+        doac_codes,
         returning="date",
         find_first_match_in_period=True,
         between=["2020-04-01", "2020-04-30"],
@@ -165,9 +177,9 @@ common_variables = dict(
             "date": {"earliest": "2020-04-01", "latest": "2020-04-30"}
         },
     ),
-    # Time updated oral anticoagulant exposure (May) - PLACEHOLDER
+    # Time updated oral anticoagulant exposure (May)
     warfarin_after_may=patients.with_these_medications(
-        nsaid_codes,
+        warfarin_codes,
         returning="date",
         find_first_match_in_period=True,
         between=["2020-05-01", "2020-05-31"],
@@ -177,7 +189,7 @@ common_variables = dict(
         },
     ),
     doac_after_may=patients.with_these_medications(
-        nsaid_codes,
+        doac_codes,
         returning="date",
         find_first_match_in_period=True,
         between=["2020-05-01", "2020-05-31"],
@@ -186,9 +198,9 @@ common_variables = dict(
             "date": {"earliest": "2020-05-01", "latest": "2020-05-31"}
         },
     ),
-    # Time updated oral anticoagulant exposure (Jun) - PLACEHOLDER
+    # Time updated oral anticoagulant exposure (Jun)
     warfarin_after_jun=patients.with_these_medications(
-        nsaid_codes,
+        warfarin_codes,
         returning="date",
         find_first_match_in_period=True,
         between=["2020-06-01", "2020-06-30"],
@@ -198,7 +210,7 @@ common_variables = dict(
         },
     ),
     doac_after_jun=patients.with_these_medications(
-        nsaid_codes,
+        doac_codes,
         returning="date",
         find_first_match_in_period=True,
         between=["2020-06-01", "2020-06-30"],
@@ -207,19 +219,9 @@ common_variables = dict(
             "date": {"earliest": "2020-06-01", "latest": "2020-06-30"}
         },
     ),
-    # Time updated oral anticoagulant exposure (Jul) - PLACEHOLDER
+    # Time updated oral anticoagulant exposure (Jul) 
     warfarin_after_jul=patients.with_these_medications(
-        nsaid_codes,
-        returning="date"
-        find_first_match_in_period=True,
-        between=["2020-07-01", "2020-07-31"],
-        date_format="YYYY-MM-DD",
-        return_expectations={
-            "date": {"earliest": "2020-07-01", "latest": "2020-07-31"}
-        },
-    ),
-    doac_after_jul=patients.with_these_medications(
-        nsaid_codes,
+        warfarin_codes,
         returning="date",
         find_first_match_in_period=True,
         between=["2020-07-01", "2020-07-31"],
@@ -228,9 +230,19 @@ common_variables = dict(
             "date": {"earliest": "2020-07-01", "latest": "2020-07-31"}
         },
     ),
-    # Time updated oral anticoagulant exposure (Aug) - PLACEHOLDER
+    doac_after_jul=patients.with_these_medications(
+        doac_codes,
+        returning="date",
+        find_first_match_in_period=True,
+        between=["2020-07-01", "2020-07-31"],
+        date_format="YYYY-MM-DD",
+        return_expectations={
+            "date": {"earliest": "2020-07-01", "latest": "2020-07-31"}
+        },
+    ),
+    # Time updated oral anticoagulant exposure (Aug) 
     warfarin_after_aug=patients.with_these_medications(
-        nsaid_codes,
+        warfarin_codes,
         returning="date",
         find_first_match_in_period=True,
         between=["2020-08-01", "2020-08-31"],
@@ -240,7 +252,7 @@ common_variables = dict(
         },
     ),
     doac_after_aug=patients.with_these_medications(
-        nsaid_codes,
+        doac_codes,
         returning="date",
         find_first_match_in_period=True,
         between=["2020-08-01", "2020-08-31"],
@@ -249,9 +261,9 @@ common_variables = dict(
             "date": {"earliest": "2020-08-01", "latest": "2020-08-31"}
         },
     ),
-    # Time updated oral anticoagulant exposure (Sep) - PLACEHOLDER
+    # Time updated oral anticoagulant exposure (Sep) 
     warfarin_after_sep=patients.with_these_medications(
-        nsaid_codes,
+        warfarin_codes,
         returning="date",
         find_first_match_in_period=True,
         between=["2020-09-01", "2020-09-30"],
@@ -261,7 +273,7 @@ common_variables = dict(
         },
     ),
     doac_after_sep=patients.with_these_medications(
-        nsaid_codes,
+        doac_codes,
         returning="date",
         find_first_match_in_period=True,
         between=["2020-09-01", "2020-09-30"],
@@ -557,9 +569,9 @@ common_variables = dict(
         include_month=True,
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
-    #### Venous thromboembolism (PLACEHOLDER)
+    #### Venous thromboembolism
     vte=patients.with_these_clinical_events(
-        mi_codes,
+        vte_codes,
         on_or_before="2020-02-29",
         return_last_date_in_period=True,
         include_month=True,
