@@ -85,7 +85,7 @@ common_variables = dict(
         return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
    ),
 
-    covid_admission_primary_diagnosis=patients.admitted_to_hospital(
+    covid_admission_primary_dx=patients.admitted_to_hospital(
         returning="primary_diagnosis",
         with_these_diagnoses=covid_identification,
         on_or_after="2020-03-01",
