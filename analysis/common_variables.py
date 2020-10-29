@@ -551,7 +551,7 @@ common_variables = dict(
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
     #### Myocardial infarction
-    mi=patients.with_these_clinical_events(
+    myocardial_infarct=patients.with_these_clinical_events(
         mi_codes,
         on_or_before="2020-02-29",
         return_last_date_in_period=True,
