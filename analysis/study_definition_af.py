@@ -24,8 +24,7 @@ study = StudyDefinition(
         registration_history AND
         af AND
         (age >=18 AND age <= 110) AND
-        imd >0 AND NOT (
-        valvular_AF
+        imd >0
         )
 
         """,
