@@ -23,7 +23,7 @@ study = StudyDefinition(
         """
         registration_history AND
         (age >=18 AND age <= 110) AND
-        (sex=="M" OR sex=="F") AND
+        (sex="M" OR sex="F") AND
         imd >0 AND 
         gp_consult_count>0 AND NOT (
         af OR
