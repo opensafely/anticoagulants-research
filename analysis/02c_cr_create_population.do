@@ -97,7 +97,7 @@ save $outdir/matched_control.dta , replace
 
 /* Combine the case cohort after matching==================================*/	
 * Exposed cohort after matching
-import delimited $outdir/af_only_matched_to_generalpopulation.csv, clear
+import delimited $outdir/af_oac_only_matched_to_generalpopulation.csv, clear
 safecount
 
 * Append the matched case cohort
