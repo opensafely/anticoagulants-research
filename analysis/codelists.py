@@ -5,9 +5,15 @@ from cohortextractor import (
 
 # PLACEHOLDER CODELISTS
 
-placeholder_drug_codelist=codelist(["cndjksfks"], system="snomed"),
+placeholder_drug_codelist = codelist(
+    ["cndjksfks"], 
+    system="snomed",
+)
 
-placeholder_med_codelist=codelist(["cndjksfks"], system="ctv3"),
+placeholder_med_codelist = codelist(
+    ["cndjksfks"], 
+    system="ctv3",
+)
 
 # OUTCOME CODELISTS
 covid_identification = codelist_from_csv(
