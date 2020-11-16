@@ -5,13 +5,13 @@ expectations:
 
 actions:
   generate_cohort:
-    run: cohortextractor:latest generate_cohort --study-definition study_definition_af study_definition_af_population_flow_chart study_definition_general_population study_definition_general_population_flow_chart
+    run: cohortextractor:latest generate_cohort 
     outputs:
       highly_sensitive:
-        cohort: output/input_af.csv
-        cohort: output/input_af_population_flow_chart
-        cohort: output/input_general_population
-        cohort: output/input_general_population_flow_chart
+        cohort1: output/input_af.csv
+        cohort2: output/input_af_population_flow_chart.csv
+        cohort3: output/input_general_population
+        cohort4: output/input_general_population_flow_chart
 
   #create_dataset:
   #  run: stata-mp:latest analysis/do_something.do
@@ -21,7 +21,7 @@ actions:
   #      log: logs/model.log
 
   run_all:
-    needs: [generate_cohort]
+    needs: [generate_cohort, , ]
     # In order to be valid this action needs to define a run commmand and some
     # output. We don't really care what these are but the below does the trick.
     # In a future release of the platform, this special action won't need to be
