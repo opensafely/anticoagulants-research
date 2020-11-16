@@ -4,18 +4,22 @@ from codelists import *
 
 common_variables = dict(
 
+    # Define start date
+    start_date = "2020-03-01",
+
     dereg_date=patients.date_deregistered_from_all_supported_practices(
         on_or_before="2020-12-01",
         date_format="YYYY-MM-DD",
-        return_expectations={"date": {"earliest": "2020-02-01"}},
+        return_expectations={"date": {"earliest": start_date}},
     ),
+
     # Inclusion criteria
     af=patients.with_these_clinical_events(
         af_codes,
-        on_or_before="2020-03-01",
+        on_or_before=start_date,
         return_first_date_in_period=True,
         include_month=True,
-        return_expectations={"date": {"latest": "2020-03-01"}},
+        return_expectations={"date": {"latest": start_date}},
     ),
     # Exclusion criteria (PLACEHOLDER)
     valvular_AF=patients.with_these_clinical_events(
@@ -36,43 +40,43 @@ common_variables = dict(
     # OUTCOMES
     died_ons_covid_flag_any=patients.with_these_codes_on_death_certificate(
         covid_identification,
-        on_or_after="2020-03-01",
+        on_or_after=start_date,
         match_only_underlying_cause=False,
-        return_expectations={"date": {"earliest": "2020-03-01"}},
+        return_expectations={"date": {"earliest": start_date}},
     ),
     died_ons_covid_flag_underlying=patients.with_these_codes_on_death_certificate(
         covid_identification,
-        on_or_after="2020-03-01",
+        on_or_after=start_date,
         match_only_underlying_cause=True,
-        return_expectations={"date": {"earliest": "2020-03-01"}},
+        return_expectations={"date": {"earliest": start_date}},
     ),
     died_date_ons=patients.died_from_any_cause(
-        on_or_after="2020-03-01",
+        on_or_after=start_date,
         returning="date_of_death",
         date_format="YYYY-MM-DD",
-        return_expectations={"date": {"earliest": "2020-03-01"}},
+        return_expectations={"date": {"earliest": start_date}},
     ),
     first_tested_for_covid=patients.with_test_result_in_sgss(
         pathogen="SARS-CoV-2",
         test_result="any",
-        on_or_after="2020-03-01",
+        on_or_after=start_date,
         find_first_match_in_period=True,
         returning="date",
         date_format="YYYY-MM-DD",
         return_expectations={
-            "date": {"earliest": "2020-02-01"},
+            "date": {"earliest": start_date},
             "rate": "exponential_increase",
         },
     ),
     first_positive_test_date=patients.with_test_result_in_sgss(
         pathogen="SARS-CoV-2",
         test_result="positive",
-        on_or_after="2020-03-01",
+        on_or_after=start_date,
         find_first_match_in_period=True,
         returning="date",
         date_format="YYYY-MM-DD",
         return_expectations={
-            "date": {"earliest": "2020-02-01"},
+            "date": {"earliest": start_date},
             "rate": "exponential_increase",
         },
     ),
@@ -80,20 +84,20 @@ common_variables = dict(
     covid_admission_date=patients.admitted_to_hospital(
         returning= "date_admitted" ,  # defaults to "binary_flag"
         with_these_diagnoses=covid_identification,  # optional
-        on_or_after="2020-03-01",
+        on_or_after=start_date,
         find_first_match_in_period=True,
         date_format="YYYY-MM-DD",
-        return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
+        return_expectations={"date": {"earliest": start_date}, "incidence" : 0.95},
    ),
 
     covid_admission_primary_dx=patients.admitted_to_hospital(
         returning="primary_diagnosis",
         with_these_diagnoses=covid_identification,
-        on_or_after="2020-03-01",
+        on_or_after=start_date,
         find_first_match_in_period=True,
         date_format="YYYY-MM-DD",
         return_expectations={
-            "date": {"earliest": "2020-03-01"},
+            "date": {"earliest": start_date},
             "incidence": 0.95,
             "category": {"ratios": {"U071": 0.5, "U072": 0.5}},
         },
@@ -138,20 +142,20 @@ common_variables = dict(
         warfarin_codes,
         returning="date",
         find_first_match_in_period=True,
-        between=["2020-03-01", "2020-03-31"],
+        between=[start_date, "2020-03-31"],
         date_format="YYYY-MM-DD",
         return_expectations={
-            "date": {"earliest": "2020-03-01", "latest": "2020-03-31"}
+            "date": {"earliest": start_date, "latest": "2020-03-31"}
         },
     ),
     doac_march_first=patients.with_these_medications(
         doac_codes,
         returning="date",
         find_first_match_in_period=True,
-        between=["2020-03-01", "2020-03-31"],
+        between=[start_date, "2020-03-31"],
         date_format="YYYY-MM-DD",
         return_expectations={
-            "date": {"earliest": "2020-03-01", "latest": "2020-03-31"}
+            "date": {"earliest": start_date, "latest": "2020-03-31"}
         },
     ),
 
@@ -159,20 +163,20 @@ common_variables = dict(
         warfarin_codes,
         returning="date",
         find_last_match_in_period=True,
-        between=["2020-03-01", "2020-03-31"],
+        between=[start_date, "2020-03-31"],
         date_format="YYYY-MM-DD",
         return_expectations={
-            "date": {"earliest": "2020-03-01", "latest": "2020-03-31"}
+            "date": {"earliest": start_date, "latest": "2020-03-31"}
         },
     ),
     doac_march_last=patients.with_these_medications(
         doac_codes,
         returning="date",
         find_last_match_in_period=True,
-        between=["2020-03-01", "2020-03-31"],
+        between=[start_date, "2020-03-31"],
         date_format="YYYY-MM-DD",
         return_expectations={
-            "date": {"earliest": "2020-03-01", "latest": "2020-03-31"}
+            "date": {"earliest": start_date, "latest": "2020-03-31"}
         },
     ),
     # Time updated oral anticoagulant exposure (April) 
@@ -430,7 +434,7 @@ common_variables = dict(
     ),
     # COVARIATES
     age=patients.age_as_of(
-        "2020-03-01",
+        start_date,
         return_expectations={
             "rate": "universal",
             "int": {"distribution": "population_ages"},
@@ -443,7 +447,7 @@ common_variables = dict(
         }
     ),
     bmi=patients.most_recent_bmi(
-        on_or_after="2010-03-01",
+        on_or_after=start_date,
         minimum_age_at_measurement=16,
         include_measurement_date=True,
         include_month=True,
@@ -471,7 +475,7 @@ common_variables = dict(
 
         # GP practice ID 
     practice_id=patients.registered_practice_as_of(
-        "2020-02-01", 
+        start_date, 
         returning="pseudo_id", 
         return_expectations={
             "int": {"distribution": "normal", "mean": 1000, "stddev": 100},
@@ -480,7 +484,7 @@ common_variables = dict(
     ),
 
     care_home_type=patients.care_home_status_as_of(
-        "2020-02-01",
+        start_date,
         categorised_as={
             "PC": """
               IsPotentialCareHome
@@ -644,7 +648,7 @@ common_variables = dict(
     ),
     aplastic_anaemia=patients.with_these_clinical_events(
         aplastic_codes,
-        between=["2019-03-01", "2020-02-29"],
+        between=[start_date, "2020-02-29"],
         return_last_date_in_period=True,
         include_month=True,
         return_expectations={
@@ -654,7 +658,7 @@ common_variables = dict(
     #### TEMPORARY
     temporary_immunodeficiency=patients.with_these_clinical_events(
         temp_immune_codes,
-        between=["2019-03-01", "2020-02-29"],
+        between=[start_date, "2020-02-29"],
         return_last_date_in_period=True,
         include_month=True,
         return_expectations={
@@ -762,21 +766,21 @@ common_variables = dict(
     ),
     # A&E ATTENDANCE IN PREVIOUS YEAR
     ae_attendance_last_year=patients.attended_emergency_care(
-        between=["2019-03-01", "2020-02-29"],
+        between=[start_date, "2020-02-29"],
         returning="number_of_matches_in_period",
         return_expectations={
             "int": {"distribution": "normal", "mean": 2, "stddev": 2},
-            "date": {"earliest": "2019-03-01", "latest": "2020-02-29"},
+            "date": {"earliest": start_date, "latest": "2020-02-29"},
             "incidence": 0.3,
         },
     ),
     ### GP CONSULTATION RATE IN PREVIOUS YEAR
     gp_consult_count=patients.with_gp_consultations(
-        between=["2019-03-01", "2020-02-29"],
+        between=[start_date, "2020-02-29"],
         returning="number_of_matches_in_period",
         return_expectations={
             "int": {"distribution": "normal", "mean": 4, "stddev": 2},
-            "date": {"earliest": "2019-03-01", "latest": "2020-02-29"},
+            "date": {"earliest": start_date, "latest": "2020-02-29"},
             "incidence": 0.7,
         },
     ),
