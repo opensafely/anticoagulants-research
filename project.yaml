@@ -5,7 +5,7 @@ expectations:
 
 actions:
   generate_cohort:
-    run: cohortextractor:latest generate_cohort --study-definition study_definition
+    run: cohortextractor:latest generate_cohort --study-definition study_definition_af study_definition_af_population_flow_chart study_definition_general_population study_definition_general_population_flow_chart
     outputs:
       highly_sensitive:
         cohort: output/input_af.csv
