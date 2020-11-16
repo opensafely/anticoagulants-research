@@ -4,21 +4,24 @@ expectations:
   population_size: 1000
 
 actions:
-  generate_cohorts:
-    run: cohortextractor:latest generate_cohort --study-definition study_definition
+  generate_cohort:
+    run: cohortextractor:latest generate_cohort 
     outputs:
       highly_sensitive:
-        cohort: output/input.csv
+        cohort1: output/input_af.csv
+        cohort2: output/input_af_population_flow_chart.csv
+        cohort3: output/input_general_population.csv
+        cohort4: output/input_general_population_flow_chart.csv
 
-  do_something:
-    run: stata-mp:latest analysis/do_something.do
-    needs: [generate_cohorts]
-    outputs:
-      moderately_sensitive:
-        log: logs/model.log
+  #create_dataset:
+  #  run: stata-mp:latest analysis/do_something.do
+  #  needs: [generate_cohorts]
+  #  outputs:
+  #    moderately_sensitive:
+  #      log: logs/model.log
 
   run_all:
-    needs: [do_something]
+    needs: [generate_cohort]
     # In order to be valid this action needs to define a run commmand and some
     # output. We don't really care what these are but the below does the trick.
     # In a future release of the platform, this special action won't need to be
