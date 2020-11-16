@@ -3,6 +3,12 @@ from cohortextractor import (
     codelist,
 )
 
+# PLACEHOLDER CODELISTS
+
+placeholder_drug_codelist=codelist(["cndjksfks"], system="snomed"),
+
+placeholder_med_codelist=codelist(["cndjksfks"], system="ctv3"),
+
 # OUTCOME CODELISTS
 covid_identification = codelist_from_csv(
     "codelists/opensafely-covid-identification.csv",
@@ -169,12 +175,6 @@ warfarin_codes = codelist_from_csv(
 
 doac_codes = codelist_from_csv(
     "codelists/opensafely-direct-acting-oral-anticoagulants-doac.csv",
-    system="snomed",
-    column="id",
-    )
-
-ppi_med_codes = codelist_from_csv(
-    "codelists/opensafely-proton-pump-inhibitors-ppi-oral.csv",
     system="snomed",
     column="id",
 )

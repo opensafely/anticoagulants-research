@@ -4,10 +4,6 @@ from codelists import *
 
 common_variables = dict(
 
-    placeholder_drug_codelist=codelist(["cndjksfks"], system="snomed"),
-
-    placeholder_med_codelist=codelist(["cndjksfks"], system="ctv3"),
-
     dereg_date=patients.date_deregistered_from_all_supported_practices(
         on_or_before="2020-12-01",
         date_format="YYYY-MM-DD",
