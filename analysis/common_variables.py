@@ -7,7 +7,7 @@ common_variables = dict(
     dereg_date=patients.date_deregistered_from_all_supported_practices(
         on_or_before="2020-12-01",
         date_format="YYYY-MM-DD",
-        return_expectations={"date": {"earliest": "2020-02-01"}},
+        return_expectations={"date": {"earliest": "2020-03-01"}},
     ),
     # Inclusion criteria
     af=patients.with_these_clinical_events(
@@ -60,7 +60,7 @@ common_variables = dict(
         returning="date",
         date_format="YYYY-MM-DD",
         return_expectations={
-            "date": {"earliest": "2020-02-01"},
+            "date": {"earliest": "2020-03-01"},
             "rate": "exponential_increase",
         },
     ),
@@ -72,7 +72,7 @@ common_variables = dict(
         returning="date",
         date_format="YYYY-MM-DD",
         return_expectations={
-            "date": {"earliest": "2020-02-01"},
+            "date": {"earliest": "2020-03-01"},
             "rate": "exponential_increase",
         },
     ),
@@ -471,7 +471,7 @@ common_variables = dict(
 
         # GP practice ID 
     practice_id=patients.registered_practice_as_of(
-        "2020-02-01", 
+        "2020-03-01", 
         returning="pseudo_id", 
         return_expectations={
             "int": {"distribution": "normal", "mean": 1000, "stddev": 100},
@@ -480,7 +480,7 @@ common_variables = dict(
     ),
 
     care_home_type=patients.care_home_status_as_of(
-        "2020-02-01",
+        "2020-03-01",
         categorised_as={
             "PC": """
               IsPotentialCareHome
