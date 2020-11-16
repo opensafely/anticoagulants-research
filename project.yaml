@@ -10,8 +10,8 @@ actions:
       highly_sensitive:
         cohort1: output/input_af.csv
         cohort2: output/input_af_population_flow_chart.csv
-        cohort3: output/input_general_population
-        cohort4: output/input_general_population_flow_chart
+        cohort3: output/input_general_population.csv
+        cohort4: output/input_general_population_flow_chart.csv
 
   #create_dataset:
   #  run: stata-mp:latest analysis/do_something.do
