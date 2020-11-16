@@ -3,6 +3,11 @@ from codelists import *
 
 
 common_variables = dict(
+
+    placeholder_drug_codelist=codelist(["cndjksfks"], system="snomed"),
+
+    placeholder_med_codelist=codelist(["cndjksfks"], system="ctv3"),
+
     dereg_date=patients.date_deregistered_from_all_supported_practices(
         on_or_before="2020-12-01",
         date_format="YYYY-MM-DD",
@@ -18,7 +23,7 @@ common_variables = dict(
     ),
     # Exclusion criteria (PLACEHOLDER)
     valvular_AF=patients.with_these_clinical_events(
-        heart_failure_codes,
+        placeholder_med_codelist,
         on_or_before="2020-02-29",
         return_first_date_in_period=True,
         include_month=True,
@@ -26,7 +31,7 @@ common_variables = dict(
     ),
     # Exclusion criteria (PLACEHOLDER)
     antiphospholipid_syndrome=patients.with_these_clinical_events(
-        heart_failure_codes,
+        placeholder_med_codelist,
         on_or_before="2020-02-29",
         return_first_date_in_period=True,
         include_month=True,
@@ -100,7 +105,7 @@ common_variables = dict(
     # MEDICATIONS
     # LMWH - PLACEHOLDER
     lmwh_last_four_months=patients.with_these_medications(
-        warfarin_codes,
+        placeholder_drug_codelist,
         between=["2019-11-01", "2020-02-29"],
         returning="date",
         find_last_match_in_period=True,
@@ -692,7 +697,7 @@ common_variables = dict(
     ),
     #### Transient ischaemic attack (PLACEHOLDER)
     tia=patients.with_these_clinical_events(
-        stroke_codes,
+        placeholder_med_codelist,
         on_or_before="2020-02-29",
         return_last_date_in_period=True,
         include_month=True,
@@ -708,7 +713,7 @@ common_variables = dict(
     ),
     #### Peripheral artery disease (PLACEHOLDER)
     pad=patients.with_these_clinical_events(
-        mi_codes,
+        placeholder_med_codelist,
         on_or_before="2020-02-29",
         return_last_date_in_period=True,
         include_month=True,
@@ -784,7 +789,7 @@ common_variables = dict(
     ),
     # OESTROGEN USAGE (PLACEHOLDER)
     oestrogen=patients.with_these_medications(
-        ppi_med_codes,
+        placeholder_drug_codelist,
         between=["2019-11-01", "2020-02-29"],
         returning="date",
         find_last_match_in_period=True,
@@ -796,7 +801,7 @@ common_variables = dict(
     ),
     # ANTIPLATELET USAGE (PLACEHOLDER)
     antiplatelet=patients.with_these_medications(
-        ppi_med_codes,
+        placeholder_drug_codelist,
         between=["2019-11-01", "2020-02-29"],
         returning="date",
         find_last_match_in_period=True,
