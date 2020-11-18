@@ -6,19 +6,24 @@ DATE: 					29 Oct 2020
 DESCRIPTION OF FILE:	Produce a table of baseline characteristics, by exposure
 						Generalised to produce same columns as levels of exposure
 						Output to a textfile for further formatting
-DATASETS USED:			$Tempdir\analysis_dataset_$outcome.dta
+DATASETS USED:			$Tempdir\analysis_dataset_`outcome'.dta
 DATASETS CREATED: 		None
-OTHER OUTPUT: 			Results in txt: $outdir\table1_$outcome.txt 
-						Log file: $logdir\04_an_descriptive_table_$outcome
+OTHER OUTPUT: 			Results in txt: $outdir\table1_`outcome'.txt 
+						Log file: $logdir\04_an_descriptive_table_`outcome'
 							
 ==============================================================================*/
+local outcome `1'
+
+local global_option `2'
+
+do `c(pwd)'/analysis/global_`2'.do
 
 * Open a log file
 capture log close
-log using $logdir\04_an_descriptive_table_$outcome, replace t
+log using $logdir\04_an_descriptive_table_`outcome', replace t
 
 * Open Stata dataset
-use $tempdir\analysis_dataset_$outcome, clear
+use $tempdir\analysis_dataset_`outcome', clear
 
 /*==============================================================================*/
 
@@ -149,9 +154,9 @@ end
 
 *Set up output file
 cap file close tablecontent
-file open tablecontent using $tabfigdir/table1_$outcome.txt, write text replace
+file open tablecontent using $tabfigdir/table1_`outcome'.txt, write text replace
 
-file write tablecontent ("Table 1: Demographic and Clinical Characteristics - $population for $outcome") _n
+file write tablecontent ("Table 1: Demographic and Clinical Characteristics - $population for `outcome'") _n
 
 * Exposure labelled columns
 
