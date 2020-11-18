@@ -12,6 +12,11 @@ OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 							
 ==============================================================================*/
 
+local global_option `1'
+
+do `c(pwd)'/analysis/global_`1'.do
+
+
 * Open a log file
 cap log close
 log using $logdir\01_cr_create_exposure_outcome_af, replace t
