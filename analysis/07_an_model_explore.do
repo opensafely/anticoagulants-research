@@ -11,23 +11,29 @@ DATASETS USED:			data in memory ($tempdir/analysis_dataset_STSET_outcome)
 
 DATASETS CREATED: 		none
 OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
-						table4_$outcome, printed to analysis/$outdir
+						table4_`outcome', printed to analysis/$outdir
 							
 ==============================================================================*/
+
+local outcome `1'
+
+local global_option `2'
+
+do `c(pwd)'/analysis/global_`2'.do
 
 * Open a log file
 
 cap log close
-log using $logdir\07_an_model_exploration_$outcome, replace t
+log using $logdir\07_an_model_exploration_`outcome', replace t
 
 * Open Stata dataset
-use $tempdir\analysis_dataset_STSET_$outcome, clear
+use $tempdir\analysis_dataset_STSET_`outcome', clear
 
 /* Print table================================================================*/ 
 *  Print the results for the main model 
 
 cap file close tablecontent
-file open tablecontent using $tabfigdir/table4_$outcome.txt, write text replace
+file open tablecontent using $tabfigdir/table4_`outcome'.txt, write text replace
 
 * Column headings 
 file write tablecontent ("Table 4: 1 by 1 comorbidity adjustments (after age/sex and strata adjustments) - $population population") _n
