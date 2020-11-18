@@ -19,10 +19,16 @@ OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 							
 ==============================================================================*/
 
+local outcome `1'
+
+local global_option `2'
+
+do `c(pwd)'/analysis/global_`2'.do
+
 * Open a log file
 
 cap log close
-log using $logdir\02c_cr_create_population_$outcome, replace t
+log using $logdir\02c_cr_create_population_`outcome', replace t
 
 /* APPLY INCLUSION/EXCLUIONS in the general population cohort (control cohort) ===============================*/ 
 
@@ -78,7 +84,7 @@ assert inlist(sex, "M", "F")
 assert inlist(imd, 1, 2, 3, 4, 5)
 
 * EXCLUSION 3: NO GP VISIT IN THE PAST YEAR
-datacheck gp_consult_count > 0, nol
+datacheck gp_consult_count>0, nol
 
 * EXCLUSION 4: no atrial fibrillation diagnosis before 1 March 2020 
 datacheck af_date == . , nol
@@ -97,7 +103,7 @@ save $outdir/matched_control.dta , replace
 
 /* Combine the case cohort after matching==================================*/	
 * Exposed cohort after matching
-import delimited $outdir/af_oac_only_matched_to_generalpopulation.csv, clear
+import delimited $outdir/af_oac_only_matched_to_general_population.csv, clear
 safecount
 
 * Append the matched case cohort
@@ -106,14 +112,16 @@ append using $outdir/matched_control.dta
 rename case exposure 
 sort set_id patient_id
 
+safecount
+
 * Drop the whole matched set if end of study before index in OAC exposed
 noi di "DROP IF END OF STUDY PERIOD BEFORE INDEX"
 
-gen remove_invalid_period = 1 if stime_$outcome < date("$indexdate", "DMY") & exposure == 1
+gen remove_invalid_period = 1 if stime_`outcome' < date("$indexdate", "DMY") & exposure == 1
 replace remove_invalid_period = 0  if remove_invalid_period == .
 bysort setid: egen max_remove_invalid_period = max(remove_invalid_period)
 drop if max_remove_invalid_period == 1
-drop if stime_$outcome < date("$indexdate", "DMY") & exposure == 0
+drop if stime_`outcome' < date("$indexdate", "DMY") & exposure == 0
 
 /* LABEL VARIABLE==================================================================*/
 label var set_id				"Matched setid = patient_id of the case"
@@ -124,11 +132,11 @@ ds, not(varlabel)
 drop `r(varlist)'
 
 /* SAVE DATA==================================================================*/
-save $tempdir\analysis_dataset_$outcome, replace
+save $tempdir\analysis_dataset_`outcome', replace
 
 * Save a version set on outcomes
-stset stime_$outcome, fail($outcome) id(patient_id) enter(enter_date) origin(enter_date)	
-save $tempdir\analysis_dataset_STSET_$outcome, replace
+stset stime_`outcome', fail(`outcome') id(patient_id) enter(enter_date) origin(enter_date)	
+save $tempdir\analysis_dataset_STSET_`outcome', replace
 
 * Close log file 
 log close
