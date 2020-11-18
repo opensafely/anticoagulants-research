@@ -11,19 +11,25 @@ DATASETS USED:			data in memory ($tempdir/analysis_dataset_STSET_outcome)
 
 DATASETS CREATED: 		none
 OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
-						table5_$outcome & table6_$outcome, printed to analysis/$outdir
+						table5_`outcome' & table6_`outcome', printed to analysis/$outdir
 						schoenplots1-x, printed to analysis?$outdir 
 							
 ==============================================================================*/
 
+local outcome `1'
+
+local global_option `2'
+
+do `c(pwd)'/analysis/global_`2'.do
+
 * Open a log file
 
 cap log close
-log using $logdir\08a_an_model_checks_$outcome, replace t
+log using $logdir\08a_an_model_checks_`outcome', replace t
 
 /*==============================================================================*/
 * Open Stata dataset
-use $tempdir\analysis_dataset_STSET_$outcome, clear
+use $tempdir\analysis_dataset_STSET_`outcome', clear
 
 /* In full cohort*/
 /* Quietly run models, perform test and store results in local macro==========*/
@@ -111,10 +117,10 @@ graph close
 
 * Print table of results======================================================*/	
 cap file close tablecontent
-file open tablecontent using $tabfigdir/table5_$outcome.txt, write text replace
+file open tablecontent using $tabfigdir/table5_`outcome'.txt, write text replace
 
 * Column headings 
-file write tablecontent ("Table 5: Testing the PH assumption - $outcome - $population Population in Full cohort") _n
+file write tablecontent ("Table 5: Testing the PH assumption - `outcome' - $population Population in Full cohort") _n
 file write tablecontent _tab ("Univariable") _tab ("Age/Sex Adjusted") _tab ///
 						("DAG Adjusted") _tab ("Fully Adjusted") _tab _n
 						
@@ -132,7 +138,7 @@ file close tablecontent
 * =============================================================================*/	
 /* In complete case cohort - restrict to people with known ethnicity*/
 * Open Stata dataset
-use $tempdir\analysis_dataset_STSET_$outcome, clear
+use $tempdir\analysis_dataset_STSET_`outcome', clear
 
 drop if ethnicity == .u
 
@@ -259,10 +265,10 @@ graph close
 
 
 cap file close tablecontent
-file open tablecontent using $tabfigdir/table6_$outcome.txt, write text replace
+file open tablecontent using $tabfigdir/table6_`outcome'.txt, write text replace
 
 * Column headings 
-file write tablecontent ("Table 6: Testing the PH assumption - $outcome - $population Population in complete case cohort") _n
+file write tablecontent ("Table 6: Testing the PH assumption - `outcome' - $population Population in complete case cohort") _n
 file write tablecontent _tab ("Univariable") _tab ("Age/Sex Adjusted") _tab ///
 						("DAG Adjusted with ethnicity") _tab ///
 						("DAG Adjusted without ethnicity") _tab ///
