@@ -1186,17 +1186,6 @@ actions:
         fig1: "oac_match_tabfig/adj_curves_positivecovidtest.svg"
         fig2: "oac_match_tabfig/diff_curves_positivecovidtest.svg"
 
-
-
-
-
-
-
-
-
-
-
-
   run_all:
     needs: [generate_cohort]
     # In order to be valid this action needs to define a run commmand and some
