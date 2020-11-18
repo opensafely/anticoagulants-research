@@ -14,13 +14,19 @@ OTHER OUTPUT: 			Log file: $logdir\03_an_checks
 							
 ==============================================================================*/
 
+local outcome `1'
+
+local global_option `2'
+
+do `c(pwd)'/analysis/global_`2'.do
+
 * Open a log file
 
 capture log close
-log using $logdir\03_an_checks_$outcome, replace t
+log using $logdir\03_an_checks_`outcome', replace t
 
 * Open Stata dataset
-use $tempdir\analysis_dataset_$outcome, clear
+use $tempdir\analysis_dataset_`outcome', clear
 
 *Duplicate patient check
 datacheck _n==1, by(patient_id) nol
@@ -93,9 +99,9 @@ summ  first_tested_for_covid, format
 summ  first_positive_test_date, format
 
 * Follow-up for outcomes
-datacheck follow_up_$outcome > 0, nolist
+datacheck follow_up_`outcome' > 0, nol
 
-summ  follow_up_$outcome, detail
+summ  follow_up_`outcome', detail
 
 * Outcome date day lags since cohort entry (only ONS dataset)
 * check how the death count tail out
@@ -157,11 +163,11 @@ foreach var of varlist  agegroup                    ///
 bysort exposure: su gp_consult_count, detail
 bysort exposure: su ae_attendance_count , detail
 bysort exposure: su age, detail
-bysort exposure: su follow_up_$outcome, detail
+bysort exposure: su follow_up_`outcome', detail
 
 /* SENSE CHECK OUTCOMES=======================================================*/
 
-safetab $outcome, m
+safetab `outcome', m
 
 * Close log file 
 log close
