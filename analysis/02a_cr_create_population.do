@@ -19,10 +19,16 @@ OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 							
 ==============================================================================*/
 
+local outcome `1'
+
+local global_option `2'
+
+do `c(pwd)'/analysis/global_`2'.do
+
 * Open a log file
 
 cap log close
-log using $logdir\02a_cr_create_population_$outcome, replace t
+log using $logdir\02a_cr_create_population_`outcome', replace t
 
 /* APPLY INCLUSION/EXCLUIONS==================================================*/ 
 
@@ -61,7 +67,7 @@ export delimited using $outdir/input_af_oac.csv, replace
 /*===================================================================*/ 
 
 noi di "DROP IF END OF STUDY PERIOD BEFORE INDEX"
-drop if stime_$outcome < date("$indexdate", "DMY")
+drop if stime_`outcome' < date("$indexdate", "DMY")
 
 /* CHECK INCLUSION AND EXCLUSION CRITERIA=====================================*/ 
 
@@ -98,11 +104,11 @@ ds, not(varlabel)
 drop `r(varlist)'
 
 /* SAVE DATA==================================================================*/		
-save $tempdir\analysis_dataset_$outcome, replace
+save $tempdir\analysis_dataset_`outcome', replace
 
 * Save a version set on outcomes
-stset stime_$outcome, fail($outcome) id(patient_id) enter(enter_date) origin(enter_date)	
-save $tempdir\analysis_dataset_STSET_$outcome, replace
+stset stime_`outcome', fail(`outcome') id(patient_id) enter(enter_date) origin(enter_date)	
+save $tempdir\analysis_dataset_STSET_`outcome', replace
 
 * Close log file 
 log close
