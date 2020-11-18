@@ -15,12 +15,18 @@ OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 						difference_survival_curves.svg
 							
 ==============================================================================*/
+local outcome `1'
+
+local global_option `2'
+
+do `c(pwd)'/analysis/global_`2'.do
+
 * Open a log file
 capture log close
-log using $logdir\09a_an_models_plot_$outcome, replace t
+log using $logdir\09a_an_models_plot_`outcome', replace t
 
 * Open Stata dataset
-use $tempdir\analysis_dataset_STSET_$outcome, clear
+use $tempdir\analysis_dataset_STSET_`outcome', clear
 
 /*==============================================================================*/
 * Fit the stpm2 model 
@@ -56,15 +62,15 @@ twoway  (rarea _at1_lci _at1_uci timevar, color(blue%25)) ///
                  ylabel(0 (0.05) $cum_death_ymax ,angle(h) format(%4.2f)) ///
                  ytitle("Cumulative incidence (%)") ///
                  xtitle("Days from 1 March 2020") ///
-				 saving(Adj_curves_$outcome , replace)
+				 saving(adj_curves_`outcome' , replace)
 				 
-graph export "$tabfigdir/Adj_curves_$outcome.svg", as(svg) replace
+graph export "$tabfigdir/adj_curves_`outcome'.svg", as(svg) replace
 
 * Close window 
 graph close
 
 * Delete unneeded graphs
-erase Adj_curves_$outcome.gph
+erase adj_curves_`outcome'.gph
 
 * Plot the difference in curves
 twoway  (rarea _contrast2_1_lci _contrast2_1_uci timevar, color(red%25)) ///
@@ -73,15 +79,15 @@ twoway  (rarea _contrast2_1_lci _contrast2_1_uci timevar, color(red%25)) ///
                  ylabel(,angle(h) format(%4.2f)) ///
                  ytitle("Difference in curves (%)") ///
                  xtitle("Days from 1 March 2020") ///
-				 saving(diff_curves_$outcome , replace)
+				 saving(diff_curves_`outcome' , replace)
 				 
-graph export "$tabfigdir/diff_curves_$outcome.svg", as(svg) replace
+graph export "$tabfigdir/diff_curves_`outcome'.svg", as(svg) replace
 
 * Close window 
 graph close
 
 * Delete unneeded graphs
-erase diff_curves_$outcome.gph		 
+erase diff_curves_`outcome'.gph		 
 				 
 * Close log file 
 log close
