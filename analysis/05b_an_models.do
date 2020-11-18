@@ -19,6 +19,12 @@ OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 							
 ==============================================================================*/
 
+local outcome `1'
+
+local global_option `2'
+
+do `c(pwd)'/analysis/global_`2'.do
+
 * Open a log file
 
 cap log close
@@ -89,7 +95,7 @@ local lab1: label exposure 1
 	file write tablecontent ("1.00 (ref)") _tab _tab ("1.00 (ref)") ///
 	_tab _tab ("1.00 (ref)") _tab _tab ("1.00 (ref)") _n
 	
-* Second row, exposure = 1 (NSAID)
+* Second row, exposure = 1 
 
 file write tablecontent ("`lab1'") _tab  
 
