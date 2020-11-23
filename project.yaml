@@ -44,7 +44,7 @@ actions:
   # Primary Outcomes: ONS COVID-19 death
   02aii_cr_create_population:
     run: stata-mp:latest analysis/02aii_cr_create_population.do onscoviddeath af_oac
-    needs: [create_dataset]
+    needs: [02ai_exportfile_matching]
     outputs:
       moderately_sensitive:
         log: oac_log/02aii_cr_create_population_onscoviddeath.log
@@ -825,7 +825,7 @@ actions:
 
   matching:
     run: python:latest python analysis/match_running.py
-    needs: [generate_cohort, 02a_cr_create_population_af_oac_onscoviddeath]
+    needs: [generate_cohort, 02aii_cr_create_population_af_oac_onscoviddeath]
     outputs:
       highly_sensitive:
         data1: "oac_match_tempdata/af_oac_only_matched_to_general_population.csv"
