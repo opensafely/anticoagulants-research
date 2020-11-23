@@ -825,7 +825,7 @@ actions:
 
   matching:
     run: python:latest python analysis/match_running.py
-    needs: [generate_cohort, 02aii_cr_create_population_af_oac_onscoviddeath]
+    needs: [generate_cohort, 02ai_exportfile_matching]
     outputs:
       highly_sensitive:
         data1: "oac_match_tempdata/af_oac_only_matched_to_general_population.csv"
