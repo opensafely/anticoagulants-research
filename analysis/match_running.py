@@ -4,7 +4,7 @@ from match import match
 afmatchgeneralpopulation = {
     "case_csv": "input_af_oac",
     "match_csv": "input_general_population",
-    "matches_per_case": 1,
+    "matches_per_case": 10,
     "match_variables": {
         "sex": "category",
         "age": 1,
