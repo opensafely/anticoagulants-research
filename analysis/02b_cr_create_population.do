@@ -25,11 +25,11 @@ do `c(pwd)'/analysis/global_`2'.do
 * Open a log file
 
 cap log close
-log using $logdir\02b_cr_create_population_`outcome', replace t
+log using $logdir/02b_cr_create_population_`outcome', replace t
 
 /* APPLY INCLUSION/EXCLUIONS==================================================*/ 
 
-use $tempdir\cr_dataset_af , clear
+use $tempdir/cr_dataset_af , clear
 
 /* RENAME EXPOSURE VARIABLE FOR THIS SEPCIFIC OBJECTIVE==========================*/ 
 drop exposure
@@ -115,11 +115,11 @@ drop `r(varlist)'
 
 /* SAVE DATA==================================================================*/	
 
-save $tempdir\analysis_dataset_`outcome', replace
+save $tempdir/analysis_dataset_`outcome', replace
 
 * Save a version set on outcomes
 stset stime_`outcome', fail(`outcome') id(patient_id) enter(enter_date) origin(enter_date)	
-save $tempdir\analysis_dataset_STSET_`outcome', replace
+save $tempdir/analysis_dataset_STSET_`outcome', replace
 
 * Close log file 
 log close

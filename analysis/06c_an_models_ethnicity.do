@@ -22,10 +22,10 @@ do `c(pwd)'/analysis/global_`2'.do
 * Open a log file
 
 cap log close
-log using $logdir\06c_an_models_ethnicity_`outcome', replace t
+log using $logdir/06c_an_models_ethnicity_`outcome', replace t
 
 * Open Stata dataset
-use $tempdir\analysis_dataset_STSET_`outcome', clear
+use $tempdir/analysis_dataset_STSET_`outcome', clear
 
 /* Restrict population========================================================*/ 
 

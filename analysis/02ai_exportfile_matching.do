@@ -26,7 +26,7 @@ do `c(pwd)'/analysis/global_`1'.do
 * Open a log file
 
 cap log close
-log using $logdir\02aii_exportfile_matching, replace t
+log using $logdir/02aii_exportfile_matching, replace t
 
 /* APPLY INCLUSION/EXCLUIONS==================================================*/ 
 

@@ -22,7 +22,7 @@ do `c(pwd)'/analysis/global_`1'.do
 * Open a log file
 
 cap log close
-log using $logdir\00_cr_create_analysis_dataset, replace t
+log using $logdir/00_cr_create_analysis_dataset, replace t
 
 /* SET FU DATES===============================================================*/ 
 * Censoring dates for each outcome

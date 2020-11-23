@@ -24,10 +24,10 @@ do `c(pwd)'/analysis/global_`2'.do
 * Open a log file
 
 cap log close
-log using $logdir\07_an_model_exploration_`outcome', replace t
+log using $logdir/07_an_model_exploration_`outcome', replace t
 
 * Open Stata dataset
-use $tempdir\analysis_dataset_STSET_`outcome', clear
+use $tempdir/analysis_dataset_STSET_`outcome', clear
 
 /* Print table================================================================*/ 
 *  Print the results for the main model 

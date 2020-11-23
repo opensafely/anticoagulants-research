@@ -20,10 +20,10 @@ do `c(pwd)'/analysis/global_`2'.do
 
 * Open a log file
 capture log close
-log using $logdir\04_an_descriptive_table_`outcome', replace t
+log using $logdir/04_an_descriptive_table_`outcome', replace t
 
 * Open Stata dataset
-use $tempdir\analysis_dataset_`outcome', clear
+use $tempdir/analysis_dataset_`outcome', clear
 
 /*==============================================================================*/
 

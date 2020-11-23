@@ -28,7 +28,7 @@ do `c(pwd)'/analysis/global_`2'.do
 * Open a log file
 
 cap log close
-log using $logdir\02c_cr_create_population_`outcome', replace t
+log using $logdir/02c_cr_create_population_`outcome', replace t
 
 /* APPLY INCLUSION/EXCLUIONS in the general population cohort (control cohort) ===============================*/ 
 
@@ -132,11 +132,11 @@ ds, not(varlabel)
 drop `r(varlist)'
 
 /* SAVE DATA==================================================================*/
-save $tempdir\analysis_dataset_`outcome', replace
+save $tempdir/analysis_dataset_`outcome', replace
 
 * Save a version set on outcomes
 stset stime_`outcome', fail(`outcome') id(patient_id) enter(enter_date) origin(enter_date)	
-save $tempdir\analysis_dataset_STSET_`outcome', replace
+save $tempdir/analysis_dataset_STSET_`outcome', replace
 
 * Close log file 
 log close
