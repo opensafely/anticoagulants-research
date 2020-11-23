@@ -62,7 +62,7 @@ drop if lmwh_last_four_months_date != .
 
 /* export a csv file for matching=====================================*/ 
 
-export delimited using $outdir/input_af_oac_`outcome'.csv, replace
+export delimited using $outdir/input_af_oac.csv, replace
 
 /*===================================================================*/ 
 
