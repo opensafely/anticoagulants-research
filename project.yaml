@@ -74,10 +74,10 @@ actions:
         log: oac_log/05a_an_models_onscoviddeath.log
         table: "oac_tabfig/table2_onscoviddeath.txt"
       highly_sensitive:
-        data1: "oac_tempdata/univar.ster"
-        data2: "oac_tempdata/multi1.ster"
-        data3: "oac_tempdata/multi2.ster"
-        data4: "oac_tempdata/multi3.ster"
+        data1: "oac_tempdata/onscoviddeath_univar.ster"
+        data2: "oac_tempdata/onscoviddeath_multi1.ster"
+        data3: "oac_tempdata/onscoviddeath_multi2.ster"
+        data4: "oac_tempdata/onscoviddeath_multi3.ster"
 
   06a_an_models_ethnicity_af_oac_onscoviddeath:
     run: stata-mp:latest analysis/06a_an_models_ethnicity.do onscoviddeath af_oac
@@ -87,12 +87,12 @@ actions:
         log: oac_log/06a_an_models_ethnicity_onscoviddeath.log
         table: "oac_tabfig/table3_onscoviddeath.txt"
       highly_sensitive:
-        data1: "oac_tempdata/univar_ethn.ster"
-        data2: "oac_tempdata/multivar1_ethn.ster"
-        data3: "oac_tempdata/multivar2_ethn.ster"
-        data4: "oac_tempdata/multivar2_withoutethn.ster"
-        data5: "oac_tempdata/multivar3_ethn.ster"
-        data6: "oac_tempdata/multivar3_withoutethn.ster"
+        data1: "oac_tempdata/onscoviddeath_univar_ethn.ster"
+        data2: "oac_tempdata/onscoviddeath_multivar1_ethn.ster"
+        data3: "oac_tempdata/onscoviddeath_multivar2_ethn.ster"
+        data4: "oac_tempdata/onscoviddeath_multivar2_withoutethn.ster"
+        data5: "oac_tempdata/onscoviddeath_multivar3_ethn.ster"
+        data6: "oac_tempdata/onscoviddeath_multivar3_withoutethn.ster"
 
   07_an_model_exploration_af_oac_onscoviddeath:
     run: stata-mp:latest analysis/07_an_model_exploration.do onscoviddeath af_oac
@@ -108,17 +108,17 @@ actions:
     outputs:
       moderately_sensitive:
         log: oac_log/08a_an_model_checks_onscoviddeath.log
-        fig1: "oac_tabfig/schoenplot1.svg"
-        fig2: "oac_tabfig/schoenplot2.svg"
-        fig3: "oac_tabfig/schoenplot3.svg"
-        fig4: "oac_tabfig/schoenplot4.svg"
+        fig1: "oac_tabfig/onscoviddeath_schoenplot1.svg"
+        fig2: "oac_tabfig/onscoviddeath_schoenplot2.svg"
+        fig3: "oac_tabfig/onscoviddeath_schoenplot3.svg"
+        fig4: "oac_tabfig/onscoviddeath_schoenplot4.svg"
         table1: "oac_tabfig/table5_onscoviddeath.txt"
-        fig5: "oac_tabfig/schoenplot1_completecase.svg"
-        fig6: "oac_tabfig/schoenplot2_completecase.svg"
-        fig7: "oac_tabfig/schoenplot3_completecase_ethn.svg"
-        fig8: "oac_tabfig/schoenplot3_completecase.svg"
-        fig9: "oac_tabfig/schoenplot4_completecase_ethn.svg"
-        fig10: "oac_tabfig/schoenplot4_completecase.svg"
+        fig5: "oac_tabfig/onscoviddeath_schoenplot1_completecase.svg"
+        fig6: "oac_tabfig/onscoviddeath_schoenplot2_completecase.svg"
+        fig7: "oac_tabfig/onscoviddeath_schoenplot3_completecase_ethn.svg"
+        fig8: "oac_tabfig/onscoviddeath_schoenplot3_completecase.svg"
+        fig9: "oac_tabfig/onscoviddeath_schoenplot4_completecase_ethn.svg"
+        fig10: "oac_tabfig/onscoviddeath_schoenplot4_completecase.svg"
         table2: "oac_tabfig/table6_onscoviddeath.txt"
 
   09a_an_models_plot_af_oac_onscoviddeath:
@@ -163,10 +163,10 @@ actions:
         log: oac_log/05a_an_models_admitcovid.log
         table: "oac_tabfig/table2_admitcovid.txt"
       highly_sensitive:
-        data1: "oac_tempdata/univar.ster"
-        data2: "oac_tempdata/multi1.ster"
-        data3: "oac_tempdata/multi2.ster"
-        data4: "oac_tempdata/multi3.ster"
+        data1: "oac_tempdata/admitcovid_univar.ster"
+        data2: "oac_tempdata/admitcovid_multi1.ster"
+        data3: "oac_tempdata/admitcovid_multi2.ster"
+        data4: "oac_tempdata/admitcovid_multi3.ster"
 
   06a_an_models_ethnicity_af_oac_admitcovid:
     run: stata-mp:latest analysis/06a_an_models_ethnicity.do admitcovid af_oac
@@ -176,12 +176,12 @@ actions:
         log: oac_log/06a_an_models_ethnicity_admitcovid.log
         table: "oac_tabfig/table3_admitcovid.txt"
       highly_sensitive:
-        data1: "oac_tempdata/univar_ethn.ster"
-        data2: "oac_tempdata/multivar1_ethn.ster"
-        data3: "oac_tempdata/multivar2_ethn.ster"
-        data4: "oac_tempdata/multivar2_withoutethn.ster"
-        data5: "oac_tempdata/multivar3_ethn.ster"
-        data6: "oac_tempdata/multivar3_withoutethn.ster"
+        data1: "oac_tempdata/admitcovid_univar_ethn.ster"
+        data2: "oac_tempdata/admitcovid_multivar1_ethn.ster"
+        data3: "oac_tempdata/admitcovid_multivar2_ethn.ster"
+        data4: "oac_tempdata/admitcovid_multivar2_withoutethn.ster"
+        data5: "oac_tempdata/admitcovid_multivar3_ethn.ster"
+        data6: "oac_tempdata/admitcovid_multivar3_withoutethn.ster"
 
   07_an_model_exploration_af_oac_admitcovid:
     run: stata-mp:latest analysis/07_an_model_exploration.do admitcovid af_oac
@@ -197,17 +197,17 @@ actions:
     outputs:
       moderately_sensitive:
         log: oac_log/08a_an_model_checks_admitcovid.log
-        fig1: "oac_tabfig/schoenplot1.svg"
-        fig2: "oac_tabfig/schoenplot2.svg"
-        fig3: "oac_tabfig/schoenplot3.svg"
-        fig4: "oac_tabfig/schoenplot4.svg"
+        fig1: "oac_tabfig/admitcovid_schoenplot1.svg"
+        fig2: "oac_tabfig/admitcovid_schoenplot2.svg"
+        fig3: "oac_tabfig/admitcovid_schoenplot3.svg"
+        fig4: "oac_tabfig/admitcovid_schoenplot4.svg"
         table1: "oac_tabfig/table5_admitcovid.txt"
-        fig5: "oac_tabfig/schoenplot1_completecase.svg"
-        fig6: "oac_tabfig/schoenplot2_completecase.svg"
-        fig7: "oac_tabfig/schoenplot3_completecase_ethn.svg"
-        fig8: "oac_tabfig/schoenplot3_completecase.svg"
-        fig9: "oac_tabfig/schoenplot4_completecase_ethn.svg"
-        fig10: "oac_tabfig/schoenplot4_completecase.svg"
+        fig5: "oac_tabfig/admitcovid_schoenplot1_completecase.svg"
+        fig6: "oac_tabfig/admitcovid_schoenplot2_completecase.svg"
+        fig7: "oac_tabfig/admitcovid_schoenplot3_completecase_ethn.svg"
+        fig8: "oac_tabfig/admitcovid_schoenplot3_completecase.svg"
+        fig9: "oac_tabfig/admitcovid_schoenplot4_completecase_ethn.svg"
+        fig10: "oac_tabfig/admitcovid_schoenplot4_completecase.svg"
         table2: "oac_tabfig/table6_admitcovid.txt"
 
   09a_an_models_plot_af_oac_admitcovid:
@@ -252,10 +252,10 @@ actions:
         log: oac_log/05a_an_models_covidtest.log
         table: "oac_tabfig/table2_covidtest.txt"
       highly_sensitive:
-        data1: "oac_tempdata/univar.ster"
-        data2: "oac_tempdata/multi1.ster"
-        data3: "oac_tempdata/multi2.ster"
-        data4: "oac_tempdata/multi3.ster"
+        data1: "oac_tempdata/covidtest_univar.ster"
+        data2: "oac_tempdata/covidtest_multi1.ster"
+        data3: "oac_tempdata/covidtest_multi2.ster"
+        data4: "oac_tempdata/covidtest_multi3.ster"
 
   06a_an_models_ethnicity_af_oac_covidtest:
     run: stata-mp:latest analysis/06a_an_models_ethnicity.do covidtest af_oac
@@ -265,12 +265,12 @@ actions:
         log: oac_log/06a_an_models_ethnicity_covidtest.log
         table: "oac_tabfig/table3_covidtest.txt"
       highly_sensitive:
-        data1: "oac_tempdata/univar_ethn.ster"
-        data2: "oac_tempdata/multivar1_ethn.ster"
-        data3: "oac_tempdata/multivar2_ethn.ster"
-        data4: "oac_tempdata/multivar2_withoutethn.ster"
-        data5: "oac_tempdata/multivar3_ethn.ster"
-        data6: "oac_tempdata/multivar3_withoutethn.ster"
+        data1: "oac_tempdata/covidtest_univar_ethn.ster"
+        data2: "oac_tempdata/covidtest_multivar1_ethn.ster"
+        data3: "oac_tempdata/covidtest_multivar2_ethn.ster"
+        data4: "oac_tempdata/covidtest_multivar2_withoutethn.ster"
+        data5: "oac_tempdata/covidtest_multivar3_ethn.ster"
+        data6: "oac_tempdata/covidtest_multivar3_withoutethn.ster"
 
   08a_an_model_checks_af_oac_covidtest:
     run: stata-mp:latest analysis/08a_an_model_checks.do covidtest af_oac
@@ -278,17 +278,17 @@ actions:
     outputs:
       moderately_sensitive:
         log: oac_log/08a_an_model_checks_covidtest.log
-        fig1: "oac_tabfig/schoenplot1.svg"
-        fig2: "oac_tabfig/schoenplot2.svg"
-        fig3: "oac_tabfig/schoenplot3.svg"
-        fig4: "oac_tabfig/schoenplot4.svg"
+        fig1: "oac_tabfig/covidtest_schoenplot1.svg"
+        fig2: "oac_tabfig/covidtest_schoenplot2.svg"
+        fig3: "oac_tabfig/covidtest_schoenplot3.svg"
+        fig4: "oac_tabfig/covidtest_schoenplot4.svg"
         table1: "oac_tabfig/table5_covidtest.txt"
-        fig5: "oac_tabfig/schoenplot1_completecase.svg"
-        fig6: "oac_tabfig/schoenplot2_completecase.svg"
-        fig7: "oac_tabfig/schoenplot3_completecase_ethn.svg"
-        fig8: "oac_tabfig/schoenplot3_completecase.svg"
-        fig9: "oac_tabfig/schoenplot4_completecase_ethn.svg"
-        fig10: "oac_tabfig/schoenplot4_completecase.svg"
+        fig5: "oac_tabfig/covidtest_schoenplot1_completecase.svg"
+        fig6: "oac_tabfig/covidtest_schoenplot2_completecase.svg"
+        fig7: "oac_tabfig/covidtest_schoenplot3_completecase_ethn.svg"
+        fig8: "oac_tabfig/covidtest_schoenplot3_completecase.svg"
+        fig9: "oac_tabfig/covidtest_schoenplot4_completecase_ethn.svg"
+        fig10: "oac_tabfig/covidtest_schoenplot4_completecase.svg"
         table2: "oac_tabfig/table6_covidtest.txt"
 
   09a_an_models_plot_af_oac_covidtest:
@@ -333,10 +333,10 @@ actions:
         log: oac_log/05a_an_models_positivecovidtest.log
         table: "oac_tabfig/table2_positivecovidtest.txt"
       highly_sensitive:
-        data1: "oac_tempdata/univar.ster"
-        data2: "oac_tempdata/multi1.ster"
-        data3: "oac_tempdata/multi2.ster"
-        data4: "oac_tempdata/multi3.ster"
+        data1: "oac_tempdata/positivecovidtest_univar.ster"
+        data2: "oac_tempdata/positivecovidtest_multi1.ster"
+        data3: "oac_tempdata/positivecovidtest_multi2.ster"
+        data4: "oac_tempdata/positivecovidtest_multi3.ster"
 
   06a_an_models_ethnicity_af_oac_positivecovidtest:
     run: stata-mp:latest analysis/06a_an_models_ethnicity.do positivecovidtest af_oac
@@ -346,12 +346,12 @@ actions:
         log: oac_log/06a_an_models_ethnicity_positivecovidtest.log
         table: "oac_tabfig/table3_positivecovidtest.txt"
       highly_sensitive:
-        data1: "oac_tempdata/univar_ethn.ster"
-        data2: "oac_tempdata/multivar1_ethn.ster"
-        data3: "oac_tempdata/multivar2_ethn.ster"
-        data4: "oac_tempdata/multivar2_withoutethn.ster"
-        data5: "oac_tempdata/multivar3_ethn.ster"
-        data6: "oac_tempdata/multivar3_withoutethn.ster"
+        data1: "oac_tempdata/positivecovidtest_univar_ethn.ster"
+        data2: "oac_tempdata/positivecovidtest_multivar1_ethn.ster"
+        data3: "oac_tempdata/positivecovidtest_multivar2_ethn.ster"
+        data4: "oac_tempdata/positivecovidtest_multivar2_withoutethn.ster"
+        data5: "oac_tempdata/positivecovidtest_multivar3_ethn.ster"
+        data6: "oac_tempdata/positivecovidtest_multivar3_withoutethn.ster"
 
   08a_an_model_checks_af_oac_positivecovidtest:
     run: stata-mp:latest analysis/08a_an_model_checks.do positivecovidtest af_oac
@@ -359,17 +359,17 @@ actions:
     outputs:
       moderately_sensitive:
         log: oac_log/08a_an_model_checks_positivecovidtest.log
-        fig1: "oac_tabfig/schoenplot1.svg"
-        fig2: "oac_tabfig/schoenplot2.svg"
-        fig3: "oac_tabfig/schoenplot3.svg"
-        fig4: "oac_tabfig/schoenplot4.svg"
+        fig1: "oac_tabfig/positivecovidtest_schoenplot1.svg"
+        fig2: "oac_tabfig/positivecovidtest_schoenplot2.svg"
+        fig3: "oac_tabfig/positivecovidtest_schoenplot3.svg"
+        fig4: "oac_tabfig/positivecovidtest_schoenplot4.svg"
         table1: "oac_tabfig/table5_positivecovidtest.txt"
-        fig5: "oac_tabfig/schoenplot1_completecase.svg"
-        fig6: "oac_tabfig/schoenplot2_completecase.svg"
-        fig7: "oac_tabfig/schoenplot3_completecase_ethn.svg"
-        fig8: "oac_tabfig/schoenplot3_completecase.svg"
-        fig9: "oac_tabfig/schoenplot4_completecase_ethn.svg"
-        fig10: "oac_tabfig/schoenplot4_completecase.svg"
+        fig5: "oac_tabfig/positivecovidtest_schoenplot1_completecase.svg"
+        fig6: "oac_tabfig/positivecovidtest_schoenplot2_completecase.svg"
+        fig7: "oac_tabfig/positivecovidtest_schoenplot3_completecase_ethn.svg"
+        fig8: "oac_tabfig/positivecovidtest_schoenplot3_completecase.svg"
+        fig9: "oac_tabfig/positivecovidtest_schoenplot4_completecase_ethn.svg"
+        fig10: "oac_tabfig/positivecovidtest_schoenplot4_completecase.svg"
         table2: "oac_tabfig/table6_positivecovidtest.txt"
 
   09a_an_models_plot_af_oac_positivecovidtest:
@@ -432,10 +432,10 @@ actions:
         log: warfarin_log/05b_an_models_onscoviddeath.log
         table: "warfarin_tabfig/table2_onscoviddeath.txt"
       highly_sensitive:
-        data1: "warfarin_tempdata/univar.ster"
-        data2: "warfarin_tempdata/multi1.ster"
-        data3: "warfarin_tempdata/multi2.ster"
-        data4: "warfarin_tempdata/multi3.ster"
+        data1: "warfarin_tempdata/onscoviddeath_univar.ster"
+        data2: "warfarin_tempdata/onscoviddeath_multi1.ster"
+        data3: "warfarin_tempdata/onscoviddeath_multi2.ster"
+        data4: "warfarin_tempdata/onscoviddeath_multi3.ster"
 
   06b_an_models_ethnicity_af_warfarin_onscoviddeath:
     run: stata-mp:latest analysis/06b_an_models_ethnicity.do onscoviddeath af_warfarin
@@ -445,12 +445,12 @@ actions:
         log: warfarin_log/06b_an_models_ethnicity_onscoviddeath.log
         table: "warfarin_tabfig/table3_onscoviddeath.txt"
       highly_sensitive:
-        data1: "warfarin_tempdata/univar_ethn.ster"
-        data2: "warfarin_tempdata/multivar1_ethn.ster"
-        data3: "warfarin_tempdata/multivar2_ethn.ster"
-        data4: "warfarin_tempdata/multivar2_withoutethn.ster"
-        data5: "warfarin_tempdata/multivar3_ethn.ster"
-        data6: "warfarin_tempdata/multivar3_withoutethn.ster"
+        data1: "warfarin_tempdata/onscoviddeath_univar_ethn.ster"
+        data2: "warfarin_tempdata/onscoviddeath_multivar1_ethn.ster"
+        data3: "warfarin_tempdata/onscoviddeath_multivar2_ethn.ster"
+        data4: "warfarin_tempdata/onscoviddeath_multivar2_withoutethn.ster"
+        data5: "warfarin_tempdata/onscoviddeath_multivar3_ethn.ster"
+        data6: "warfarin_tempdata/onscoviddeath_multivar3_withoutethn.ster"
 
   07_an_model_exploration_af_warfarin_onscoviddeath:
     run: stata-mp:latest analysis/07_an_model_exploration.do onscoviddeath af_warfarin
@@ -466,17 +466,17 @@ actions:
     outputs:
       moderately_sensitive:
         log: warfarin_log/08b_an_model_checks_onscoviddeath.log
-        fig1: "warfarin_tabfig/schoenplot1.svg"
-        fig2: "warfarin_tabfig/schoenplot2.svg"
-        fig3: "warfarin_tabfig/schoenplot3.svg"
-        fig4: "warfarin_tabfig/schoenplot4.svg"
+        fig1: "warfarin_tabfig/onscoviddeath_schoenplot1.svg"
+        fig2: "warfarin_tabfig/onscoviddeath_schoenplot2.svg"
+        fig3: "warfarin_tabfig/onscoviddeath_schoenplot3.svg"
+        fig4: "warfarin_tabfig/onscoviddeath_schoenplot4.svg"
         table1: "warfarin_tabfig/table5_onscoviddeath.txt"
-        fig5: "warfarin_tabfig/schoenplot1_completecase.svg"
-        fig6: "warfarin_tabfig/schoenplot2_completecase.svg"
-        fig7: "warfarin_tabfig/schoenplot3_completecase_ethn.svg"
-        fig8: "warfarin_tabfig/schoenplot3_completecase.svg"
-        fig9: "warfarin_tabfig/schoenplot4_completecase_ethn.svg"
-        fig10: "warfarin_tabfig/schoenplot4_completecase.svg"
+        fig5: "warfarin_tabfig/onscoviddeath_schoenplot1_completecase.svg"
+        fig6: "warfarin_tabfig/onscoviddeath_schoenplot2_completecase.svg"
+        fig7: "warfarin_tabfig/onscoviddeath_schoenplot3_completecase_ethn.svg"
+        fig8: "warfarin_tabfig/onscoviddeath_schoenplot3_completecase.svg"
+        fig9: "warfarin_tabfig/onscoviddeath_schoenplot4_completecase_ethn.svg"
+        fig10: "warfarin_tabfig/onscoviddeath_schoenplot4_completecase.svg"
         table2: "warfarin_tabfig/table6_onscoviddeath.txt"
 
   09b_an_models_plot_af_warfarin_onscoviddeath:
@@ -521,10 +521,10 @@ actions:
         log: warfarin_log/05b_an_models_admitcovid.log
         table: "warfarin_tabfig/table2_admitcovid.txt"
       highly_sensitive:
-        data1: "warfarin_tempdata/univar.ster"
-        data2: "warfarin_tempdata/multi1.ster"
-        data3: "warfarin_tempdata/multi2.ster"
-        data4: "warfarin_tempdata/multi3.ster"
+        data1: "warfarin_tempdata/admitcovid_univar.ster"
+        data2: "warfarin_tempdata/admitcovid_multi1.ster"
+        data3: "warfarin_tempdata/admitcovid_multi2.ster"
+        data4: "warfarin_tempdata/admitcovid_multi3.ster"
 
   06b_an_models_ethnicity_af_warfarin_admitcovid:
     run: stata-mp:latest analysis/06b_an_models_ethnicity.do admitcovid af_warfarin
@@ -534,12 +534,12 @@ actions:
         log: warfarin_log/06b_an_models_ethnicity_admitcovid.log
         table: "warfarin_tabfig/table3_admitcovid.txt"
       highly_sensitive:
-        data1: "warfarin_tempdata/univar_ethn.ster"
-        data2: "warfarin_tempdata/multivar1_ethn.ster"
-        data3: "warfarin_tempdata/multivar2_ethn.ster"
-        data4: "warfarin_tempdata/multivar2_withoutethn.ster"
-        data5: "warfarin_tempdata/multivar3_ethn.ster"
-        data6: "warfarin_tempdata/multivar3_withoutethn.ster"
+        data1: "warfarin_tempdata/admitcovid_univar_ethn.ster"
+        data2: "warfarin_tempdata/admitcovid_multivar1_ethn.ster"
+        data3: "warfarin_tempdata/admitcovid_multivar2_ethn.ster"
+        data4: "warfarin_tempdata/admitcovid_multivar2_withoutethn.ster"
+        data5: "warfarin_tempdata/admitcovid_multivar3_ethn.ster"
+        data6: "warfarin_tempdata/admitcovid_multivar3_withoutethn.ster"
 
   07_an_model_exploration_af_warfarin_admitcovid:
     run: stata-mp:latest analysis/07_an_model_exploration.do admitcovid af_warfarin
@@ -555,17 +555,17 @@ actions:
     outputs:
       moderately_sensitive:
         log: warfarin_log/08b_an_model_checks_admitcovid.log
-        fig1: "warfarin_tabfig/schoenplot1.svg"
-        fig2: "warfarin_tabfig/schoenplot2.svg"
-        fig3: "warfarin_tabfig/schoenplot3.svg"
-        fig4: "warfarin_tabfig/schoenplot4.svg"
+        fig1: "warfarin_tabfig/admitcovid_schoenplot1.svg"
+        fig2: "warfarin_tabfig/admitcovid_schoenplot2.svg"
+        fig3: "warfarin_tabfig/admitcovid_schoenplot3.svg"
+        fig4: "warfarin_tabfig/admitcovid_schoenplot4.svg"
         table1: "warfarin_tabfig/table5_admitcovid.txt"
-        fig5: "warfarin_tabfig/schoenplot1_completecase.svg"
-        fig6: "warfarin_tabfig/schoenplot2_completecase.svg"
-        fig7: "warfarin_tabfig/schoenplot3_completecase_ethn.svg"
-        fig8: "warfarin_tabfig/schoenplot3_completecase.svg"
-        fig9: "warfarin_tabfig/schoenplot4_completecase_ethn.svg"
-        fig10: "warfarin_tabfig/schoenplot4_completecase.svg"
+        fig5: "warfarin_tabfig/admitcovid_schoenplot1_completecase.svg"
+        fig6: "warfarin_tabfig/admitcovid_schoenplot2_completecase.svg"
+        fig7: "warfarin_tabfig/admitcovid_schoenplot3_completecase_ethn.svg"
+        fig8: "warfarin_tabfig/admitcovid_schoenplot3_completecase.svg"
+        fig9: "warfarin_tabfig/admitcovid_schoenplot4_completecase_ethn.svg"
+        fig10: "warfarin_tabfig/admitcovid_schoenplot4_completecase.svg"
         table2: "warfarin_tabfig/table6_admitcovid.txt"
 
   09b_an_models_plot_af_warfarin_admitcovid:
@@ -610,10 +610,10 @@ actions:
         log: warfarin_log/05b_an_models_onsnoncoviddeath.log
         table: "warfarin_tabfig/table2_onsnoncoviddeath.txt"
       highly_sensitive:
-        data1: "warfarin_tempdata/univar.ster"
-        data2: "warfarin_tempdata/multi1.ster"
-        data3: "warfarin_tempdata/multi2.ster"
-        data4: "warfarin_tempdata/multi3.ster"
+        data1: "warfarin_tempdata/onsnoncoviddeath_univar.ster"
+        data2: "warfarin_tempdata/onsnoncoviddeath_multi1.ster"
+        data3: "warfarin_tempdata/onsnoncoviddeath_multi2.ster"
+        data4: "warfarin_tempdata/onsnoncoviddeath_multi3.ster"
 
   06b_an_models_ethnicity_af_warfarin_onsnoncoviddeath:
     run: stata-mp:latest analysis/06b_an_models_ethnicity.do onsnoncoviddeath af_warfarin
@@ -623,12 +623,12 @@ actions:
         log: warfarin_log/06b_an_models_ethnicity_onsnoncoviddeath.log
         table: "warfarin_tabfig/table3_onsnoncoviddeath.txt"
       highly_sensitive:
-        data1: "warfarin_tempdata/univar_ethn.ster"
-        data2: "warfarin_tempdata/multivar1_ethn.ster"
-        data3: "warfarin_tempdata/multivar2_ethn.ster"
-        data4: "warfarin_tempdata/multivar2_withoutethn.ster"
-        data5: "warfarin_tempdata/multivar3_ethn.ster"
-        data6: "warfarin_tempdata/multivar3_withoutethn.ster"
+        data1: "warfarin_tempdata/onsnoncoviddeath_univar_ethn.ster"
+        data2: "warfarin_tempdata/onsnoncoviddeath_multivar1_ethn.ster"
+        data3: "warfarin_tempdata/onsnoncoviddeath_multivar2_ethn.ster"
+        data4: "warfarin_tempdata/onsnoncoviddeath_multivar2_withoutethn.ster"
+        data5: "warfarin_tempdata/onsnoncoviddeath_multivar3_ethn.ster"
+        data6: "warfarin_tempdata/onsnoncoviddeath_multivar3_withoutethn.ster"
 
   08b_an_model_checks_af_warfarin_onsnoncoviddeath:
     run: stata-mp:latest analysis/08b_an_model_checks.do onsnoncoviddeath af_warfarin
@@ -636,17 +636,17 @@ actions:
     outputs:
       moderately_sensitive:
         log: warfarin_log/08b_an_model_checks_onsnoncoviddeath.log
-        fig1: "warfarin_tabfig/schoenplot1.svg"
-        fig2: "warfarin_tabfig/schoenplot2.svg"
-        fig3: "warfarin_tabfig/schoenplot3.svg"
-        fig4: "warfarin_tabfig/schoenplot4.svg"
+        fig1: "warfarin_tabfig/onsnoncoviddeath_schoenplot1.svg"
+        fig2: "warfarin_tabfig/onsnoncoviddeath_schoenplot2.svg"
+        fig3: "warfarin_tabfig/onsnoncoviddeath_schoenplot3.svg"
+        fig4: "warfarin_tabfig/onsnoncoviddeath_schoenplot4.svg"
         table1: "warfarin_tabfig/table5_onsnoncoviddeath.txt"
-        fig5: "warfarin_tabfig/schoenplot1_completecase.svg"
-        fig6: "warfarin_tabfig/schoenplot2_completecase.svg"
-        fig7: "warfarin_tabfig/schoenplot3_completecase_ethn.svg"
-        fig8: "warfarin_tabfig/schoenplot3_completecase.svg"
-        fig9: "warfarin_tabfig/schoenplot4_completecase_ethn.svg"
-        fig10: "warfarin_tabfig/schoenplot4_completecase.svg"
+        fig5: "warfarin_tabfig/onsnoncoviddeath_schoenplot1_completecase.svg"
+        fig6: "warfarin_tabfig/onsnoncoviddeath_schoenplot2_completecase.svg"
+        fig7: "warfarin_tabfig/onsnoncoviddeath_schoenplot3_completecase_ethn.svg"
+        fig8: "warfarin_tabfig/onsnoncoviddeath_schoenplot3_completecase.svg"
+        fig9: "warfarin_tabfig/onsnoncoviddeath_schoenplot4_completecase_ethn.svg"
+        fig10: "warfarin_tabfig/onsnoncoviddeath_schoenplot4_completecase.svg"
         table2: "warfarin_tabfig/table6_onsnoncoviddeath.txt"
 
   09b_an_models_plot_af_warfarin_onsnoncoviddeath:
@@ -691,10 +691,10 @@ actions:
         log: warfarin_log/05b_an_models_covidtest.log
         table: "warfarin_tabfig/table2_covidtest.txt"
       highly_sensitive:
-        data1: "warfarin_tempdata/univar.ster"
-        data2: "warfarin_tempdata/multi1.ster"
-        data3: "warfarin_tempdata/multi2.ster"
-        data4: "warfarin_tempdata/multi3.ster"
+        data1: "warfarin_tempdata/covidtest_univar.ster"
+        data2: "warfarin_tempdata/covidtest_multi1.ster"
+        data3: "warfarin_tempdata/covidtest_multi2.ster"
+        data4: "warfarin_tempdata/covidtest_multi3.ster"
 
   06b_an_models_ethnicity_af_warfarin_covidtest:
     run: stata-mp:latest analysis/06b_an_models_ethnicity.do covidtest af_warfarin
@@ -704,12 +704,12 @@ actions:
         log: warfarin_log/06b_an_models_ethnicity_covidtest.log
         table: "warfarin_tabfig/table3_covidtest.txt"
       highly_sensitive:
-        data1: "warfarin_tempdata/univar_ethn.ster"
-        data2: "warfarin_tempdata/multivar1_ethn.ster"
-        data3: "warfarin_tempdata/multivar2_ethn.ster"
-        data4: "warfarin_tempdata/multivar2_withoutethn.ster"
-        data5: "warfarin_tempdata/multivar3_ethn.ster"
-        data6: "warfarin_tempdata/multivar3_withoutethn.ster"
+        data1: "warfarin_tempdata/covidtest_univar_ethn.ster"
+        data2: "warfarin_tempdata/covidtest_multivar1_ethn.ster"
+        data3: "warfarin_tempdata/covidtest_multivar2_ethn.ster"
+        data4: "warfarin_tempdata/covidtest_multivar2_withoutethn.ster"
+        data5: "warfarin_tempdata/covidtest_multivar3_ethn.ster"
+        data6: "warfarin_tempdata/covidtest_multivar3_withoutethn.ster"
 
   08b_an_model_checks_af_warfarin_covidtest:
     run: stata-mp:latest analysis/08b_an_model_checks.do covidtest af_warfarin
@@ -717,17 +717,17 @@ actions:
     outputs:
       moderately_sensitive:
         log: warfarin_log/08b_an_model_checks_covidtest.log
-        fig1: "warfarin_tabfig/schoenplot1.svg"
-        fig2: "warfarin_tabfig/schoenplot2.svg"
-        fig3: "warfarin_tabfig/schoenplot3.svg"
-        fig4: "warfarin_tabfig/schoenplot4.svg"
+        fig1: "warfarin_tabfig/covidtest_schoenplot1.svg"
+        fig2: "warfarin_tabfig/covidtest_schoenplot2.svg"
+        fig3: "warfarin_tabfig/covidtest_schoenplot3.svg"
+        fig4: "warfarin_tabfig/covidtest_schoenplot4.svg"
         table1: "warfarin_tabfig/table5_covidtest.txt"
-        fig5: "warfarin_tabfig/schoenplot1_completecase.svg"
-        fig6: "warfarin_tabfig/schoenplot2_completecase.svg"
-        fig7: "warfarin_tabfig/schoenplot3_completecase_ethn.svg"
-        fig8: "warfarin_tabfig/schoenplot3_completecase.svg"
-        fig9: "warfarin_tabfig/schoenplot4_completecase_ethn.svg"
-        fig10: "warfarin_tabfig/schoenplot4_completecase.svg"
+        fig5: "warfarin_tabfig/covidtest_schoenplot1_completecase.svg"
+        fig6: "warfarin_tabfig/covidtest_schoenplot2_completecase.svg"
+        fig7: "warfarin_tabfig/covidtest_schoenplot3_completecase_ethn.svg"
+        fig8: "warfarin_tabfig/covidtest_schoenplot3_completecase.svg"
+        fig9: "warfarin_tabfig/covidtest_schoenplot4_completecase_ethn.svg"
+        fig10: "warfarin_tabfig/covidtest_schoenplot4_completecase.svg"
         table2: "warfarin_tabfig/table6_covidtest.txt"
 
   09b_an_models_plot_af_warfarin_covidtest:
@@ -772,10 +772,10 @@ actions:
         log: warfarin_log/05b_an_models_positivecovidtest.log
         table: "warfarin_tabfig/table2_positivecovidtest.txt"
       highly_sensitive:
-        data1: "warfarin_tempdata/univar.ster"
-        data2: "warfarin_tempdata/multi1.ster"
-        data3: "warfarin_tempdata/multi2.ster"
-        data4: "warfarin_tempdata/multi3.ster"
+        data1: "warfarin_tempdata/positivecovidtest_univar.ster"
+        data2: "warfarin_tempdata/positivecovidtest_multi1.ster"
+        data3: "warfarin_tempdata/positivecovidtest_multi2.ster"
+        data4: "warfarin_tempdata/positivecovidtest_multi3.ster"
 
   06b_an_models_ethnicity_af_warfarin_positivecovidtest:
     run: stata-mp:latest analysis/06b_an_models_ethnicity.do positivecovidtest af_warfarin
@@ -785,12 +785,12 @@ actions:
         log: warfarin_log/06b_an_models_ethnicity_positivecovidtest.log
         table: "warfarin_tabfig/table3_positivecovidtest.txt"
       highly_sensitive:
-        data1: "warfarin_tempdata/univar_ethn.ster"
-        data2: "warfarin_tempdata/multivar1_ethn.ster"
-        data3: "warfarin_tempdata/multivar2_ethn.ster"
-        data4: "warfarin_tempdata/multivar2_withoutethn.ster"
-        data5: "warfarin_tempdata/multivar3_ethn.ster"
-        data6: "warfarin_tempdata/multivar3_withoutethn.ster"
+        data1: "warfarin_tempdata/positivecovidtest_univar_ethn.ster"
+        data2: "warfarin_tempdata/positivecovidtest_multivar1_ethn.ster"
+        data3: "warfarin_tempdata/positivecovidtest_multivar2_ethn.ster"
+        data4: "warfarin_tempdata/positivecovidtest_multivar2_withoutethn.ster"
+        data5: "warfarin_tempdata/positivecovidtest_multivar3_ethn.ster"
+        data6: "warfarin_tempdata/positivecovidtest_multivar3_withoutethn.ster"
 
   08b_an_model_checks_af_warfarin_positivecovidtest:
     run: stata-mp:latest analysis/08b_an_model_checks.do positivecovidtest af_warfarin
@@ -798,17 +798,17 @@ actions:
     outputs:
       moderately_sensitive:
         log: warfarin_log/08b_an_model_checks_positivecovidtest.log
-        fig1: "warfarin_tabfig/schoenplot1.svg"
-        fig2: "warfarin_tabfig/schoenplot2.svg"
-        fig3: "warfarin_tabfig/schoenplot3.svg"
-        fig4: "warfarin_tabfig/schoenplot4.svg"
+        fig1: "warfarin_tabfig/positivecovidtest_schoenplot1.svg"
+        fig2: "warfarin_tabfig/positivecovidtest_schoenplot2.svg"
+        fig3: "warfarin_tabfig/positivecovidtest_schoenplot3.svg"
+        fig4: "warfarin_tabfig/positivecovidtest_schoenplot4.svg"
         table1: "warfarin_tabfig/table5_positivecovidtest.txt"
-        fig5: "warfarin_tabfig/schoenplot1_completecase.svg"
-        fig6: "warfarin_tabfig/schoenplot2_completecase.svg"
-        fig7: "warfarin_tabfig/schoenplot3_completecase_ethn.svg"
-        fig8: "warfarin_tabfig/schoenplot3_completecase.svg"
-        fig9: "warfarin_tabfig/schoenplot4_completecase_ethn.svg"
-        fig10: "warfarin_tabfig/schoenplot4_completecase.svg"
+        fig5: "warfarin_tabfig/positivecovidtest_schoenplot1_completecase.svg"
+        fig6: "warfarin_tabfig/positivecovidtest_schoenplot2_completecase.svg"
+        fig7: "warfarin_tabfig/positivecovidtest_schoenplot3_completecase_ethn.svg"
+        fig8: "warfarin_tabfig/positivecovidtest_schoenplot3_completecase.svg"
+        fig9: "warfarin_tabfig/positivecovidtest_schoenplot4_completecase_ethn.svg"
+        fig10: "warfarin_tabfig/positivecovidtest_schoenplot4_completecase.svg"
         table2: "warfarin_tabfig/table6_positivecovidtest.txt"
 
   09b_an_models_plot_af_warfarin_positivecovidtest:
@@ -882,10 +882,10 @@ actions:
         log: oac_match_log/05c_an_models_onscoviddeath.log
         table: "oac_match_tabfig/table2_onscoviddeath.txt"
       highly_sensitive:
-        data1: "oac_match_tempdata/univar.ster"
-        data2: "oac_match_tempdata/multi1.ster"
-        data3: "oac_match_tempdata/multi2.ster"
-        data4: "oac_match_tempdata/multi3.ster"
+        data1: "oac_match_tempdata/onscoviddeath_univar.ster"
+        data2: "oac_match_tempdata/onscoviddeath_multi1.ster"
+        data3: "oac_match_tempdata/onscoviddeath_multi2.ster"
+        data4: "oac_match_tempdata/onscoviddeath_multi3.ster"
 
   06c_an_models_ethnicity_af_match_onscoviddeath:
     run: stata-mp:latest analysis/06c_an_models_ethnicity.do onscoviddeath af_match
@@ -895,12 +895,12 @@ actions:
         log: oac_match_log/06c_an_models_ethnicity_onscoviddeath.log
         table: "oac_match_tabfig/table3_onscoviddeath.txt"
       highly_sensitive:
-        data1: "oac_match_tempdata/univar_ethn.ster"
-        data2: "oac_match_tempdata/multivar1_ethn.ster"
-        data3: "oac_match_tempdata/multivar2_ethn.ster"
-        data4: "oac_match_tempdata/multivar2_withoutethn.ster"
-        data5: "oac_match_tempdata/multivar3_ethn.ster"
-        data6: "oac_match_tempdata/multivar3_withoutethn.ster"
+        data1: "oac_match_tempdata/onscoviddeath_univar_ethn.ster"
+        data2: "oac_match_tempdata/onscoviddeath_multivar1_ethn.ster"
+        data3: "oac_match_tempdata/onscoviddeath_multivar2_ethn.ster"
+        data4: "oac_match_tempdata/onscoviddeath_multivar2_withoutethn.ster"
+        data5: "oac_match_tempdata/onscoviddeath_multivar3_ethn.ster"
+        data6: "oac_match_tempdata/onscoviddeath_multivar3_withoutethn.ster"
 
   07_an_model_exploration_af_match_onscoviddeath:
     run: stata-mp:latest analysis/07_an_model_exploration.do onscoviddeath af_match
@@ -916,17 +916,17 @@ actions:
     outputs:
       moderately_sensitive:
         log: oac_match_log/08c_an_model_checks_onscoviddeath.log
-        fig1: "oac_match_tabfig/schoenplot1.svg"
-        fig2: "oac_match_tabfig/schoenplot2.svg"
-        fig3: "oac_match_tabfig/schoenplot3.svg"
-        fig4: "oac_match_tabfig/schoenplot4.svg"
+        fig1: "oac_match_tabfig/onscoviddeath_schoenplot1.svg"
+        fig2: "oac_match_tabfig/onscoviddeath_schoenplot2.svg"
+        fig3: "oac_match_tabfig/onscoviddeath_schoenplot3.svg"
+        fig4: "oac_match_tabfig/onscoviddeath_schoenplot4.svg"
         table1: "oac_match_tabfig/table5_onscoviddeath.txt"
-        fig5: "oac_match_tabfig/schoenplot1_completecase.svg"
-        fig6: "oac_match_tabfig/schoenplot2_completecase.svg"
-        fig7: "oac_match_tabfig/schoenplot3_completecase_ethn.svg"
-        fig8: "oac_match_tabfig/schoenplot3_completecase.svg"
-        fig9: "oac_match_tabfig/schoenplot4_completecase_ethn.svg"
-        fig10: "oac_match_tabfig/schoenplot4_completecase.svg"
+        fig5: "oac_match_tabfig/onscoviddeath_schoenplot1_completecase.svg"
+        fig6: "oac_match_tabfig/onscoviddeath_schoenplot2_completecase.svg"
+        fig7: "oac_match_tabfig/onscoviddeath_schoenplot3_completecase_ethn.svg"
+        fig8: "oac_match_tabfig/onscoviddeath_schoenplot3_completecase.svg"
+        fig9: "oac_match_tabfig/onscoviddeath_schoenplot4_completecase_ethn.svg"
+        fig10: "oac_match_tabfig/onscoviddeath_schoenplot4_completecase.svg"
         table2: "oac_match_tabfig/table6_onscoviddeath.txt"
 
   09a_an_models_plot_af_match_onscoviddeath:
@@ -972,10 +972,10 @@ actions:
         log: oac_match_log/05c_an_models_admitcovid.log
         table: "oac_match_tabfig/table2_admitcovid.txt"
       highly_sensitive:
-        data1: "oac_match_tempdata/univar.ster"
-        data2: "oac_match_tempdata/multi1.ster"
-        data3: "oac_match_tempdata/multi2.ster"
-        data4: "oac_match_tempdata/multi3.ster"
+        data1: "oac_match_tempdata/admitcovid_univar.ster"
+        data2: "oac_match_tempdata/admitcovid_multi1.ster"
+        data3: "oac_match_tempdata/admitcovid_multi2.ster"
+        data4: "oac_match_tempdata/admitcovid_multi3.ster"
 
   06c_an_models_ethnicity_af_match_admitcovid:
     run: stata-mp:latest analysis/06c_an_models_ethnicity.do admitcovid af_match
@@ -985,12 +985,12 @@ actions:
         log: oac_match_log/06c_an_models_ethnicity_admitcovid.log
         table: "oac_match_tabfig/table3_admitcovid.txt"
       highly_sensitive:
-        data1: "oac_match_tempdata/univar_ethn.ster"
-        data2: "oac_match_tempdata/multivar1_ethn.ster"
-        data3: "oac_match_tempdata/multivar2_ethn.ster"
-        data4: "oac_match_tempdata/multivar2_withoutethn.ster"
-        data5: "oac_match_tempdata/multivar3_ethn.ster"
-        data6: "oac_match_tempdata/multivar3_withoutethn.ster"
+        data1: "oac_match_tempdata/admitcovid_univar_ethn.ster"
+        data2: "oac_match_tempdata/admitcovid_multivar1_ethn.ster"
+        data3: "oac_match_tempdata/admitcovid_multivar2_ethn.ster"
+        data4: "oac_match_tempdata/admitcovid_multivar2_withoutethn.ster"
+        data5: "oac_match_tempdata/admitcovid_multivar3_ethn.ster"
+        data6: "oac_match_tempdata/admitcovid_multivar3_withoutethn.ster"
 
   07_an_model_exploration_af_match_admitcovid:
     run: stata-mp:latest analysis/07_an_model_exploration.do admitcovid af_match
@@ -1006,17 +1006,17 @@ actions:
     outputs:
       moderately_sensitive:
         log: oac_match_log/08c_an_model_checks_admitcovid.log
-        fig1: "oac_match_tabfig/schoenplot1.svg"
-        fig2: "oac_match_tabfig/schoenplot2.svg"
-        fig3: "oac_match_tabfig/schoenplot3.svg"
-        fig4: "oac_match_tabfig/schoenplot4.svg"
+        fig1: "oac_match_tabfig/admitcovid_schoenplot1.svg"
+        fig2: "oac_match_tabfig/admitcovid_schoenplot2.svg"
+        fig3: "oac_match_tabfig/admitcovid_schoenplot3.svg"
+        fig4: "oac_match_tabfig/admitcovid_schoenplot4.svg"
         table1: "oac_match_tabfig/table5_admitcovid.txt"
-        fig5: "oac_match_tabfig/schoenplot1_completecase.svg"
-        fig6: "oac_match_tabfig/schoenplot2_completecase.svg"
-        fig7: "oac_match_tabfig/schoenplot3_completecase_ethn.svg"
-        fig8: "oac_match_tabfig/schoenplot3_completecase.svg"
-        fig9: "oac_match_tabfig/schoenplot4_completecase_ethn.svg"
-        fig10: "oac_match_tabfig/schoenplot4_completecase.svg"
+        fig5: "oac_match_tabfig/admitcovid_schoenplot1_completecase.svg"
+        fig6: "oac_match_tabfig/admitcovid_schoenplot2_completecase.svg"
+        fig7: "oac_match_tabfig/admitcovid_schoenplot3_completecase_ethn.svg"
+        fig8: "oac_match_tabfig/admitcovid_schoenplot3_completecase.svg"
+        fig9: "oac_match_tabfig/admitcovid_schoenplot4_completecase_ethn.svg"
+        fig10: "oac_match_tabfig/admitcovid_schoenplot4_completecase.svg"
         table2: "oac_match_tabfig/table6_admitcovid.txt"
 
   09a_an_models_plot_af_match_admitcovid:
@@ -1062,10 +1062,10 @@ actions:
         log: oac_match_log/05c_an_models_covidtest.log
         table: "oac_match_tabfig/table2_covidtest.txt"
       highly_sensitive:
-        data1: "oac_match_tempdata/univar.ster"
-        data2: "oac_match_tempdata/multi1.ster"
-        data3: "oac_match_tempdata/multi2.ster"
-        data4: "oac_match_tempdata/multi3.ster"
+        data1: "oac_match_tempdata/covidtest_univar.ster"
+        data2: "oac_match_tempdata/covidtest_multi1.ster"
+        data3: "oac_match_tempdata/covidtest_multi2.ster"
+        data4: "oac_match_tempdata/covidtest_multi3.ster"
 
   06c_an_models_ethnicity_af_match_covidtest:
     run: stata-mp:latest analysis/06c_an_models_ethnicity.do covidtest af_match
@@ -1075,12 +1075,12 @@ actions:
         log: oac_match_log/06c_an_models_ethnicity_covidtest.log
         table: "oac_match_tabfig/table3_covidtest.txt"
       highly_sensitive:
-        data1: "oac_match_tempdata/univar_ethn.ster"
-        data2: "oac_match_tempdata/multivar1_ethn.ster"
-        data3: "oac_match_tempdata/multivar2_ethn.ster"
-        data4: "oac_match_tempdata/multivar2_withoutethn.ster"
-        data5: "oac_match_tempdata/multivar3_ethn.ster"
-        data6: "oac_match_tempdata/multivar3_withoutethn.ster"
+        data1: "oac_match_tempdata/covidtest_univar_ethn.ster"
+        data2: "oac_match_tempdata/covidtest_multivar1_ethn.ster"
+        data3: "oac_match_tempdata/covidtest_multivar2_ethn.ster"
+        data4: "oac_match_tempdata/covidtest_multivar2_withoutethn.ster"
+        data5: "oac_match_tempdata/covidtest_multivar3_ethn.ster"
+        data6: "oac_match_tempdata/covidtest_multivar3_withoutethn.ster"
 
   08c_an_model_checks_af_match_covidtest:
     run: stata-mp:latest analysis/08c_an_model_checks.do covidtest af_match
@@ -1088,17 +1088,17 @@ actions:
     outputs:
       moderately_sensitive:
         log: oac_match_log/08c_an_model_checks_covidtest.log
-        fig1: "oac_match_tabfig/schoenplot1.svg"
-        fig2: "oac_match_tabfig/schoenplot2.svg"
-        fig3: "oac_match_tabfig/schoenplot3.svg"
-        fig4: "oac_match_tabfig/schoenplot4.svg"
+        fig1: "oac_match_tabfig/covidtest_schoenplot1.svg"
+        fig2: "oac_match_tabfig/covidtest_schoenplot2.svg"
+        fig3: "oac_match_tabfig/covidtest_schoenplot3.svg"
+        fig4: "oac_match_tabfig/covidtest_schoenplot4.svg"
         table1: "oac_match_tabfig/table5_covidtest.txt"
-        fig5: "oac_match_tabfig/schoenplot1_completecase.svg"
-        fig6: "oac_match_tabfig/schoenplot2_completecase.svg"
-        fig7: "oac_match_tabfig/schoenplot3_completecase_ethn.svg"
-        fig8: "oac_match_tabfig/schoenplot3_completecase.svg"
-        fig9: "oac_match_tabfig/schoenplot4_completecase_ethn.svg"
-        fig10: "oac_match_tabfig/schoenplot4_completecase.svg"
+        fig5: "oac_match_tabfig/covidtest_schoenplot1_completecase.svg"
+        fig6: "oac_match_tabfig/covidtest_schoenplot2_completecase.svg"
+        fig7: "oac_match_tabfig/covidtest_schoenplot3_completecase_ethn.svg"
+        fig8: "oac_match_tabfig/covidtest_schoenplot3_completecase.svg"
+        fig9: "oac_match_tabfig/covidtest_schoenplot4_completecase_ethn.svg"
+        fig10: "oac_match_tabfig/covidtest_schoenplot4_completecase.svg"
         table2: "oac_match_tabfig/table6_covidtest.txt"
 
   09a_an_models_plot_af_match_covidtest:
@@ -1144,10 +1144,10 @@ actions:
         log: oac_match_log/05c_an_models_positivecovidtest.log
         table: "oac_match_tabfig/table2_positivecovidtest.txt"
       highly_sensitive:
-        data1: "oac_match_tempdata/univar.ster"
-        data2: "oac_match_tempdata/multi1.ster"
-        data3: "oac_match_tempdata/multi2.ster"
-        data4: "oac_match_tempdata/multi3.ster"
+        data1: "oac_match_tempdata/positivecovidtest_univar.ster"
+        data2: "oac_match_tempdata/positivecovidtest_multi1.ster"
+        data3: "oac_match_tempdata/positivecovidtest_multi2.ster"
+        data4: "oac_match_tempdata/positivecovidtest_multi3.ster"
 
   06c_an_models_ethnicity_af_match_positivecovidtest:
     run: stata-mp:latest analysis/06c_an_models_ethnicity.do positivecovidtest af_match
@@ -1157,12 +1157,12 @@ actions:
         log: oac_match_log/06c_an_models_ethnicity_positivecovidtest.log
         table: "oac_match_tabfig/table3_positivecovidtest.txt"
       highly_sensitive:
-        data1: "oac_match_tempdata/univar_ethn.ster"
-        data2: "oac_match_tempdata/multivar1_ethn.ster"
-        data3: "oac_match_tempdata/multivar2_ethn.ster"
-        data4: "oac_match_tempdata/multivar2_withoutethn.ster"
-        data5: "oac_match_tempdata/multivar3_ethn.ster"
-        data6: "oac_match_tempdata/multivar3_withoutethn.ster"
+        data1: "oac_match_tempdata/positivecovidtest_univar_ethn.ster"
+        data2: "oac_match_tempdata/positivecovidtest_multivar1_ethn.ster"
+        data3: "oac_match_tempdata/positivecovidtest_multivar2_ethn.ster"
+        data4: "oac_match_tempdata/positivecovidtest_multivar2_withoutethn.ster"
+        data5: "oac_match_tempdata/positivecovidtest_multivar3_ethn.ster"
+        data6: "oac_match_tempdata/positivecovidtest_multivar3_withoutethn.ster"
 
   08c_an_model_checks_af_match_positivecovidtest:
     run: stata-mp:latest analysis/08c_an_model_checks.do positivecovidtest af_match
@@ -1170,17 +1170,17 @@ actions:
     outputs:
       moderately_sensitive:
         log: oac_match_log/08c_an_model_checks_positivecovidtest.log
-        fig1: "oac_match_tabfig/schoenplot1.svg"
-        fig2: "oac_match_tabfig/schoenplot2.svg"
-        fig3: "oac_match_tabfig/schoenplot3.svg"
-        fig4: "oac_match_tabfig/schoenplot4.svg"
+        fig1: "oac_match_tabfig/positivecovidtest_schoenplot1.svg"
+        fig2: "oac_match_tabfig/positivecovidtest_schoenplot2.svg"
+        fig3: "oac_match_tabfig/positivecovidtest_schoenplot3.svg"
+        fig4: "oac_match_tabfig/positivecovidtest_schoenplot4.svg"
         table1: "oac_match_tabfig/table5_positivecovidtest.txt"
-        fig5: "oac_match_tabfig/schoenplot1_completecase.svg"
-        fig6: "oac_match_tabfig/schoenplot2_completecase.svg"
-        fig7: "oac_match_tabfig/schoenplot3_completecase_ethn.svg"
-        fig8: "oac_match_tabfig/schoenplot3_completecase.svg"
-        fig9: "oac_match_tabfig/schoenplot4_completecase_ethn.svg"
-        fig10: "oac_match_tabfig/schoenplot4_completecase.svg"
+        fig5: "oac_match_tabfig/positivecovidtest_schoenplot1_completecase.svg"
+        fig6: "oac_match_tabfig/positivecovidtest_schoenplot2_completecase.svg"
+        fig7: "oac_match_tabfig/positivecovidtest_schoenplot3_completecase_ethn.svg"
+        fig8: "oac_match_tabfig/positivecovidtest_schoenplot3_completecase.svg"
+        fig9: "oac_match_tabfig/positivecovidtest_schoenplot4_completecase_ethn.svg"
+        fig10: "oac_match_tabfig/positivecovidtest_schoenplot4_completecase.svg"
         table2: "oac_match_tabfig/table6_positivecovidtest.txt"
 
   09a_an_models_plot_af_match_positivecovidtest:

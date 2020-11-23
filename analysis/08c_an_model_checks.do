@@ -49,7 +49,7 @@ estat phtest, plot(1.exposure) ///
 			  scheme(s1mono) ///
 			  title ("Schoenfeld residuals against time, univariable", position(11) size(medsmall)) 
 
-graph export "$tabfigdir/schoenplot1.svg", as(svg) replace
+graph export "$tabfigdir/`outcome'_schoenplot1.svg", as(svg) replace
 
 * Close window 
 graph close  
@@ -70,7 +70,7 @@ estat phtest, plot(1.exposure) ///
 			  scheme(s1mono) ///
 			  title ("Schoenfeld residuals against time, age and sex adjusted", position(11) size(medsmall)) 			  
 
-graph export "$tabfigdir/schoenplot2.svg", as(svg) replace
+graph export "$tabfigdir/`outcome'_schoenplot2.svg", as(svg) replace
 
 * Close window 
 graph close
@@ -91,7 +91,7 @@ estat phtest, plot(1.exposure) ///
 			  scheme(s1mono) ///
 			  title ("Schoenfeld residuals against time, DAG adjusted", position(11) size(medsmall)) 		  
 			  
-graph export "$tabfigdir/schoenplot3.svg", as(svg) replace
+graph export "$tabfigdir/`outcome'_schoenplot3.svg", as(svg) replace
 
 stcox i.exposure i.male age1 age2 age3 $fullvarlist, strata(set_id)
 estat phtest, detail
@@ -109,7 +109,7 @@ estat phtest, plot(1.exposure) ///
 			  scheme(s1mono) ///
 			  title ("Schoenfeld residuals against time, fully adjusted", position(11) size(medsmall)) 		  
 			  
-graph export "$tabfigdir/schoenplot4.svg", as(svg) replace
+graph export "$tabfigdir/`outcome'_schoenplot4.svg", as(svg) replace
 
 * Close window 
 graph close
@@ -159,7 +159,7 @@ estat phtest, plot(1.exposure) ///
 			  scheme(s1mono) ///
 			  title ("Schoenfeld residuals against time, univariable", position(11) size(medsmall)) 
 
-graph export "$tabfigdir/schoenplot1_completecase.svg", as(svg) replace
+graph export "$tabfigdir/`outcome'_schoenplot1_completecase.svg", as(svg) replace
 
 * Close window 
 graph close  
@@ -180,7 +180,7 @@ estat phtest, plot(1.exposure) ///
 			  scheme(s1mono) ///
 			  title ("Schoenfeld residuals against time, age and sex adjusted", position(11) size(medsmall)) 			  
 
-graph export "$tabfigdir/schoenplot2_completecase.svg", as(svg) replace
+graph export "$tabfigdir/`outcome'_schoenplot2_completecase.svg", as(svg) replace
 
 * Close window 
 graph close
@@ -201,7 +201,7 @@ estat phtest, plot(1.exposure) ///
 			  scheme(s1mono) ///
 			  title ("Schoenfeld residuals against time, DAG adjusted", position(11) size(medsmall)) 		  
 			  
-graph export "$tabfigdir/schoenplot3_completecase_ethn.svg", as(svg) replace
+graph export "$tabfigdir/`outcome'_schoenplot3_completecase_ethn.svg", as(svg) replace
 
 stcox i.exposure i.male age1 age2 age3 $dagvarlist , strata(set_id)
 estat phtest, detail
@@ -219,7 +219,7 @@ estat phtest, plot(1.exposure) ///
 			  scheme(s1mono) ///
 			  title ("Schoenfeld residuals against time, DAG adjusted", position(11) size(medsmall)) 		  
 			  
-graph export "$tabfigdir/schoenplot3_completecase.svg", as(svg) replace
+graph export "$tabfigdir/`outcome'_schoenplot3_completecase.svg", as(svg) replace
 
 stcox i.exposure i.male age1 age2 age3 $fullvarlist i.ethnicity, strata(set_id)
 estat phtest, detail
@@ -237,7 +237,7 @@ estat phtest, plot(1.exposure) ///
 			  scheme(s1mono) ///
 			  title ("Schoenfeld residuals against time, fully adjusted", position(11) size(medsmall)) 		  
 			  
-graph export "$tabfigdir/schoenplot4_completecase_ethn.svg", as(svg) replace
+graph export "$tabfigdir/`outcome'_schoenplot4_completecase_ethn.svg", as(svg) replace
 
 stcox i.exposure i.male age1 age2 age3 $fullvarlist, strata(set_id)
 estat phtest, detail
@@ -255,7 +255,7 @@ estat phtest, plot(1.exposure) ///
 			  scheme(s1mono) ///
 			  title ("Schoenfeld residuals against time, fully adjusted", position(11) size(medsmall)) 		  
 			  
-graph export "$tabfigdir/schoenplot4_completecase.svg", as(svg) replace
+graph export "$tabfigdir/`outcome'_schoenplot4_completecase.svg", as(svg) replace
 
 * Close window 
 graph close

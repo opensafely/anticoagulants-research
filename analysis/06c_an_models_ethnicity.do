@@ -41,7 +41,7 @@ safetab exposure `outcome', missing row
 /* Univariable model */ 
 
 stcox i.exposure, strata(set_id) 
-estimates save $tempdir/univar_ethn, replace 
+estimates save $tempdir/`outcome'_univar_ethn, replace 
 
 /* Multivariable models */ 
 
@@ -49,29 +49,29 @@ estimates save $tempdir/univar_ethn, replace
 * Age fit as spline in first instance, categorical below 
 
 stcox i.exposure i.male age1 age2 age3, strata(set_id)  
-estimates save $tempdir/multivar1_ethn, replace 
+estimates save $tempdir/`outcome'_multivar1_ethn, replace 
 
 * DAG adjusted WITH ETHNICITY
 stcox i.exposure i.male age1 age2 age3  $dagvarlist   ///
 										i.ethnicity, strata(set_id) 	
 										
-estimates save $tempdir/multivar2_ethn, replace 
+estimates save $tempdir/`outcome'_multivar2_ethn, replace 
 
 * DAG adjusted WITHOUT ETHNICITY
 stcox i.exposure i.male age1 age2 age3 $dagvarlist, strata(set_id)   	
 										
-estimates save $tempdir/multivar2_withoutethn, replace 
+estimates save $tempdir/`outcome'_multivar2_withoutethn, replace 
 
 * Fully adjusted WITH ETHNICITY
 stcox i.exposure i.male age1 age2 age3 $fullvarlist   ///
 									   i.ethnicity, strata(set_id)		
 										
-estimates save $tempdir/multivar3_ethn, replace 
+estimates save $tempdir/`outcome'_multivar3_ethn, replace 
 
 * Fully adjusted WITHOUT ETHNICITY
 stcox i.exposure i.male age1 age2 age3 $fullvarlist , strata(set_id)		
 										
-estimates save $tempdir/multivar3_withoutethn, replace 
+estimates save $tempdir/`outcome'_multivar3_withoutethn, replace 
 
 /* Print table================================================================*/ 
 *  Print the results for the main model 
@@ -125,27 +125,27 @@ file write tablecontent ("`lab1'") _tab
 	file write tablecontent (`event') _tab %10.0f (`person_week') _tab %3.2f (`rate') _tab
 
 /* Main Model */ 
-estimates use $tempdir/univar_ethn 
+estimates use $tempdir/`outcome'_univar_ethn 
 lincom 1.exposure, eform
 file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f (r(ub)) _tab 
 
-estimates use $tempdir/multivar1_ethn
+estimates use $tempdir/`outcome'_multivar1_ethn
 lincom 1.exposure, eform
 file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f (r(ub)) _tab 
 
-estimates use $tempdir/multivar2_ethn
+estimates use $tempdir/`outcome'_multivar2_ethn
 lincom 1.exposure, eform
 file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f (r(ub)) _tab
 
-estimates use $tempdir/multivar2_withoutethn
+estimates use $tempdir/`outcome'_multivar2_withoutethn
 lincom 1.exposure, eform
 file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f (r(ub)) _tab
 
-estimates use $tempdir/multivar3_ethn
+estimates use $tempdir/`outcome'_multivar3_ethn
 lincom 1.exposure, eform
 file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f (r(ub)) _tab 
 
-estimates use $tempdir/multivar3_withoutethn
+estimates use $tempdir/`outcome'_multivar3_withoutethn
 lincom 1.exposure, eform
 file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f (r(ub)) _n 
 
