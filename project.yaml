@@ -31,17 +31,26 @@ actions:
       highly_sensitive:
         data: "oac_tempdata/cr_dataset_af.dta"
 
-  # Primary Outcomes: ONS COVID-19 death
-  02a_cr_create_population_af_oac_onscoviddeath:
-    run: stata-mp:latest analysis/02a_cr_create_population.do onscoviddeath af_oac
+  # Export case dataset for matching
+  02ai_exportfile_matching:
+    run: stata-mp:latest analysis/02ai_exportfile_matching.do af_oac
     needs: [create_dataset]
     outputs:
       moderately_sensitive:
-        log: oac_log/02a_cr_create_population_onscoviddeath.log
+        log: oac_log/02ai_exportfile_matching.log
       highly_sensitive:
         data1: "output/input_af_oac.csv"
-        data2: "oac_tempdata/analysis_dataset_onscoviddeath.dta"
-        data3: "oac_tempdata/analysis_dataset_STSET_onscoviddeath.dta"
+
+  # Primary Outcomes: ONS COVID-19 death
+  02aii_cr_create_population:
+    run: stata-mp:latest analysis/02aii_cr_create_population.do onscoviddeath af_oac
+    needs: [create_dataset]
+    outputs:
+      moderately_sensitive:
+        log: oac_log/02aii_cr_create_population_onscoviddeath.log
+      highly_sensitive:
+        data1: "oac_tempdata/analysis_dataset_onscoviddeath.dta"
+        data2: "oac_tempdata/analysis_dataset_STSET_onscoviddeath.dta"
 
   03_an_checks_af_oac_onscoviddeath:
     run: stata-mp:latest analysis/03_an_checks.do onscoviddeath af_oac
@@ -122,16 +131,15 @@ actions:
         fig2: "oac_tabfig/diff_curves_onscoviddeath.svg"
 
   # Primary Outcomes: COVID-19 hospital admission
-  02a_cr_create_population_af_oac_admitcovid:
-    run: stata-mp:latest analysis/02a_cr_create_population.do admitcovid af_oac
+  02aii_cr_create_population_af_oac_admitcovid:
+    run: stata-mp:latest analysis/02aii_cr_create_population.do admitcovid af_oac
     needs: [create_dataset]
     outputs:
       moderately_sensitive:
-        log: oac_log/02a_cr_create_population_admitcovid.log
+        log: oac_log/02aii_cr_create_population_admitcovid.log
       highly_sensitive:
-        data1: "output/input_af_oac.csv"
-        data2: "oac_tempdata/analysis_dataset_admitcovid.dta"
-        data3: "oac_tempdata/analysis_dataset_STSET_admitcovid.dta"
+        data1: "oac_tempdata/analysis_dataset_admitcovid.dta"
+        data2: "oac_tempdata/analysis_dataset_STSET_admitcovid.dta"
 
   03_an_checks_af_oac_admitcovid:
     run: stata-mp:latest analysis/03_an_checks.do admitcovid af_oac
@@ -212,16 +220,15 @@ actions:
         fig2: "oac_tabfig/diff_curves_admitcovid.svg"
 
   # Exploratory Outcomes: COVID-19 test
-  02a_cr_create_population_af_oac_covidtest:
-    run: stata-mp:latest analysis/02a_cr_create_population.do covidtest af_oac
+  02aii_cr_create_population_af_oac_covidtest:
+    run: stata-mp:latest analysis/02aii_cr_create_population.do covidtest af_oac
     needs: [create_dataset]
     outputs:
       moderately_sensitive:
-        log: oac_log/02a_cr_create_population_covidtest.log
+        log: oac_log/02aii_cr_create_population_covidtest.log
       highly_sensitive:
-        data1: "output/input_af_oac.csv"
-        data2: "oac_tempdata/analysis_dataset_covidtest.dta"
-        data3: "oac_tempdata/analysis_dataset_STSET_covidtest.dta"
+        data1: "oac_tempdata/analysis_dataset_covidtest.dta"
+        data2: "oac_tempdata/analysis_dataset_STSET_covidtest.dta"
 
   03_an_checks_af_oac_covidtest:
     run: stata-mp:latest analysis/03_an_checks.do covidtest af_oac
@@ -294,16 +301,15 @@ actions:
         fig2: "oac_tabfig/diff_curves_covidtest.svg"
 
   # Exploratory Outcomes: Positive COVID test
-  02a_cr_create_population_af_oac_positivecovidtest:
-    run: stata-mp:latest analysis/02a_cr_create_population.do positivecovidtest af_oac
+  02aii_cr_create_population_af_oac_positivecovidtest:
+    run: stata-mp:latest analysis/02aii_cr_create_population.do positivecovidtest af_oac
     needs: [create_dataset]
     outputs:
       moderately_sensitive:
-        log: oac_log/02a_cr_create_population_positivecovidtest.log
+        log: oac_log/02aii_cr_create_population_positivecovidtest.log
       highly_sensitive:
-        data1: "output/input_af_oac.csv"
-        data2: "oac_tempdata/analysis_dataset_positivecovidtest.dta"
-        data3: "oac_tempdata/analysis_dataset_STSET_positivecovidtest.dta"
+        data1: "oac_tempdata/analysis_dataset_positivecovidtest.dta"
+        data2: "oac_tempdata/analysis_dataset_STSET_positivecovidtest.dta"
 
   03_an_checks_af_oac_positivecovidtest:
     run: stata-mp:latest analysis/03_an_checks.do positivecovidtest af_oac
