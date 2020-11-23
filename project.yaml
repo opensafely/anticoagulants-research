@@ -15,16 +15,16 @@ actions:
 
   # Main Analysis 1
   # Objective 1: compare AF treated people with AF non-treated people
-  format_dataset:
+  format_dataset_af_oac:
     run: stata-mp:latest analysis/00_cr_create_analysis_dataset.do af_oac
     needs: [generate_cohort]
     outputs:
       moderately_sensitive:
         log: oac_log/00_cr_create_analysis_dataset.log
 
-  create_dataset:
+  create_dataset_af_oac:
     run: stata-mp:latest analysis/01_cr_create_exposure_outcome_af.do af_oac
-    needs: [generate_cohort, format_dataset]
+    needs: [generate_cohort, format_dataset_af_oac]
     outputs:
       moderately_sensitive:
         log: oac_log/01_cr_create_exposure_outcome_af.log
@@ -34,7 +34,7 @@ actions:
   # Export case dataset for matching
   02ai_exportfile_matching:
     run: stata-mp:latest analysis/02ai_exportfile_matching.do af_oac
-    needs: [create_dataset]
+    needs: [create_dataset_af_oac]
     outputs:
       moderately_sensitive:
         log: oac_log/02ai_exportfile_matching.log
@@ -44,7 +44,7 @@ actions:
   # Primary Outcomes: ONS COVID-19 death
   02aii_cr_create_population_af_oac_onscoviddeath:
     run: stata-mp:latest analysis/02aii_cr_create_population.do onscoviddeath af_oac
-    needs: [create_dataset]
+    needs: [create_dataset_af_oac]
     outputs:
       moderately_sensitive:
         log: oac_log/02aii_cr_create_population_onscoviddeath.log
@@ -133,7 +133,7 @@ actions:
   # Primary Outcomes: COVID-19 hospital admission
   02aii_cr_create_population_af_oac_admitcovid:
     run: stata-mp:latest analysis/02aii_cr_create_population.do admitcovid af_oac
-    needs: [create_dataset]
+    needs: [create_dataset_af_oac]
     outputs:
       moderately_sensitive:
         log: oac_log/02aii_cr_create_population_admitcovid.log
@@ -222,7 +222,7 @@ actions:
   # Exploratory Outcomes: COVID-19 test
   02aii_cr_create_population_af_oac_covidtest:
     run: stata-mp:latest analysis/02aii_cr_create_population.do covidtest af_oac
-    needs: [create_dataset]
+    needs: [create_dataset_af_oac]
     outputs:
       moderately_sensitive:
         log: oac_log/02aii_cr_create_population_covidtest.log
@@ -303,7 +303,7 @@ actions:
   # Exploratory Outcomes: Positive COVID test
   02aii_cr_create_population_af_oac_positivecovidtest:
     run: stata-mp:latest analysis/02aii_cr_create_population.do positivecovidtest af_oac
-    needs: [create_dataset]
+    needs: [create_dataset_af_oac]
     outputs:
       moderately_sensitive:
         log: oac_log/02aii_cr_create_population_positivecovidtest.log
@@ -383,16 +383,16 @@ actions:
 
   # Main Analysis 2
   # Objective 2: Compare warfarin users and DOAC users
-  format_dataset:
+  format_dataset_af_warfarin:
     run: stata-mp:latest analysis/00_cr_create_analysis_dataset.do af_warfarin
     needs: [generate_cohort]
     outputs:
       moderately_sensitive:
         log: warfarin_log/00_cr_create_analysis_dataset.log
 
-  create_dataset:
+  create_dataset_af_warfarin:
     run: stata-mp:latest analysis/01_cr_create_exposure_outcome_af.do af_warfarin
-    needs: [generate_cohort, format_dataset]
+    needs: [generate_cohort, format_dataset_af_warfarin]
     outputs:
       moderately_sensitive:
         log: warfarin_log/01_cr_create_exposure_outcome_af.log
@@ -402,7 +402,7 @@ actions:
   # Primary Outcomes: ONS COVID-19 death
   02b_cr_create_population_af_warfarin_onscoviddeath:
     run: stata-mp:latest analysis/02b_cr_create_population.do onscoviddeath af_warfarin
-    needs: [create_dataset]
+    needs: [create_dataset_af_warfarin]
     outputs:
       moderately_sensitive:
         log: warfarin_log/02b_cr_create_population_onscoviddeath.log
@@ -491,7 +491,7 @@ actions:
   # Primary Outcomes: COVID-19 hospital admission
   02b_cr_create_population_af_warfarin_admitcovid:
     run: stata-mp:latest analysis/02b_cr_create_population.do admitcovid af_warfarin
-    needs: [create_dataset]
+    needs: [create_dataset_af_warfarin]
     outputs:
       moderately_sensitive:
         log: warfarin_log/02b_cr_create_population_admitcovid.log
@@ -580,7 +580,7 @@ actions:
     # Exploratory Outcomes: Non-COVID death
   02b_cr_create_population_af_warfarin_onsnoncoviddeath:
     run: stata-mp:latest analysis/02b_cr_create_population.do onsnoncoviddeath af_warfarin
-    needs: [create_dataset]
+    needs: [create_dataset_af_warfarin]
     outputs:
       moderately_sensitive:
         log: warfarin_log/02b_cr_create_population_onsnoncoviddeath.log
@@ -661,7 +661,7 @@ actions:
   # Exploratory Outcomes: COVID-19 test
   02b_cr_create_population_af_warfarin_covidtest:
     run: stata-mp:latest analysis/02b_cr_create_population.do covidtest af_warfarin
-    needs: [create_dataset]
+    needs: [create_dataset_af_warfarin]
     outputs:
       moderately_sensitive:
         log: warfarin_log/02b_cr_create_population_covidtest.log
@@ -742,7 +742,7 @@ actions:
   # Exploratory Outcomes: Positive COVID test
   02b_cr_create_population_af_warfarin_positivecovidtest:
     run: stata-mp:latest analysis/02b_cr_create_population.do positivecovidtest af_warfarin
-    needs: [create_dataset]
+    needs: [create_dataset_af_warfarin]
     outputs:
       moderately_sensitive:
         log: warfarin_log/02b_cr_create_population_positivecovidtest.log
@@ -832,16 +832,16 @@ actions:
         data2: "oac_match_tempdata/general_population_matched_only.csv"
         data3: "oac_match_tempdata/af_oac_matched_to_general_population.csv"
 
-  format_dataset:
+  format_dataset_af_match:
     run: stata-mp:latest analysis/00_cr_create_analysis_dataset.do af_match
     needs: [generate_cohort, matching]
     outputs:
       moderately_sensitive:
         log: oac_match_log/00_cr_create_analysis_dataset.log
 
-  create_dataset:
+  create_dataset_af_match:
     run: stata-mp:latest analysis/01_cr_create_exposure_outcome_af.do af_match
-    needs: [format_dataset]
+    needs: [format_dataset_af_match]
     outputs:
       moderately_sensitive:
         log: oac_match_log/01_cr_create_exposure_outcome_af.log
@@ -851,7 +851,7 @@ actions:
   # Primary Outcomes: ONS COVID-19 death
   02c_cr_create_population_af_match_onscoviddeath:
     run: stata-mp:latest analysis/02c_cr_create_population.do onscoviddeath af_match
-    needs: [create_dataset]
+    needs: [create_dataset_af_match]
     outputs:
       moderately_sensitive:
         log: oac_match_log/02c_cr_create_population_onscoviddeath.log
@@ -941,7 +941,7 @@ actions:
   # Primary Outcomes: COVID-19 hospital admission
   02c_cr_create_population_af_match_admitcovid:
     run: stata-mp:latest analysis/02c_cr_create_population.do admitcovid af_match
-    needs: [create_dataset]
+    needs: [create_dataset_af_match]
     outputs:
       moderately_sensitive:
         log: oac_match_log/02c_cr_create_population_admitcovid.log
@@ -1031,7 +1031,7 @@ actions:
   # Exploratory Outcomes: COVID-19 test
   02c_cr_create_population_af_match_covidtest:
     run: stata-mp:latest analysis/02c_cr_create_population.do covidtest af_match
-    needs: [create_dataset]
+    needs: [create_dataset_af_match]
     outputs:
       moderately_sensitive:
         log: oac_match_log/02c_cr_create_population_covidtest.log
@@ -1113,7 +1113,7 @@ actions:
   # Exploratory Outcomes: Positive COVID test
   02c_cr_create_population_af_match_positivecovidtest:
     run: stata-mp:latest analysis/02c_cr_create_population.do positivecovidtest af_match
-    needs: [create_dataset]
+    needs: [create_dataset_af_match]
     outputs:
       moderately_sensitive:
         log: oac_match_log/02c_cr_create_population_positivecovidtest.log
