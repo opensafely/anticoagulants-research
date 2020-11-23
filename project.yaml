@@ -24,7 +24,7 @@ actions:
 
   create_dataset_af_oac:
     run: stata-mp:latest analysis/01_cr_create_exposure_outcome_af.do af_oac
-    needs: [generate_cohort, format_dataset_af_oac]
+    needs: [format_dataset_af_oac]
     outputs:
       moderately_sensitive:
         log: output/oac_log/01_cr_create_exposure_outcome_af.log
@@ -396,7 +396,7 @@ actions:
 
   create_dataset_af_warfarin:
     run: stata-mp:latest analysis/01_cr_create_exposure_outcome_af.do af_warfarin
-    needs: [generate_cohort, format_dataset_af_warfarin]
+    needs: [format_dataset_af_warfarin]
     outputs:
       moderately_sensitive:
         log: output/warfarin_log/01_cr_create_exposure_outcome_af.log
