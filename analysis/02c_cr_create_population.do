@@ -99,7 +99,7 @@ datacheck warfarin_last_four_months == . , nol
 datacheck doac_last_four_months == . , nol
 
 /* SAVE DATA==================================================================*/
-save $outdir/matched_control.dta , replace
+save $outdir/matched_control_`outcome'.dta , replace
 
 /* Combine the case cohort after matching==================================*/	
 * Exposed cohort after matching
@@ -107,7 +107,7 @@ import delimited $outdir/af_oac_only_matched_to_general_population.csv, clear
 safecount
 
 * Append the matched case cohort
-append using $outdir/matched_control.dta
+append using $outdir/matched_control_`outcome'.dta
 
 rename case exposure 
 sort set_id patient_id
