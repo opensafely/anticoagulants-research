@@ -65,6 +65,7 @@ actions:
     outputs:
       moderately_sensitive:
         log: output/oac_log/04_an_descriptive_table_onscoviddeath.log
+        table: "output/oac_tabfig/table1_onscoviddeath.txt"
 
   05a_an_models_af_oac_onscoviddeath:
     run: stata-mp:latest analysis/05a_an_models.do onscoviddeath af_oac
@@ -154,6 +155,7 @@ actions:
     outputs:
       moderately_sensitive:
         log: output/oac_log/04_an_descriptive_table_admitcovid.log
+        table: "output/oac_tabfig/table1_admitcovid.txt"
 
   05a_an_models_af_oac_admitcovid:
     run: stata-mp:latest analysis/05a_an_models.do admitcovid af_oac
@@ -243,6 +245,7 @@ actions:
     outputs:
       moderately_sensitive:
         log: output/oac_log/04_an_descriptive_table_covidtest.log
+        table: "output/oac_tabfig/table1_covidtest.txt"
 
   05a_an_models_af_oac_covidtest:
     run: stata-mp:latest analysis/05a_an_models.do covidtest af_oac
@@ -324,6 +327,7 @@ actions:
     outputs:
       moderately_sensitive:
         log: output/oac_log/04_an_descriptive_table_positivecovidtest.log
+        table: "output/oac_tabfig/table1_positivecovidtest.txt"
 
   05a_an_models_af_oac_positivecovidtest:
     run: stata-mp:latest analysis/05a_an_models.do positivecovidtest af_oac
@@ -423,6 +427,7 @@ actions:
     outputs:
       moderately_sensitive:
         log: output/warfarin_log/04_an_descriptive_table_onscoviddeath.log
+        table: "output/warfarin_tabfig/table1_onscoviddeath.txt"
 
   05b_an_models_af_warfarin_onscoviddeath:
     run: stata-mp:latest analysis/05b_an_models.do onscoviddeath af_warfarin
@@ -512,6 +517,7 @@ actions:
     outputs:
       moderately_sensitive:
         log: output/warfarin_log/04_an_descriptive_table_admitcovid.log
+        table: "output/warfarin_tabfig/table1_admitcovid.txt"
 
   05b_an_models_af_warfarin_admitcovid:
     run: stata-mp:latest analysis/05b_an_models.do admitcovid af_warfarin
@@ -601,6 +607,7 @@ actions:
     outputs:
       moderately_sensitive:
         log: output/warfarin_log/04_an_descriptive_table_onsnoncoviddeath.log
+        table: "output/warfarin_tabfig/table1_onsnoncoviddeath.txt"
 
   05b_an_models_af_warfarin_onsnoncoviddeath:
     run: stata-mp:latest analysis/05b_an_models.do onsnoncoviddeath af_warfarin
@@ -682,6 +689,7 @@ actions:
     outputs:
       moderately_sensitive:
         log: output/warfarin_log/04_an_descriptive_table_covidtest.log
+        table: "output/warfarin_tabfig/table1_covidtest.txt"
 
   05b_an_models_af_warfarin_covidtest:
     run: stata-mp:latest analysis/05b_an_models.do covidtest af_warfarin
@@ -763,6 +771,7 @@ actions:
     outputs:
       moderately_sensitive:
         log: output/warfarin_log/04_an_descriptive_table_positivecovidtest.log
+        table: "output/warfarin_tabfig/table1_positivecovidtest.txt"
 
   05b_an_models_af_warfarin_positivecovidtest:
     run: stata-mp:latest analysis/05b_an_models.do positivecovidtest af_warfarin
@@ -873,6 +882,7 @@ actions:
     outputs:
       moderately_sensitive:
         log: output/oac_match_log/04_an_descriptive_table_onscoviddeath.log
+        table: "output/oac_match_tabfig/table1_onscoviddeath.txt"
 
   05c_an_models_af_match_onscoviddeath:
     run: stata-mp:latest analysis/05c_an_models.do onscoviddeath af_match
@@ -963,6 +973,7 @@ actions:
     outputs:
       moderately_sensitive:
         log: output/oac_match_log/04_an_descriptive_table_admitcovid.log
+        table: "output/oac_match_tabfig/table1_admitcovid.txt"
 
   05c_an_models_af_match_admitcovid:
     run: stata-mp:latest analysis/05c_an_models.do admitcovid af_match
@@ -1053,6 +1064,7 @@ actions:
     outputs:
       moderately_sensitive:
         log: output/oac_match_log/04_an_descriptive_table_covidtest.log
+        table: "output/oac_match_tabfig/table1_covidtest.txt"
 
   05c_an_models_af_match_covidtest:
     run: stata-mp:latest analysis/05c_an_models.do covidtest af_match
@@ -1135,6 +1147,7 @@ actions:
     outputs:
       moderately_sensitive:
         log: output/oac_match_log/04_an_descriptive_table_positivecovidtest.log
+        table: "output/oac_match_tabfig/table1_positivecovidtest.txt"
 
   05c_an_models_af_match_positivecovidtest:
     run: stata-mp:latest analysis/05c_an_models.do positivecovidtest af_match
