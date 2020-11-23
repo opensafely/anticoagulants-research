@@ -947,8 +947,8 @@ actions:
         log: oac_match_log/02c_cr_create_population_admitcovid.log
       highly_sensitive:
         data1: "output/matched_control_admitcovid.dta"
-        data2: "oac_match_tempdata/analysis_dataset_onscoviddeath.dta"
-        data3: "oac_match_tempdata/analysis_dataset_STSET_onscoviddeath.dta"
+        data2: "oac_match_tempdata/analysis_dataset_admitcovid.dta"
+        data3: "oac_match_tempdata/analysis_dataset_STSET_admitcovid.dta"
 
   03_an_checks_af_match_admitcovid:
     run: stata-mp:latest analysis/03_an_checks.do admitcovid af_match
@@ -1037,8 +1037,8 @@ actions:
         log: oac_match_log/02c_cr_create_population_covidtest.log
       highly_sensitive:
         data1: "output/matched_control_covidtest.dta"
-        data2: "oac_match_tempdata/analysis_dataset_onscoviddeath.dta"
-        data3: "oac_match_tempdata/analysis_dataset_STSET_onscoviddeath.dta"
+        data2: "oac_match_tempdata/analysis_dataset_covidtest.dta"
+        data3: "oac_match_tempdata/analysis_dataset_STSET_covidtest.dta"
 
   03_an_checks_af_match_covidtest:
     run: stata-mp:latest analysis/03_an_checks.do covidtest af_match
@@ -1119,8 +1119,8 @@ actions:
         log: oac_match_log/02c_cr_create_population_positivecovidtest.log
       highly_sensitive:
         data1: "output/matched_control_positivecovidtest.dta"
-        data2: "oac_match_tempdata/analysis_dataset_onscoviddeath.dta"
-        data3: "oac_match_tempdata/analysis_dataset_STSET_onscoviddeath.dta"
+        data2: "oac_match_tempdata/analysis_dataset_positivecovidtest.dta"
+        data3: "oac_match_tempdata/analysis_dataset_STSET_positivecovidtest.dta"
 
   03_an_checks_af_match_positivecovidtest:
     run: stata-mp:latest analysis/03_an_checks.do positivecovidtest af_match
