@@ -13,7 +13,6 @@ OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 ==============================================================================*/
 
 local global_option `1'
-local outputfile `2'
 
 do `c(pwd)'/analysis/global_`global_option'.do
 
@@ -24,7 +23,7 @@ log using $logdir/01_cr_create_exposure_outcome_af, replace t
 
 /*==============================================================================*/
 * import the dataset from 00 program
-use $tempdir/format_dataset_`outputfile', clear
+use $tempdir/format_dataset, clear
 
 sort patient_id
 
