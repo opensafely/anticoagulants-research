@@ -1,7 +1,3 @@
-* After matching
-* matched control dataset after matching
-import delimited `c(pwd)'/output/general_population_matched_only.csv, clear
-
 adopath + "$dodir/extra_ados"
 
 /***************************************************************************

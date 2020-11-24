@@ -20,7 +20,7 @@ local outcome `1'
 
 local global_option `2'
 
-do `c(pwd)'/analysis/global_`2'.do
+do `c(pwd)'/analysis/global_`global_option'.do
 
 * Open a log file
 

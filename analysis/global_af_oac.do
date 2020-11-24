@@ -1,5 +1,3 @@
-import delimited `c(pwd)'/output/input_af.csv, clear
-
 adopath + "$dodir/extra_ados"
 
 /***************************************************************************

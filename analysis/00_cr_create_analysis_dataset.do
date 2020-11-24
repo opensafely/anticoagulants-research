@@ -16,13 +16,20 @@ OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 ==============================================================================*/
 
 local global_option `1'
+local inputfile `2'
+local outputfile `3'
 
-do `c(pwd)'/analysis/global_`1'.do
+do `c(pwd)'/analysis/global_`global_option'.do
 
 * Open a log file
 
 cap log close
 log using $logdir/00_cr_create_analysis_dataset, replace t
+
+
+*import the file===============================================================*/ 
+
+import delimited `c(pwd)'/output/`inputfile'.csv, clear
 
 /* SET FU DATES===============================================================*/ 
 * Censoring dates for each outcome
@@ -581,7 +588,8 @@ label var first_tested_for_covid         "Date of COVID-19 test"
 label var first_positive_test_date       "Date of positive COVID-19 test"
 
 /* ==================================================================*/
-	
+
+save $tempdir/format_dataset_`outputfile', replace
 
 * Close log file 
 log close

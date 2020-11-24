@@ -21,7 +21,7 @@ OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 
 local global_option `1'
 
-do `c(pwd)'/analysis/global_`1'.do
+do `c(pwd)'/analysis/global_`global_option'.do
 
 * Open a log file
 
