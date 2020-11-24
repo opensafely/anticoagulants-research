@@ -15,7 +15,7 @@ actions:
 
   # Flowchart for AF population
   flowchart_af:
-    run: stata-mp:latest analysis/flow_chart_af_population.do af_flowchart
+    run: stata-mp:latest analysis/flow_chart_af_population.do af_population_flowchart
     needs: [generate_cohort]
     outputs:
       moderately_sensitive:
