@@ -32,16 +32,16 @@ actions:
   # Main Analysis 1
   # Objective 1: compare AF treated people with AF non-treated people
   format_dataset_af_oac:
-    run: stata-mp:latest analysis/00_cr_create_analysis_dataset.do af_oac input_af obj1_af
+    run: stata-mp:latest analysis/00_cr_create_analysis_dataset.do af_oac input_af
     needs: [generate_cohort]
     outputs:
       moderately_sensitive:
         log: output/oac_log/00_cr_create_analysis_dataset.log
       highly_sensitive:
-        data: "output/oac_tempdata/format_dataset_obj1_af.dta"
+        data: "output/oac_tempdata/format_dataset.dta"
 
   create_dataset_af_oac:
-    run: stata-mp:latest analysis/01_cr_create_exposure_outcome_af.do af_oac obj1_af
+    run: stata-mp:latest analysis/01_cr_create_exposure_outcome_af.do af_oac
     needs: [format_dataset_af_oac]
     outputs:
       moderately_sensitive:
@@ -406,16 +406,16 @@ actions:
   # Main Analysis 2
   # Objective 2: Compare warfarin users and DOAC users
   format_dataset_af_warfarin:
-    run: stata-mp:latest analysis/00_cr_create_analysis_dataset.do af_warfarin input_af obj2
+    run: stata-mp:latest analysis/00_cr_create_analysis_dataset.do af_warfarin input_af
     needs: [generate_cohort]
     outputs:
       moderately_sensitive:
         log: output/warfarin_log/00_cr_create_analysis_dataset.log
       highly_sensitive:
-        data: "output/oac_tempdata/format_dataset_obj2.dta"
+        data: "output/warfarin_tempdata/format_dataset.dta"
 
   create_dataset_af_warfarin:
-    run: stata-mp:latest analysis/01_cr_create_exposure_outcome_af.do af_warfarin obj2
+    run: stata-mp:latest analysis/01_cr_create_exposure_outcome_af.do af_warfarin
     needs: [format_dataset_af_warfarin]
     outputs:
       moderately_sensitive:
@@ -862,16 +862,16 @@ actions:
         data3: "output/oac_match_tempdata/af_oac_matched_to_general_population.csv"
 
   format_dataset_af_match:
-    run: stata-mp:latest analysis/00_cr_create_analysis_dataset.do af_match general_population_matched_only obj1_control
+    run: stata-mp:latest analysis/00_cr_create_analysis_dataset.do af_match general_population_matched_only
     needs: [generate_cohort, matching]
     outputs:
       moderately_sensitive:
         log: output/oac_match_log/00_cr_create_analysis_dataset.log
       highly_sensitive:
-        data: "output/oac_tempdata/format_dataset_obj1_control.dta"
+        data: "output/oac_match_tempdata/format_dataset.dta"
 
   create_dataset_af_match:
-    run: stata-mp:latest analysis/01_cr_create_exposure_outcome_af.do af_match obj1_control
+    run: stata-mp:latest analysis/01_cr_create_exposure_outcome_af.do af_match
     needs: [format_dataset_af_match, matching]
     outputs:
       moderately_sensitive:

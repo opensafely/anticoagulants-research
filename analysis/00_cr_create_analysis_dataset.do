@@ -17,7 +17,6 @@ OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 
 local global_option `1'
 local inputfile `2'
-local outputfile `3'
 
 do `c(pwd)'/analysis/global_`global_option'.do
 
@@ -589,7 +588,7 @@ label var first_positive_test_date       "Date of positive COVID-19 test"
 
 /* ==================================================================*/
 
-save $tempdir/format_dataset_`outputfile', replace
+save $tempdir/format_dataset, replace
 
 * Close log file 
 log close
