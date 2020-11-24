@@ -856,6 +856,8 @@ actions:
     run: python:latest python analysis/match_running.py
     needs: [generate_cohort, 02ai_exportfile_matching]
     outputs:
+      moderately_sensitive:
+        log: output/matching_report_af_oac.txt
       highly_sensitive:
         data1: "output/af_oac_only_matched_to_general_population.csv"
         data2: "output/general_population_matched_only.csv"
