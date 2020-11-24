@@ -13,6 +13,22 @@ actions:
         cohort3: output/input_general_population.csv
         cohort4: output/input_general_population_flow_chart.csv
 
+  # Flowchart for AF population
+   flowchart_af:
+    run: stata-mp:latest analysis/flow_chart_af_population.do
+    needs: [generate_cohort]
+    outputs:
+      moderately_sensitive:
+        log: output/oac_log/flow_chart_af_population.log
+ 
+  # Flowchart for general population (before matching)
+   flowchart_general_population:
+    run: stata-mp:latest analysis/flow_chart_general_population.do
+    needs: [generate_cohort]
+    outputs:
+      moderately_sensitive:
+        log: output/oac_log/flow_chart_general_population.log
+
   # Main Analysis 1
   # Objective 1: compare AF treated people with AF non-treated people
   format_dataset_af_oac:
