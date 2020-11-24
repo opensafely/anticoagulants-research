@@ -38,7 +38,7 @@ drop if registration_history!=1
 safecount
 drop if age < 18 | age > 110
 safecount
-keep if sex="M" | sex="F"
+keep if sex=="M" | sex=="F"
 safecount
 keep if imd>0
 safecount
