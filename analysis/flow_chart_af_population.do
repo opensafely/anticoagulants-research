@@ -12,6 +12,10 @@ OTHER OUTPUT: 			logfiles, printed to output folder
 							
 ==============================================================================*/
 
+local global_option `1'
+
+do `c(pwd)'/analysis/global_`1'.do
+
 * Open a log file
 
 cap log close
