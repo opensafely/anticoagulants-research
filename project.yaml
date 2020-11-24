@@ -857,9 +857,9 @@ actions:
     needs: [generate_cohort, 02ai_exportfile_matching]
     outputs:
       highly_sensitive:
-        data1: "output/oac_match_tempdata/af_oac_only_matched_to_general_population.csv"
-        data2: "output/oac_match_tempdata/general_population_matched_only.csv"
-        data3: "output/oac_match_tempdata/af_oac_matched_to_general_population.csv"
+        data1: "output/af_oac_only_matched_to_general_population.csv"
+        data2: "output/general_population_matched_only.csv"
+        data3: "output/af_oac_matched_to_general_population.csv"
 
   format_dataset_af_match:
     run: stata-mp:latest analysis/00_cr_create_analysis_dataset.do af_match general_population_matched_only
