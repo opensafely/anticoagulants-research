@@ -30,7 +30,7 @@ log using $logdir/02aii_exportfile_matching, replace t
 
 /* APPLY INCLUSION/EXCLUIONS==================================================*/ 
 
-use $tempdir\cr_dataset_af , clear
+use $tempdir/cr_dataset_af , clear
 
 noi di "DROP MISSING ATRIAL FIBRILLATION:"
 *DONE BY PYTHON
