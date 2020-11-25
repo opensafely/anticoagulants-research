@@ -109,10 +109,6 @@ datacheck eskf_exclusion == 0, nol
 * EXCLUSION 6: EXCLUDE PEOPLE WITH INJECTABLE ANTICOAGULANT
 datacheck lmwh_last_four_months_date == ., nol
 
-*  Drop variables that are needed (those labelled)
-ds, not(varlabel)
-drop `r(varlist)'
-
 /* SAVE DATA==================================================================*/	
 
 save $tempdir/analysis_dataset_`outcome', replace

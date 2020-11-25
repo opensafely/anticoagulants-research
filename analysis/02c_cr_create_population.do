@@ -127,10 +127,6 @@ drop if stime_`outcome' < date("$indexdate", "DMY") & exposure == 0
 label var set_id				"Matched setid = patient_id of the case"
 label var exposure				"Variable indicating the exposure status"
 
-*  Drop variables that are needed (those labelled)
-ds, not(varlabel)
-drop `r(varlist)'
-
 /* SAVE DATA==================================================================*/
 save $tempdir/analysis_dataset_`outcome', replace
 
