@@ -62,3 +62,11 @@ global fullvarlist i.imd 					///
 				   i.cancer     		    ///
 				   i.ae_attendance_last_year ///
 				   i.gp_consult 			
+
+/* SET FU DATES===============================================================*/ 
+* Censoring dates for each outcome
+* https://github.com/opensafely/rapid-reports/blob/master/notebooks/latest-dates.ipynb
+global onscoviddeathcensor   	= "28/09/2020"
+global apcscensor           	= "01/10/2020"
+global indexdate 			    = "01/03/2020"
+global covidtestcensor          = "30/09/2020"
