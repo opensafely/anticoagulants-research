@@ -138,7 +138,7 @@ file close tablecontent
 * =============================================================================*/	
 /* In complete case cohort - restrict to people with known ethnicity*/
 * Open Stata dataset
-use $tempdir\analysis_dataset_STSET_`outcome', clear
+use $tempdir/analysis_dataset_STSET_`outcome', clear
 
 drop if ethnicity == .u
 
