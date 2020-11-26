@@ -857,7 +857,7 @@ actions:
     needs: [generate_cohort, 02ai_exportfile_matching]
     outputs:
       moderately_sensitive:
-        log: output/matching_report_af_oac.txt
+        log: output/matching_report_general_population.txt
       highly_sensitive:
         data1: "output/af_oac_only_matched_to_general_population.csv"
         data2: "output/general_population_matched_only.csv"
@@ -1228,14 +1228,3 @@ actions:
         log: output/oac_match_log/09a_an_models_plot_positivecovidtest.log
         fig1: "output/oac_match_tabfig/adj_curves_positivecovidtest.svg"
         fig2: "output/oac_match_tabfig/diff_curves_positivecovidtest.svg"
-
-  run_all:
-    needs: [generate_cohort]
-    # In order to be valid this action needs to define a run commmand and some
-    # output. We don't really care what these are but the below does the trick.
-    # In a future release of the platform, this special action won't need to be
-    # defined at all.
-    run: cohortextractor:latest --version
-    outputs:
-      moderately_sensitive:
-        whatever: project.yaml
