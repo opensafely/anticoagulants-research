@@ -24,11 +24,11 @@ do `c(pwd)'/analysis/global_`global_option'.do
 * Open a log file
 
 cap log close
-log using $logdir\08c_an_model_checks_`outcome', replace t
+log using $logdir/08c_an_model_checks_`outcome', replace t
 
 /*==============================================================================*/
 * Open Stata dataset
-use $tempdir\analysis_dataset_STSET_`outcome', clear
+use $tempdir/analysis_dataset_STSET_`outcome', clear
 
 /* In full cohort*/
 /* Quietly run models, perform test and store results in local macro==========*/
@@ -137,7 +137,7 @@ file close tablecontent
 * =============================================================================*/	
 /* In complete case cohort - restrict to people with known ethnicity*/
 * Open Stata dataset
-use $tempdir\analysis_dataset_STSET_`outcome', clear
+use $tempdir/analysis_dataset_STSET_`outcome', clear
 
 drop if ethnicity == .u
 
