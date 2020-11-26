@@ -1,5 +1,5 @@
 /*==============================================================================
-DO FILE NAME:			07_an_model_exploration
+DO FILE NAME:			07_an_model_explore
 PROJECT:				Anticoagulant in COVID-19 
 AUTHOR:					A Wong 
 DATE: 					2 Nov 2020 						
@@ -24,7 +24,7 @@ do `c(pwd)'/analysis/global_`global_option'.do
 * Open a log file
 
 cap log close
-log using $logdir/07_an_model_exploration_`outcome', replace t
+log using $logdir/07_an_model_explore_`outcome', replace t
 
 * Open Stata dataset
 use $tempdir/analysis_dataset_STSET_`outcome', clear
