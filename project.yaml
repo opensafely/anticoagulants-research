@@ -94,9 +94,9 @@ actions:
         table: "output/oac_tabfig/table2_onscoviddeath.txt"
       highly_sensitive:
         data1: "output/oac_tempdata/onscoviddeath_univar.ster"
-        data2: "output/oac_tempdata/onscoviddeath_multi1.ster"
-        data3: "output/oac_tempdata/onscoviddeath_multi2.ster"
-        data4: "output/oac_tempdata/onscoviddeath_multi3.ster"
+        data2: "output/oac_tempdata/onscoviddeath_multivar1.ster"
+        data3: "output/oac_tempdata/onscoviddeath_multivar2.ster"
+        data4: "output/oac_tempdata/onscoviddeath_multivar3.ster"
 
   06a_an_models_ethnicity_af_oac_onscoviddeath:
     run: stata-mp:latest analysis/06a_an_models_ethnicity.do onscoviddeath af_oac
@@ -113,12 +113,12 @@ actions:
         data5: "output/oac_tempdata/onscoviddeath_multivar3_ethn.ster"
         data6: "output/oac_tempdata/onscoviddeath_multivar3_withoutethn.ster"
 
-  07_an_model_exploration_af_oac_onscoviddeath:
-    run: stata-mp:latest analysis/07_an_model_exploration.do onscoviddeath af_oac
+  07_an_model_explore_af_oac_onscoviddeath:
+    run: stata-mp:latest analysis/07_an_model_explore.do onscoviddeath af_oac
     needs: [02aii_cr_create_population_af_oac_onscoviddeath]
     outputs:
       moderately_sensitive:
-        log: output/oac_log/07_an_model_exploration_onscoviddeath.log
+        log: output/oac_log/07_an_model_explore_onscoviddeath.log
         table: "output/oac_tabfig/table4_onscoviddeath.txt"
 
   08a_an_model_checks_af_oac_onscoviddeath:
@@ -184,9 +184,9 @@ actions:
         table: "output/oac_tabfig/table2_admitcovid.txt"
       highly_sensitive:
         data1: "output/oac_tempdata/admitcovid_univar.ster"
-        data2: "output/oac_tempdata/admitcovid_multi1.ster"
-        data3: "output/oac_tempdata/admitcovid_multi2.ster"
-        data4: "output/oac_tempdata/admitcovid_multi3.ster"
+        data2: "output/oac_tempdata/admitcovid_multivar1.ster"
+        data3: "output/oac_tempdata/admitcovid_multivar2.ster"
+        data4: "output/oac_tempdata/admitcovid_multivar3.ster"
 
   06a_an_models_ethnicity_af_oac_admitcovid:
     run: stata-mp:latest analysis/06a_an_models_ethnicity.do admitcovid af_oac
@@ -203,12 +203,12 @@ actions:
         data5: "output/oac_tempdata/admitcovid_multivar3_ethn.ster"
         data6: "output/oac_tempdata/admitcovid_multivar3_withoutethn.ster"
 
-  07_an_model_exploration_af_oac_admitcovid:
-    run: stata-mp:latest analysis/07_an_model_exploration.do admitcovid af_oac
+  07_an_model_explore_af_oac_admitcovid:
+    run: stata-mp:latest analysis/07_an_model_explore.do admitcovid af_oac
     needs: [02aii_cr_create_population_af_oac_admitcovid]
     outputs:
       moderately_sensitive:
-        log: output/oac_log/07_an_model_exploration_admitcovid.log
+        log: output/oac_log/07_an_model_explore_admitcovid.log
         table: "output/oac_tabfig/table4_admitcovid.txt"
 
   08a_an_model_checks_af_oac_admitcovid:
@@ -274,9 +274,9 @@ actions:
         table: "output/oac_tabfig/table2_covidtest.txt"
       highly_sensitive:
         data1: "output/oac_tempdata/covidtest_univar.ster"
-        data2: "output/oac_tempdata/covidtest_multi1.ster"
-        data3: "output/oac_tempdata/covidtest_multi2.ster"
-        data4: "output/oac_tempdata/covidtest_multi3.ster"
+        data2: "output/oac_tempdata/covidtest_multivar1.ster"
+        data3: "output/oac_tempdata/covidtest_multivar2.ster"
+        data4: "output/oac_tempdata/covidtest_multivar3.ster"
 
   06a_an_models_ethnicity_af_oac_covidtest:
     run: stata-mp:latest analysis/06a_an_models_ethnicity.do covidtest af_oac
@@ -356,9 +356,9 @@ actions:
         table: "output/oac_tabfig/table2_positivecovidtest.txt"
       highly_sensitive:
         data1: "output/oac_tempdata/positivecovidtest_univar.ster"
-        data2: "output/oac_tempdata/positivecovidtest_multi1.ster"
-        data3: "output/oac_tempdata/positivecovidtest_multi2.ster"
-        data4: "output/oac_tempdata/positivecovidtest_multi3.ster"
+        data2: "output/oac_tempdata/positivecovidtest_multivar1.ster"
+        data3: "output/oac_tempdata/positivecovidtest_multivar2.ster"
+        data4: "output/oac_tempdata/positivecovidtest_multivar3.ster"
 
   06a_an_models_ethnicity_af_oac_positivecovidtest:
     run: stata-mp:latest analysis/06a_an_models_ethnicity.do positivecovidtest af_oac
@@ -458,9 +458,9 @@ actions:
         table: "output/warfarin_tabfig/table2_onscoviddeath.txt"
       highly_sensitive:
         data1: "output/warfarin_tempdata/onscoviddeath_univar.ster"
-        data2: "output/warfarin_tempdata/onscoviddeath_multi1.ster"
-        data3: "output/warfarin_tempdata/onscoviddeath_multi2.ster"
-        data4: "output/warfarin_tempdata/onscoviddeath_multi3.ster"
+        data2: "output/warfarin_tempdata/onscoviddeath_multivar1.ster"
+        data3: "output/warfarin_tempdata/onscoviddeath_multivar2.ster"
+        data4: "output/warfarin_tempdata/onscoviddeath_multivar3.ster"
 
   06b_an_models_ethnicity_af_warfarin_onscoviddeath:
     run: stata-mp:latest analysis/06b_an_models_ethnicity.do onscoviddeath af_warfarin
@@ -477,12 +477,12 @@ actions:
         data5: "output/warfarin_tempdata/onscoviddeath_multivar3_ethn.ster"
         data6: "output/warfarin_tempdata/onscoviddeath_multivar3_withoutethn.ster"
 
-  07_an_model_exploration_af_warfarin_onscoviddeath:
-    run: stata-mp:latest analysis/07_an_model_exploration.do onscoviddeath af_warfarin
+  07_an_model_explore_af_warfarin_onscoviddeath:
+    run: stata-mp:latest analysis/07_an_model_explore.do onscoviddeath af_warfarin
     needs: [02b_cr_create_population_af_warfarin_onscoviddeath]
     outputs:
       moderately_sensitive:
-        log: output/warfarin_log/07_an_model_exploration_onscoviddeath.log
+        log: output/warfarin_log/07_an_model_explore_onscoviddeath.log
         table: "output/warfarin_tabfig/table4_onscoviddeath.txt"
 
   08b_an_model_checks_af_warfarin_onscoviddeath:
@@ -548,9 +548,9 @@ actions:
         table: "output/warfarin_tabfig/table2_admitcovid.txt"
       highly_sensitive:
         data1: "output/warfarin_tempdata/admitcovid_univar.ster"
-        data2: "output/warfarin_tempdata/admitcovid_multi1.ster"
-        data3: "output/warfarin_tempdata/admitcovid_multi2.ster"
-        data4: "output/warfarin_tempdata/admitcovid_multi3.ster"
+        data2: "output/warfarin_tempdata/admitcovid_multivar1.ster"
+        data3: "output/warfarin_tempdata/admitcovid_multivar2.ster"
+        data4: "output/warfarin_tempdata/admitcovid_multivar3.ster"
 
   06b_an_models_ethnicity_af_warfarin_admitcovid:
     run: stata-mp:latest analysis/06b_an_models_ethnicity.do admitcovid af_warfarin
@@ -567,12 +567,12 @@ actions:
         data5: "output/warfarin_tempdata/admitcovid_multivar3_ethn.ster"
         data6: "output/warfarin_tempdata/admitcovid_multivar3_withoutethn.ster"
 
-  07_an_model_exploration_af_warfarin_admitcovid:
-    run: stata-mp:latest analysis/07_an_model_exploration.do admitcovid af_warfarin
+  07_an_model_explore_af_warfarin_admitcovid:
+    run: stata-mp:latest analysis/07_an_model_explore.do admitcovid af_warfarin
     needs: [02b_cr_create_population_af_warfarin_admitcovid]
     outputs:
       moderately_sensitive:
-        log: output/warfarin_log/07_an_model_exploration_admitcovid.log
+        log: output/warfarin_log/07_an_model_explore_admitcovid.log
         table: "output/warfarin_tabfig/table4_admitcovid.txt"
 
   08b_an_model_checks_af_warfarin_admitcovid:
@@ -638,9 +638,9 @@ actions:
         table: "output/warfarin_tabfig/table2_onsnoncoviddeath.txt"
       highly_sensitive:
         data1: "output/warfarin_tempdata/onsnoncoviddeath_univar.ster"
-        data2: "output/warfarin_tempdata/onsnoncoviddeath_multi1.ster"
-        data3: "output/warfarin_tempdata/onsnoncoviddeath_multi2.ster"
-        data4: "output/warfarin_tempdata/onsnoncoviddeath_multi3.ster"
+        data2: "output/warfarin_tempdata/onsnoncoviddeath_multivar1.ster"
+        data3: "output/warfarin_tempdata/onsnoncoviddeath_multivar2.ster"
+        data4: "output/warfarin_tempdata/onsnoncoviddeath_multivar3.ster"
 
   06b_an_models_ethnicity_af_warfarin_onsnoncoviddeath:
     run: stata-mp:latest analysis/06b_an_models_ethnicity.do onsnoncoviddeath af_warfarin
@@ -720,9 +720,9 @@ actions:
         table: "output/warfarin_tabfig/table2_covidtest.txt"
       highly_sensitive:
         data1: "output/warfarin_tempdata/covidtest_univar.ster"
-        data2: "output/warfarin_tempdata/covidtest_multi1.ster"
-        data3: "output/warfarin_tempdata/covidtest_multi2.ster"
-        data4: "output/warfarin_tempdata/covidtest_multi3.ster"
+        data2: "output/warfarin_tempdata/covidtest_multivar1.ster"
+        data3: "output/warfarin_tempdata/covidtest_multivar2.ster"
+        data4: "output/warfarin_tempdata/covidtest_multivar3.ster"
 
   06b_an_models_ethnicity_af_warfarin_covidtest:
     run: stata-mp:latest analysis/06b_an_models_ethnicity.do covidtest af_warfarin
@@ -802,9 +802,9 @@ actions:
         table: "output/warfarin_tabfig/table2_positivecovidtest.txt"
       highly_sensitive:
         data1: "output/warfarin_tempdata/positivecovidtest_univar.ster"
-        data2: "output/warfarin_tempdata/positivecovidtest_multi1.ster"
-        data3: "output/warfarin_tempdata/positivecovidtest_multi2.ster"
-        data4: "output/warfarin_tempdata/positivecovidtest_multi3.ster"
+        data2: "output/warfarin_tempdata/positivecovidtest_multivar1.ster"
+        data3: "output/warfarin_tempdata/positivecovidtest_multivar2.ster"
+        data4: "output/warfarin_tempdata/positivecovidtest_multivar3.ster"
 
   06b_an_models_ethnicity_af_warfarin_positivecovidtest:
     run: stata-mp:latest analysis/06b_an_models_ethnicity.do positivecovidtest af_warfarin
@@ -917,9 +917,9 @@ actions:
         table: "output/oac_match_tabfig/table2_onscoviddeath.txt"
       highly_sensitive:
         data1: "output/oac_match_tempdata/onscoviddeath_univar.ster"
-        data2: "output/oac_match_tempdata/onscoviddeath_multi1.ster"
-        data3: "output/oac_match_tempdata/onscoviddeath_multi2.ster"
-        data4: "output/oac_match_tempdata/onscoviddeath_multi3.ster"
+        data2: "output/oac_match_tempdata/onscoviddeath_multivar1.ster"
+        data3: "output/oac_match_tempdata/onscoviddeath_multivar2.ster"
+        data4: "output/oac_match_tempdata/onscoviddeath_multivar3.ster"
 
   06c_an_models_ethnicity_af_match_onscoviddeath:
     run: stata-mp:latest analysis/06c_an_models_ethnicity.do onscoviddeath af_match
@@ -936,12 +936,12 @@ actions:
         data5: "output/oac_match_tempdata/onscoviddeath_multivar3_ethn.ster"
         data6: "output/oac_match_tempdata/onscoviddeath_multivar3_withoutethn.ster"
 
-  07_an_model_exploration_af_match_onscoviddeath:
-    run: stata-mp:latest analysis/07_an_model_exploration.do onscoviddeath af_match
+  07_an_model_explore_af_match_onscoviddeath:
+    run: stata-mp:latest analysis/07_an_model_explore.do onscoviddeath af_match
     needs: [02c_cr_create_population_af_match_onscoviddeath]
     outputs:
       moderately_sensitive:
-        log: output/oac_match_log/07_an_model_exploration_onscoviddeath.log
+        log: output/oac_match_log/07_an_model_explore_onscoviddeath.log
         table: "output/oac_match_tabfig/table4_onscoviddeath.txt"
 
   08c_an_model_checks_af_match_onscoviddeath:
@@ -1008,9 +1008,9 @@ actions:
         table: "output/oac_match_tabfig/table2_admitcovid.txt"
       highly_sensitive:
         data1: "output/oac_match_tempdata/admitcovid_univar.ster"
-        data2: "output/oac_match_tempdata/admitcovid_multi1.ster"
-        data3: "output/oac_match_tempdata/admitcovid_multi2.ster"
-        data4: "output/oac_match_tempdata/admitcovid_multi3.ster"
+        data2: "output/oac_match_tempdata/admitcovid_multivar1.ster"
+        data3: "output/oac_match_tempdata/admitcovid_multivar2.ster"
+        data4: "output/oac_match_tempdata/admitcovid_multivar3.ster"
 
   06c_an_models_ethnicity_af_match_admitcovid:
     run: stata-mp:latest analysis/06c_an_models_ethnicity.do admitcovid af_match
@@ -1027,12 +1027,12 @@ actions:
         data5: "output/oac_match_tempdata/admitcovid_multivar3_ethn.ster"
         data6: "output/oac_match_tempdata/admitcovid_multivar3_withoutethn.ster"
 
-  07_an_model_exploration_af_match_admitcovid:
-    run: stata-mp:latest analysis/07_an_model_exploration.do admitcovid af_match
+  07_an_model_explore_af_match_admitcovid:
+    run: stata-mp:latest analysis/07_an_model_explore.do admitcovid af_match
     needs: [02c_cr_create_population_af_match_admitcovid]
     outputs:
       moderately_sensitive:
-        log: output/oac_match_log/07_an_model_exploration_admitcovid.log
+        log: output/oac_match_log/07_an_model_explore_admitcovid.log
         table: "output/oac_match_tabfig/table4_admitcovid.txt"
 
   08c_an_model_checks_af_match_admitcovid:
@@ -1099,9 +1099,9 @@ actions:
         table: "output/oac_match_tabfig/table2_covidtest.txt"
       highly_sensitive:
         data1: "output/oac_match_tempdata/covidtest_univar.ster"
-        data2: "output/oac_match_tempdata/covidtest_multi1.ster"
-        data3: "output/oac_match_tempdata/covidtest_multi2.ster"
-        data4: "output/oac_match_tempdata/covidtest_multi3.ster"
+        data2: "output/oac_match_tempdata/covidtest_multivar1.ster"
+        data3: "output/oac_match_tempdata/covidtest_multivar2.ster"
+        data4: "output/oac_match_tempdata/covidtest_multivar3.ster"
 
   06c_an_models_ethnicity_af_match_covidtest:
     run: stata-mp:latest analysis/06c_an_models_ethnicity.do covidtest af_match
@@ -1182,9 +1182,9 @@ actions:
         table: "output/oac_match_tabfig/table2_positivecovidtest.txt"
       highly_sensitive:
         data1: "output/oac_match_tempdata/positivecovidtest_univar.ster"
-        data2: "output/oac_match_tempdata/positivecovidtest_multi1.ster"
-        data3: "output/oac_match_tempdata/positivecovidtest_multi2.ster"
-        data4: "output/oac_match_tempdata/positivecovidtest_multi3.ster"
+        data2: "output/oac_match_tempdata/positivecovidtest_multivar1.ster"
+        data3: "output/oac_match_tempdata/positivecovidtest_multivar2.ster"
+        data4: "output/oac_match_tempdata/positivecovidtest_multivar3.ster"
 
   06c_an_models_ethnicity_af_match_positivecovidtest:
     run: stata-mp:latest analysis/06c_an_models_ethnicity.do positivecovidtest af_match
