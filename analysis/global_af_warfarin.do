@@ -1,12 +1,14 @@
 /***************************************************************************
 ***************************************************************************
-Objective 1: Compare oral anticoagulant treated vs untreated
+Objective 2: Compare warfarin vs DOACs
 in people with atrial fibrillation
 ***************************************************************************
 ======================================================================*/
 *set filepaths
 global projectdir `c(pwd)'
 di "$projectdir"
+global outdir "$projectdir/output" 
+di "$outdir"
 global logdir "$projectdir/output/warfarin_log"
 di "$logdir"
 global tempdir "$projectdir/output/warfarin_tempdata" 
