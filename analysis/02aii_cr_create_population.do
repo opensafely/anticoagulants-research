@@ -55,7 +55,7 @@ noi di "DROP IMD MISSING"
 noi di "KEEP PATIENTS WITH CHA2DS2_VASc_score==2"
 datacheck CHA2DS2_VASc_score !=., nol
 
-keep if CHA2DS2_VASc_score == 2
+*keep if CHA2DS2_VASc_score == 2
 
 noi di "PEOPLE PRESCRIBED INJECTABLE ANTICOAGULANT"
 drop if lmwh_last_four_months_date != .
@@ -92,10 +92,6 @@ assert inlist(imd, 1, 2, 3, 4, 5)
 
 * EXCLUSION 3: EXCLUDE PEOPLE WITH INJECTABLE ANTICOAGULANT
 datacheck lmwh_last_four_months_date == ., nol
-
-*  Drop variables that are needed (those labelled)
-ds, not(varlabel)
-drop `r(varlist)'
 
 /* SAVE DATA==================================================================*/		
 save $tempdir/analysis_dataset_`outcome', replace
