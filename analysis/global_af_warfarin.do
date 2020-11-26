@@ -1,5 +1,3 @@
-adopath + "$dodir/extra_ados"
-
 /***************************************************************************
 ***************************************************************************
 Objective 1: Compare oral anticoagulant treated vs untreated
@@ -15,6 +13,8 @@ global tempdir "$projectdir/output/warfarin_tempdata"
 di "$tempdir"
 global tabfigdir "$projectdir/output/warfarin_tabfig" 
 di "$tabfigdir"
+
+adopath + "$projectdir/analysis/extra_ados"
 
 * Create directories required 
 capture mkdir "$outdir/warfarin_tabfig"
