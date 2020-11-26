@@ -1,7 +1,6 @@
 /***************************************************************************
 ***************************************************************************
-Objective 1: Compare oral anticoagulant treated vs untreated
-in people with atrial fibrillation
+Objective 1: Compare oral anticoagulant treated vs untreated from general population
 ***************************************************************************
 ======================================================================*/
 *set filepaths
