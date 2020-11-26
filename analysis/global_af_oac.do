@@ -26,7 +26,7 @@ capture mkdir "$outdir/oac_tempdata"
 * Set globals that will print in programs and direct output
 
 global population "Obj_1_AF"
-global df 3
+global df 2
 global cum_death_ymax 0.1
 global dagvarlist i.imd 					///	
 				  i.obese4cat			    ///
