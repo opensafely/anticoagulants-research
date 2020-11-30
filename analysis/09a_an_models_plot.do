@@ -31,6 +31,7 @@ use $tempdir/analysis_dataset_STSET_`outcome', clear
 /*==============================================================================*/
 * Fit the stpm2 model 
 xi i.exposure i.male $fullvarlist
+    
 stpm2 _I* age1 age2 age3, scale(hazard) df($df) eform nolog
 
 * set timevar for time points to be plotted
@@ -88,6 +89,6 @@ graph close
 
 * Delete unneeded graphs
 erase diff_curves_`outcome'.gph		 
-				 
+	 
 * Close log file 
 log close
