@@ -31,6 +31,7 @@ cap log close
 log using $logdir/02c_cr_create_population_`outcome', replace t
 
 /* APPLY INCLUSION/EXCLUIONS in the general population cohort (control cohort) ===============================*/ 
+use $tempdir/cr_dataset_af , clear
 
 noi di "DROP AGE <18:" 
 *DONE BY PYTHON
@@ -103,11 +104,11 @@ save $outdir/matched_control_`outcome'.dta , replace
 
 /* Combine the case cohort after matching==================================*/	
 * Exposed cohort after matching
-import delimited $outdir/af_oac_only_matched_to_general_population.csv, clear
+import delimited `c(pwd)'/output/af_oac_only_matched_to_general_population.csv, clear
 safecount
 
 * Append the matched case cohort
-append using $outdir/matched_control_`outcome'.dta
+append using $outdir/matched_control_`outcome'.dta, force
 
 rename case exposure 
 sort set_id patient_id
