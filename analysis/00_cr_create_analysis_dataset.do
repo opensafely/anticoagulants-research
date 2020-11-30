@@ -30,14 +30,6 @@ log using $logdir/00_cr_create_analysis_dataset, replace t
 
 import delimited `c(pwd)'/output/`inputfile'.csv, clear
 
-/* SET FU DATES===============================================================*/ 
-* Censoring dates for each outcome
-* https://github.com/opensafely/rapid-reports/blob/master/notebooks/latest-dates.ipynb
-global onscoviddeathcensor   	= "28/09/2020"
-global apcscensor           	= "01/10/2020"
-global indexdate 			    = "01/03/2020"
-global covidtestcensor          = "30/09/2020"
-
 /* describe VARAIBLES===========================================================*/
 des, f
 
