@@ -31,9 +31,6 @@ sort patient_id
 gen enter_date = date("$indexdate", "DMY")
 format enter_date %td
 
-* Need a string variable for cohort entry
-gen indexdate = "2020-03-01"
-
 * Format treatment variables
 foreach var of varlist 	warfarin_last_four_months   ///
 						doac_last_four_months      ///
@@ -192,7 +189,6 @@ replace positivecovidtest = 0 if positivecovidtest == .
 
 * Outcomes and follow-up
 label var enter_date					"Date of study entry"
-label var indexdate						"Date of study entry (string variable)"
 label var onscoviddeathcensor_date 		"Date of admin censoring for ONS deaths"
 
 label var onscoviddeath					"Failure/censoring indicator for outcome: ONS covid death"
