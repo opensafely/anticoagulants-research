@@ -29,6 +29,7 @@ log using $logdir/03_an_checks_`outcome', replace t
 use $tempdir/analysis_dataset_`outcome', clear
 
 *Duplicate patient check
+sort patient_id
 datacheck _n==1, by(patient_id) nol
 
 /* EXPECTED VALUES============================================================*/ 
