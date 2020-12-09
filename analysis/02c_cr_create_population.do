@@ -127,8 +127,8 @@ rename case exposure
 sort set_id patient_id
 
 label var exposure "Oral anticoagulant Treatment Exposure"
-label define exposure 0 "non-use" 1 "current use"
-label values exposure exposure 
+label define case 0 "non-use" 1 "current use"
+label values exposure case 
 
 safecount
 
