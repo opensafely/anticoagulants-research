@@ -55,7 +55,7 @@ noi di "DROP IMD MISSING"
 noi di "KEEP PATIENTS WITH CHA2DS2_VASc_score==2"
 datacheck CHA2DS2_VASc_score !=., nol
 
-*keep if CHA2DS2_VASc_score == 2
+keep if CHA2DS2_VASc_score == 2
 
 noi di "PEOPLE PRESCRIBED INJECTABLE ANTICOAGULANT"
 drop if lmwh_last_four_months_date != .

@@ -53,7 +53,7 @@ noi di "DROP IMD MISSING"
 noi di "KEEP PATIENTS WITH CHA2DS2_VASc_score==2"
 datacheck CHA2DS2_VASc_score !=., nol
 
-*keep if CHA2DS2_VASc_score == 2
+keep if CHA2DS2_VASc_score == 2
 
 noi di "PEOPLE PRESCRIBED INJECTABLE ANTICOAGULANT"
 drop if lmwh_last_four_months_date != .
@@ -64,7 +64,12 @@ keep if exposure == 1
 * Need a string variable for cohort entry (for matching)
 gen indexdate = "2020-03-01"
 
-/* export a csv file for matching=====================================*/ 
+* drop unnecessary variable
+drop exposure
+
+/* save dataset & export a csv file for matching=====================================*/ 
+
+save $outdir/input_af_oac.dta, replace
 
 export delimited using $outdir/input_af_oac.csv, replace
 
