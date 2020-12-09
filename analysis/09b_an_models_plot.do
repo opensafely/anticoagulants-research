@@ -19,6 +19,8 @@ local outcome `1'
 
 local global_option `2'
 
+local df `3'
+
 do `c(pwd)'/analysis/global_`global_option'.do
 
 * Open a log file
@@ -32,7 +34,7 @@ use $tempdir/analysis_dataset_STSET_`outcome', clear
 * Fit the stpm2 model 
 xi i.exposure i.male $fullvarlist
 
-stpm2 _I* age1 age2 age3, scale(hazard) df($df) eform nolog
+stpm2 _I* age1 age2 age3, scale(hazard) df(`df') eform nolog
 
 * set timevar for time points to be plotted
 summ _t
