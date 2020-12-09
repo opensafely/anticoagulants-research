@@ -1,7 +1,7 @@
 version: "3.0"
 
 expectations:
-  population_size: 1000000
+  population_size: 100000
 
 actions:
   generate_cohort:
@@ -58,6 +58,7 @@ actions:
         log: output/oac_log/02ai_exportfile_matching.log
       highly_sensitive:
         data1: "output/input_af_oac.csv"
+        data2: "output/input_af_oac.dta"
 
   # Primary Outcomes: ONS COVID-19 death
   02aii_cr_create_population_af_oac_onscoviddeath:
@@ -141,7 +142,7 @@ actions:
         table2: "output/oac_tabfig/table6_onscoviddeath.txt"
 
   09a_an_models_plot_af_oac_onscoviddeath:
-    run: stata-mp:latest analysis/09a_an_models_plot.do onscoviddeath af_oac
+    run: stata-mp:latest analysis/09a_an_models_plot.do onscoviddeath af_oac 3
     needs: [02aii_cr_create_population_af_oac_onscoviddeath]
     outputs:
       moderately_sensitive:
@@ -231,7 +232,7 @@ actions:
         table2: "output/oac_tabfig/table6_admitcovid.txt"
 
   09a_an_models_plot_af_oac_admitcovid:
-    run: stata-mp:latest analysis/09a_an_models_plot.do admitcovid af_oac
+    run: stata-mp:latest analysis/09a_an_models_plot.do admitcovid af_oac 3
     needs: [02aii_cr_create_population_af_oac_admitcovid]
     outputs:
       moderately_sensitive:
@@ -313,7 +314,7 @@ actions:
         table2: "output/oac_tabfig/table6_covidtest.txt"
 
   09a_an_models_plot_af_oac_covidtest:
-    run: stata-mp:latest analysis/09a_an_models_plot.do covidtest af_oac
+    run: stata-mp:latest analysis/09a_an_models_plot.do covidtest af_oac 3
     needs: [02aii_cr_create_population_af_oac_covidtest]
     outputs:
       moderately_sensitive:
@@ -395,7 +396,7 @@ actions:
         table2: "output/oac_tabfig/table6_positivecovidtest.txt"
 
   09a_an_models_plot_af_oac_positivecovidtest:
-    run: stata-mp:latest analysis/09a_an_models_plot.do positivecovidtest af_oac
+    run: stata-mp:latest analysis/09a_an_models_plot.do positivecovidtest af_oac 3
     needs: [02aii_cr_create_population_af_oac_positivecovidtest]
     outputs:
       moderately_sensitive:
@@ -505,7 +506,7 @@ actions:
         table2: "output/warfarin_tabfig/table6_onscoviddeath.txt"
 
   09b_an_models_plot_af_warfarin_onscoviddeath:
-    run: stata-mp:latest analysis/09b_an_models_plot.do onscoviddeath af_warfarin
+    run: stata-mp:latest analysis/09b_an_models_plot.do onscoviddeath af_warfarin 3
     needs: [02b_cr_create_population_af_warfarin_onscoviddeath]
     outputs:
       moderately_sensitive:
@@ -595,7 +596,7 @@ actions:
         table2: "output/warfarin_tabfig/table6_admitcovid.txt"
 
   09b_an_models_plot_af_warfarin_admitcovid:
-    run: stata-mp:latest analysis/09b_an_models_plot.do admitcovid af_warfarin
+    run: stata-mp:latest analysis/09b_an_models_plot.do admitcovid af_warfarin 3
     needs: [02b_cr_create_population_af_warfarin_admitcovid]
     outputs:
       moderately_sensitive:
@@ -677,7 +678,7 @@ actions:
         table2: "output/warfarin_tabfig/table6_onsnoncoviddeath.txt"
 
   09b_an_models_plot_af_warfarin_onsnoncoviddeath:
-    run: stata-mp:latest analysis/09b_an_models_plot.do onsnoncoviddeath af_warfarin
+    run: stata-mp:latest analysis/09b_an_models_plot.do onsnoncoviddeath af_warfarin 3
     needs: [02b_cr_create_population_af_warfarin_onsnoncoviddeath]
     outputs:
       moderately_sensitive:
@@ -759,7 +760,7 @@ actions:
         table2: "output/warfarin_tabfig/table6_covidtest.txt"
 
   09b_an_models_plot_af_warfarin_covidtest:
-    run: stata-mp:latest analysis/09b_an_models_plot.do covidtest af_warfarin
+    run: stata-mp:latest analysis/09b_an_models_plot.do covidtest af_warfarin 3
     needs: [02b_cr_create_population_af_warfarin_covidtest]
     outputs:
       moderately_sensitive:
@@ -841,7 +842,7 @@ actions:
         table2: "output/warfarin_tabfig/table6_positivecovidtest.txt"
 
   09b_an_models_plot_af_warfarin_positivecovidtest:
-    run: stata-mp:latest analysis/09b_an_models_plot.do positivecovidtest af_warfarin
+    run: stata-mp:latest analysis/09b_an_models_plot.do positivecovidtest af_warfarin 3
     needs: [02b_cr_create_population_af_warfarin_positivecovidtest]
     outputs:
       moderately_sensitive:
@@ -851,7 +852,6 @@ actions:
 
 # Main Analysis 3
 # Objective 1: compare AF treated people with general population
-
   matching:
     run: python:latest python analysis/match_running.py
     needs: [generate_cohort, 02ai_exportfile_matching]
@@ -884,12 +884,12 @@ actions:
   # Primary Outcomes: ONS COVID-19 death
   02c_cr_create_population_af_match_onscoviddeath:
     run: stata-mp:latest analysis/02c_cr_create_population.do onscoviddeath af_match
-    needs: [create_dataset_af_match]
+    needs: [create_dataset_af_match, matching, 02ai_exportfile_matching]
     outputs:
       moderately_sensitive:
         log: output/oac_match_log/02c_cr_create_population_onscoviddeath.log
       highly_sensitive:
-        data1: "output/matched_control_onscoviddeath.dta"
+        data1: "output/oac_match_tempdata/matched_control_onscoviddeath.dta"
         data2: "output/oac_match_tempdata/analysis_dataset_onscoviddeath.dta"
         data3: "output/oac_match_tempdata/analysis_dataset_STSET_onscoviddeath.dta"
 
@@ -964,7 +964,7 @@ actions:
         table2: "output/oac_match_tabfig/table6_onscoviddeath.txt"
 
   09a_an_models_plot_af_match_onscoviddeath:
-    run: stata-mp:latest analysis/09a_an_models_plot.do onscoviddeath af_match
+    run: stata-mp:latest analysis/09a_an_models_plot.do onscoviddeath af_match 3
     needs: [02c_cr_create_population_af_match_onscoviddeath]
     outputs:
       moderately_sensitive:
@@ -975,12 +975,12 @@ actions:
   # Primary Outcomes: COVID-19 hospital admission
   02c_cr_create_population_af_match_admitcovid:
     run: stata-mp:latest analysis/02c_cr_create_population.do admitcovid af_match
-    needs: [create_dataset_af_match]
+    needs: [create_dataset_af_match, matching, 02ai_exportfile_matching]
     outputs:
       moderately_sensitive:
         log: output/oac_match_log/02c_cr_create_population_admitcovid.log
       highly_sensitive:
-        data1: "output/matched_control_admitcovid.dta"
+        data1: "output/oac_match_tempdata/matched_control_admitcovid.dta"
         data2: "output/oac_match_tempdata/analysis_dataset_admitcovid.dta"
         data3: "output/oac_match_tempdata/analysis_dataset_STSET_admitcovid.dta"
 
@@ -1055,7 +1055,7 @@ actions:
         table2: "output/oac_match_tabfig/table6_admitcovid.txt"
 
   09a_an_models_plot_af_match_admitcovid:
-    run: stata-mp:latest analysis/09a_an_models_plot.do admitcovid af_match
+    run: stata-mp:latest analysis/09a_an_models_plot.do admitcovid af_match 3
     needs: [02c_cr_create_population_af_match_admitcovid]
     outputs:
       moderately_sensitive:
@@ -1066,12 +1066,12 @@ actions:
   # Exploratory Outcomes: COVID-19 test
   02c_cr_create_population_af_match_covidtest:
     run: stata-mp:latest analysis/02c_cr_create_population.do covidtest af_match
-    needs: [create_dataset_af_match]
+    needs: [create_dataset_af_match, matching, 02ai_exportfile_matching]
     outputs:
       moderately_sensitive:
         log: output/oac_match_log/02c_cr_create_population_covidtest.log
       highly_sensitive:
-        data1: "output/output/matched_control_covidtest.dta"
+        data1: "output/oac_match_tempdata/matched_control_covidtest.dta"
         data2: "output/oac_match_tempdata/analysis_dataset_covidtest.dta"
         data3: "output/oac_match_tempdata/analysis_dataset_STSET_covidtest.dta"
 
@@ -1138,7 +1138,7 @@ actions:
         table2: "output/oac_match_tabfig/table6_covidtest.txt"
 
   09a_an_models_plot_af_match_covidtest:
-    run: stata-mp:latest analysis/09a_an_models_plot.do covidtest af_match
+    run: stata-mp:latest analysis/09a_an_models_plot.do covidtest af_match 3
     needs: [02c_cr_create_population_af_match_covidtest]
     outputs:
       moderately_sensitive:
@@ -1149,12 +1149,12 @@ actions:
   # Exploratory Outcomes: Positive COVID test
   02c_cr_create_population_af_match_positivecovidtest:
     run: stata-mp:latest analysis/02c_cr_create_population.do positivecovidtest af_match
-    needs: [create_dataset_af_match]
+    needs: [create_dataset_af_match, matching, 02ai_exportfile_matching]
     outputs:
       moderately_sensitive:
         log: output/oac_match_log/02c_cr_create_population_positivecovidtest.log
       highly_sensitive:
-        data1: "output/matched_control_positivecovidtest.dta"
+        data1: "output/oac_match_tempdata/matched_control_positivecovidtest.dta"
         data2: "output/oac_match_tempdata/analysis_dataset_positivecovidtest.dta"
         data3: "output/oac_match_tempdata/analysis_dataset_STSET_positivecovidtest.dta"
 
@@ -1221,7 +1221,7 @@ actions:
         table2: "output/oac_match_tabfig/table6_positivecovidtest.txt"
 
   09a_an_models_plot_af_match_positivecovidtest:
-    run: stata-mp:latest analysis/09a_an_models_plot.do positivecovidtest af_match
+    run: stata-mp:latest analysis/09a_an_models_plot.do positivecovidtest af_match 3
     needs: [02c_cr_create_population_af_match_positivecovidtest]
     outputs:
       moderately_sensitive:
