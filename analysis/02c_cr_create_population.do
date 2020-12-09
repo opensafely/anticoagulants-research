@@ -126,9 +126,9 @@ drop exposure exposure_warfarin
 rename case exposure 
 sort set_id patient_id
 
-label var case "Oral anticoagulant Treatment Exposure"
-label define case 0 "non-use" 1 "current use"
-label values case case 
+label var exposure "Oral anticoagulant Treatment Exposure"
+label define exposure 0 "non-use" 1 "current use"
+label values exposure exposure 
 
 safecount
 
