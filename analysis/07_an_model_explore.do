@@ -84,4 +84,4 @@ restore
 file write tablecontent _n
 file close tablecontent
 
-
+log close
