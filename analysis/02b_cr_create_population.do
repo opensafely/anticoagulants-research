@@ -36,6 +36,10 @@ drop exposure
 
 rename exposure_warfarin exposure
 
+label var exposure_warfarin "warfarin vs DOACs"
+label define exposure_warfarin 0 "DOAC use" 1 "warfarin use"
+label values exposure_warfarin exposure_warfarin 
+
 /* APPLY INCLUSION/EXCLUIONS==================================================*/ 
 noi di "DROP MISSING GENDER:"
 drop if inlist(sex,"I", "U")
@@ -56,7 +60,7 @@ noi di "DROP VALVULAR ATRIAL FIBRILLATION"
 drop if valvular_af == 1
 
 noi di "KEEP PEOPLE WHO HAD WARFARIN OR DOAC"
-keep if exposure != .
+keep if exposure == 1 | exposure == 0
 
 noi di "DROP IF END OF STUDY PERIOD BEFORE INDEX"
 drop if stime_`outcome' < date("$indexdate", "DMY")
