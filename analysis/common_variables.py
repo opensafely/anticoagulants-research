@@ -17,17 +17,17 @@ common_variables = dict(
         include_month=True,
         return_expectations={"date": {"latest": "2020-03-01"}},
     ),
-    # Exclusion criteria (PLACEHOLDER)
+    # Exclusion criteria
     valvular_AF=patients.with_these_clinical_events(
-        placeholder_med_codelist,
+        valvular_af_codes,
         on_or_before="2020-02-29",
         return_first_date_in_period=True,
         include_month=True,
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
-    # Exclusion criteria (PLACEHOLDER)
+    # Exclusion criteria
     antiphospholipid_syndrome=patients.with_these_clinical_events(
-        placeholder_med_codelist,
+        antiphospholipid_codes,
         on_or_before="2020-02-29",
         return_first_date_in_period=True,
         include_month=True,
@@ -99,9 +99,9 @@ common_variables = dict(
         },
     ),
     # MEDICATIONS
-    # LMWH - PLACEHOLDER
+    # LMWH
     lmwh_last_four_months=patients.with_these_medications(
-        placeholder_drug_codelist,
+        lmwh_codes,
         between=["2019-11-01", "2020-02-29"],
         returning="date",
         find_last_match_in_period=True,
@@ -691,9 +691,9 @@ common_variables = dict(
         include_month=True,
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
-    #### Transient ischaemic attack (PLACEHOLDER)
+    #### Transient ischaemic attack
     tia=patients.with_these_clinical_events(
-        placeholder_med_codelist,
+        tia_codes,
         on_or_before="2020-02-29",
         return_last_date_in_period=True,
         include_month=True,
@@ -707,9 +707,9 @@ common_variables = dict(
         include_month=True,
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
-    #### Peripheral artery disease (PLACEHOLDER)
+    #### Peripheral artery disease
     pad=patients.with_these_clinical_events(
-        placeholder_med_codelist,
+        pad_codes,
         on_or_before="2020-02-29",
         return_last_date_in_period=True,
         include_month=True,
