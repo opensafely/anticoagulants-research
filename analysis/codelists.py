@@ -10,11 +10,6 @@ placeholder_drug_codelist = codelist(
     system="snomed",
 )
 
-placeholder_med_codelist = codelist(
-    ["cndjksfks"], 
-    system="ctv3",
-)
-
 # OUTCOME CODELISTS
 covid_identification = codelist_from_csv(
     "codelists/opensafely-covid-identification.csv",
@@ -115,6 +110,29 @@ stroke_codes  = codelist_from_csv(
     column="CTV3ID",
 )
 
+tia_codes  = codelist_from_csv(
+    "codelists/opensafely-transient-ischaemic-attack.csv",
+    system="ctv3",
+    column="code",
+)
+
+antiphospholipid_codes  = codelist_from_csv(
+    "codelists/opensafely-antiphospholipid-syndrome.csv",
+    system="ctv3",
+    column="code",
+)
+
+pad_codes  = codelist_from_csv(
+    "codelists/opensafely-peripheral-arterial-disease.csv",
+    system="ctv3",
+    column="code",
+)
+
+valvular_af_codes  = codelist_from_csv(
+    "codelists/opensafely-valvular-atrial-fibrillation.csv",
+    system="ctv3",
+    column="code",
+)
 
 creatinine_codes = codelist(["XE2q5"], system="ctv3")
 
@@ -146,7 +164,7 @@ vte_codes = codelist_from_csv(
 )
 
 af_codes = codelist_from_csv(
-    "codelists/opensafely-atrial-fibrillation-or-flutter.csv",
+    "codelists/opensafely-atrial-fibrillation-clinical-finding.csv",
     system="ctv3",
     column="CTV3Code",
 )
@@ -181,6 +199,12 @@ warfarin_codes = codelist_from_csv(
 
 doac_codes = codelist_from_csv(
     "codelists/opensafely-direct-acting-oral-anticoagulants-doac.csv",
+    system="snomed",
+    column="id",
+)
+
+lmwh_codes = codelist_from_csv(
+    "codelists/opensafely-low-molecular-weight-heparins.csv",
     system="snomed",
     column="id",
 )

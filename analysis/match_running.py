@@ -11,6 +11,7 @@ afmatchgeneralpopulation = {
         "practice_id": "category",
     },
     "closest_match_columns": ["age"],
+    "index_date_variable": "indexdate",
     "replace_match_index_date_with_case": "no_offset",
 }
 match(**afmatchgeneralpopulation)
