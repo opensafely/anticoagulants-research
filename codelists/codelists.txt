@@ -1,4 +1,4 @@
-opensafely/atrial-fibrillation-or-flutter/2020-07-30
+opensafely/atrial-fibrillation-clinical-finding/2020-07-09
 opensafely/aplastic-anaemia/2020-04-24
 opensafely/asplenia/2020-06-02
 opensafely/cancer-excluding-lung-and-haematological/2020-04-15
@@ -28,3 +28,8 @@ opensafely/sickle-cell-disease/2020-04-14
 opensafely/solid-organ-transplantation/2020-04-10
 opensafely/stroke-updated/2020-06-02
 opensafely/temporary-immunosuppression/2020-04-24
+opensafely/valvular-atrial-fibrillation/6cab4902
+opensafely/antiphospholipid-syndrome/3a8c6298
+opensafely/peripheral-arterial-disease/50e915d7
+opensafely/transient-ischaemic-attack/3526e2ac
+opensafely/low-molecular-weight-heparins/3088164f
