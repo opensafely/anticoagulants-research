@@ -206,5 +206,5 @@ doac_codes = codelist_from_csv(
 lmwh_codes = codelist_from_csv(
     "codelists/opensafely-low-molecular-weight-heparins.csv",
     system="snomed",
-    column="id",
+    column="code",
 )
