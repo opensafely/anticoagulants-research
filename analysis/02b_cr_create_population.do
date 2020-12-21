@@ -37,7 +37,6 @@ drop exposure
 rename exposure_warfarin exposure
 
 label var exposure "warfarin vs DOACs"
-label define exposure_warfarin 0 "DOAC use" 1 "warfarin use"
 label values exposure exposure_warfarin 
 
 /* APPLY INCLUSION/EXCLUIONS==================================================*/ 
