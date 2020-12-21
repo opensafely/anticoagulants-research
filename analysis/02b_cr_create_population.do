@@ -36,9 +36,9 @@ drop exposure
 
 rename exposure_warfarin exposure
 
-label var exposure_warfarin "warfarin vs DOACs"
+label var exposure "warfarin vs DOACs"
 label define exposure_warfarin 0 "DOAC use" 1 "warfarin use"
-label values exposure_warfarin exposure_warfarin 
+label values exposure exposure_warfarin 
 
 /* APPLY INCLUSION/EXCLUIONS==================================================*/ 
 noi di "DROP MISSING GENDER:"
