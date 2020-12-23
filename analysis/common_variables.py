@@ -783,9 +783,9 @@ common_variables = dict(
     has_consultation_history=patients.with_complete_gp_consultation_history_between(
         "2019-03-01", "2020-02-29", return_expectations={"incidence": 0.9},
     ),
-    # OESTROGEN USAGE (PLACEHOLDER)
+    # OESTROGEN USAGE
     oestrogen=patients.with_these_medications(
-        placeholder_drug_codelist,
+        oestrogen_codes,
         between=["2019-11-01", "2020-02-29"],
         returning="date",
         find_last_match_in_period=True,
@@ -795,9 +795,9 @@ common_variables = dict(
             "date": {"earliest": "2019-11-01", "latest": "2020-02-29"}
         },
     ),
-    # ANTIPLATELET USAGE (PLACEHOLDER)
+    # ANTIPLATELET USAGE
     antiplatelet=patients.with_these_medications(
-        placeholder_drug_codelist,
+        antiplatelet_codes,
         between=["2019-11-01", "2020-02-29"],
         returning="date",
         find_last_match_in_period=True,
