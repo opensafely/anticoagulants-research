@@ -11,7 +11,7 @@ DATASETS USED:			data in memory ($tempdir/analysis_dataset_STSET_outcome)
 
 DATASETS CREATED: 		none
 OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
-						Adj_curves.svg
+						adj_curves.svg
 						diff_curves.svg
 							
 ==============================================================================*/
@@ -65,15 +65,15 @@ twoway  (rarea _at1_lci _at1_uci timevar, color(blue%25)) ///
                  ylabel(0 (0.05) $cum_death_ymax ,angle(h) format(%4.2f)) ///
                  ytitle("Cumulative incidence (%)") ///
                  xtitle("Days from 1 March 2020") ///
-				 saving(Adj_curves_`outcome' , replace)
+				 saving(adj_curves_`outcome' , replace)
 				 
-graph export "$tabfigdir/Adj_curves_`outcome'.svg", as(svg) replace
+graph export "$tabfigdir/adj_curves_`outcome'.svg", as(svg) replace
 
 * Close window 
 graph close
 
 * Delete unneeded graphs
-erase Adj_curves_`outcome'.gph
+erase adj_curves_`outcome'.gph
 
 * Plot the difference in curves
 twoway  (rarea _contrast2_1_lci _contrast2_1_uci timevar, color(red%25)) ///
