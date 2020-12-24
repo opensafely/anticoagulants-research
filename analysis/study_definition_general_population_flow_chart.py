@@ -76,7 +76,7 @@ study = StudyDefinition(
 
    # Treatment variable 
     lmwh_last_four_months=patients.with_these_medications(
-        warfarin_codes,
+        lmwh_codes,
         between=["2019-11-01", "2020-02-29"],
         returning="date",
         find_last_match_in_period=True,
