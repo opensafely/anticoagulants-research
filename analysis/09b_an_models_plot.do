@@ -21,6 +21,8 @@ local global_option `2'
 
 local df `3'
 
+local cum_death_ymax `4'
+
 do `c(pwd)'/analysis/global_`global_option'.do
 
 * Open a log file
@@ -62,7 +64,7 @@ twoway  (rarea _at1_lci _at1_uci timevar, color(blue%25)) ///
                  (line _at2  timevar, sort lcolor(red)) ///
                  , legend(order(1 "DOAC use" 2 "Warfarin use") ///
 				 ring(0) cols(1) pos(1)) ///
-                 ylabel(0 (0.05) $cum_death_ymax ,angle(h) format(%4.2f)) ///
+                 ylabel(0 (0.5) `cum_death_ymax' ,angle(h) format(%4.2f)) ///
                  ytitle("Cumulative incidence (%)") ///
                  xtitle("Days from 1 March 2020") ///
 				 saving(adj_curves_`outcome' , replace)
