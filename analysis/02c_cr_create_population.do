@@ -94,10 +94,10 @@ datacheck af_date == . , nol
 datacheck lmwh_last_four_months_date == ., nol
 
 * EXCLUSION 6: EXCLUDE PEOPLE WITH WARFARIN 
-datacheck warfarin_last_four_months == . , nol
+cap datacheck warfarin_last_four_months == . , nol
 
 * EXCLUSION 6: EXCLUDE PEOPLE WITH DOACs 
-datacheck doac_last_four_months == . , nol
+cap datacheck doac_last_four_months == . , nol
 
 /* SAVE DATA==================================================================*/
 save $tempdir/matched_control_`outcome'.dta , replace
