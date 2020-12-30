@@ -51,11 +51,10 @@ def import_csvs(
         for var in date_exclusion_variables:
             cases[var] = pd.to_datetime(cases[var])
             matches[var] = pd.to_datetime(matches[var])
-            cases[index_date_variable] = pd.to_datetime(cases[index_date_variable])
-            if replace_match_index_date_with_case is None:
-                matches[index_date_variable] = pd.to_datetime(
-                    matches[index_date_variable]
-                )
+    ## Format index date as date
+    cases[index_date_variable] = pd.to_datetime(cases[index_date_variable])
+    if replace_match_index_date_with_case is None:
+        matches[index_date_variable] = pd.to_datetime(matches[index_date_variable])
 
     return cases, matches
 
@@ -87,8 +86,8 @@ def add_variables(cases, matches, indicator_variable_name="case"):
 def get_bool_index(match_type, value, match_var, matches):
     """
     Compares the value in the given case variable to the variable in
-    the match dataframe, to generate a boolean index. Comparisons vary
-    accoding to the matching specification.
+    the match dataframe, to generate a boolean Series. Comparisons vary
+    according to the matching specification.
     """
     if match_type == "category":
         bool_index = matches[match_var] == value
@@ -102,7 +101,7 @@ def get_bool_index(match_type, value, match_var, matches):
 def pre_calculate_indices(cases, matches, match_variables):
     """
     Loops over each of the values in the case table for each of the match
-    variables and generates a boolean index against the match table. These are
+    variables and generates a boolean Series against the match table. These are
     returned in a dict.
     """
     indices_dict = {}
@@ -119,8 +118,8 @@ def pre_calculate_indices(cases, matches, match_variables):
 
 def get_eligible_matches(case_row, matches, match_variables, indices):
     """
-    Loops over the match_variables and combines the boolean indices
-    from pre_calculate_indices into a single bool index. Also removes previously
+    Loops over the match_variables and combines the boolean Series
+    from pre_calculate_indices into a single bool Series. Also removes previously
     matched patients.
     """
     eligible_matches = pd.Series(data=True, index=matches.index)
@@ -135,9 +134,9 @@ def get_eligible_matches(case_row, matches, match_variables, indices):
 
 def date_exclusions(df1, date_exclusion_variables, index_date):
     """
-    Loops over the exclusion variables and creates a boolean array corresponding
+    Loops over the exclusion variables and creates a boolean Series corresponding
     to where there are exclusion variables that occur before the index date.
-    index_date can be either a single value, or a pandas series whose index
+    index_date can be either a single value, or a pandas Series whose index
     matches df1.
     """
     exclusions = pd.Series(data=False, index=df1.index)
@@ -156,17 +155,17 @@ def greedily_pick_matches(
     matches_per_case,
     matched_rows,
     case_row,
-    closest_match_columns=None,
+    closest_match_variables=None,
 ):
     """
     Cuts the eligible_matches list to the number of matches specified. This is a
-    greedy matching method, so if closest_match_columns are specified, it sorts
+    greedy matching method, so if closest_match_variables are specified, it sorts
     on those variables to get the closest available matches for that case. It
     always also sorts on random variable.
     """
     sort_columns = []
-    if closest_match_columns is not None:
-        for var in closest_match_columns:
+    if closest_match_variables is not None:
+        for var in closest_match_variables:
             matched_rows[f"{var}_delta"] = abs(matched_rows[var] - case_row[var])
             sort_columns.append(f"{var}_delta")
 
@@ -179,7 +178,7 @@ def greedily_pick_matches(
 def get_date_offset(offset_str):
     """
     Parses the string given by replace_match_index_date_with_case
-    to determine the unit and lenght of offset.
+    to determine the unit and length of offset.
     Returns a pr.DateOffset of the appropriate length.
     """
     if offset_str == "no_offset":
@@ -204,10 +203,12 @@ def match(
     matches_per_case,
     match_variables,
     index_date_variable,
-    closest_match_columns=None,
+    closest_match_variables=None,
     date_exclusion_variables=None,
+    min_matches_per_case=0,
     replace_match_index_date_with_case=None,
     indicator_variable_name="case",
+    output_suffix="",
     output_path="output",
 ):
     """
@@ -222,9 +223,13 @@ def match(
     - set the index date of the match as that of the case (where desired)
     - save the results as a csv
     """
+    assert (
+        min_matches_per_case <= matches_per_case
+    ), "min_matches_per_case cannot be greater than matches_per_case"
+
     report_path = os.path.join(
         output_path,
-        f"matching_report_{match_csv.replace('input_', '')}.txt",
+        f"matching_report{output_suffix}.txt",
     )
 
     def matching_report(text_to_write, erase=False):
@@ -338,7 +343,7 @@ def match(
             matches_per_case,
             matched_rows,
             case_row,
-            closest_match_columns,
+            closest_match_variables,
         )
 
         ## Report number of matches for each case
@@ -346,7 +351,7 @@ def match(
         cases.loc[case_id, "match_counts"] = num_matches
 
         ## Label matches with case ID if there are enough
-        if num_matches == matches_per_case:
+        if num_matches >= min_matches_per_case:
             matches.loc[matched_rows, "set_id"] = case_id
 
         ## Set index_date of the match where needed
@@ -354,12 +359,12 @@ def match(
             matches.loc[matched_rows, index_date_variable] = index_date
 
     ## Drop unmatched cases/matches
-    matched_cases = cases.loc[cases["match_counts"] == matches_per_case]
+    matched_cases = cases.loc[cases["match_counts"] >= min_matches_per_case]
     matched_matches = matches.loc[matches["set_id"] != NOT_PREVIOUSLY_MATCHED]
 
     ## Describe population differences
     scalar_comparisons = compare_populations(
-        matched_cases, matched_matches, closest_match_columns
+        matched_cases, matched_matches, closest_match_variables
     )
 
     matching_report(
@@ -375,27 +380,25 @@ def match(
     )
 
     ## Write to csvs
-    case_name = case_csv.replace("input_", "")
-    match_name = match_csv.replace("input_", "")
-    matched_cases.to_csv(
-        os.path.join(output_path, f"{case_name}_only_matched_to_{match_name}.csv")
+    matched_cases.to_csv(os.path.join(output_path, f"matched_cases{output_suffix}.csv"))
+    matched_matches.to_csv(
+        os.path.join(output_path, f"matched_matches{output_suffix}.csv")
     )
-    matched_matches.to_csv(os.path.join(output_path, f"{match_name}_matched_only.csv"))
     appended = matched_cases.append(matched_matches)
-    appended.to_csv(os.path.join(output_path, f"{case_name}_matched_to_{match_name}.csv"))
+    appended.to_csv(os.path.join(output_path, f"matched_combined{output_suffix}.csv"))
 
 
-def compare_populations(matched_cases, matched_matches, closest_match_columns):
+def compare_populations(matched_cases, matched_matches, closest_match_variables):
     """
-    Takes the list of closest_match_columns and describes each of them for the matched
+    Takes the list of closest_match_variables and describes each of them for the matched
     case and matched control population, so that their similarity can be checked.
     Returns a list strings corresponding to the rows of the describe() output, to be
-    passed to matching_report(). Returns empty list if no closest_match_columns are
+    passed to matching_report(). Returns empty list if no closest_match_variables are
     specified.
     """
     scalar_comparisons = []
-    if closest_match_columns is not None:
-        for var in closest_match_columns:
+    if closest_match_variables is not None:
+        for var in closest_match_variables:
             scalar_comparisons.extend(
                 [
                     f"\n{var} comparison:",

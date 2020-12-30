@@ -104,7 +104,7 @@ save $tempdir/matched_control_`outcome'.dta , replace
 
 /* Combine the case cohort after matching==================================*/	
 * Exposed cohort after matching
-import delimited `c(pwd)'/output/af_oac_only_matched_to_general_population.csv, clear
+import delimited `c(pwd)'/output/matched_cases_af_gen_pop.csv, clear
 safecount
 
 keep patient_id case set_id
