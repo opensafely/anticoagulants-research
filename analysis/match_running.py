@@ -5,6 +5,7 @@ afmatchgeneralpopulation = {
     "case_csv": "input_af_oac",
     "match_csv": "input_general_population",
     "matches_per_case": 10,
+    "min_matches_per_case": 1,
     "match_variables": {
         "sex": "category",
         "age": 1,
