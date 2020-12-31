@@ -201,7 +201,7 @@ drop warfarin* doac* chadsvas* exposure
 
 rename oac_after_mar exposure
 cap label drop exposure 
-label define exposure 0 "DOAC use" 1 "warfarin use
+label define exposure 0 "DOAC use" 1 "warfarin use"
 label values exposure exposure 
 
 /* SAVE FINAL DATASET=========================================================*/
