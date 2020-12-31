@@ -506,7 +506,7 @@ actions:
         table2: "output/warfarin_tabfig/table6_onscoviddeath.txt"
 
   09b_an_models_plot_af_warfarin_onscoviddeath:
-    run: stata-mp:latest analysis/09b_an_models_plot.do onscoviddeath af_warfarin 2 0.8 0.1
+    run: stata-mp:latest analysis/09b_an_models_plot.do onscoviddeath af_warfarin 2 1 0.1
     needs: [02b_cr_create_population_af_warfarin_onscoviddeath]
     outputs:
       moderately_sensitive:
@@ -596,7 +596,7 @@ actions:
         table2: "output/warfarin_tabfig/table6_admitcovid.txt"
 
   09b_an_models_plot_af_warfarin_admitcovid:
-    run: stata-mp:latest analysis/09b_an_models_plot.do admitcovid af_warfarin 2 0.8 0.1
+    run: stata-mp:latest analysis/09b_an_models_plot.do admitcovid af_warfarin 2 1 0.1
     needs: [02b_cr_create_population_af_warfarin_admitcovid]
     outputs:
       moderately_sensitive:
@@ -1137,7 +1137,7 @@ actions:
         table2: "output/oac_match_tabfig/table6_covidtest.txt"
 
   09a_an_models_plot_af_match_covidtest:
-    run: stata-mp:latest analysis/09a_an_models_plot.do covidtest af_match 3 5 1
+    run: stata-mp:latest analysis/09a_an_models_plot.do covidtest af_match 3 10 1
     needs: [02c_cr_create_population_af_match_covidtest]
     outputs:
       moderately_sensitive:
@@ -1220,7 +1220,7 @@ actions:
         table2: "output/oac_match_tabfig/table6_positivecovidtest.txt"
 
   09a_an_models_plot_af_match_positivecovidtest:
-    run: stata-mp:latest analysis/09a_an_models_plot.do positivecovidtest af_match 4 0.6 0.1
+    run: stata-mp:latest analysis/09a_an_models_plot.do positivecovidtest af_match 4 1 0.1
     needs: [02c_cr_create_population_af_match_positivecovidtest]
     outputs:
       moderately_sensitive:
