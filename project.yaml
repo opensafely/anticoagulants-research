@@ -963,7 +963,7 @@ actions:
         table2: "output/oac_match_tabfig/table6_onscoviddeath.txt"
 
   09a_an_models_plot_af_match_onscoviddeath:
-    run: stata-mp:latest analysis/09a_an_models_plot.do onscoviddeath af_match 2 0.3 0.1
+    run: stata-mp:latest analysis/09a_an_models_plot.do onscoviddeath af_match 3 0.5 0.1
     needs: [02c_cr_create_population_af_match_onscoviddeath]
     outputs:
       moderately_sensitive:
@@ -1054,7 +1054,7 @@ actions:
         table2: "output/oac_match_tabfig/table6_admitcovid.txt"
 
   09a_an_models_plot_af_match_admitcovid:
-    run: stata-mp:latest analysis/09a_an_models_plot.do admitcovid af_match 2 0.3 0.1
+    run: stata-mp:latest analysis/09a_an_models_plot.do admitcovid af_match 2 0.5 0.1
     needs: [02c_cr_create_population_af_match_admitcovid]
     outputs:
       moderately_sensitive:
