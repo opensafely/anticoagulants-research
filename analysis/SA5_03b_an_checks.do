@@ -34,6 +34,12 @@ duplicates drop patient_id, force
 
 safetab switch_count exposure, m
 
+* warfarin switched to DOACs
+safecount if exposure == 1 & switch_count > 1
+
+* DOAC switched to DOACs
+safecount if exposure == 0 & switch_count > 1
+
 log close
 
 
