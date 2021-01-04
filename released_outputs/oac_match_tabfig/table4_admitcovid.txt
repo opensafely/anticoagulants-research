@@ -1,0 +1,87 @@
+Table 4: 1 by 1 comorbidity adjustments (after age/sex and strata adjustments) - Obj_1_AF_vs_general_population population
+	HR	95% CI
+Index of Multiple Deprivation (IMD)
+0	1.00 (ref)	
+1	1.18	0.98 - 1.41
+
+Evidence of obesity (4 categories)
+0	1.00 (ref)	
+1	1.09	0.91 - 1.31
+
+Smoking status (missing set to non)
+0	1.00 (ref)	
+1	1.16	0.97 - 1.38
+
+Diabetes Severity
+0	1.00 (ref)	
+1	1.28	1.06 - 1.53
+
+Myocardial infarction
+0	1.00 (ref)	
+1	1.19	0.99 - 1.42
+
+Peripheral arterial disease
+0	1.00 (ref)	
+1	1.18	0.99 - 1.42
+
+Diagnosed hypertension
+0	1.00 (ref)	
+1	1.18	0.99 - 1.41
+
+Heart Failure
+0	1.00 (ref)	
+1	1.11	0.93 - 1.33
+
+Stroke/Transient ischaemic attack
+0	1.00 (ref)	
+1	1.23	1.02 - 1.47
+
+Venous thromboembolism
+0	1.00 (ref)	
+1	1.17	0.98 - 1.41
+
+Recent Oestrogen
+0	1.00 (ref)	
+1	1.16	0.97 - 1.39
+
+Recent antiplatelet
+0	1.00 (ref)	
+1	1.30	1.08 - 1.55
+
+Flu vaccine
+0	1.00 (ref)	
+1	1.16	0.97 - 1.39
+
+Chronic kidney disease
+0	1.00 (ref)	
+1	1.14	0.95 - 1.37
+
+COPD
+0	1.00 (ref)	
+1	1.16	0.97 - 1.39
+
+Other Respiratory Diseases
+0	1.00 (ref)	
+1	1.16	0.97 - 1.39
+
+Immunosuppressed (combination algorithm)
+0	1.00 (ref)	
+1	1.16	0.97 - 1.39
+
+Cancer
+0	1.00 (ref)	
+1	1.16	0.97 - 1.39
+
+A&E attendance rate in last year (binary)
+0	1.00 (ref)	
+1	1.04	0.87 - 1.24
+
+GP consultation in last year (binary)
+0	1.00 (ref)	
+1	1.16	0.97 - 1.39
+
+Ethnicity
+0	1.00 (ref)	
+1	1.15	0.93 - 1.42
+
+

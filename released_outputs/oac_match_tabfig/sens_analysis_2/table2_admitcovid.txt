@@ -1,0 +1,7 @@
+Table 2: Association between current anticoagulant use and admitcovid - Obj_1_AF_vs_general_population Population
+	Number of events	Total person-weeks	Rate per 1,000	Univariable		Age/Sex Adjusted		DAG Adjusted		Fully adjusted		
+				HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI
+Main Analysis
+0	1390	  14541702	0.10	1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)
+1	158	   1469846	0.11	1.09	0.93 - 1.29	1.33	1.02 - 1.74	1.30	0.99 - 1.70	1.26	0.96 - 1.66
+

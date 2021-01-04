@@ -1,0 +1,72 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/sens_analysis_3/SA3_02b_cr_create_p
+> opulation_onsnoncoviddeath.log
+  log type:  text
+ opened on:  31 Dec 2020, 03:21:23
+
+. 
+. /* Use the dataset we derived from the 02b program===========================
+> ==*/ 
+. 
+. use $tempdir_main_analysis/analysis_dataset_`outcome', clear
+
+. 
+. noi di "PEOPLE PRESCRIBED DOAC AND WARFARIN ON THE SAME DAY (LATEST PRESCRIPT
+> ION)"
+PEOPLE PRESCRIBED DOAC AND WARFARIN ON THE SAME DAY (LATEST PRESCRIPTION)
+
+. 
+. drop if sens_exposure_warfarin == 2
+(32 observations deleted)
+
+. 
+. /* SAVE DATA=================================================================
+> =*/        
+. 
+. save $tempdir/analysis_dataset_`outcome', replace
+(note: file /workspace/output/warfarin_tempdata/sens_analysis_3/analysis_datase
+> t_onsnoncoviddeath.dta not found)
+file /workspace/output/warfarin_tempdata/sens_analysis_3/analysis_dataset_onsno
+> ncoviddeath.dta saved
+
+. 
+. * Save a version set on outcomes
+. stset stime_`outcome', fail(`outcome') id(patient_id) enter(enter_date) origi
+> n(enter_date)      
+
+                id:  patient_id
+     failure event:  onsnoncoviddeath != 0 & onsnoncoviddeath < .
+obs. time interval:  (stime_onsnoncoviddeath[_n-1], stime_onsnoncoviddeath]
+ enter on or after:  time enter_date
+ exit on or before:  failure
+    t for analysis:  (time-origin)
+            origin:  time enter_date
+
+------------------------------------------------------------------------------
+    371,519  total observations
+          5  observations end on or before enter()
+------------------------------------------------------------------------------
+    371,514  observations remaining, representing
+    371,514  subjects
+     14,069  failures in single-failure-per-subject data
+ 76155476.5  total analysis time at risk and under observation
+                                                at risk from t =         0
+                                     earliest observed entry t =         0
+                                          last observed exit t =       211
+
+. save $tempdir/analysis_dataset_STSET_`outcome', replace
+(note: file /workspace/output/warfarin_tempdata/sens_analysis_3/analysis_datase
+> t_STSET_onsnoncoviddeath.dta not found)
+file /workspace/output/warfarin_tempdata/sens_analysis_3/analysis_dataset_STSET
+> _onsnoncoviddeath.dta saved
+
+. 
+. * Close log file 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/sens_analysis_3/SA3_02b_cr_create_p
+> opulation_onsnoncoviddeath.log
+  log type:  text
+ closed on:  31 Dec 2020, 03:21:35
+-------------------------------------------------------------------------------

@@ -1,0 +1,97 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/oac_log/02ai_exportfile_matching.log
+  log type:  text
+ opened on:  31 Dec 2020, 02:41:42
+
+. 
+. /* APPLY INCLUSION/EXCLUIONS=================================================
+> =*/ 
+. 
+. use $tempdir/cr_dataset_af , clear
+
+. 
+. noi di "DROP MISSING ATRIAL FIBRILLATION:"
+DROP MISSING ATRIAL FIBRILLATION:
+
+. *DONE BY PYTHON
+. 
+. noi di "DROP MISSING GENDER:"
+DROP MISSING GENDER:
+
+. drop if inlist(sex,"I", "U")
+([REDACTED] observations deleted)
+
+. 
+. noi di "DROP AGE <18:" 
+DROP AGE <18:
+
+. *DONE BY PYTHON
+. 
+. noi di "DROP AGE >110:"
+DROP AGE >110:
+
+. *DONE BY PYTHON
+. 
+. noi di "DROP AGE MISSING:"
+DROP AGE MISSING:
+
+. *DONE BY PYTHON
+. 
+. noi di "DROP IMD MISSING"
+DROP IMD MISSING
+
+. *DONE BY PYTHON
+. 
+. noi di "KEEP PATIENTS WITH CHA2DS2_VASc_score==2"
+KEEP PATIENTS WITH CHA2DS2_VASc_score==2
+
+. datacheck CHA2DS2_VASc_score !=., nol
+
+. 
+. keep if CHA2DS2_VASc_score == 2
+(448,723 observations deleted)
+
+. 
+. noi di "PEOPLE PRESCRIBED INJECTABLE ANTICOAGULANT"
+PEOPLE PRESCRIBED INJECTABLE ANTICOAGULANT
+
+. drop if lmwh_last_four_months_date != .
+(210 observations deleted)
+
+. 
+. noi di "People PRESCIRBED ORAL ANTICOAUGLANT"
+People PRESCIRBED ORAL ANTICOAUGLANT
+
+. keep if exposure == 1
+(17,984 observations deleted)
+
+. 
+. * Need a string variable for cohort entry (for matching)
+. gen indexdate = "2020-03-01"
+
+. 
+. * drop unnecessary variable
+. drop exposure
+
+. 
+. /* save dataset & export a csv file for matching=============================
+> ========*/ 
+. 
+. save $outdir/input_af_oac.dta, replace
+(note: file /workspace/output/input_af_oac.dta not found)
+file /workspace/output/input_af_oac.dta saved
+
+. 
+. export delimited using $outdir/input_af_oac.csv, replace
+(note: file /workspace/output/input_af_oac.csv not found)
+file /workspace/output/input_af_oac.csv saved
+
+. 
+. * Close log file 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/oac_log/02ai_exportfile_matching.log
+  log type:  text
+ closed on:  31 Dec 2020, 02:41:47
+-------------------------------------------------------------------------------
