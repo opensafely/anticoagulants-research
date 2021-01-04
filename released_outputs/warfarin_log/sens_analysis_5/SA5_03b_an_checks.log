@@ -1,0 +1,51 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/sens_analysis_5/SA5_03b_an_checks.l
+> og
+  log type:  text
+ opened on:  31 Dec 2020, 16:04:23
+
+. 
+. /* Use the dataset we derived from the S5-02b program========================
+> =====*/ 
+. 
+. use $tempdir/analysis_dataset_STSET_onscoviddeath, clear
+
+. 
+. bysort patient_id: gen switch_count = _N
+
+. 
+. sort patient_id _t0
+
+. 
+. duplicates drop patient_id, force
+
+Duplicates in terms of patient_id
+
+(22,670 observations deleted)
+
+. 
+. safetab switch_count exposure, m
+22
+
+**TABLE OF switch_count exposure REDACTED DUE TO SMALL N**
+
+
+. 
+. * warfarin switched to DOACs
+. safecount if exposure == 1 & switch_count > 1
+  20,766
+
+. 
+. * DOAC switched to warfarin
+. safecount if exposure == 0 & switch_count > 1
+  474
+
+. 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/sens_analysis_5/SA5_03b_an_checks.l
+> og
+  log type:  text
+ closed on:  31 Dec 2020, 16:04:25
+-------------------------------------------------------------------------------

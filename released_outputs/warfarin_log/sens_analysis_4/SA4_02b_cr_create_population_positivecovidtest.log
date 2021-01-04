@@ -1,0 +1,73 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/sens_analysis_4/SA4_02b_cr_create_p
+> opulation_positivecovidtest.log
+  log type:  text
+ opened on:  31 Dec 2020, 03:28:27
+
+. 
+. /* Use the dataset we derived from the 02b program===========================
+> ==*/ 
+. 
+. use $tempdir_main_analysis/analysis_dataset_`outcome', clear
+
+. 
+. noi di "people who ever had warfarin prescription 4 months before cohort entr
+> y in the DOAC group"
+people who ever had warfarin prescription 4 months before cohort entry in the D
+> OAC group
+
+. 
+. drop if exposure == 0 & warfarin_last_four_months != .
+(3,464 observations deleted)
+
+. 
+. /* SAVE DATA=================================================================
+> =*/        
+. 
+. save $tempdir/analysis_dataset_`outcome', replace
+(note: file /workspace/output/warfarin_tempdata/sens_analysis_4/analysis_datase
+> t_positivecovidtest.dta not found)
+file /workspace/output/warfarin_tempdata/sens_analysis_4/analysis_dataset_posit
+> ivecovidtest.dta saved
+
+. 
+. * Save a version set on outcomes
+. stset stime_`outcome', fail(`outcome') id(patient_id) enter(enter_date) origi
+> n(enter_date)      
+
+                id:  patient_id
+     failure event:  positivecovidtest != 0 & positivecovidtest < .
+obs. time interval:  (stime_positivecovidtest[_n-1], stime_positivecovidtest]
+ enter on or after:  time enter_date
+ exit on or before:  failure
+    t for analysis:  (time-origin)
+            origin:  time enter_date
+
+------------------------------------------------------------------------------
+    368,087  total observations
+          5  observations end on or before enter()
+------------------------------------------------------------------------------
+    368,082  observations remaining, representing
+    368,082  subjects
+      4,683  failures in single-failure-per-subject data
+   75073860  total analysis time at risk and under observation
+                                                at risk from t =         0
+                                     earliest observed entry t =         0
+                                          last observed exit t =       211
+
+. save $tempdir/analysis_dataset_STSET_`outcome', replace
+(note: file /workspace/output/warfarin_tempdata/sens_analysis_4/analysis_datase
+> t_STSET_positivecovidtest.dta not found)
+file /workspace/output/warfarin_tempdata/sens_analysis_4/analysis_dataset_STSET
+> _positivecovidtest.dta saved
+
+. 
+. * Close log file 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/sens_analysis_4/SA4_02b_cr_create_p
+> opulation_positivecovidtest.log
+  log type:  text
+ closed on:  31 Dec 2020, 03:28:35
+-------------------------------------------------------------------------------

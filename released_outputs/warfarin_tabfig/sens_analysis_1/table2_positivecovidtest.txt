@@ -1,0 +1,7 @@
+Table 2: Association between current anticoagulant use and positivecovidtest - Obj_2_AF Population
+	Number of events	Total person-weeks	Rate per 1,000	Univariable		Age/Sex Adjusted		DAG Adjusted		Fully adjusted		
+				HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI
+Main Analysis
+DOAC use	3592	   7572923	0.47	1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)
+warfarin use	850	   2582767	0.33	0.70	0.65 - 0.75	0.66	0.61 - 0.71	0.74	0.68 - 0.80	0.80	0.74 - 0.87
+

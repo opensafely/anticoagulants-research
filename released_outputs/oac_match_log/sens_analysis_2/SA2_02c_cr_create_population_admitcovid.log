@@ -1,0 +1,81 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/oac_match_log/sens_analysis_2/SA2_02c_cr_create_
+> population_admitcovid.log
+  log type:  text
+ opened on:  31 Dec 2020, 11:43:23
+
+. 
+. /* Exclude people aged <55 ===============================*/ 
+. use $tempdir_main_analysis/analysis_dataset_`outcome' , clear
+
+. 
+. noi di "DROP AGE <55:" 
+DROP AGE <55:
+
+. gen remove_age_55 = 1 if age < 55 & exposure == 1
+(560,798 missing values generated)
+
+. replace remove_age_55 = 0  if remove_age_55 == .
+(560,798 real changes made)
+
+. bysort set_id: egen max_remove_age_55 = max(remove_age_55)
+
+. drop if max_remove_age_55 == 1
+(25,450 observations deleted)
+
+. drop if age < 55 & exposure == 0
+([REDACTED] observations deleted)
+
+. 
+. datacheck age >= 55, nol
+
+. 
+. /* SAVE DATA=================================================================
+> =*/
+. save $tempdir/analysis_dataset_`outcome', replace
+(note: file /workspace/output/oac_match_tempdata/sens_analysis_2/analysis_datas
+> et_admitcovid.dta not found)
+file /workspace/output/oac_match_tempdata/sens_analysis_2/analysis_dataset_admi
+> tcovid.dta saved
+
+. 
+. * Save a version set on outcomes
+. stset stime_`outcome', fail(`outcome') id(patient_id) enter(enter_date) origi
+> n(enter_date)      
+
+                id:  patient_id
+     failure event:  admitcovid != 0 & admitcovid < .
+obs. time interval:  (stime_admitcovid[_n-1], stime_admitcovid]
+ enter on or after:  time enter_date
+ exit on or before:  failure
+    t for analysis:  (time-origin)
+            origin:  time enter_date
+
+------------------------------------------------------------------------------
+    537,669  total observations
+          0  exclusions
+------------------------------------------------------------------------------
+    537,669  observations remaining, representing
+    537,669  subjects
+      1,548  failures in single-failure-per-subject data
+  112080833  total analysis time at risk and under observation
+                                                at risk from t =         0
+                                     earliest observed entry t =         0
+                                          last observed exit t =       211
+
+. save $tempdir/analysis_dataset_STSET_`outcome', replace
+(note: file /workspace/output/oac_match_tempdata/sens_analysis_2/analysis_datas
+> et_STSET_admitcovid.dta not found)
+file /workspace/output/oac_match_tempdata/sens_analysis_2/analysis_dataset_STSE
+> T_admitcovid.dta saved
+
+. 
+. * Close log file 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/oac_match_log/sens_analysis_2/SA2_02c_cr_create_
+> population_admitcovid.log
+  log type:  text
+ closed on:  31 Dec 2020, 11:43:48
+-------------------------------------------------------------------------------

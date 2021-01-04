@@ -1,0 +1,72 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/oac_log/sens_analysis_2/SA2_02a_cr_create_popula
+> tion_positivecovidtest.log
+  log type:  text
+ opened on:  31 Dec 2020, 03:20:36
+
+. 
+. /*  Exclude people aged <55==================================================
+> */ 
+. 
+. use $tempdir_main_analysis/analysis_dataset_`outcome' , clear
+
+. 
+. noi di "DROP AGE <55:" 
+DROP AGE <55:
+
+. drop if age < 55
+(3,987 observations deleted)
+
+. 
+. datacheck age >= 55, nol
+
+. 
+. /* SAVE DATA=================================================================
+> =*/                
+. save $tempdir/analysis_dataset_`outcome', replace
+(note: file /workspace/output/oac_tempdata/sens_analysis_2/analysis_dataset_pos
+> itivecovidtest.dta not found)
+file /workspace/output/oac_tempdata/sens_analysis_2/analysis_dataset_positiveco
+> vidtest.dta saved
+
+. 
+. * Save a version set on outcomes
+. stset stime_`outcome', fail(`outcome') id(patient_id) enter(enter_date) origi
+> n(enter_date)      
+
+                id:  patient_id
+     failure event:  positivecovidtest != 0 & positivecovidtest < .
+obs. time interval:  (stime_positivecovidtest[_n-1], stime_positivecovidtest]
+ enter on or after:  time enter_date
+ exit on or before:  failure
+    t for analysis:  (time-origin)
+            origin:  time enter_date
+
+------------------------------------------------------------------------------
+     66,279  total observations
+          0  exclusions
+------------------------------------------------------------------------------
+     66,279  observations remaining, representing
+     66,279  subjects
+        454  failures in single-failure-per-subject data
+ 13744276.5  total analysis time at risk and under observation
+                                                at risk from t =         0
+                                     earliest observed entry t =         0
+                                          last observed exit t =       211
+
+. save $tempdir/analysis_dataset_STSET_`outcome', replace
+(note: file /workspace/output/oac_tempdata/sens_analysis_2/analysis_dataset_STS
+> ET_positivecovidtest.dta not found)
+file /workspace/output/oac_tempdata/sens_analysis_2/analysis_dataset_STSET_posi
+> tivecovidtest.dta saved
+
+. 
+. * Close log file 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/oac_log/sens_analysis_2/SA2_02a_cr_create_popula
+> tion_positivecovidtest.log
+  log type:  text
+ closed on:  31 Dec 2020, 03:20:39
+-------------------------------------------------------------------------------

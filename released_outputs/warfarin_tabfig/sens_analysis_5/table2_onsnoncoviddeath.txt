@@ -1,0 +1,7 @@
+Table 2: Association between current anticoagulant use and onsnoncoviddeath - Obj_2_AF Population
+	Number of events	Total person-weeks	Rate per 1,000	Univariable		Age/Sex Adjusted		DAG Adjusted		Fully adjusted		
+				HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI
+Main Analysis
+DOAC use	11690	   8769622	1.33	1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)
+warfarin use	2367	   2345938	1.01	0.74	0.71 - 0.77	0.70	0.67 - 0.73	0.73	0.69 - 0.76	0.81	0.77 - 0.85
+

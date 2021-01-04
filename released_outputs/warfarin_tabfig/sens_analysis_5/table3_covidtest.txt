@@ -1,0 +1,7 @@
+Table 3: Association between current anticoagulant use and covidtest - Obj_2_AF Population, restrict to known ethnicity
+	Number of events	Total person-weeks	Rate per 1,000	Univariable		Age/Sex Adjusted		DAG Adjusted with ethnicity		DAG Adjusted without ethnicity		Fully Adjusted with ethnicity		Fully Adjusted without ethnicity		
+				HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI
+Main Analysis
+DOAC use	20127	   6224015	3.23	1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)
+warfarin use	4165	   1681579	2.48	0.77	0.75 - 0.80	0.76	0.73 - 0.78	0.77	0.75 - 0.80	0.77	0.75 - 0.80	0.83	0.81 - 0.86	0.83	0.80 - 0.86
+
