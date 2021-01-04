@@ -1,0 +1,87 @@
+Table 4: 1 by 1 comorbidity adjustments (after age/sex and strata adjustments) - Obj_1_AF population
+	HR	95% CI
+Index of Multiple Deprivation (IMD)
+non-use	1.00 (ref)	
+current use	0.71	0.51 - 1.00
+
+Evidence of obesity (4 categories)
+non-use	1.00 (ref)	
+current use	0.71	0.51 - 1.00
+
+Smoking status (missing set to non)
+non-use	1.00 (ref)	
+current use	0.71	0.50 - 0.99
+
+Diabetes Severity
+non-use	1.00 (ref)	
+current use	0.72	0.51 - 1.01
+
+Myocardial infarction
+non-use	1.00 (ref)	
+current use	0.72	0.51 - 1.01
+
+Peripheral arterial disease
+non-use	1.00 (ref)	
+current use	0.72	0.51 - 1.01
+
+Diagnosed hypertension
+non-use	1.00 (ref)	
+current use	0.72	0.51 - 1.02
+
+Heart Failure
+non-use	1.00 (ref)	
+current use	0.71	0.50 - 1.00
+
+Stroke/Transient ischaemic attack
+non-use	1.00 (ref)	
+current use	0.72	0.51 - 1.01
+
+Venous thromboembolism
+non-use	1.00 (ref)	
+current use	0.72	0.51 - 1.01
+
+Recent Oestrogen
+non-use	1.00 (ref)	
+current use	0.72	0.51 - 1.01
+
+Recent antiplatelet
+non-use	1.00 (ref)	
+current use	0.68	0.48 - 0.97
+
+Flu vaccine
+non-use	1.00 (ref)	
+current use	0.71	0.50 - 1.00
+
+Chronic kidney disease
+non-use	1.00 (ref)	
+current use	0.70	0.50 - 0.99
+
+COPD
+non-use	1.00 (ref)	
+current use	0.72	0.51 - 1.01
+
+Other Respiratory Diseases
+non-use	1.00 (ref)	
+current use	0.72	0.51 - 1.01
+
+Immunosuppressed (combination algorithm)
+non-use	1.00 (ref)	
+current use	0.72	0.51 - 1.01
+
+Cancer
+non-use	1.00 (ref)	
+current use	0.72	0.52 - 1.02
+
+A&E attendance rate in last year (binary)
+non-use	1.00 (ref)	
+current use	0.72	0.51 - 1.01
+
+GP consultation in last year (binary)
+non-use	1.00 (ref)	
+current use	0.75	0.53 - 1.06
+
+Ethnicity
+non-use	1.00 (ref)	
+current use	0.74	0.49 - 1.13
+
+

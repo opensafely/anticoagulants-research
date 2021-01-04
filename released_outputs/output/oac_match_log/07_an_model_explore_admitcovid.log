@@ -1,0 +1,102 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/oac_match_log/07_an_model_explore_admitcovid.log
+  log type:  text
+ opened on:  31 Dec 2020, 11:27:33
+
+. 
+. * Open Stata dataset
+. use $tempdir/analysis_dataset_STSET_`outcome', clear
+
+. 
+. /* Print table===============================================================
+> =*/ 
+. *  Print the results for the main model 
+. 
+. cap file close tablecontent
+
+. file open tablecontent using $tabfigdir/table4_`outcome'.txt, write text repl
+> ace
+(note: file /workspace/output/oac_match_tabfig/table4_admitcovid.txt not found)
+
+. 
+. * Column headings 
+. file write tablecontent ("Table 4: 1 by 1 comorbidity adjustments (after age/
+> sex and strata adjustments) - $population population") _n
+
+. file write tablecontent _tab ("HR") _tab ("95% CI") _n
+
+. 
+. /* Adjust one covariate at a time============================================
+> =*/
+. 
+. foreach var in $fullvarlist { 
+  2.                                
+.         local var: subinstr local var "i." ""
+  3.         local lab: variable label `var'
+  4.         file write tablecontent ("`lab'") _n 
+  5.         
+.         qui stcox i.exposure i.male age1 age2 age3 i.`var', strata(practice_i
+> d) 
+  6.                 
+.                 local lab0: label exposure 0
+  7.                 local lab1: label exposure 1
+  8. 
+.                 file write tablecontent ("`lab0'") _tab
+  9.                 file write tablecontent ("1.00 (ref)") _tab _n
+ 10.                 file write tablecontent ("`lab1'") _tab  
+ 11.                 
+.                 qui lincom 1.exposure, eform
+ 12.                 file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(
+> lb)) (" - ") %4.2f (r(ub)) _n _n
+ 13.                                                                         
+. }               
+
+. 
+.         
+. local lab: variable label ethnicity
+
+. file write tablecontent ("`lab'") _n 
+
+. 
+. preserve 
+
+. drop if ethnicity == .u
+(132,325 observations deleted)
+
+. 
+. qui stcox i.exposure i.male age1 age2 age3 i.ethnicity, strata(practice_id)  
+>    
+
+.                 
+.                 local lab0: label exposure 0
+
+.                 local lab1: label exposure 1
+
+. 
+.                 file write tablecontent ("`lab0'") _tab
+
+.                 file write tablecontent ("1.00 (ref)") _tab _n
+
+.                 file write tablecontent ("`lab1'") _tab  
+
+.                 
+.                 qui lincom 1.exposure, eform
+
+.                 file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)
+> ) (" - ") %4.2f (r(ub)) _n _n
+
+. restore
+
+. 
+. file write tablecontent _n
+
+. file close tablecontent
+
+. 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/oac_match_log/07_an_model_explore_admitcovid.log
+  log type:  text
+ closed on:  31 Dec 2020, 11:34:36
+-------------------------------------------------------------------------------

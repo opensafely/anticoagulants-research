@@ -1,0 +1,41 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/oac_match_log/01_cr_create_exposure_outcome_af.l
+> og
+  log type:  text
+ opened on:  24 Dec 2020, 11:47:34
+
+. 
+. /*===========================================================================
+> ===*/
+. * import the dataset from 00 program
+. use $tempdir/format_dataset, clear
+
+. 
+. sort patient_id
+
+. 
+. * Date of cohort entry, 1 Mar 2020
+. gen enter_date = date("$indexdate", "DMY")
+
+. format enter_date %td
+
+. 
+. * Format treatment variables
+. foreach var of varlist  warfarin_last_four_months   ///
+>                                                 doac_last_four_months      //
+> /
+>                                                 {
+  2.                                                 
+.         confirm string variable `var'
+  3.         rename `var' `var'_dstr
+  4.         gen `var' = date(`var'_dstr, "YMD")
+  5.         drop `var'_dstr
+  6.         format `var' %td 
+  7.         
+. }
+'warfarin_last_four_months' found where string variable expected
+r(7);
+
+end of do-file
+r(7);

@@ -1,0 +1,697 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/sens_analysis_4/06b_an_models_ethni
+> city_covidtest.log
+  log type:  text
+ opened on:  31 Dec 2020, 03:36:48
+
+. 
+. * Open Stata dataset
+. use $tempdir/analysis_dataset_STSET_`outcome', clear
+
+. 
+. /* Restrict population=======================================================
+> =*/ 
+. 
+. preserve 
+
+. drop if ethnicity == .u
+(97,041 observations deleted)
+
+. 
+. /* Sense check outcomes======================================================
+> =*/ 
+. 
+. safetab exposure `outcome', missing row
+19
+
++----------------+
+| Key            |
+|----------------|
+|   frequency    |
+| row percentage |
++----------------+
+
+             |   Failure/censoring
+             |     indicator for
+             | outcome: first covid
+ warfarin vs |         test
+       DOACs |         0          1 |     Total
+-------------+----------------------+----------
+    DOAC use |   184,497     18,959 |   203,456 
+             |     90.68       9.32 |    100.00 
+-------------+----------------------+----------
+warfarin use |    62,512      5,078 |    67,590 
+             |     92.49       7.51 |    100.00 
+-------------+----------------------+----------
+       Total |   247,009     24,037 |   271,046 
+             |     91.13       8.87 |    100.00 
+
+. 
+. /* Main Model================================================================
+> =*/
+. 
+. /* Univariable model */ 
+. 
+. stcox i.exposure 
+
+         failure _d:  covidtest
+   analysis time _t:  (stime_covidtest-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -299054.93
+Iteration 1:   log likelihood = -298941.44
+Iteration 2:   log likelihood = -298941.07
+Iteration 3:   log likelihood = -298941.07
+Refining estimates:
+Iteration 0:   log likelihood = -298941.07
+
+Cox regression -- Breslow method for ties
+
+No. of subjects =      271,042                  Number of obs    =     271,042
+No. of failures =       24,037
+Time at risk    =     53738793
+                                                LR chi2(1)       =      227.73
+Log likelihood  =   -298941.07                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+warfarin ..  |   .7919282   .0125134   -14.76   0.000     .7677783    .8168377
+------------------------------------------------------------------------------
+
+. estimates save $tempdir/`outcome'_univar_ethn, replace 
+(note: file /workspace/output/warfarin_tempdata/sens_analysis_4/covidtest_univa
+> r_ethn.ster not found)
+file /workspace/output/warfarin_tempdata/sens_analysis_4/covidtest_univar_ethn.
+> ster saved
+
+. 
+. /* Multivariable models */ 
+. 
+. * Age and Gender 
+. * Age fit as spline in first instance, categorical below 
+. 
+. stcox i.exposure i.male age1 age2 age3 
+
+         failure _d:  covidtest
+   analysis time _t:  (stime_covidtest-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -299054.93
+Iteration 1:   log likelihood =  -297960.6
+Iteration 2:   log likelihood = -297885.11
+Iteration 3:   log likelihood = -297884.75
+Iteration 4:   log likelihood = -297884.75
+Refining estimates:
+Iteration 0:   log likelihood = -297884.75
+
+Cox regression -- Breslow method for ties
+
+No. of subjects =      271,042                  Number of obs    =     271,042
+No. of failures =       24,037
+Time at risk    =     53738793
+                                                LR chi2(5)       =     2340.36
+Log likelihood  =   -297884.75                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+warfarin ..  |   .7717964   .0122542   -16.31   0.000     .7481484    .7961919
+      1.male |   1.009762    .013393     0.73   0.464     .9838506    1.036356
+        age1 |   .9866039   .0022816    -5.83   0.000     .9821422    .9910859
+        age2 |   1.047073   .0044311    10.87   0.000     1.038425    1.055794
+        age3 |   .9052971   .0248932    -3.62   0.000     .8577988    .9554256
+------------------------------------------------------------------------------
+
+. estimates save $tempdir/`outcome'_multivar1_ethn, replace 
+(note: file /workspace/output/warfarin_tempdata/sens_analysis_4/covidtest_multi
+> var1_ethn.ster not found)
+file /workspace/output/warfarin_tempdata/sens_analysis_4/covidtest_multivar1_et
+> hn.ster saved
+
+. 
+. * DAG adjusted WITH ETHNICITY
+. stcox i.exposure i.male age1 age2 age3  $dagvarlist   ///
+>                                                                              
+>    i.ethnicity, strata(practice_id)        
+
+         failure _d:  covidtest
+   analysis time _t:  (stime_covidtest-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -117308.19
+Iteration 1:   log likelihood = -114503.86
+Iteration 2:   log likelihood = -114160.99
+Iteration 3:   log likelihood = -114160.49
+Iteration 4:   log likelihood = -114160.49
+Refining estimates:
+Iteration 0:   log likelihood = -114160.49
+
+Stratified Cox regr. -- Breslow method for ties
+
+No. of subjects =      271,042                  Number of obs    =     271,042
+No. of failures =       24,037
+Time at risk    =     53738793
+                                                LR chi2(31)      =     6295.40
+Log likelihood  =   -114160.49                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+warfarin ..  |   .7929251   .0129821   -14.17   0.000     .7678846    .8187822
+      1.male |    1.00924   .0141153     0.66   0.511       .98195    1.037288
+        age1 |   .9870324   .0023591    -5.46   0.000     .9824195    .9916671
+        age2 |    1.04563   .0045111    10.34   0.000     1.036825    1.054509
+        age3 |   .8553276   .0238847    -5.60   0.000     .8097726    .9034455
+             |
+         imd |
+          2  |   1.042467   .0246454     1.76   0.079     .9952649    1.091908
+          3  |   1.057196   .0254625     2.31   0.021      1.00845    1.108298
+          4  |   1.086444   .0271308     3.32   0.001     1.034549    1.140943
+5 most de..  |   1.185938   .0305782     6.61   0.000     1.127494     1.24741
+             |
+   obese4cat |
+Obese I ..)  |   .9066776   .0157521    -5.64   0.000     .8763238    .9380828
+Obese II..)  |   1.022253   .0251634     0.89   0.371     .9741047    1.072782
+Obese II..)  |   1.021484   .0342571     0.63   0.526     .9565001    1.090882
+             |
+smoke_nomiss |
+     Former  |   1.104334   .0161561     6.78   0.000     1.073119    1.136458
+    Current  |   1.214046   .0358988     6.56   0.000     1.145686    1.286485
+             |
+     diabcat |
+Controlle..  |   1.122698   .0180452     7.20   0.000     1.087882    1.158629
+Uncontrol..  |   1.317354   .0293882    12.36   0.000     1.260995    1.376231
+Diabetes,..  |   1.083183   .1380905     0.63   0.531     .8436952     1.39065
+             |
+1.myocardi~t |   1.144178   .0222771     6.92   0.000     1.101338    1.188684
+       1.pad |    1.33827   .0330607    11.79   0.000     1.275016    1.404662
+1.hyperten~n |   1.013176   .0155849     0.85   0.395     .9830859    1.044187
+1.heart_f~re |   1.266024   .0181512    16.45   0.000     1.230943    1.302104
+1.stroke_tia |   1.172511   .0177051    10.54   0.000     1.138319    1.207731
+       1.vte |   1.243182   .0277099     9.77   0.000     1.190041    1.298696
+ 1.oestrogen |   1.201498   .1070651     2.06   0.039     1.008957    1.430781
+1.flu_vac~ne |   .9580435   .0165747    -2.48   0.013     .9261023    .9910864
+1.antiplat~t |   1.183952   .0303008     6.60   0.000     1.126029    1.244855
+1.care_ho~ce |    4.04768    .103331    54.77   0.000     3.850138    4.255357
+             |
+   ethnicity |
+      Mixed  |   1.046773   .1393373     0.34   0.731     .8063956    1.358805
+Asian or ..  |   1.312237   .0739881     4.82   0.000     1.174948    1.465567
+      Black  |   1.255748   .1051916     2.72   0.007     1.065612     1.47981
+      Other  |   1.095459     .09831     1.02   0.310     .9187699    1.306128
+------------------------------------------------------------------------------
+                                                     Stratified by practice_id
+
+.                                                                              
+>    
+. estimates save $tempdir/`outcome'_multivar2_ethn, replace 
+(note: file /workspace/output/warfarin_tempdata/sens_analysis_4/covidtest_multi
+> var2_ethn.ster not found)
+file /workspace/output/warfarin_tempdata/sens_analysis_4/covidtest_multivar2_et
+> hn.ster saved
+
+. 
+. * DAG adjusted WITHOUT ETHNICITY
+. stcox i.exposure i.male age1 age2 age3 $dagvarlist , strata(practice_id)     
+>    
+
+         failure _d:  covidtest
+   analysis time _t:  (stime_covidtest-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -117308.19
+Iteration 1:   log likelihood =  -114514.7
+Iteration 2:   log likelihood = -114174.72
+Iteration 3:   log likelihood = -114174.23
+Iteration 4:   log likelihood = -114174.23
+Refining estimates:
+Iteration 0:   log likelihood = -114174.23
+
+Stratified Cox regr. -- Breslow method for ties
+
+No. of subjects =      271,042                  Number of obs    =     271,042
+No. of failures =       24,037
+Time at risk    =     53738793
+                                                LR chi2(27)      =     6267.92
+Log likelihood  =   -114174.23                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+warfarin ..  |   .7918916   .0129633   -14.25   0.000     .7668873    .8177112
+      1.male |   1.008579   .0141048     0.61   0.541     .9813091    1.036606
+        age1 |   .9866673   .0023571    -5.62   0.000     .9820582    .9912981
+        age2 |   1.045994   .0045124    10.42   0.000     1.037187    1.054875
+        age3 |    .853786   .0238427    -5.66   0.000     .8083111    .9018194
+             |
+         imd |
+          2  |   1.042427   .0246444     1.76   0.079      .995227    1.091866
+          3  |    1.05755   .0254702     2.32   0.020     1.008789    1.108668
+          4  |   1.087086   .0271452     3.34   0.001     1.035163    1.141613
+5 most de..  |   1.188427   .0306311     6.70   0.000     1.129883    1.250005
+             |
+   obese4cat |
+Obese I ..)  |   .9052123    .015723    -5.73   0.000     .8749145    .9365593
+Obese II..)  |   1.019631   .0250923     0.79   0.430     .9716179    1.070016
+Obese II..)  |   1.016577   .0340784     0.49   0.624     .9519315    1.085612
+             |
+smoke_nomiss |
+     Former  |   1.098606   .0160259     6.45   0.000      1.06764    1.130469
+    Current  |    1.20465   .0355751     6.30   0.000     1.136904    1.276434
+             |
+     diabcat |
+Controlle..  |   1.127538   .0180913     7.48   0.000     1.092631    1.163559
+Uncontrol..  |    1.32548   .0295195    12.65   0.000     1.268868    1.384619
+Diabetes,..  |   1.087898   .1386882     0.66   0.509     .8473728    1.396695
+             |
+1.myocardi~t |   1.147078   .0223213     7.05   0.000     1.104153    1.191672
+       1.pad |   1.336176   .0330062    11.73   0.000     1.273026    1.402459
+1.hyperten~n |   1.014629    .015603     0.94   0.345     .9845044    1.045676
+1.heart_f~re |   1.266584   .0181581    16.48   0.000      1.23149    1.302677
+1.stroke_tia |   1.173676   .0177212    10.61   0.000     1.139452    1.208928
+       1.vte |   1.242223   .0276845     9.73   0.000      1.18913    1.297686
+ 1.oestrogen |   1.198758   .1068207     2.03   0.042     1.006656    1.427518
+1.flu_vac~ne |   .9579365   .0165711    -2.48   0.013     .9260022     .990972
+1.antiplat~t |   1.186102   .0303528     6.67   0.000     1.128079    1.247109
+1.care_ho~ce |   4.037445   .1030632    54.67   0.000     3.840415    4.244584
+------------------------------------------------------------------------------
+                                                     Stratified by practice_id
+
+.                                                                              
+>    
+. estimates save $tempdir/`outcome'_multivar2_withoutethn, replace 
+(note: file /workspace/output/warfarin_tempdata/sens_analysis_4/covidtest_multi
+> var2_withoutethn.ster not found)
+file /workspace/output/warfarin_tempdata/sens_analysis_4/covidtest_multivar2_wi
+> thoutethn.ster saved
+
+. 
+. * Fully adjusted WITH ETHNICITY
+. stcox i.exposure i.male age1 age2 age3 $fullvarlist   ///
+>                                                                            i.
+> ethnicity, strata(practice_id)             
+
+         failure _d:  covidtest
+   analysis time _t:  (stime_covidtest-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -117308.19
+Iteration 1:   log likelihood = -113541.85
+Iteration 2:   log likelihood = -112958.35
+Iteration 3:   log likelihood =  -112957.6
+Iteration 4:   log likelihood =  -112957.6
+Refining estimates:
+Iteration 0:   log likelihood =  -112957.6
+
+Stratified Cox regr. -- Breslow method for ties
+
+No. of subjects =      271,042                  Number of obs    =     271,042
+No. of failures =       24,037
+Time at risk    =     53738793
+                                                LR chi2(38)      =     8701.17
+Log likelihood  =    -112957.6                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+warfarin ..  |   .8522946    .014022    -9.71   0.000     .8252504    .8802251
+      1.male |   1.031825   .0144385     2.24   0.025      1.00391    1.060515
+        age1 |   .9882958   .0023591    -4.93   0.000     .9836829    .9929303
+        age2 |   1.034147   .0044672     7.77   0.000     1.025428    1.042939
+        age3 |   .9165141   .0256502    -3.11   0.002     .8675945    .9681919
+             |
+         imd |
+          2  |   1.040283   .0246062     1.67   0.095     .9931563    1.089645
+          3  |    1.04831   .0252668     1.96   0.050      .999939     1.09902
+          4  |   1.066376   .0266649     2.57   0.010     1.015374     1.11994
+5 most de..  |   1.143247   .0295571     5.18   0.000      1.08676    1.202671
+             |
+   obese4cat |
+Obese I ..)  |   .9159163   .0159307    -5.05   0.000     .8852188    .9476783
+Obese II..)  |   1.026512   .0253054     1.06   0.288     .9780934    1.077327
+Obese II..)  |   1.017853   .0341761     0.53   0.598     .9530256     1.08709
+             |
+smoke_nomiss |
+     Former  |   1.051843   .0156551     3.40   0.001     1.021602    1.082978
+    Current  |   1.108406   .0335331     3.40   0.001     1.044593    1.176117
+             |
+     diabcat |
+Controlle..  |   1.105176    .017809     6.21   0.000     1.070816    1.140638
+Uncontrol..  |   1.274496   .0285679    10.82   0.000     1.219716    1.331737
+Diabetes,..  |   1.070612   .1363648     0.54   0.592     .8340922    1.374202
+             |
+1.myocardi~t |    1.11692   .0217668     5.67   0.000     1.075063    1.160408
+       1.pad |   1.284784   .0317924    10.13   0.000     1.223959    1.348632
+1.hyperten~n |   1.012818   .0156286     0.83   0.409     .9826454    1.043918
+1.heart_f~re |   1.191828   .0173707    12.04   0.000     1.158264    1.226365
+1.stroke_tia |   1.137651    .017209     8.53   0.000     1.104417    1.171885
+       1.vte |   1.159982    .025955     6.63   0.000      1.11021    1.211985
+ 1.oestrogen |   1.126145   .1005602     1.33   0.183     .9453342    1.341538
+1.flu_vac~ne |   .9506427   .0165297    -2.91   0.004     .9187909    .9835988
+             |
+         ckd |
+        CKD  |   1.088273   .0159257     5.78   0.000     1.057503    1.119939
+      1.copd |     1.2203   .0234259    10.37   0.000     1.175239    1.267089
+1.other_re~y |   1.263385   .0313676     9.42   0.000     1.203378    1.326385
+1.immunode~y |   1.253248   .0912229     3.10   0.002     1.086623    1.445424
+    1.cancer |   1.220892   .0198434    12.28   0.000     1.182613     1.26041
+1.ae_atten~r |   1.815939    .025366    42.71   0.000     1.766897    1.866342
+1.gp_consult |   .8191761   .0373293    -4.38   0.000     .7491843    .8957069
+1.antiplat~t |   1.102022   .0282691     3.79   0.000     1.047985    1.158845
+1.care_ho~ce |    3.80845   .0984137    51.75   0.000     3.620366    4.006306
+             |
+   ethnicity |
+      Mixed  |   1.039535    .138506     0.29   0.771     .8006204    1.349746
+Asian or ..  |   1.303296   .0737288     4.68   0.000     1.166513    1.456117
+      Black  |   1.245403    .104064     2.63   0.009     1.057267    1.467016
+      Other  |   1.099305   .0984771     1.06   0.291     .9222884    1.310298
+------------------------------------------------------------------------------
+                                                     Stratified by practice_id
+
+.                                                                              
+>    
+. estimates save $tempdir/`outcome'_multivar3_ethn, replace 
+(note: file /workspace/output/warfarin_tempdata/sens_analysis_4/covidtest_multi
+> var3_ethn.ster not found)
+file /workspace/output/warfarin_tempdata/sens_analysis_4/covidtest_multivar3_et
+> hn.ster saved
+
+. 
+. * Fully adjusted WITHOUT ETHNICITY
+. stcox i.exposure i.male age1 age2 age3 $fullvarlist , strata(practice_id)    
+>            
+
+         failure _d:  covidtest
+   analysis time _t:  (stime_covidtest-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -117308.19
+Iteration 1:   log likelihood = -113552.04
+Iteration 2:   log likelihood = -112971.37
+Iteration 3:   log likelihood = -112970.63
+Iteration 4:   log likelihood = -112970.63
+Refining estimates:
+Iteration 0:   log likelihood = -112970.63
+
+Stratified Cox regr. -- Breslow method for ties
+
+No. of subjects =      271,042                  Number of obs    =     271,042
+No. of failures =       24,037
+Time at risk    =     53738793
+                                                LR chi2(34)      =     8675.12
+Log likelihood  =   -112970.63                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+warfarin ..  |    .851276   .0140035    -9.79   0.000     .8242675    .8791696
+      1.male |   1.031413    .014432     2.21   0.027     1.003511    1.060091
+        age1 |   .9879533   .0023572    -5.08   0.000      .983344    .9925841
+        age2 |   1.034462   .0044685     7.84   0.000     1.025741    1.043257
+        age3 |   .9150308   .0256104    -3.17   0.002     .8661872    .9666286
+             |
+         imd |
+          2  |   1.040159   .0246032     1.66   0.096      .993038    1.089515
+          3  |   1.048556   .0252718     1.97   0.049     1.000176    1.099276
+          4  |   1.066868   .0266755     2.59   0.010     1.015845    1.120453
+5 most de..  |   1.145379   .0296011     5.25   0.000     1.088806     1.20489
+             |
+   obese4cat |
+Obese I ..)  |   .9145603    .015904    -5.14   0.000     .8839143    .9462688
+Obese II..)  |   1.023854   .0252334     0.96   0.339     .9755733    1.074525
+Obese II..)  |   1.013004   .0339993     0.38   0.700      .948511    1.081882
+             |
+smoke_nomiss |
+     Former  |    1.04665   .0155357     3.07   0.002     1.016639    1.077546
+    Current  |   1.100402   .0332536     3.17   0.002     1.037118    1.167546
+             |
+     diabcat |
+Controlle..  |   1.109795   .0178529     6.48   0.000      1.07535    1.145344
+Uncontrol..  |   1.282129   .0286903    11.11   0.000     1.227112    1.339612
+Diabetes,..  |   1.075007   .1369198     0.57   0.570     .8375228    1.379831
+             |
+1.myocardi~t |   1.119603   .0218075     5.80   0.000     1.077666    1.163171
+       1.pad |   1.283027    .031747    10.07   0.000     1.222289    1.346784
+1.hyperten~n |   1.014113   .0156449     0.91   0.364     .9839083    1.045245
+1.heart_f~re |   1.192294    .017376    12.07   0.000     1.158719    1.226841
+1.stroke_tia |   1.138605   .0172222     8.58   0.000     1.105346    1.172865
+       1.vte |   1.159292   .0259356     6.61   0.000     1.109557    1.211255
+ 1.oestrogen |   1.123939   .1003632     1.31   0.191     .9434823     1.33891
+1.flu_vac~ne |   .9507443   .0165302    -2.91   0.004     .9188915    .9837012
+             |
+         ckd |
+        CKD  |   1.089177   .0159384     5.84   0.000     1.058382    1.120868
+      1.copd |   1.218654   .0233911    10.30   0.000      1.17366    1.265373
+1.other_re~y |   1.263521   .0313692     9.42   0.000     1.203511    1.326524
+1.immunode~y |   1.252463   .0911671     3.09   0.002      1.08594    1.444522
+    1.cancer |   1.219165   .0198096    12.20   0.000     1.180951    1.258616
+1.ae_atten~r |   1.817425    .025384    42.77   0.000     1.768349    1.867864
+1.gp_consult |   .8186242   .0372994    -4.39   0.000     .7486879    .8950933
+1.antiplat~t |   1.103936   .0283146     3.86   0.000     1.049812     1.16085
+1.care_ho~ce |   3.798617   .0981513    51.65   0.000     3.611034    3.995944
+------------------------------------------------------------------------------
+                                                     Stratified by practice_id
+
+.                                                                              
+>    
+. estimates save $tempdir/`outcome'_multivar3_withoutethn, replace 
+(note: file /workspace/output/warfarin_tempdata/sens_analysis_4/covidtest_multi
+> var3_withoutethn.ster not found)
+file /workspace/output/warfarin_tempdata/sens_analysis_4/covidtest_multivar3_wi
+> thoutethn.ster saved
+
+. 
+. /* Print table===============================================================
+> =*/ 
+. *  Print the results for the main model 
+. 
+. cap file close tablecontent
+
+. file open tablecontent using $tabfigdir/table3_`outcome'.txt, write text repl
+> ace
+(note: file /workspace/output/warfarin_tabfig/sens_analysis_4/table3_covidtest.
+> txt not found)
+
+. 
+. * Column headings 
+. file write tablecontent ("Table 3: Association between current anticoagulant 
+> use and `outcome' - $population Population, restrict to known ethnicity") _n
+
+. file write tablecontent _tab ("Number of events") _tab ("Total person-weeks")
+>  _tab ("Rate per 1,000") _tab ("Univariable") _tab _tab ("Age/Sex Adjusted") 
+> _tab _tab ///
+>                                                 ("DAG Adjusted with ethnicity
+> ") _tab _tab ///
+>                                                 ("DAG Adjusted without ethnic
+> ity") _tab _tab ///
+>                                                 ("Fully Adjusted with ethnici
+> ty") _tab _tab ///
+>                                                 ("Fully Adjusted without ethn
+> icity") _tab _tab ///
+>                                                 _n
+
+. file write tablecontent _tab _tab _tab _tab ("HR") _tab ("95% CI") _tab ("HR"
+> ) _tab ///
+>                                                 ("95% CI") _tab ("HR") _tab (
+> "95% CI") _tab ///
+>                                                 ("HR") _tab ("95% CI") _tab /
+> //
+>                                                 ("HR") _tab ("95% CI") _tab /
+> //
+>                                                 ("HR") _tab ("95% CI") _n
+
+. file write tablecontent ("Main Analysis") _n                                 
+>    
+
+. 
+. * Row headings 
+. local lab0: label exposure 0
+
+. local lab1: label exposure 1
+
+.  
+. * First row, exposure = 0 (reference)
+. 
+.         qui safecount if exposure == 0 & `outcome' == 1
+
+.         local event = r(N)
+
+.     bysort exposure: egen total_follow_up = total(_t)
+
+.         su total_follow_up if exposure == 0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+total_foll~p |    203,456    4.02e+07           0   4.02e+07   4.02e+07
+
+.         local person_week = r(mean)/7
+
+.         local rate = 1000*(`event'/`person_week')
+
+.         
+.         file write tablecontent ("`lab0'") _tab
+
+.         file write tablecontent (`event') _tab %10.0f (`person_week') _tab %3
+> .2f (`rate') _tab
+
+.         file write tablecontent ("1.00 (ref)") _tab _tab ("1.00 (ref)") ///
+>         _tab _tab ("1.00 (ref)") _tab _tab ("1.00 (ref)") ///
+>         _tab _tab ("1.00 (ref)") _tab _tab ("1.00 (ref)") _n
+
+.         
+. * Second row, exposure = 1 
+. 
+. file write tablecontent ("`lab1'") _tab  
+
+. 
+.         qui safecount if exposure == 1 & `outcome' == 1
+
+.         local event = r(N)
+
+.         su total_follow_up if exposure == 1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+total_foll~p |     67,590    1.36e+07           0   1.36e+07   1.36e+07
+
+.         local person_week = r(mean)/7
+
+.         local rate = 1000*(`event'/`person_week')
+
+.         file write tablecontent (`event') _tab %10.0f (`person_week') _tab %3
+> .2f (`rate') _tab
+
+. 
+. /* Main Model */ 
+. estimates use $tempdir/`outcome'_univar_ethn 
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .7919282   .0125134   -14.76   0.000     .7677783    .8168377
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _tab 
+
+. 
+. estimates use $tempdir/`outcome'_multivar1_ethn
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .7717964   .0122542   -16.31   0.000     .7481484    .7961919
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _tab 
+
+. 
+. estimates use $tempdir/`outcome'_multivar2_ethn
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .7929251   .0129821   -14.17   0.000     .7678846    .8187822
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _tab
+
+. 
+. estimates use $tempdir/`outcome'_multivar2_withoutethn
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .7918916   .0129633   -14.25   0.000     .7668873    .8177112
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _tab
+
+. 
+. estimates use $tempdir/`outcome'_multivar3_ethn
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .8522946    .014022    -9.71   0.000     .8252504    .8802251
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _tab 
+
+. 
+. estimates use $tempdir/`outcome'_multivar3_withoutethn
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |    .851276   .0140035    -9.79   0.000     .8242675    .8791696
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _n 
+
+. 
+. file write tablecontent _n
+
+. file close tablecontent
+
+. 
+. restore 
+
+. 
+. * Close log file 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/sens_analysis_4/06b_an_models_ethni
+> city_covidtest.log
+  log type:  text
+ closed on:  31 Dec 2020, 03:39:23
+-------------------------------------------------------------------------------
