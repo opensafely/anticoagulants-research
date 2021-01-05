@@ -34,7 +34,7 @@ which is needed after stset based on exposure status*/
 
 use $tempdir_main_analysis/analysis_dataset_`outcome', clear
 
-count
+safecount
 
 keep patient_id stime_`outcome' 
 
@@ -81,20 +81,10 @@ drop month
 * remove entries that without subsequent anticoagulant exposure
 drop if oac_date_after_mar == .
 
-preserve
-duplicates drop patient_id, force
-count
-restore
-
 * remove duplicates for same date in each patient
 sort patient_id oac_date_after_mar
 
 duplicates drop patient_id oac_date_after_mar, force
-
-preserve
-duplicates drop patient_id, force
-count
-restore
 
 * create a variable indicating warfarin exposure
 gen oac = 1
@@ -139,20 +129,10 @@ drop month
 * remove entries that without subsequent anticoagulant exposure
 drop if oac_date_after_mar == .
 
-preserve
-duplicates drop patient_id, force
-count
-restore
-
 * remove duplicates for same date in each patient
 sort patient_id oac_date_after_mar
 
 duplicates drop patient_id oac_date_after_mar, force
-
-preserve
-duplicates drop patient_id, force
-count
-restore
 
 * create a variable indicating DOAC exposure
 gen oac = 0
@@ -169,11 +149,6 @@ append using $tempdir/warfarin_rx_`outcome'
 sort patient_id oac_date_after_mar oac
 duplicates drop patient_id oac_date_after_mar, force
 
-preserve
-duplicates drop patient_id, force
-count
-restore
-
 * remove later records if two records consecutively are the same type of OACs
 bysort patient_id: gen oac_lag = oac[_n-1]
 drop if oac == oac_lag
@@ -182,11 +157,6 @@ drop oac_lag
 
 * add one entry - their end of follow-up (i.e. last date) for each person 
 append using $tempdir/last_date_`outcome'
-
-preserve
-duplicates drop patient_id, force
-count
-restore
 
 save $tempdir/oac_rx_`outcome', replace
 
@@ -199,27 +169,12 @@ merge 1:m patient_id using $tempdir/oac_rx_`outcome', keep(master match) nogen
 sort patient_id oac_date_after_mar
 bysort patient_id: gen nid = _n
 
-preserve
-duplicates drop patient_id, force
-count
-restore
-
 safecount if oac==.
 
 * remove if the first record is the same as the exposure group (i.e. no need to update status)
 drop if exposure == 1 & oac == 1 & nid == 1
 
-preserve
-duplicates drop patient_id, force
-count
-restore
-
 drop if exposure == 0 & oac == 0 & nid == 1
-
-preserve
-duplicates drop patient_id, force
-count
-restore
 
 drop nid
 
@@ -227,14 +182,8 @@ drop nid
 sort patient_id oac_date_after_mar oac
 duplicates drop patient_id oac_date_after_mar, force
 
-
 * remove any oac prescription if the date occurred after outcome
 drop if oac_date_after_mar > stime_`outcome' 
-
-preserve
-duplicates drop patient_id, force
-count
-restore
 
 * reset the outcome status for the time interval fell on the outcome date
 replace `outcome' = 0 if stime_`outcome' != oac_date_after_mar
