@@ -47,7 +47,7 @@ safecount if exposure == 0 & switch_count > 1
 *  Print the results for the main model 
 
 cap file close tablecontent
-file open tablecontent using $tabfigdir/table3_`outcome'.txt, write text replace
+file open tablecontent using $tabfigdir/time_updated_`outcome'.txt, write text replace
 
 * Column headings 
 file write tablecontent ("Table 3: Time updated exposure Association between current anticoagulant use and `outcome' - $population Population") _n
