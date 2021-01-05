@@ -2485,7 +2485,7 @@ actions:
 
   SA5_03b_an_checks_onscoviddeath:
     run: stata-mp:latest analysis/SA5_03b_an_checks.do SA5_af_warfarin onscoviddeath
-    needs: [SA5_02b_cr_create_population_af_warfarin_onscoviddeath]
+    needs: [SA5_02b_cr_create_population_af_warfarin_onscoviddeath, SA5_05b_an_models_af_warfarin_onscoviddeath]
     outputs:
       moderately_sensitive:
         log: output/warfarin_log/sens_analysis_5/SA5_03b_an_checks_onscoviddeath.log
@@ -2535,7 +2535,7 @@ actions:
 
   SA5_03b_an_checks_admitcovid:
     run: stata-mp:latest analysis/SA5_03b_an_checks.do SA5_af_warfarin admitcovid
-    needs: [SA5_02b_cr_create_population_af_warfarin_admitcovid]
+    needs: [SA5_02b_cr_create_population_af_warfarin_admitcovid, SA5_05b_an_models_af_warfarin_admitcovid]
     outputs:
       moderately_sensitive:
         log: output/warfarin_log/sens_analysis_5/SA5_03b_an_checks_admitcovid.log
@@ -2585,7 +2585,7 @@ actions:
 
   SA5_03b_an_checks_onsnoncoviddeath:
     run: stata-mp:latest analysis/SA5_03b_an_checks.do SA5_af_warfarin onsnoncoviddeath
-    needs: [SA5_02b_cr_create_population_af_warfarin_onsnoncoviddeath]
+    needs: [SA5_02b_cr_create_population_af_warfarin_onsnoncoviddeath, SA5_05b_an_models_af_warfarin_onsnoncoviddeath]
     outputs:
       moderately_sensitive:
         log: output/warfarin_log/sens_analysis_5/SA5_03b_an_checks_onsnoncoviddeath.log
@@ -2635,7 +2635,7 @@ actions:
 
   SA5_03b_an_checks_covidtest:
     run: stata-mp:latest analysis/SA5_03b_an_checks.do SA5_af_warfarin covidtest
-    needs: [SA5_02b_cr_create_population_af_warfarin_covidtest]
+    needs: [SA5_02b_cr_create_population_af_warfarin_covidtest, SA5_05b_an_models_af_warfarin_covidtest]
     outputs:
       moderately_sensitive:
         log: output/warfarin_log/sens_analysis_5/SA5_03b_an_checks_covidtest.log
@@ -2685,7 +2685,7 @@ actions:
 
   SA5_03b_an_checks_positivecovidtest:
     run: stata-mp:latest analysis/SA5_03b_an_checks.do SA5_af_warfarin positivecovidtest
-    needs: [SA5_02b_cr_create_population_af_warfarin_positivecovidtest]
+    needs: [SA5_02b_cr_create_population_af_warfarin_positivecovidtest, SA5_05b_an_models_af_warfarin_positivecovidtest]
     outputs:
       moderately_sensitive:
         log: output/warfarin_log/sens_analysis_5/SA5_03b_an_checks_positivecovidtest.log
