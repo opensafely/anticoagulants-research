@@ -45,6 +45,7 @@ safecount if exposure == 0 & switch_count > 1
 
 /* Print table================================================================*/ 
 *  Print the results for the main model 
+use $tempdir/analysis_dataset_STSET_`outcome', clear
 
 cap file close tablecontent
 file open tablecontent using $tabfigdir/time_updated_`outcome'.txt, write text replace
