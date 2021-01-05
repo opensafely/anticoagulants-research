@@ -203,6 +203,13 @@ merge 1:m patient_id using $tempdir/oac_rx_`outcome', keep(master match) nogen
 sort patient_id oac_date_after_mar
 bysort patient_id: gen nid = _n
 
+preserve
+duplicates drop patient_id, force
+count
+restore
+
+safecount if oac==.
+
 * remove if the first record is the same as the exposure group (i.e. no need to update status)
 drop if exposure == 1 & oac == 1 & nid == 1
 
