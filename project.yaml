@@ -2483,12 +2483,13 @@ actions:
         data4: "output/warfarin_tempdata/sens_analysis_5/oac_rx_onscoviddeath.dta"
         data5: "output/warfarin_tempdata/sens_analysis_5/analysis_dataset_STSET_onscoviddeath.dta"
 
-  SA5_03b_an_checks:
-    run: stata-mp:latest analysis/SA5_03b_an_checks.do SA5_af_warfarin
+  SA5_03b_an_checks_onscoviddeath:
+    run: stata-mp:latest analysis/SA5_03b_an_checks.do SA5_af_warfarin onscoviddeath
     needs: [SA5_02b_cr_create_population_af_warfarin_onscoviddeath]
     outputs:
       moderately_sensitive:
-        log: output/warfarin_log/sens_analysis_5/SA5_03b_an_checks.log
+        log: output/warfarin_log/sens_analysis_5/SA5_03b_an_checks_onscoviddeath.log
+        table: "output/warfarin_tabfig/sens_analysis_5/table3_onscoviddeath.txt"
 
   SA5_05b_an_models_af_warfarin_onscoviddeath:
     run: stata-mp:latest analysis/05b_an_models.do onscoviddeath SA5_af_warfarin
@@ -2532,6 +2533,14 @@ actions:
         data4: "output/warfarin_tempdata/sens_analysis_5/oac_rx_admitcovid.dta"
         data5: "output/warfarin_tempdata/sens_analysis_5/analysis_dataset_STSET_admitcovid.dta"
 
+  SA5_03b_an_checks_admitcovid:
+    run: stata-mp:latest analysis/SA5_03b_an_checks.do SA5_af_warfarin admitcovid
+    needs: [SA5_02b_cr_create_population_af_warfarin_admitcovid]
+    outputs:
+      moderately_sensitive:
+        log: output/warfarin_log/sens_analysis_5/SA5_03b_an_checks_admitcovid.log
+        table: "output/warfarin_tabfig/sens_analysis_5/table3_admitcovid.txt"
+
   SA5_05b_an_models_af_warfarin_admitcovid:
     run: stata-mp:latest analysis/05b_an_models.do admitcovid SA5_af_warfarin
     needs: [SA5_02b_cr_create_population_af_warfarin_admitcovid, 05b_an_models_af_warfarin_admitcovid]
@@ -2573,6 +2582,14 @@ actions:
         data3: "output/warfarin_tempdata/sens_analysis_5/doac_rx_onsnoncoviddeath.dta"
         data4: "output/warfarin_tempdata/sens_analysis_5/oac_rx_onsnoncoviddeath.dta"
         data5: "output/warfarin_tempdata/sens_analysis_5/analysis_dataset_STSET_onsnoncoviddeath.dta"
+
+  SA5_03b_an_checks_onsnoncoviddeath:
+    run: stata-mp:latest analysis/SA5_03b_an_checks.do SA5_af_warfarin onsnoncoviddeath
+    needs: [SA5_02b_cr_create_population_af_warfarin_onsnoncoviddeath]
+    outputs:
+      moderately_sensitive:
+        log: output/warfarin_log/sens_analysis_5/SA5_03b_an_checks_onsnoncoviddeath.log
+        table: "output/warfarin_tabfig/sens_analysis_5/table3_onsnoncoviddeath.txt"
 
   SA5_05b_an_models_af_warfarin_onsnoncoviddeath:
     run: stata-mp:latest analysis/05b_an_models.do onsnoncoviddeath SA5_af_warfarin
@@ -2616,6 +2633,14 @@ actions:
         data4: "output/warfarin_tempdata/sens_analysis_5/oac_rx_covidtest.dta"
         data5: "output/warfarin_tempdata/sens_analysis_5/analysis_dataset_STSET_covidtest.dta"
 
+  SA5_03b_an_checks_covidtest:
+    run: stata-mp:latest analysis/SA5_03b_an_checks.do SA5_af_warfarin covidtest
+    needs: [SA5_02b_cr_create_population_af_warfarin_covidtest]
+    outputs:
+      moderately_sensitive:
+        log: output/warfarin_log/sens_analysis_5/SA5_03b_an_checks_covidtest.log
+        table: "output/warfarin_tabfig/sens_analysis_5/table3_covidtest.txt"
+
   SA5_05b_an_models_af_warfarin_covidtest:
     run: stata-mp:latest analysis/05b_an_models.do covidtest SA5_af_warfarin
     needs: [SA5_02b_cr_create_population_af_warfarin_covidtest, 05b_an_models_af_warfarin_covidtest]
@@ -2657,6 +2682,14 @@ actions:
         data3: "output/warfarin_tempdata/sens_analysis_5/doac_rx_positivecovidtest.dta"
         data4: "output/warfarin_tempdata/sens_analysis_5/oac_rx_positivecovidtest.dta"
         data5: "output/warfarin_tempdata/sens_analysis_5/analysis_dataset_STSET_positivecovidtest.dta"
+
+  SA5_03b_an_checks_positivecovidtest:
+    run: stata-mp:latest analysis/SA5_03b_an_checks.do SA5_af_warfarin positivecovidtest
+    needs: [SA5_02b_cr_create_population_af_warfarin_positivecovidtest]
+    outputs:
+      moderately_sensitive:
+        log: output/warfarin_log/sens_analysis_5/SA5_03b_an_checks_positivecovidtest.log
+        table: "output/warfarin_tabfig/sens_analysis_5/table3_positivecovidtest.txt"
 
   SA5_05b_an_models_af_warfarin_positivecovidtest:
     run: stata-mp:latest analysis/05b_an_models.do positivecovidtest SA5_af_warfarin

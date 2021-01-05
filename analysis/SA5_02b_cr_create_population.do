@@ -34,6 +34,8 @@ which is needed after stset based on exposure status*/
 
 use $tempdir_main_analysis/analysis_dataset_`outcome', clear
 
+safecount
+
 keep patient_id stime_`outcome' 
 
 rename stime_`outcome' oac_date_after_mar
@@ -156,10 +158,6 @@ drop oac_lag
 * add one entry - their end of follow-up (i.e. last date) for each person 
 append using $tempdir/last_date_`outcome'
 
-* keep the record of subsequent anticoagulant exposure if it is on the last date
-sort patient_id oac_date_after_mar oac
-duplicates drop patient_id oac_date_after_mar, force
-
 save $tempdir/oac_rx_`outcome', replace
 
 /* stset the dataset according to exposure status==============================*/
@@ -171,10 +169,18 @@ merge 1:m patient_id using $tempdir/oac_rx_`outcome', keep(master match) nogen
 sort patient_id oac_date_after_mar
 bysort patient_id: gen nid = _n
 
+safecount if oac==.
+
 * remove if the first record is the same as the exposure group (i.e. no need to update status)
 drop if exposure == 1 & oac == 1 & nid == 1
+
 drop if exposure == 0 & oac == 0 & nid == 1
+
 drop nid
+
+* keep the record of subsequent anticoagulant exposure if it is on the last date
+sort patient_id oac_date_after_mar oac
+duplicates drop patient_id oac_date_after_mar, force
 
 * remove any oac prescription if the date occurred after outcome
 drop if oac_date_after_mar > stime_`outcome' 
