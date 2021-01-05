@@ -183,10 +183,6 @@ drop oac_lag
 * add one entry - their end of follow-up (i.e. last date) for each person 
 append using $tempdir/last_date_`outcome'
 
-* keep the record of subsequent anticoagulant exposure if it is on the last date
-sort patient_id oac_date_after_mar oac
-duplicates drop patient_id oac_date_after_mar, force
-
 preserve
 duplicates drop patient_id, force
 count
@@ -226,6 +222,11 @@ count
 restore
 
 drop nid
+
+* keep the record of subsequent anticoagulant exposure if it is on the last date
+sort patient_id oac_date_after_mar oac
+duplicates drop patient_id oac_date_after_mar, force
+
 
 * remove any oac prescription if the date occurred after outcome
 drop if oac_date_after_mar > stime_`outcome' 
