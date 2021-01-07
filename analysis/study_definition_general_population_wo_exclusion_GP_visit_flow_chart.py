@@ -19,8 +19,7 @@ study = StudyDefinition(
     #    registration_history AND
     #    (age >=18 AND age <= 110) AND
     #    (sex="M" OR sex="F") AND
-    #    imd >0 AND 
-    #    gp_consult_count>0 AND NOT (
+    #    imd >0 AND NOT (
     #    af OR
     #    lmwh_last_four_months OR 
     #    warfarin_last_four_months OR
@@ -54,16 +53,6 @@ study = StudyDefinition(
             "category": {"ratios": {"100": 0.1, "200": 0.2, "300": 0.7}},
         },
     ),  
-    
-    gp_consult_count=patients.with_gp_consultations(
-        between=["2019-03-01", "2020-02-29"],
-        returning="number_of_matches_in_period",
-        return_expectations={
-            "int": {"distribution": "normal", "mean": 4, "stddev": 2},
-            "date": {"earliest": "2019-03-01", "latest": "2020-02-29"},
-            "incidence": 0.7,
-        },
-    ),
 
     af=patients.with_these_clinical_events(
         af_codes,
