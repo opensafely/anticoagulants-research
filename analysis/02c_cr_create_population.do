@@ -23,6 +23,8 @@ local outcome `1'
 
 local global_option `2'
 
+local exposed_after_matching_dataset `3'
+
 do `c(pwd)'/analysis/global_`global_option'.do
 
 * Open a log file
@@ -104,7 +106,7 @@ save $tempdir/matched_control_`outcome'.dta , replace
 
 /* Combine the case cohort after matching==================================*/	
 * Exposed cohort after matching
-import delimited `c(pwd)'/output/matched_cases_af_gen_pop.csv, clear
+import delimited `c(pwd)'/output/`exposed_after_matching_dataset'.csv, clear
 safecount
 
 keep patient_id case set_id
