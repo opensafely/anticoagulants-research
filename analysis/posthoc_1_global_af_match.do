@@ -1,6 +1,7 @@
 /***************************************************************************
 ***************************************************************************
 Objective 1: Compare oral anticoagulant treated vs untreated from general population
+General popluation would not be limited to those who had at least one GP visits in the past year before cohort entry
 ***************************************************************************
 ======================================================================*/
 *set filepaths
@@ -8,19 +9,19 @@ global projectdir `c(pwd)'
 di "$projectdir"
 global outdir "$projectdir/output" 
 di "$outdir"
-global logdir "$projectdir/output/oac_match_log"
+global logdir "$projectdir/output/post_hoc_1_oac_match_log"
 di "$logdir"
-global tempdir "$projectdir/output/oac_match_tempdata" 
+global tempdir "$projectdir/output/post_hoc_1_oac_match_tempdata" 
 di "$tempdir"
-global tabfigdir "$projectdir/output/oac_match_tabfig" 
+global tabfigdir "$projectdir/output/post_hoc_1_oac_match_tabfig" 
 di "$tabfigdir"
 
 adopath + "$projectdir/analysis/extra_ados"
 
 * Create directories required 
-capture mkdir "$outdir/oac_match_tabfig"
-capture mkdir "$outdir/oac_match_log"
-capture mkdir "$outdir/oac_match_tempdata"
+capture mkdir "$outdir/post_hoc_1_oac_match_tabfig"
+capture mkdir "$outdir/post_hoc_1_oac_match_log"
+capture mkdir "$outdir/post_hoc_1_oac_match_tempdata"
 
 * Set globals that will print in programs and direct output
 
