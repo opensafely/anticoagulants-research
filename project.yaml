@@ -882,7 +882,7 @@ actions:
 
   # Primary Outcomes: ONS COVID-19 death
   02c_cr_create_population_af_match_onscoviddeath:
-    run: stata-mp:latest analysis/02c_cr_create_population.do onscoviddeath af_match
+    run: stata-mp:latest analysis/02c_cr_create_population.do onscoviddeath af_match matched_cases_af_gen_pop
     needs: [create_dataset_af_match, matching, 02ai_exportfile_matching]
     outputs:
       moderately_sensitive:
@@ -973,7 +973,7 @@ actions:
 
   # Primary Outcomes: COVID-19 hospital admission
   02c_cr_create_population_af_match_admitcovid:
-    run: stata-mp:latest analysis/02c_cr_create_population.do admitcovid af_match
+    run: stata-mp:latest analysis/02c_cr_create_population.do admitcovid af_match matched_cases_af_gen_pop
     needs: [create_dataset_af_match, matching, 02ai_exportfile_matching]
     outputs:
       moderately_sensitive:
@@ -1064,7 +1064,7 @@ actions:
 
   # Exploratory Outcomes: COVID-19 test
   02c_cr_create_population_af_match_covidtest:
-    run: stata-mp:latest analysis/02c_cr_create_population.do covidtest af_match
+    run: stata-mp:latest analysis/02c_cr_create_population.do covidtest af_match matched_cases_af_gen_pop
     needs: [create_dataset_af_match, matching, 02ai_exportfile_matching]
     outputs:
       moderately_sensitive:
@@ -1147,7 +1147,7 @@ actions:
 
   # Exploratory Outcomes: Positive COVID test
   02c_cr_create_population_af_match_positivecovidtest:
-    run: stata-mp:latest analysis/02c_cr_create_population.do positivecovidtest af_match
+    run: stata-mp:latest analysis/02c_cr_create_population.do positivecovidtest af_match matched_cases_af_gen_pop
     needs: [create_dataset_af_match, matching, 02ai_exportfile_matching]
     outputs:
       moderately_sensitive:
@@ -2718,3 +2718,66 @@ actions:
         data4: "output/warfarin_tempdata/sens_analysis_5/positivecovidtest_multivar2_withoutethn.ster"
         data5: "output/warfarin_tempdata/sens_analysis_5/positivecovidtest_multivar3_ethn.ster"
         data6: "output/warfarin_tempdata/sens_analysis_5/positivecovidtest_multivar3_withoutethn.ster"
+
+# Post-hoc Analysis 1
+# Compare AF treated people with general population
+# where general population was identified without exclusion criteria of no GP visit 1 year before entry
+  generate_cohort_wo_GP:
+    run: cohortextractor:latest generate_cohort --study-definition study_definition_general_population_wo_exclusion_GP_visit
+    outputs:
+      highly_sensitive:
+        cohort: output/input_general_population_wo_exclusion_GP_visit.csv
+
+  generate_cohort_wo_GP_flowchart:
+    run: cohortextractor:latest generate_cohort --study-definition study_definition_general_population_wo_exclusion_GP_visit_flow_chart
+    outputs:
+      highly_sensitive:
+        cohort: output/input_general_population_wo_exclusion_GP_visit_flow_chart.csv
+
+  matching_second:
+    run: python:latest python analysis/match_running_second.py
+    needs: [generate_cohort, generate_cohort_wo_GP, 02ai_exportfile_matching]
+    outputs:
+      moderately_sensitive:
+        log: output/matching_report_af_gen_pop_second.txt
+      highly_sensitive:
+        data1: "output/matched_cases_af_gen_pop_second.csv"
+        data2: "output/matched_matches_af_gen_pop_second.csv"
+
+  format_dataset_af_match_second:
+    run: stata-mp:latest analysis/00_cr_create_analysis_dataset.do posthoc_1_af_match matched_matches_af_gen_pop_second
+    needs: [generate_cohort, generate_cohort_wo_GP, matching_second]
+    outputs:
+      moderately_sensitive:
+        log: output/post_hoc_1_oac_match_log/00_cr_create_analysis_dataset.log
+      highly_sensitive:
+        data: "output/post_hoc_1_oac_match_tempdata/format_dataset.dta"
+
+  create_dataset_af_match_second:
+    run: stata-mp:latest analysis/01c_cr_create_exposure_outcome_af_match.do posthoc_1_af_match
+    needs: [format_dataset_af_match_second, matching_second]
+    outputs:
+      moderately_sensitive:
+        log: output/post_hoc_1_oac_match_log/01c_cr_create_exposure_outcome_af_match.log
+      highly_sensitive:
+        data: "output/post_hoc_1_oac_match_tempdata/cr_dataset_af.dta"
+
+  # Primary Outcomes: ONS COVID-19 death
+  02c_cr_create_population_af_match_onscoviddeath_second:
+    run: stata-mp:latest analysis/02c_cr_create_population.do onscoviddeath posthoc_1_af_match matched_cases_af_gen_pop_second
+    needs: [create_dataset_af_match_second, matching_second, 02ai_exportfile_matching]
+    outputs:
+      moderately_sensitive:
+        log: output/post_hoc_1_oac_match_log/02c_cr_create_population_onscoviddeath.log
+      highly_sensitive:
+        data1: "output/post_hoc_1_oac_match_tempdata/matched_control_onscoviddeath.dta"
+        data2: "output/post_hoc_1_oac_match_tempdata/analysis_dataset_onscoviddeath.dta"
+        data3: "output/post_hoc_1_oac_match_tempdata/analysis_dataset_STSET_onscoviddeath.dta"
+
+  04_an_descriptive_table_af_match_onscoviddeath_second:
+    run: stata-mp:latest analysis/04_an_descriptive_table.do onscoviddeath posthoc_1_af_match
+    needs: [02c_cr_create_population_af_match_onscoviddeath_second]
+    outputs:
+      moderately_sensitive:
+        log: output/post_hoc_1_oac_match_log/04_an_descriptive_table_onscoviddeath.log
+        table: "output/post_hoc_1_oac_match_tabfig/table1_onscoviddeath.txt"
