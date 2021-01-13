@@ -209,6 +209,8 @@ foreach varlist in  hypertension		///
 					pad					///
 					stroke_tia			///
 					vte					///
+					stroke              ///
+					tia                 ///
 					{
 tabulatevariable, variable(`varlist') min(1) max(1)
 }
