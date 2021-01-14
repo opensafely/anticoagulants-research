@@ -2702,3 +2702,19 @@ actions:
         log: output/post_hoc_1_oac_match_log/04_an_descriptive_table_onscoviddeath.log
         table: "output/post_hoc_1_oac_match_tabfig/table1_onscoviddeath.txt"
 
+# Post-hoc Analysis 2
+# Compare AF treated people with general population
+# Interaction with care home residence
+
+  10a_an_models_int_af_oac_positivecovidtest:
+    run: stata-mp:latest analysis/10a_an_models_interact.do positivecovidtest af_oac
+    needs: [02aii_cr_create_population_af_oac_positivecovidtest]
+    outputs:
+      moderately_sensitive:
+        log: output/oac_log/10a_an_models_interact_positivecovidtest.log
+        table: "output/oac_tabfig/table7_positivecovidtest.txt"
+      highly_sensitive:
+        data1: "output/oac_tempdata/positivecovidtest_univar_int.ster"
+        data2: "output/oac_tempdata/positivecovidtest_multivar1_int.ster"
+        data3: "output/oac_tempdata/positivecovidtest_multivar2_int.ster"
+        data4: "output/oac_tempdata/positivecovidtest_multivar3_int.ster"
