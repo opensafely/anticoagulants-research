@@ -84,7 +84,7 @@ local multivar3_p = round(r(p),0.001)
 
 /* Print interaction table====================================================*/ 
 cap file close tablecontent
-file open tablecontent using $outdir/table7_`outcome'.txt, write text replace
+file open tablecontent using $tabfigdir/table7_`outcome'.txt, write text replace
 
 * Column headings 
 file write tablecontent ("Table 7: Current anticoagulant use and `outcome', Care home Interaction - $population Population") _n
@@ -107,7 +107,7 @@ file write tablecontent ("care_home_residence") _tab _tab _tab _tab _tab _tab //
 * Generic program to print model for a level of another variable 
 cap prog drop printinteraction
 prog define printinteraction 
-syntax, variable(varname) min(real) max(real) 
+syntax, variable(varname) outcome(varname) min(real) max(real) 
 
 	forvalues varlevel = `min'/`max'{ 
 
@@ -170,7 +170,7 @@ syntax, variable(varname) min(real) max(real)
 		
 end
 
-printinteraction, variable(care_home_residence) min(0) max(1) 
+printinteraction, variable(care_home_residence) outcome(`outcome') min(0) max(1) 
 
 file write tablecontent _n
 file close tablecontent
