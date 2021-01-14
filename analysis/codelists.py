@@ -129,6 +129,8 @@ valvular_af_codes  = codelist_from_csv(
 
 creatinine_codes = codelist(["XE2q5"], system="ctv3")
 
+has_bled_codes = codelist(["XaY6z"], system="ctv3")
+
 #The following is an imperfect description but left as is for consistency until resolution of https://github.com/ebmdatalab/opencodelists/issues/39
 esrf_codes = codelist_from_csv(
     "codelists/opensafely-chronic-kidney-disease.csv", system="ctv3", column="CTV3ID",
