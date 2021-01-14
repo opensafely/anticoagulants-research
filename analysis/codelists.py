@@ -33,6 +33,11 @@ unclear_smoking_codes = codelist_from_csv(
     category_column="Category",
 )
 
+# HAZARDOUS ALCOHOL USE CODELIST (PLACEHOLDER)
+hazardous_alcohol_codes = codelist_from_csv(
+    "codelists/opensafely-.csv", system="ctv3", column="CTV3ID",
+)
+
 # CLINICAL CONDITIONS CODELISTS
 heart_failure_codes = codelist_from_csv(
     "codelists/opensafely-heart-failure.csv", system="ctv3", column="CTV3ID",
@@ -214,4 +219,16 @@ antiplatelet_codes = codelist_from_csv(
     "codelists/opensafely-antiplatelets.csv",
     system="snomed",
     column="dmd_id",
+)
+
+aspirin_codes = codelist_from_csv(
+    "codelists/opensafely-aspirin.csv",
+    system="snomed",
+    column="id",
+)
+
+nsaid_codes = codelist_from_csv(
+    "codelists/opensafely-nsaids-oral.csv",
+    system="snomed",
+    column="snomed_id",
 )
