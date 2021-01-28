@@ -212,7 +212,7 @@ foreach varlist in  hypertension		///
 					stroke              ///
 					tia                 ///
 					nsaid				///
-					aspirin				///
+					aspirins			///
 					hazardous_alcohol	///
 					{
 tabulatevariable, variable(`varlist') min(1) max(1)
