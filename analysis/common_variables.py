@@ -836,7 +836,7 @@ common_variables = dict(
     ),
 
     # ASPIRIN USAGE
-    aspirin=patients.with_these_medications(
+    aspirins=patients.with_these_medications(
         aspirin_codes,
         between=["2019-11-01", "2020-02-29"],
         returning="date",
