@@ -63,6 +63,10 @@ foreach var of varlist 	aplastic_anaemia				///
 						lmwh_last_four_months           ///
 						oestrogen                       ///
 						antiplatelet                    ///
+						nsaid							///
+						aspirin							///
+						hazardous_alcohol				///
+						has_bled_score_date				///
                       {
 		
 		capture confirm string variable `var'
@@ -122,6 +126,10 @@ foreach var of varlist  bmi_measured_date 					///
 						antiphospholipid_syndrome_date      ///
 						oestrogen_date                      ///
 						antiplatelet_date                   ///	
+						aspirin_date						///
+						nsaid_date							///				
+						hazardous_alcohol_date 	            ///	
+						has_bled_score_date					///
 						{
 	
 	/* date ranges are applied in python, so presence of date indicates presence of 
@@ -460,6 +468,17 @@ replace chadsvas_dm = 0 if chadsvas_dm == .
 gen CHA2DS2_VASc_score = chadsvas_age + chadsvas_sex + chadsvas_hf + chadsvas_ht ///
 						+ chadsvas_stroke + chadsvas_vascular + chadsvas_dm
 
+* Any records of HAS-BLED score ever appear before cohort entry (round up to integer)
+gen has_bled_score_ever = ceil(has_bled_score) if has_bled_score_date != .
+
+replace if has_bled_score_ever = . if has_bled_score_ever > 9
+
+* Recent records of HAS-BLED score (1 year) before cohort entry (round up to integer)
+gen has_bled_score_recent = ceil(has_bled_score) if ///
+inrange(has_bled_score_date, (date("$indexdate", "DMY") - 365), date("$indexdate", "DMY"))
+
+replace if has_bled_score_recent = . if has_bled_score_recent > 9
+
 /* LABEL VARIABLES============================================================*/
 *  Label variables you are intending to keep, drop the rest 
 
@@ -541,6 +560,9 @@ label var pad       					"Peripheral arterial disease"
 label var oestrogen 					"Recent Oestrogen"
 label var antiplatelet          	    "Recent antiplatelet"
 label var flu_vaccine					"Flu vaccine"
+label var aspirin						"Recent aspirin"
+label var nsaid							"Recent NSAID"
+label var hazardous_alcohol				"Hazardous alcohol use"
 label var gp_consult					"GP consultation in last year (binary)"
 label var gp_consult_count				"GP consultation count"
 label var ae_attendance_last_year       "A&E attendance rate in last year (binary)"
@@ -557,9 +579,12 @@ label var stroke_date 			        "Stroke Date"
 label var tia_date 		  	 		    "Transient ischaemic attack Date"
 label var vte_date 		 		        "Venous thromboembolism Date"
 label var pad_date						"Peripheral arterial disease Date"
+label var hazardous_alcohol_date		"Hazardous alcohol use Date"
 
 label var oestrogen_date 				"Recent Oestrogen Date"
 label var antiplatelet_date			 	"Recent antiplatelet Date"
+label var nsaid_date					"Recent NSAID Date"
+label var aspirin_date					"Recent aspirin Date"
 
 *Inclusion/Exclusion criteria related variables
 label var af_date					   "Atrial fibrillation Date"							
