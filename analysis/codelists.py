@@ -33,9 +33,9 @@ unclear_smoking_codes = codelist_from_csv(
     category_column="Category",
 )
 
-# HAZARDOUS ALCOHOL USE CODELIST
+# HAZARDOUS ALCOHOL USE CODELIST (PLACEHOLDER)
 hazardous_alcohol_codes = codelist_from_csv(
-    "codelists/opensafely-hazardous-alcohol-drinking.csv", system="ctv3", column="CTV3ID",
+    "codelists/opensafely-.csv", system="ctv3", column="CTV3ID",
 )
 
 # CLINICAL CONDITIONS CODELISTS
