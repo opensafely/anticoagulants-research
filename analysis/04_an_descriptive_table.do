@@ -211,6 +211,9 @@ foreach varlist in  hypertension		///
 					vte					///
 					stroke              ///
 					tia                 ///
+					nsaid				///
+					aspirin				///
+					hazardous_alcohol	///
 					{
 tabulatevariable, variable(`varlist') min(1) max(1)
 }
@@ -221,6 +224,8 @@ file write tablecontent _n _n
 summarizevariable, variable(gp_consult_count)
 summarizevariable, variable(age)
 summarizevariable, variable(ae_attendance_count)
+summarizevariable, variable(has_bled_score_recent)
+summarizevariable, variable(has_bled_score_ever)
 
 file close tablecontent
 
