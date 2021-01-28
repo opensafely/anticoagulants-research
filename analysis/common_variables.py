@@ -698,7 +698,7 @@ common_variables = dict(
     has_bled_score=patients.with_these_clinical_events(
         has_bled_codes,
         find_last_match_in_period=True,
-        between=["2019-02-28", "2020-02-29"],
+        between=["2010-02-28", "2020-02-29"],
         returning="numeric_value",
         include_date_of_match=True,
         include_month=True,
