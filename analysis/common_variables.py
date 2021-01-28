@@ -703,7 +703,7 @@ common_variables = dict(
         include_date_of_match=True,
         include_month=True,
         return_expectations={
-            "float": {"distribution": "normal", "mean": 9.0, "stddev": 1},
+            "float": {"distribution": "normal", "mean": 4, "stddev": 1},
             "date": {"earliest": "2019-02-28", "latest": "2020-02-29"},
             "incidence": 0.95,
         },
