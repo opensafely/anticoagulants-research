@@ -13,24 +13,27 @@ common_variables = dict(
     af=patients.with_these_clinical_events(
         af_codes,
         on_or_before="2020-03-01",
-        return_first_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_first_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-03-01"}},
     ),
     # Exclusion criteria
     valvular_AF=patients.with_these_clinical_events(
         valvular_af_codes,
         on_or_before="2020-02-29",
-        return_first_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_first_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
     # Exclusion criteria
     antiphospholipid_syndrome=patients.with_these_clinical_events(
         antiphospholipid_codes,
         on_or_before="2020-02-29",
-        return_first_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_first_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
     # OUTCOMES
@@ -105,8 +108,7 @@ common_variables = dict(
         between=["2019-11-01", "2020-02-29"],
         returning="date",
         find_last_match_in_period=True,
-        include_month=True,
-        include_day=False,
+        date_format="YYYY-MM",
         return_expectations={
             "date": {"earliest": "2019-11-01", "latest": "2020-02-29"}
         },
@@ -514,7 +516,7 @@ common_variables = dict(
         ethnicity_codes,
         returning="category",
         find_last_match_in_period=True,
-        include_date_of_match=True,
+        date_format="YYYY-MM-DD",
         return_expectations={
             "category": {"ratios": {"1": 0.8, "5": 0.1, "3": 0.1}},
             "incidence": 0.75,
@@ -549,8 +551,9 @@ common_variables = dict(
     smoking_status_date=patients.with_these_clinical_events(
         clear_smoking_codes,
         on_or_before="2020-02-29",
-        return_last_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
 
@@ -558,8 +561,9 @@ common_variables = dict(
     hazardous_alcohol=patients.with_these_clinical_events(
         hazardous_alcohol_codes,
         on_or_before="2020-02-29",
-        return_first_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
 
@@ -567,24 +571,27 @@ common_variables = dict(
     hypertension=patients.with_these_clinical_events(
         hypertension_codes,
         on_or_before="2020-02-29",
-        return_first_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_first_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
     # HEART FAILURE
     heart_failure=patients.with_these_clinical_events(
         heart_failure_codes,
         on_or_before="2020-02-29",
-        return_first_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_first_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
     # DIABETES
     diabetes=patients.with_these_clinical_events(
         diabetes_codes,
         on_or_before="2020-02-29",
-        return_first_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_first_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
     hba1c_mmol_per_mol=patients.with_these_clinical_events(
@@ -617,24 +624,27 @@ common_variables = dict(
     copd=patients.with_these_clinical_events(
         copd_codes,
         on_or_before="2020-02-29",
-        return_first_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_first_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
     # OTHER RESPIRATORY DISEASES
     other_respiratory=patients.with_these_clinical_events(
         other_respiratory_codes,
         on_or_before="2020-02-29",
-        return_first_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_first_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
     # CANCER - 3 TYPES
     cancer=patients.with_these_clinical_events(
         combine_codelists(lung_cancer_codes, haem_cancer_codes, other_cancer_codes),
         on_or_before="2020-02-29",
-        return_first_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_first_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
     # IMMUNOSUPPRESSION
@@ -648,15 +658,17 @@ common_variables = dict(
             spleen_codes,
         ),
         on_or_before="2020-02-29",
-        return_last_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
     aplastic_anaemia=patients.with_these_clinical_events(
         aplastic_codes,
         between=["2019-03-01", "2020-02-29"],
-        return_last_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={
             "date": {"earliest": "2019-03-01", "latest": "2020-02-29"}
         },
@@ -665,8 +677,9 @@ common_variables = dict(
     temporary_immunodeficiency=patients.with_these_clinical_events(
         temp_immune_codes,
         between=["2019-03-01", "2020-02-29"],
-        return_last_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={
             "date": {"earliest": "2019-03-01", "latest": "2020-02-29"}
         },
@@ -689,8 +702,9 @@ common_variables = dict(
     esrf=patients.with_these_clinical_events(
         esrf_codes,  
         on_or_before="2020-02-29",
-        return_last_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
 
@@ -712,40 +726,45 @@ common_variables = dict(
     stroke=patients.with_these_clinical_events(
         stroke_codes,
         on_or_before="2020-02-29",
-        return_last_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
     #### Transient ischaemic attack
     tia=patients.with_these_clinical_events(
         tia_codes,
         on_or_before="2020-02-29",
-        return_last_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
     #### Myocardial infarction
     myocardial_infarct=patients.with_these_clinical_events(
         mi_codes,
         on_or_before="2020-02-29",
-        return_last_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
     #### Peripheral artery disease
     pad=patients.with_these_clinical_events(
         pad_codes,
         on_or_before="2020-02-29",
-        return_last_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
     #### Venous thromboembolism
     vte=patients.with_these_clinical_events(
         vte_codes,
         on_or_before="2020-02-29",
-        return_last_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
     # FLU VACCINATION STATUS
@@ -772,8 +791,9 @@ common_variables = dict(
         flu_clinical_given_codes,
         ignore_days_where_these_codes_occur=flu_clinical_not_given_codes,
         between=["2019-09-01", "2020-02-29"],  # current flu season
-        return_first_date_in_period=True,
-        include_month=True,
+        returning="date",
+        find_first_match_in_period=True,
+        date_format="YYYY-MM",
         return_expectations={
             "date": {"earliest": "2019-09-01", "latest": "2020-02-29"}
         },
@@ -815,8 +835,7 @@ common_variables = dict(
         between=["2019-11-01", "2020-02-29"],
         returning="date",
         find_last_match_in_period=True,
-        include_month=True,
-        include_day=False,
+        date_format="YYYY-MM",
         return_expectations={
             "date": {"earliest": "2019-11-01", "latest": "2020-02-29"}
         },
@@ -828,8 +847,7 @@ common_variables = dict(
         between=["2019-11-01", "2020-02-29"],
         returning="date",
         find_last_match_in_period=True,
-        include_month=True,
-        include_day=False,
+        date_format="YYYY-MM",
         return_expectations={
             "date": {"earliest": "2019-11-01", "latest": "2020-02-29"}
         },
@@ -841,8 +859,7 @@ common_variables = dict(
         between=["2019-11-01", "2020-02-29"],
         returning="date",
         find_last_match_in_period=True,
-        include_month=True,
-        include_day=False,
+        date_format="YYYY-MM",
         return_expectations={
             "date": {"earliest": "2019-11-01", "latest": "2020-02-29"}
         },
@@ -854,8 +871,7 @@ common_variables = dict(
         between=["2019-11-01", "2020-02-29"],
         returning="date",
         find_last_match_in_period=True,
-        include_month=True,
-        include_day=False,
+        date_format="YYYY-MM",
         return_expectations={
             "date": {"earliest": "2019-11-01", "latest": "2020-02-29"}
         },
