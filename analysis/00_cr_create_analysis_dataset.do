@@ -471,12 +471,14 @@ gen CHA2DS2_VASc_score = chadsvas_age + chadsvas_sex + chadsvas_hf + chadsvas_ht
 * Any records of HAS-BLED score ever appear before cohort entry (round up to integer)
 gen has_bled_score_ever = ceil(has_bled_score) if has_bled_score_date != .
 
+* Set the variable to missing if the recorded score > 9 (max score is 9)
 replace has_bled_score_ever = . if has_bled_score_ever > 9
 
 * Recent records of HAS-BLED score (1 year) before cohort entry (round up to integer)
 gen has_bled_score_recent = ceil(has_bled_score) if ///
 inrange(has_bled_score_date, (date("$indexdate", "DMY") - 365), date("$indexdate", "DMY"))
 
+* Set the variable to missing if the recorded score > 9 (max score is 9)
 replace has_bled_score_recent = . if has_bled_score_recent > 9
 
 
