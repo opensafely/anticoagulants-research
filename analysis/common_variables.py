@@ -554,7 +554,7 @@ common_variables = dict(
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
 
-    # HAZARDOUS ALCOHOL USE - CLINICAL CODES ONLY (PLACEHOLDER)
+    # HAZARDOUS ALCOHOL USE - CLINICAL CODES ONLY
     hazardous_alcohol=patients.with_these_clinical_events(
         hazardous_alcohol_codes,
         on_or_before="2020-02-29",
