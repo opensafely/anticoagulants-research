@@ -33,6 +33,11 @@ unclear_smoking_codes = codelist_from_csv(
     category_column="Category",
 )
 
+# HAZARDOUS ALCOHOL USE CODELIST
+hazardous_alcohol_codes = codelist_from_csv(
+    "codelists/opensafely-hazardous-alcohol-drinking.csv", system="ctv3", column="code",
+)
+
 # CLINICAL CONDITIONS CODELISTS
 heart_failure_codes = codelist_from_csv(
     "codelists/opensafely-heart-failure.csv", system="ctv3", column="CTV3ID",
@@ -129,6 +134,8 @@ valvular_af_codes  = codelist_from_csv(
 
 creatinine_codes = codelist(["XE2q5"], system="ctv3")
 
+has_bled_codes = codelist(["XaY6z"], system="ctv3")
+
 #The following is an imperfect description but left as is for consistency until resolution of https://github.com/ebmdatalab/opencodelists/issues/39
 esrf_codes = codelist_from_csv(
     "codelists/opensafely-chronic-kidney-disease.csv", system="ctv3", column="CTV3ID",
@@ -212,4 +219,16 @@ antiplatelet_codes = codelist_from_csv(
     "codelists/opensafely-antiplatelets.csv",
     system="snomed",
     column="dmd_id",
+)
+
+aspirin_codes = codelist_from_csv(
+    "codelists/opensafely-aspirin.csv",
+    system="snomed",
+    column="id",
+)
+
+nsaid_codes = codelist_from_csv(
+    "codelists/opensafely-nsaids-oral.csv",
+    system="snomed",
+    column="snomed_id",
 )

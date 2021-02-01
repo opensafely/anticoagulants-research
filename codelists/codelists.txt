@@ -35,3 +35,6 @@ opensafely/transient-ischaemic-attack/3526e2ac
 opensafely/low-molecular-weight-heparins-dmd/480a2266
 opensafely/antiplatelets/15eb3bfc
 opensafely/oestrogen-and-oestrogen-like-drugs/2efaaf31
+opensafely/hazardous-alcohol-drinking/6364474b
+opensafely/nsaids-oral/2020-06-09
+opensafely/aspirin/2020-07-01
