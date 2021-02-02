@@ -79,7 +79,7 @@ foreach var of varlist  ckd     					///
 						vte							///
 						antiplatelet                ///
 						oestrogen                   ///
-						has_bled_score_date			///
+						has_bled_score				///
 						 { 
 						
 	summ `var'_date, format
