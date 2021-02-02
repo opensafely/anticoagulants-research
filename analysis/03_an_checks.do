@@ -79,6 +79,7 @@ foreach var of varlist  ckd     					///
 						vte							///
 						antiplatelet                ///
 						oestrogen                   ///
+						has_bled_score_date			///
 						 { 
 						
 	summ `var'_date, format
@@ -162,6 +163,8 @@ foreach var of varlist  agegroup                    ///
 }
 
 bysort exposure: su gp_consult_count, detail
+bysort exposure: su has_bled_score_ever, detail
+bysort exposure: su has_bled_score_recent, detail
 bysort exposure: su ae_attendance_count , detail
 bysort exposure: su age, detail
 bysort exposure: su follow_up_`outcome', detail
