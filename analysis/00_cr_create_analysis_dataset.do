@@ -468,19 +468,20 @@ replace chadsvas_dm = 0 if chadsvas_dm == .
 gen CHA2DS2_VASc_score = chadsvas_age + chadsvas_sex + chadsvas_hf + chadsvas_ht ///
 						+ chadsvas_stroke + chadsvas_vascular + chadsvas_dm
 
-* Any records of HAS-BLED score ever appear before cohort entry (round up to integer)
+* Records of HAS-BLED score ever appears 10 years before cohort entry (round up to integer)
 gen has_bled_score_ever = ceil(has_bled_score) if has_bled_score_date != .
 
-* Set the variable to missing if the recorded score > 9 (max score is 9)
+* Set the variable to missing if the recorded score > 9 (max score is 9) or <0
 replace has_bled_score_ever = . if has_bled_score_ever > 9
+replace has_bled_score_ever = . if has_bled_score_ever < 0
 
 * Recent records of HAS-BLED score (1 year) before cohort entry (round up to integer)
 gen has_bled_score_recent = ceil(has_bled_score) if ///
 inrange(has_bled_score_date, (date("$indexdate", "DMY") - 365), date("$indexdate", "DMY"))
 
-* Set the variable to missing if the recorded score > 9 (max score is 9)
+* Set the variable to missing if the recorded score > 9 (max score is 9) or <0
 replace has_bled_score_recent = . if has_bled_score_recent > 9
-
+replace has_bled_score_ever = . if has_bled_score_ever < 0
 
 /* LABEL VARIABLES============================================================*/
 *  Label variables you are intending to keep, drop the rest 
@@ -503,6 +504,9 @@ label var imd 						"Index of Multiple Deprivation (IMD)"
 label var ethnicity					"Ethnicity"
 label var stp 						"Sustainability and Transformation Partnership"
 label var CHA2DS2_VASc_score        "Calculated CHA2DS2_VASc_score"
+label var has_bled_score_ever		"Ever record of HAS-BLED score in 10 years"
+label var has_bled_score_recent		"Recent record of HAS-BLED score"
+label var has_bled_score_date		"Date of ever record of HAS-BLED score in 10 years"
 
 label var age1 						"Age spline 1"
 label var age2 						"Age spline 2"
