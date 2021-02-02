@@ -128,8 +128,7 @@ foreach var of varlist  bmi_measured_date 					///
 						antiplatelet_date                   ///	
 						aspirins_date						///
 						nsaid_date							///				
-						hazardous_alcohol_date 	            ///	
-						has_bled_score_date					///
+						hazardous_alcohol_date 	            ///
 						{
 	
 	/* date ranges are applied in python, so presence of date indicates presence of 
@@ -476,8 +475,7 @@ replace has_bled_score_ever = . if has_bled_score_ever > 9
 replace has_bled_score_ever = . if has_bled_score_ever < 0
 
 * Recent records of HAS-BLED score (1 year) before cohort entry (round up to integer)
-gen has_bled_score_recent = ceil(has_bled_score) if ///
-inrange(has_bled_score_date, (date("$indexdate", "DMY") - 365), date("$indexdate", "DMY"))
+gen has_bled_score_recent = ceil(has_bled_score) if has_bled_score_date > (date("$indexdate", "DMY") - 365) & has_bled_score_date < date("$indexdate", "DMY")
 
 * Set the variable to missing if the recorded score > 9 (max score is 9) or <0
 replace has_bled_score_recent = . if has_bled_score_recent > 9
