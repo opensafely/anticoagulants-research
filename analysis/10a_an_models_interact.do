@@ -58,11 +58,11 @@ lrtest A B
 local multivar1_p = round(r(p),0.001)
 
 * DAG adjusted model 
-stcox i.exposure i.care_home_residence i.male age1 age2 age3 $varlist, strata(practice_id)		
+stcox i.exposure i.care_home_residence i.male age1 age2 age3 $varlist, strata(stp)		
 										
 estimates store A
 
-stcox i.exposure##i.care_home_residence i.male age1 age2 age3 $varlist, strata(practice_id)		
+stcox i.exposure##i.care_home_residence i.male age1 age2 age3 $varlist, strata(stp)		
 estimates store B
 estimates save $tempdir/`outcome'_multivar2_int, replace 
 
@@ -70,11 +70,11 @@ lrtest A B
 local multivar2_p = round(r(p),0.001)
 
 * Fully adjusted model
-stcox i.exposure i.care_home_residence i.male age1 age2 age3 $fullvarlist, strata(practice_id)		
+stcox i.exposure i.care_home_residence i.male age1 age2 age3 $fullvarlist, strata(stp)		
 										
 estimates store A
 
-stcox i.exposure##i.care_home_residence i.male age1 age2 age3 $fullvarlist, strata(practice_id)		
+stcox i.exposure##i.care_home_residence i.male age1 age2 age3 $fullvarlist, strata(stp)		
 estimates store B
 estimates save $tempdir/`outcome'_multivar3_int, replace 
 
