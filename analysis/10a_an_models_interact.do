@@ -71,11 +71,11 @@ lrtest A B
 local multivar2_p = round(r(p),0.001)
 
 * Fully adjusted model
-stcox i.exposure i.care_home_residence i.male age1 age2 age3 $fullvarlist, strata(stp)		
+stcox i.exposure i.care_home_residence i.male age1 age2 age3 $fullvarlist, strata(practice_id)		
 										
 estimates store A
 
-stcox i.exposure##i.care_home_residence i.male age1 age2 age3 $fullvarlist, strata(stp)		
+stcox i.exposure##i.care_home_residence i.male age1 age2 age3 $fullvarlist, strata(practice_id)		
 estimates store B
 estimates save $tempdir/`outcome'_multivar3_int, replace 
 
