@@ -141,7 +141,7 @@ common_variables = dict(
 
     # Intracranial bleeding
     intracranial_bleed_ons=patients.with_these_codes_on_death_certificate(
-        intracranial_bleed_ons,
+        filter_codes_by_category(stroke_ons, include=["haemorrhagic"]),
         returning="date_of_death",
         date_format="YYYY-MM-DD",
         match_only_underlying_cause=True,
