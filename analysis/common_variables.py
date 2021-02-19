@@ -101,6 +101,53 @@ common_variables = dict(
             "category": {"ratios": {"U071": 0.5, "U072": 0.5}},
         },
     ),
+
+    # Other outcomes for causes of death
+    # Myocardial infarction
+    mycardial_infarct_ons=patients.with_these_codes_on_death_certificate(
+        filter_codes_by_category(myocardial_infarct_ons, include=["1"]),
+        returning="date_of_death",
+        date_format="YYYY-MM-DD",
+        match_only_underlying_cause=True,
+        on_or_after="2020-03-01",
+        return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
+
+    # Ischaemic stroke
+    stroke_ons=patients.with_these_codes_on_death_certificate(
+        filter_codes_by_category(stroke_ons, include=["ischaemic"]),
+        returning="date_of_death",
+        date_format="YYYY-MM-DD",
+        match_only_underlying_cause=True,
+        on_or_after="2020-03-01",
+        return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
+
+    # Venous thromboembolism
+    vte_ons=patients.with_these_codes_on_death_certificate(
+        vte_ons,
+        returning="date_of_death",
+        date_format="YYYY-MM-DD",
+        match_only_underlying_cause=True,
+        on_or_after="2020-03-01",
+        return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
+
+    # Gastrointestinal bleeding
+    gi_bleed_ons=patients.with_these_codes_on_death_certificate(
+        gi_bleed_ons,
+        returning="date_of_death",
+        date_format="YYYY-MM-DD",
+        match_only_underlying_cause=True,
+        on_or_after="2020-03-01",
+        return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
+
+    # Intracranial bleeding
+    intracranial_bleed_ons=patients.with_these_codes_on_death_certificate(
+        intracranial_bleed_ons,
+        returning="date_of_death",
+        date_format="YYYY-MM-DD",
+        match_only_underlying_cause=True,
+        on_or_after="2020-03-01",
+        return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
+
     # MEDICATIONS
     # LMWH
     lmwh_last_four_months=patients.with_these_medications(
