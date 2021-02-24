@@ -247,6 +247,12 @@ stroke_ons = codelist_from_csv(
     category_column="type",
 )
 
+gi_bleed_ons = codelist_from_csv(
+    "codelists/opensafely-gastrointestinal-bleeding-icd-10.csv",
+    system="icd10",
+    column="code",
+)
+
 # PLACEHOLDER
 vte_ons = codelist_from_csv(
     "codelists/opensafely-venous-thromboembolic-disease-hospital.csv",
