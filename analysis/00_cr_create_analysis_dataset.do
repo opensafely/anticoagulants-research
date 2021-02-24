@@ -610,6 +610,7 @@ label var first_positive_test_date       "Date of positive COVID-19 test"
 label var mi_date_ons   				 "ONS death date due to myocardial infarction"
 label var stroke_date_ons			     "ONS death date due to ischaemic stroke"
 label var vte_date_ons				     "ONS death date due to venous thromboembolism"
+label var gi_bleed_date_ons				     "ONS death date due to venous thromboembolism"
 label var intracranial_bleed_date_ons    "ONS death date due to intracranial bleed"
 
 /* ==================================================================*/
