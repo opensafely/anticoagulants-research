@@ -99,6 +99,11 @@ foreach var of varlist 	died_date_ons 	            ///
 						first_positive_test_date    ///
 						covid_admission_date        ///
 						dereg_date					///
+						mi_date_ons					///
+						stroke_date_ons				///
+						vte_date_ons				///
+						gi_bleed_date_ons			///
+						intracranial_bleed_date_ons	/// 
 						{
 						
 	confirm string variable `var'
@@ -127,8 +132,15 @@ replace covid_admission_primary_date=covid_admission_primary_date+0.5 if covid_a
 replace first_tested_for_covid=first_tested_for_covid+0.5 if first_tested_for_covid==enter_date
 replace first_positive_test_date=first_positive_test_date+0.5 if first_positive_test_date==enter_date
 
+replace mi_date_ons=mi_date_ons+0.5 if mi_date_ons==enter_date
+replace stroke_date_ons=stroke_date_ons+0.5 if stroke_date_ons==enter_date
+replace vte_date_ons=vte_date_ons+0.5 if vte_date_ons==enter_date
+replace gi_bleed_date_ons=gi_bleed_date_ons+0.5 if gi_bleed_date_ons==enter_date
+replace intracranial_bleed_date_ons=intracranial_bleed_date_ons+0.5 if intracranial_bleed_date_ons==enter_date
+
 * Format outcome dates
 format died_date_ons died_date_onscovid died_date_onsnoncoviddeath covid_admission_primary_date dereg_date %td
+format mi_date_ons stroke_date_ons vte_date_ons gi_bleed_date_ons intracranial_bleed_date_ons %td
 
 /*  Identify date of end of follow-up
 (first: end data availability, death, deregistration from GP or outcome) */
@@ -143,12 +155,26 @@ gen stime_onsnoncoviddeath = min(onscoviddeathcensor_date, died_date_ons, dereg_
 gen stime_covidtest = min(onscoviddeathcensor_date, died_date_ons, dereg_date, first_tested_for_covid)
 gen stime_positivecovidtest = min(onscoviddeathcensor_date, died_date_ons, dereg_date, first_positive_test_date)
 
+* Post-hoc analyses outcomes: 
+* Death due to myocardial infarction, ischaemic stroke, vte, GI bleed & intracranial bleed
+gen stime_mi_ons = min(onscoviddeathcensor_date, died_date_ons, dereg_date)
+gen stime_stroke_ons = min(onscoviddeathcensor_date, died_date_ons, dereg_date)
+gen stime_vte_ons = min(onscoviddeathcensor_date, died_date_ons, dereg_date)
+gen stime_gi_bleed_ons = min(onscoviddeathcensor_date, died_date_ons, dereg_date)
+gen stime_intracranial_bleed_ons = min(onscoviddeathcensor_date, died_date_ons, dereg_date)
+
 * Generate variables for follow-up person-days for each outcome
 gen follow_up_onscoviddeath = stime_onscoviddeath - enter_date + 1
 gen follow_up_admitcovid = stime_admitcovid - enter_date + 1
 gen follow_up_onsnoncoviddeath = stime_onsnoncoviddeath - enter_date + 1
 gen follow_up_covidtest = stime_covidtest - enter_date + 1
 gen follow_up_positivecovidtest = stime_positivecovidtest - enter_date + 1
+
+gen follow_up_mi_ons = stime_mi_ons - enter_date + 1
+gen follow_up_stroke_ons = stime_stroke_ons - enter_date + 1
+gen follow_up_vte_ons = stime_vte_ons - enter_date + 1
+gen follow_up_gi_bleed_ons = stime_gi_bleed_ons - enter_date + 1
+gen follow_up_intracranial_bleed_ons = stime_intracranial_bleed_ons - enter_date + 1
  
 * Format date variables
 format stime* %td 
@@ -185,6 +211,45 @@ first_positive_test_date>=enter_date & first_positive_test_date<=stime_positivec
 
 replace positivecovidtest = 0 if positivecovidtest == .
 
+* Post-hoc analyses: death due to MI, ischaemic stroke, vte, GI bleed & intracranial bleed
+* Only explore the causes of death among non-COVID-death analyses
+* Therefore set to outcome to be 0 if the patients has a record of any underlying COVID-19 death
+
+* MI
+gen mi_ons = 1 if mi_date_ons!=. & mi_date_ons>=enter_date & mi_date_ons<=stime_mi_ons
+
+replace mi_ons = 0 if mi_ons == .
+replace mi_ons = 0 if onscoviddeath = 1
+
+* Ischaemic stroke
+gen stroke_ons = 1 if stroke_date_ons!=. & ///
+stroke_date_ons>=enter_date & stroke_date_ons<=stime_stroke_ons
+
+replace stroke_ons = 0 if stroke_ons == .
+replace stroke_ons = 0 if onscoviddeath = 1
+
+* VTE
+gen vte_ons = 1 if vte_date_ons!=. & ///
+vte_date_ons>=enter_date & vte_date_ons<=stime_vte_ons
+
+replace vte_ons = 0 if vte_ons == .
+replace vte_ons = 0 if onscoviddeath = 1
+
+* GI bleed
+gen gi_bleed_ons = 1 if gi_bleed_date_ons!=. & ///
+gi_bleed_date_ons>=enter_date & gi_bleed_date_ons<=stime_gi_bleed_ons
+
+replace gi_bleed_ons = 0 if gi_bleed_ons == .
+replace gi_bleed_ons = 0 if onscoviddeath = 1
+
+
+* Intracranial bleed
+gen intracranial_bleed_ons = 1 if intracranial_bleed_date_ons!=. & ///
+intracranial_bleed_date_ons>=enter_date & intracranial_bleed_date_ons<=stime_intracranial_bleed_ons
+
+replace intracranial_bleed_ons = 0 if intracranial_bleed_ons == .
+replace intracranial_bleed_ons = 0 if onscoviddeath = 1
+
 /* LABEL VARIABLES============================================================*/
 
 * Outcomes and follow-up
@@ -204,6 +269,18 @@ label var first_positive_test_date		"Date of positive covid test"
 
 label var died_date_ons                 "ONS death date (any cause)"
 
+label var mi_date_ons					"Date of ONS myocardial infarction death"
+label var stroke_date_ons				"Date of ONS ischaemic stroke death"
+label var vte_date_ons					"Date of ONS VTE death"
+label var gi_bleed_date_ons				"Date of ONS GI bleed death"
+label var intracranial_bleed_date_ons	"Date of ONS intracranial bleed death"
+
+label var mi_ons						"Failure/censoring indicator for outcome: myocardial infarction death"
+label var stroke_ons					"Failure/censoring indicator for outcome: ischaemic stroke death"
+label var vte_ons						"Failure/censoring indicator for outcome: VTE death"
+label var gi_bleed_ons					"Failure/censoring indicator for outcome: GI bleed death"
+label var intracranial_bleed_ons		"Failure/censoring indicator for outcome: intracranial bleed death"
+
 * End of follow-up (date)
 label var stime_onscoviddeath 			"End of follow-up: ONS covid death"
 label var stime_admitcovid     			"End of follow-up: SUS covid"
@@ -211,12 +288,25 @@ label var stime_onsnoncoviddeath 		"End of follow-up: ONS non-covid death"
 label var stime_covidtest     			"End of follow-up: covid test"
 label var stime_positivecovidtest 		"End of follow-up: positive covid test"
 
+label var stime_mi_ons				    "End of follow-up: ONS myocardial infarction death"
+label var stime_stroke_ons 				"End of follow-up: ONS ischaemic stroke death"
+label var stime_vte_ons 				"End of follow-up: ONS VTE death"
+label var stime_gi_bleed_ons 			"End of follow-up: ONS GI bleed death"
+label var stime_intracranial_bleed_ons  "End of follow-up: ONS intracranial bleed death"
+
 * Duration of follow-up
 label var follow_up_onscoviddeath       "Number of days (follow-up) for ONS covid death"
 label var follow_up_admitcovid 			"Number of days (follow-up) for covid hospital admission"
 label var follow_up_onsnoncoviddeath	"Number of days (follow-up) for ONS non-covid death"
 label var follow_up_covidtest 			"Number of days (follow-up) for covid test"
 label var follow_up_positivecovidtest 	"Number of days (follow-up) for positive covid test"
+
+label var follow_up_mi_ons 					"Number of days (follow-up) for ONS myocardial infarction death"
+label var follow_up_stroke_ons				"Number of days (follow-up) for ONS ischaemic stroke death"
+label var follow_up_vte_ons					"Number of days (follow-up) for ONS VTE death"
+label var follow_up_gi_bleed_ons			"Number of days (follow-up) for ONS GI bleed death"
+label var follow_up_intracranial_bleed_ons	"Number of days (follow-up) for ONS intracranial bleed death"
+ 
 /* ==========================================================================*/
 
 save $tempdir/cr_dataset_af, replace
