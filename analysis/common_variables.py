@@ -104,8 +104,8 @@ common_variables = dict(
 
     # Other outcomes for causes of death
     # Myocardial infarction
-    mycardial_infarct_ons=patients.with_these_codes_on_death_certificate(
-        filter_codes_by_category(myocardial_infarct_ons, include=["1"]),
+    mi_date_ons=patients.with_these_codes_on_death_certificate(
+        filter_codes_by_category(mi_ons, include=["1"]),
         returning="date_of_death",
         date_format="YYYY-MM-DD",
         match_only_underlying_cause=True,
@@ -113,7 +113,7 @@ common_variables = dict(
         return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
 
     # Ischaemic stroke
-    stroke_ons=patients.with_these_codes_on_death_certificate(
+    stroke_date_ons=patients.with_these_codes_on_death_certificate(
         filter_codes_by_category(stroke_ons, include=["ischaemic"]),
         returning="date_of_death",
         date_format="YYYY-MM-DD",
@@ -122,7 +122,7 @@ common_variables = dict(
         return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
 
     # Venous thromboembolism
-    vte_ons=patients.with_these_codes_on_death_certificate(
+    vte_date_ons=patients.with_these_codes_on_death_certificate(
         vte_ons,
         returning="date_of_death",
         date_format="YYYY-MM-DD",
@@ -130,17 +130,8 @@ common_variables = dict(
         on_or_after="2020-03-01",
         return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
 
-    # Gastrointestinal bleeding
-    gi_bleed_ons=patients.with_these_codes_on_death_certificate(
-        gi_bleed_ons,
-        returning="date_of_death",
-        date_format="YYYY-MM-DD",
-        match_only_underlying_cause=True,
-        on_or_after="2020-03-01",
-        return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
-
     # Intracranial bleeding
-    intracranial_bleed_ons=patients.with_these_codes_on_death_certificate(
+    intracranial_bleed_date_ons=patients.with_these_codes_on_death_certificate(
         filter_codes_by_category(stroke_ons, include=["haemorrhagic"]),
         returning="date_of_death",
         date_format="YYYY-MM-DD",
