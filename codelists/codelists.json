@@ -239,6 +239,24 @@
       "url": "https://codelists.opensafely.org/codelist/opensafely/aspirin/2020-07-01/",
       "downloaded_at": "2021-01-28 09:51:34.889403Z",
       "sha": "72a82a16aa14ad42d60544febcfe6556eb25db2a"
+    },
+    "opensafely-venous-thromboembolic-disease-hospital.csv": {
+      "id": "opensafely/venous-thromboembolic-disease-hospital/2020-10-01",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/venous-thromboembolic-disease-hospital/2020-10-01/",
+      "downloaded_at": "2021-02-24 16:54:30.281019Z",
+      "sha": "5dd9d60df2ad93e622d76e0d7d90f71d14168af1"
+    },
+    "opensafely-stroke-secondary-care.csv": {
+      "id": "opensafely/stroke-secondary-care/2020-10-05",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/stroke-secondary-care/2020-10-05/",
+      "downloaded_at": "2021-02-24 16:54:30.362481Z",
+      "sha": "04aeb4b87dcf27651e34c287fdffe023bce38591"
+    },
+    "opensafely-cardiovascular-secondary-care.csv": {
+      "id": "opensafely/cardiovascular-secondary-care/20b63bd4",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/cardiovascular-secondary-care/20b63bd4/",
+      "downloaded_at": "2021-02-24 16:54:30.456464Z",
+      "sha": "2058b84c281a623ad71793e9b5058aea9079612f"
     }
   }
 }
