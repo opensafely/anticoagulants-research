@@ -87,7 +87,7 @@ common_variables = dict(
         find_first_match_in_period=True,
         date_format="YYYY-MM-DD",
         return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
-   ),
+    ),
 
     covid_admission_primary_dx=patients.admitted_to_hospital(
         returning="primary_diagnosis",
@@ -111,6 +111,7 @@ common_variables = dict(
         match_only_underlying_cause=True,
         on_or_after="2020-03-01",
         return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
+    ),
 
     # Ischaemic stroke
     stroke_date_ons=patients.with_these_codes_on_death_certificate(
@@ -120,6 +121,7 @@ common_variables = dict(
         match_only_underlying_cause=True,
         on_or_after="2020-03-01",
         return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
+    ),
 
     # Venous thromboembolism
     vte_date_ons=patients.with_these_codes_on_death_certificate(
@@ -129,6 +131,7 @@ common_variables = dict(
         match_only_underlying_cause=True,
         on_or_after="2020-03-01",
         return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
+    ),
 
     # GI bleed
     gi_bleed_date_ons=patients.with_these_codes_on_death_certificate(
@@ -138,6 +141,7 @@ common_variables = dict(
         match_only_underlying_cause=True,
         on_or_after="2020-03-01",
         return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
+    ),
 
     # Intracranial bleeding
     intracranial_bleed_date_ons=patients.with_these_codes_on_death_certificate(
@@ -147,6 +151,7 @@ common_variables = dict(
         match_only_underlying_cause=True,
         on_or_after="2020-03-01",
         return_expectations={"date": {"earliest": "2020-03-01"}, "incidence" : 0.95},
+    ),
 
     # MEDICATIONS
     # LMWH
@@ -171,7 +176,7 @@ common_variables = dict(
             "date": {"earliest": "2019-11-01", "latest": "2020-02-29"}
         },
     ),
-    # Exposure variable (DAOCs)
+    # Exposure variable (DOACs)
     doac_last_four_months=patients.with_these_medications(
         doac_codes,
         between=["2019-11-01", "2020-02-29"],
