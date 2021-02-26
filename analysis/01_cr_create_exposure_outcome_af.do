@@ -157,7 +157,7 @@ gen stime_covidtest = min(onscoviddeathcensor_date, died_date_ons, dereg_date, f
 gen stime_positivecovidtest = min(onscoviddeathcensor_date, died_date_ons, dereg_date, first_positive_test_date)
 
 * Post-hoc analyses outcomes: 
-* Death due to myocardial infarction, ischaemic stroke, vte, intracranial bleed
+* Death due to myocardial infarction, ischaemic stroke, vte, GI & intracranial bleed
 gen stime_mi_ons = min(onscoviddeathcensor_date, died_date_ons, dereg_date)
 gen stime_stroke_ons = min(onscoviddeathcensor_date, died_date_ons, dereg_date)
 gen stime_vte_ons = min(onscoviddeathcensor_date, died_date_ons, dereg_date)
@@ -212,9 +212,9 @@ first_positive_test_date>=enter_date & first_positive_test_date<=stime_positivec
 
 replace positivecovidtest = 0 if positivecovidtest == .
 
-* Post-hoc analyses: death due to MI, ischaemic stroke, vte, intracranial bleed
+* Post-hoc analyses: death due to MI, ischaemic stroke, vte, GI & intracranial bleed
 * Only explore the causes of death among non-COVID-death analyses
-* Therefore set to outcome to be 0 if the patients has a record of any underlying COVID-19 death
+* Therefore set outcome to be 0 if the patients has a record of any underlying COVID-19 death
 
 * MI
 gen mi_ons = 1 if mi_date_ons!=. & mi_date_ons>=enter_date & mi_date_ons<=stime_mi_ons
