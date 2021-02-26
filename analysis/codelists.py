@@ -256,5 +256,5 @@ gi_bleed_ons = codelist_from_csv(
 vte_ons = codelist_from_csv(
     "codelists/opensafely-venous-thromboembolism-icd-10.csv",
     system="icd10",
-    column="ICD_code",
+    column="code",
 )
