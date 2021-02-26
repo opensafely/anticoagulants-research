@@ -220,35 +220,35 @@ replace positivecovidtest = 0 if positivecovidtest == .
 gen mi_ons = 1 if mi_date_ons!=. & mi_date_ons>=enter_date & mi_date_ons<=stime_mi_ons
 
 replace mi_ons = 0 if mi_ons == .
-replace mi_ons = 0 if onscoviddeath = 1
+replace mi_ons = 0 if onscoviddeath == 1
 
 * Ischaemic stroke
 gen stroke_ons = 1 if stroke_date_ons!=. & ///
 stroke_date_ons>=enter_date & stroke_date_ons<=stime_stroke_ons
 
 replace stroke_ons = 0 if stroke_ons == .
-replace stroke_ons = 0 if onscoviddeath = 1
+replace stroke_ons = 0 if onscoviddeath == 1
 
 * VTE
 gen vte_ons = 1 if vte_date_ons!=. & ///
 vte_date_ons>=enter_date & vte_date_ons<=stime_vte_ons
 
 replace vte_ons = 0 if vte_ons == .
-replace vte_ons = 0 if onscoviddeath = 1
+replace vte_ons = 0 if onscoviddeath == 1
 
 * GI bleed
 gen gi_bleed_ons = 1 if gi_bleed_date_ons!=. & ///
 gi_bleed_date_ons>=enter_date & gi_bleed_date_ons<=stime_gi_bleed_ons
 
 replace gi_bleed_ons = 0 if gi_bleed_ons == .
-replace gi_bleed_ons = 0 if onscoviddeath = 1
+replace gi_bleed_ons = 0 if onscoviddeath == 1
 
 * Intracranial bleed
 gen intracranial_bleed_ons = 1 if intracranial_bleed_date_ons!=. & ///
 intracranial_bleed_date_ons>=enter_date & intracranial_bleed_date_ons<=stime_intracranial_bleed_ons
 
 replace intracranial_bleed_ons = 0 if intracranial_bleed_ons == .
-replace intracranial_bleed_ons = 0 if onscoviddeath = 1
+replace intracranial_bleed_ons = 0 if onscoviddeath == 1
 
 /* LABEL VARIABLES============================================================*/
 
