@@ -607,6 +607,11 @@ label var covid_admission_date           "Date of hospital admission due to COVI
 label var covid_admission_primary_dx     "Primary hospitalisation admission due to COVID"
 label var first_tested_for_covid         "Date of COVID-19 test"
 label var first_positive_test_date       "Date of positive COVID-19 test"
+label var mi_date_ons   				 "ONS death date due to myocardial infarction"
+label var stroke_date_ons			     "ONS death date due to ischaemic stroke"
+label var vte_date_ons				     "ONS death date due to venous thromboembolism"
+label var gi_bleed_date_ons				 "ONS death date due to GI bleed"
+label var intracranial_bleed_date_ons    "ONS death date due to intracranial bleed"
 
 /* ==================================================================*/
 

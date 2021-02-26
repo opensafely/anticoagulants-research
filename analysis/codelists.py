@@ -232,3 +232,29 @@ nsaid_codes = codelist_from_csv(
     system="snomed",
     column="snomed_id",
 )
+
+mi_ons = codelist_from_csv(
+    "codelists/opensafely-cardiovascular-secondary-care.csv",
+    system="icd10",
+    column="icd",
+    category_column="mi",
+)
+
+stroke_ons = codelist_from_csv(
+    "codelists/opensafely-stroke-secondary-care.csv", 
+    system="icd10", 
+    column="icd",
+    category_column="type",
+)
+
+gi_bleed_ons = codelist_from_csv(
+    "codelists/opensafely-gastrointestinal-bleeding-icd-10.csv",
+    system="icd10",
+    column="code",
+)
+
+vte_ons = codelist_from_csv(
+    "codelists/opensafely-venous-thromboembolism-icd-10.csv",
+    system="icd10",
+    column="code",
+)

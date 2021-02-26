@@ -99,6 +99,11 @@ summ  died_date_ons died_date_onscovid, format
 summ  covid_admission_date covid_admission_primary_date, format
 summ  first_tested_for_covid, format
 summ  first_positive_test_date, format
+summ  mi_date_ons, format
+summ  stroke_date_ons, format
+summ  vte_date_ons, format
+summ  gi_bleed_date_ons, format
+summ  intracranial_bleed_date_ons, format
 
 * Follow-up for outcomes
 datacheck follow_up_`outcome' > 0, nol
