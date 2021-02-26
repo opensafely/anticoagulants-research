@@ -272,7 +272,7 @@ label var died_date_ons                 "ONS death date (any cause)"
 label var mi_date_ons					"Date of ONS myocardial infarction death"
 label var stroke_date_ons				"Date of ONS ischaemic stroke death"
 label var vte_date_ons					"Date of ONS VTE death"
-label var gi_bleed_date_ons				"Date of ONS intracranial bleed death"
+label var gi_bleed_date_ons				"Date of ONS GI bleed death"
 label var intracranial_bleed_date_ons	"Date of ONS intracranial bleed death"
 
 label var mi_ons						"Failure/censoring indicator for outcome: myocardial infarction death"
