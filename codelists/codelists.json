@@ -240,11 +240,11 @@
       "downloaded_at": "2021-01-28 09:51:34.889403Z",
       "sha": "72a82a16aa14ad42d60544febcfe6556eb25db2a"
     },
-    "opensafely-venous-thromboembolic-disease-hospital.csv": {
-      "id": "opensafely/venous-thromboembolic-disease-hospital/2020-10-01",
-      "url": "https://codelists.opensafely.org/codelist/opensafely/venous-thromboembolic-disease-hospital/2020-10-01/",
-      "downloaded_at": "2021-02-24 16:54:30.281019Z",
-      "sha": "5dd9d60df2ad93e622d76e0d7d90f71d14168af1"
+    "opensafely-venous-thromboembolism-icd-10.csv": {
+      "id": "opensafely/venous-thromboembolism-icd-10/6e25de26",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/venous-thromboembolism-icd-10/6e25de26/",
+      "downloaded_at": "2021-02-26 12:09:33.310904Z",
+      "sha": "08da0c2bad7fdedb691ee6c3c364f11a4ecd3b0e"
     },
     "opensafely-stroke-secondary-care.csv": {
       "id": "opensafely/stroke-secondary-care/2020-10-05",
