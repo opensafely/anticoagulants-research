@@ -393,6 +393,19 @@ actions:
         data3: "output/oac_tempdata/11a_onscoviddeath_multivar2.ster"
         data4: "output/oac_tempdata/11a_onscoviddeath_multivar3.ster"
 
+  12a_an_models_ethnicity_af_oac_positivecovidtest:
+    run: stata-mp:latest analysis/12a_an_models_ethnicity.do positivecovidtest af_oac
+    needs: [02aii_cr_create_population_af_oac_positivecovidtest]
+    outputs:
+      moderately_sensitive:
+        log: output/oac_log/12a_an_models_ethnicity_positivecovidtest.log
+        table: "output/oac_tabfig/table9_positivecovidtest.txt"
+      highly_sensitive:
+        data3: "output/oac_tempdata/12a_positivecovidtest_multivar2_ethn.ster"
+        data4: "output/oac_tempdata/12a_positivecovidtest_multivar2_withoutethn.ster"
+        data5: "output/oac_tempdata/12a_positivecovidtest_multivar3_ethn.ster"
+        data6: "output/oac_tempdata/12a_positivecovidtest_multivar3_withoutethn.ster"
+
   # Main Analysis 2
   # Objective 2: Compare warfarin users and DOAC users
   format_dataset_af_warfarin:
@@ -2944,3 +2957,16 @@ actions:
         data6: "output/warfarin_tempdata/11b_mi_ons_multivar3.ster"
         data7: "output/warfarin_tempdata/11b_vte_ons_multivar2.ster"
         data8: "output/warfarin_tempdata/11b_vte_ons_multivar3.ster"
+
+  12b_an_models_ethnicity_af_warfarin_mi_ons:
+    run: stata-mp:latest analysis/12b_an_models_ethnicity.do mi_ons af_warfarin
+    needs: [02b_cr_create_population_af_warfarin_mi_ons]
+    outputs:
+      moderately_sensitive:
+        log: output/warfarin_log/12b_an_models_ethnicity_mi_ons.log
+        table: "output/warfarin_tabfig/table8_mi_ons.txt"
+      highly_sensitive:
+        data3: "output/warfarin_tempdata/12b_mi_ons_multivar2_ethn.ster"
+        data4: "output/warfarin_tempdata/12b_mi_ons_multivar2_withoutethn.ster"
+        data5: "output/warfarin_tempdata/12b_mi_ons_multivar3_ethn.ster"
+        data6: "output/warfarin_tempdata/12b_mi_ons_multivar3_withoutethn.ster"
