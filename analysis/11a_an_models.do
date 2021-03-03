@@ -39,7 +39,7 @@ recode diab_control 4=3
 * Add checks to outcome count in non-exposed group and the parameters that did not converge
 safecount if admitcovid == 1 & exposure == 0 & diabcat = 4
 
-* DAG adjusted model
+* DAG adjusted model (change to diab_control from main analysis)
 stcox i.exposure i.male age1 age2 age3 i.imd ///	
 				  i.obese4cat			    ///
 				  i.smoke_nomiss		    ///
@@ -56,7 +56,7 @@ stcox i.exposure i.male age1 age2 age3 i.imd ///
 				  
 estimates save $tempdir/11a_admitcovid_multivar2, replace 	
 
-* Fully adjusted model
+* Fully adjusted model (change to diab_control from main analysis)
 stcox i.exposure i.male age1 age2 age3 i.imd ///
 				   i.obese4cat			    ///
 				   i.smoke_nomiss		    ///
@@ -96,7 +96,8 @@ safecount if onscoviddeath == 1 & exposure == 0 & stroke_tia == 1
 
 safecount if onscoviddeath == 1 & exposure == 0 & oestrogen == 1
 
-* DAG adjusted model
+* DAG adjusted model 
+* (change to diab_control, remove stroke_tia and oestrogen from main analysis)
 stcox i.exposure i.male age1 age2 age3 i.imd ///	
 				  i.obese4cat			    ///
 				  i.smoke_nomiss		    ///
@@ -112,6 +113,7 @@ stcox i.exposure i.male age1 age2 age3 i.imd ///
 estimates save $tempdir/11a_onscoviddeath_multivar2, replace 	
 
 * Fully adjusted model
+* (change to diab_control, remove stroke_tia and oestrogen from main analysis)
 stcox i.exposure i.male age1 age2 age3 i.imd ///
 				   i.obese4cat			    ///
 				   i.smoke_nomiss		    ///
