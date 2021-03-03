@@ -14,7 +14,7 @@ DATASETS USED:			data in memory ($tempdir/analysis_dataset_STSET_outcome)
 
 DATASETS CREATED: 		none
 OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
-						table8_`outcome', printed to analysis/$outdir
+						table8, printed to analysis/$outdir
 							
 ==============================================================================*/
 
