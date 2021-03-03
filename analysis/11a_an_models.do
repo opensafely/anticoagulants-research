@@ -37,7 +37,7 @@ clonevar diab_control = diabcat
 recode diab_control 4=3
 
 * Add checks to outcome count in non-exposed group and the parameters that did not converge
-safecount if admitcovid == 1 & exposure == 0 & diabcat = 4
+safecount if admitcovid == 1 & exposure == 0 & diabcat == 4
 
 * DAG adjusted model (change to diab_control from main analysis)
 stcox i.exposure i.male age1 age2 age3 i.imd ///	
@@ -90,7 +90,7 @@ clonevar diab_control = diabcat
 recode diab_control 4=3
 
 * Add checks to outcome count in non-exposed group and the parameters that did not converge
-safecount if onscoviddeath == 1 & exposure == 0 & diabcat = 4
+safecount if onscoviddeath == 1 & exposure == 0 & diabcat == 4
 
 safecount if onscoviddeath == 1 & exposure == 0 & stroke_tia == 1
 
