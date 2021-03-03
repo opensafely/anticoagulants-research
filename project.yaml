@@ -380,6 +380,19 @@ actions:
         fig1: "output/oac_tabfig/adj_curves_positivecovidtest.svg"
         fig2: "output/oac_tabfig/diff_curves_positivecovidtest.svg"
 
+  11a_an_models_af_oac:
+    run: stata-mp:latest analysis/11a_an_models.do af_oac
+    needs: [02aii_cr_create_population_af_oac_positivecovidtest]
+    outputs:
+      moderately_sensitive:
+        log: output/oac_log/11a_an_models.log
+        table: "output/oac_tabfig/table8.txt"
+      highly_sensitive:
+        data1: "output/oac_tempdata/11a_admitcovid_multivar2.ster"
+        data2: "output/oac_tempdata/11a_admitcovid_multivar3.ster"
+        data3: "output/oac_tempdata/11a_onscoviddeath_multivar2.ster"
+        data4: "output/oac_tempdata/11a_onscoviddeath_multivar3.ster"
+
   # Main Analysis 2
   # Objective 2: Compare warfarin users and DOAC users
   format_dataset_af_warfarin:
