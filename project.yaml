@@ -382,7 +382,7 @@ actions:
 
   11a_an_models_af_oac:
     run: stata-mp:latest analysis/11a_an_models.do af_oac
-    needs: [02aii_cr_create_population_af_oac_positivecovidtest]
+    needs: [02aii_cr_create_population_af_oac_onscoviddeath, 02aii_cr_create_population_af_oac_admitcovid]
     outputs:
       moderately_sensitive:
         log: output/oac_log/11a_an_models.log
@@ -2927,3 +2927,20 @@ actions:
         data4: "output/warfarin_tempdata/intracranial_bleed_ons_multivar2_withoutethn.ster"
         data5: "output/warfarin_tempdata/intracranial_bleed_ons_multivar3_ethn.ster"
         data6: "output/warfarin_tempdata/intracranial_bleed_ons_multivar3_withoutethn.ster"
+
+  11b_an_models_af_warfarin:
+    run: stata-mp:latest analysis/11b_an_models.do af_warfarin
+    needs: [02b_cr_create_population_af_warfarin_gi_bleed_ons, 02b_cr_create_population_af_warfarin_mi_ons, 02b_cr_create_population_af_warfarin_stroke_ons, 02b_cr_create_population_af_warfarin_vte_ons]
+    outputs:
+      moderately_sensitive:
+        log: output/warfarin_log/11b_an_models.log
+        table: "output/warfarin_tabfig/table7.txt"
+      highly_sensitive:
+        data1: "output/warfarin_tempdata/11b_gi_bleed_ons_multivar2.ster"
+        data2: "output/warfarin_tempdata/11b_gi_bleed_ons_multivar3.ster"
+        data3: "output/warfarin_tempdata/11b_stroke_ons_multivar2.ster"
+        data4: "output/warfarin_tempdata/11b_stroke_ons_multivar3.ster"
+        data5: "output/warfarin_tempdata/11b_mi_ons_multivar2.ster"
+        data6: "output/warfarin_tempdata/11b_mi_ons_multivar3.ster"
+        data7: "output/warfarin_tempdata/11b_vte_ons_multivar2.ster"
+        data8: "output/warfarin_tempdata/11b_vte_ons_multivar3.ster"
