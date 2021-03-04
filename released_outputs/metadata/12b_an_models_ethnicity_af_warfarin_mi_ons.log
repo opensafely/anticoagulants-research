@@ -1,0 +1,21 @@
+
+
+state: succeeded
+commit: a969d11ca56b21a72a58c9c9c66b2a30547a52d1
+docker_image_id: sha256:5a4bb3ecd807de29a18a01ffae01739415778f0b770cbd43d7140bb0017306f1
+exit_code: 0
+job_id: rtp2g545qt2vhgwf
+run_by_user: angelwong121
+created_at: 2021-03-03T17:40:46Z
+started_at: 2021-03-03T17:41:12Z
+completed_at: 2021-03-03T17:43:08Z
+
+Completed successfully
+
+outputs:
+  output/warfarin_log/12b_an_models_ethnicity_mi_ons.log          - moderately_sensitive
+  output/warfarin_tabfig/table8_mi_ons.txt                        - moderately_sensitive
+  output/warfarin_tempdata/12b_mi_ons_multivar2_ethn.ster         - highly_sensitive    
+  output/warfarin_tempdata/12b_mi_ons_multivar2_withoutethn.ster  - highly_sensitive    
+  output/warfarin_tempdata/12b_mi_ons_multivar3_ethn.ster         - highly_sensitive    
+  output/warfarin_tempdata/12b_mi_ons_multivar3_withoutethn.ster  - highly_sensitive    

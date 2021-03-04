@@ -1,0 +1,83 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/oac_log/flow_chart_general_population.log
+  log type:  text
+ opened on:   1 Mar 2021, 20:30:11
+
+. 
+. /*
+> # General population (before matching)
+>     #    registration_history AND
+>     #    (age >=18 AND age <= 110) AND
+>     #    (sex="M" OR sex="F") AND
+>     #    imd >0 AND 
+>     #    gp_consult_count>0 AND NOT (
+>     #    af OR
+>     #    lmwh_last_four_months OR 
+>     #    warfarin_last_four_months OR
+>     #    doac_last_four_months
+> */
+. safecount
+  31,161,384
+
+. drop if registration_history!=1
+(9,214,801 observations deleted)
+
+. safecount
+  21,946,583
+
+. drop if age < 18 | age > 110
+(4,274,339 observations deleted)
+
+. safecount
+  17,672,244
+
+. keep if sex=="M" | sex=="F"
+(291 observations deleted)
+
+. safecount
+  17,671,953
+
+. keep if imd>0
+(313,744 observations deleted)
+
+. safecount
+  17,358,209
+
+. keep if gp_consult_count>0
+(4,436,057 observations deleted)
+
+. safecount
+  12,922,152
+
+. drop if !missing(af)
+(495,921 observations deleted)
+
+. safecount
+  12,426,231
+
+. drop if !missing(lmwh_last_four_months)
+(14,611 observations deleted)
+
+. safecount
+  12,411,620
+
+. drop if !missing(warfarin_last_four_months)
+(49,121 observations deleted)
+
+. safecount
+  12,362,499
+
+. drop if !missing(doac_last_four_months)
+(89,334 observations deleted)
+
+. safecount
+  12,273,165
+
+. 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/oac_log/flow_chart_general_population.log
+  log type:  text
+ closed on:   1 Mar 2021, 20:30:38
+-------------------------------------------------------------------------------

@@ -1,0 +1,20 @@
+
+
+state: succeeded
+commit: c0f1328846bc2d8184c48d405b3941e4498822a3
+docker_image_id: sha256:5a4bb3ecd807de29a18a01ffae01739415778f0b770cbd43d7140bb0017306f1
+job_id: kuf7odndzii6svi5
+run_by_user: angelwong121
+created_at: 2021-03-01T11:44:57Z
+started_at: 2021-03-01T21:51:10Z
+completed_at: 2021-03-01T21:58:13Z
+
+Completed successfully
+
+outputs:
+  output/oac_log/sens_analysis_2/05a_an_models_admitcovid.log    - moderately_sensitive
+  output/oac_tabfig/sens_analysis_2/table2_admitcovid.txt        - moderately_sensitive
+  output/oac_tempdata/sens_analysis_2/admitcovid_multivar1.ster  - highly_sensitive    
+  output/oac_tempdata/sens_analysis_2/admitcovid_multivar2.ster  - highly_sensitive    
+  output/oac_tempdata/sens_analysis_2/admitcovid_multivar3.ster  - highly_sensitive    
+  output/oac_tempdata/sens_analysis_2/admitcovid_univar.ster     - highly_sensitive    

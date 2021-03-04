@@ -1,0 +1,7 @@
+Table 2: Association between current anticoagulant use and vte_ons - Obj_2_AF Population
+	Number of events	Total person-weeks	Rate per 1,000	Univariable		Age/Sex Adjusted		DAG Adjusted		Fully adjusted		
+				HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI
+Main Analysis
+DOAC use	21	   8195719	0.00	1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)
+warfarin use	6	   2719891	0.00	0.86	0.35 - 2.13	0.83	0.33 - 2.06	0.72	0.28 - 1.87	0.76	0.29 - 1.97
+

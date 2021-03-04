@@ -1,0 +1,52 @@
+Matching started at: 2021-03-01 21:09:08.856530
+
+CSV import:
+Completed 2021-03-01 21:12:58.570384
+Cases    52416
+Matches  12273165
+
+Dropping cases from matches:
+Completed 2021-03-01 21:13:28.860264
+Cases    52416
+Matches  12273165
+
+Completed pre-calculating indices at 2021-03-01 21:14:39.988340
+
+After matching:
+Completed 2021-03-02 05:55:11.344632
+Cases    51784
+Matches  511361
+
+Number of available matches per case:
+10.0    50550
+0.0       632
+1.0       199
+2.0       149
+8.0       141
+9.0       136
+4.0       133
+6.0       126
+5.0       121
+3.0       121
+7.0       108
+
+age comparison:
+Cases:
+count    51784.000000
+mean        70.627491
+std          9.080468
+min         18.000000
+25%         66.000000
+50%         71.000000
+75%         75.000000
+max        100.000000
+Matches:
+count    511361.000000
+mean         70.478580
+std           8.926345
+min          18.000000
+25%          66.000000
+50%          71.000000
+75%          75.000000
+max         101.000000
+

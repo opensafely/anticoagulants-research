@@ -1,0 +1,7 @@
+Table 3: Association between current anticoagulant use and gi_bleed_ons - Obj_2_AF Population, restrict to known ethnicity
+	Number of events	Total person-weeks	Rate per 1,000	Univariable		Age/Sex Adjusted		DAG Adjusted with ethnicity		DAG Adjusted without ethnicity		Fully Adjusted with ethnicity		Fully Adjusted without ethnicity		
+				HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI
+Main Analysis
+DOAC use	36	   6084923	0.01	1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)
+warfarin use	12	   2011890	0.01	1.01	0.52 - 1.94	0.92	0.48 - 1.78	0.94	0.47 - 1.85	0.92	0.47 - 1.82	0.92	0.46 - 1.84	0.91	0.46 - 1.81
+

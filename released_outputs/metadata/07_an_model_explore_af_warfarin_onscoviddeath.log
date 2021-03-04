@@ -1,0 +1,16 @@
+
+
+state: succeeded
+commit: c0f1328846bc2d8184c48d405b3941e4498822a3
+docker_image_id: sha256:5a4bb3ecd807de29a18a01ffae01739415778f0b770cbd43d7140bb0017306f1
+job_id: r26xoxlkfyipfwj2
+run_by_user: angelwong121
+created_at: 2021-03-01T11:44:56Z
+started_at: 2021-03-01T20:52:44Z
+completed_at: 2021-03-01T21:02:59Z
+
+Completed successfully
+
+outputs:
+  output/warfarin_log/07_an_model_explore_onscoviddeath.log  - moderately_sensitive
+  output/warfarin_tabfig/table4_onscoviddeath.txt            - moderately_sensitive

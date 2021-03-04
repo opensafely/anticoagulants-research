@@ -1,0 +1,17 @@
+
+
+state: succeeded
+commit: c0f1328846bc2d8184c48d405b3941e4498822a3
+docker_image_id: sha256:5a4bb3ecd807de29a18a01ffae01739415778f0b770cbd43d7140bb0017306f1
+job_id: hov4x7tqdjfzl52h
+run_by_user: angelwong121
+created_at: 2021-03-01T11:44:57Z
+started_at: 2021-03-01T21:35:34Z
+completed_at: 2021-03-01T21:40:36Z
+
+Completed successfully
+
+outputs:
+  output/warfarin_log/sens_analysis_1/SA1_02b_cr_create_population_covidtest.log  - moderately_sensitive
+  output/warfarin_tempdata/sens_analysis_1/analysis_dataset_STSET_covidtest.dta   - highly_sensitive    
+  output/warfarin_tempdata/sens_analysis_1/analysis_dataset_covidtest.dta         - highly_sensitive    

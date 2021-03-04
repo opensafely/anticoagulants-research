@@ -1,0 +1,7 @@
+Table 3: Association between current anticoagulant use and positivecovidtest - Obj_1_AF Population, restrict to known ethnicity
+	Number of events	Total person-weeks	Rate per 1,000	Univariable		Age/Sex Adjusted		DAG Adjusted with ethnicity		DAG Adjusted without ethnicity		Fully Adjusted with ethnicity		Fully Adjusted without ethnicity		
+				HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI
+Main Analysis
+non-use	108	    398879	0.27	1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)
+current use	251	   1165998	0.22	0.80	0.64 - 1.00	0.82	0.65 - 1.03	0.75	0.59 - 0.95	0.75	0.59 - 0.96	0.72	0.56 - 0.94	0.73	0.56 - 0.94
+

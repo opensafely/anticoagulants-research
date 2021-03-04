@@ -1,0 +1,1113 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/11b_an_models.log
+  log type:  text
+ opened on:   3 Mar 2021, 16:10:25
+
+. 
+. /* Outcome: GI bleed death===================================================
+> ====*/
+. 
+. * Open Stata dataset
+. use $tempdir/analysis_dataset_STSET_gi_bleed_ons, clear
+
+. 
+. * Create new diabetes variable, group Diabetes, no hba1c with uncontrolled di
+> abetes
+. clonevar diab_control = diabcat
+
+. recode diab_control 4=3
+(diab_control: 1136 changes made)
+
+. 
+. * Add checks to outcome count in non-exposed group and the parameters that di
+> d not converge
+. safecount if gi_bleed_ons == 1 & exposure == 1 & diabcat == 4
+  0
+
+. 
+. /* Main Model================================================================
+> =*/
+. 
+. /* Multivariable models */ 
+. 
+. * DAG adjusted model (change to diab_control from main analysis)
+. stcox i.exposure i.male age1 age2 age3 i.imd ///        
+>                                   i.obese4cat                       ///
+>                                   i.smoke_nomiss                    ///
+>                                   i.diab_control                        ///
+>                                   i.myocardial_infarct          ///
+>                                   i.pad                                      
+>    ///
+>                                   i.hypertension                        ///  
+>            
+>                                   i.heart_failure                       ///  
+>            
+>                                   i.stroke_tia              ///
+>                                   i.vte                     ///
+>                                   i.oestrogen                           ///  
+>    
+>                                   i.antiplatelet            ///
+>                                   i.flu_vaccine                         ///
+>                                   i.care_home_residence, strata(practice_id)
+
+         failure _d:  gi_bleed_ons
+   analysis time _t:  (stime_gi_bleed_ons-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -356.54118
+Iteration 1:   log likelihood = -333.12524
+Iteration 2:   log likelihood = -307.87893
+Iteration 3:   log likelihood = -307.36226
+Iteration 4:   log likelihood = -307.36138
+Refining estimates:
+Iteration 0:   log likelihood = -307.36138
+
+Stratified Cox regr. -- no ties
+
+No. of subjects =      372,741                  Number of obs    =     372,741
+No. of failures =           68
+Time at risk    =   76409267.5
+                                                LR chi2(26)      =       98.36
+Log likelihood  =   -307.36138                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+warfarin ..  |   1.072292   .3077644     0.24   0.808     .6109495    1.882007
+      1.male |   1.082267   .2880202     0.30   0.766     .6424019    1.823316
+        age1 |   1.019145   .0964741     0.20   0.841     .8465641    1.226909
+        age2 |   1.149946   .1607457     1.00   0.318     .8743637    1.512388
+        age3 |    .479439   .3571726    -0.99   0.324     .1113282    2.064723
+             |
+         imd |
+          2  |   .9511844   .4263484    -0.11   0.911     .3951222    2.289802
+          3  |    1.32218   .5673375     0.65   0.515     .5702251    3.065736
+          4  |   .9274873   .4360963    -0.16   0.873      .369046    2.330963
+5 most de..  |   1.354189   .6516036     0.63   0.529     .5273528    3.477421
+             |
+   obese4cat |
+Obese I ..)  |   .6568479   .2453681    -1.13   0.261     .3158604    1.365949
+Obese II..)  |   .2220089   .2266413    -1.47   0.140     .0300198    1.641848
+Obese II..)  |   2.794221   1.458134     1.97   0.049     1.004779     7.77054
+             |
+smoke_nomiss |
+     Former  |   1.245844   .3461078     0.79   0.429     .7227552    2.147513
+    Current  |   1.796881   1.030541     1.02   0.307     .5839037    5.529648
+             |
+diab_control |
+Controlle..  |   1.260359   .3984165     0.73   0.464     .6782939    2.341912
+Uncontrol..  |   3.459022   1.175782     3.65   0.000     1.776704    6.734287
+             |
+1.myocardi~t |   1.403013    .464945     1.02   0.307      .732794    2.686221
+       1.pad |   1.414226   .5898885     0.83   0.406     .6244153    3.203051
+1.hyperten~n |   1.526482   .5028713     1.28   0.199     .8003483    2.911416
+1.heart_f~re |   1.205884   .3208112     0.70   0.482     .7159018    2.031223
+1.stroke_tia |   1.439463   .3806197     1.38   0.168     .8572901    2.416982
+       1.vte |   .9544773   .4182201    -0.11   0.915     .4043873    2.252857
+ 1.oestrogen |   5.078283   5.317586     1.55   0.121     .6522353    39.53934
+1.antiplat~t |    1.41405    .645343     0.76   0.448     .5780881     3.45888
+1.flu_vac~ne |   .4157786   .1130354    -3.23   0.001     .2440343    .7083917
+1.care_ho~ce |   2.680812   1.132838     2.33   0.020     1.171041    6.137067
+------------------------------------------------------------------------------
+                                                     Stratified by practice_id
+
+.                                   
+. estimates save $tempdir/11b_gi_bleed_ons_multivar2, replace     
+(note: file /workspace/output/warfarin_tempdata/11b_gi_bleed_ons_multivar2.ster
+>  not found)
+file /workspace/output/warfarin_tempdata/11b_gi_bleed_ons_multivar2.ster saved
+
+. 
+. * Fully adjusted model (change to diab_control from main analysis)
+. stcox i.exposure i.male age1 age2 age3 i.imd ///
+>                                    i.obese4cat                      ///
+>                                    i.smoke_nomiss                   ///
+>                                    i.diab_control                       ///
+>                                    i.myocardial_infarct         ///
+>                                    i.pad                                     
+>    ///
+>                                    i.hypertension                       ///  
+>            
+>                                    i.heart_failure                      ///  
+>            
+>                                    i.stroke_tia             ///
+>                                    i.vte                    ///
+>                                    i.oestrogen                          ///  
+>    
+>                                    i.antiplatelet           ///
+>                                    i.flu_vaccine                        ///
+>                                    i.ckd                                     
+>    ///             
+>                                    i.copd                   ///
+>                                    i.other_respiratory      ///
+>                                    i.immunodef_any                      ///
+>                                    i.cancer                         ///
+>                                    i.ae_attendance_last_year ///
+>                                    i.gp_consult                         ///
+>                                    i.care_home_residence, strata(practice_id)
+
+         failure _d:  gi_bleed_ons
+   analysis time _t:  (stime_gi_bleed_ons-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -356.54118
+Iteration 1:   log likelihood = -327.90409
+Iteration 2:   log likelihood = -302.27432
+Iteration 3:   log likelihood = -301.63816
+Iteration 4:   log likelihood =  -301.6372
+Iteration 5:   log likelihood =  -301.6372
+Refining estimates:
+Iteration 0:   log likelihood =  -301.6372
+
+Stratified Cox regr. -- no ties
+
+No. of subjects =      372,741                  Number of obs    =     372,741
+No. of failures =           68
+Time at risk    =   76409267.5
+                                                LR chi2(33)      =      109.81
+Log likelihood  =    -301.6372                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+warfarin ..  |   1.113757   .3229468     0.37   0.710     .6309207    1.966103
+      1.male |   1.094897   .2935589     0.34   0.735     .6473709    1.851799
+        age1 |   1.011007   .0932799     0.12   0.906     .8437594    1.211406
+        age2 |   1.143649   .1570512     0.98   0.328     .8737791    1.496868
+        age3 |   .4985795   .3676901    -0.94   0.345     .1174882    2.115799
+             |
+         imd |
+          2  |   .9380505   .4244632    -0.14   0.888      .386422    2.277145
+          3  |    1.27497   .5520312     0.56   0.575     .5456955    2.978857
+          4  |   .8990537   .4271294    -0.22   0.823     .3543155    2.281293
+5 most de..  |   1.283504   .6247192     0.51   0.608     .4944161    3.331978
+             |
+   obese4cat |
+Obese I ..)  |   .6455597   .2422832    -1.17   0.244     .3093673    1.347096
+Obese II..)  |   .2282423   .2331404    -1.45   0.148     .0308267    1.689914
+Obese II..)  |    2.65137    1.38218     1.87   0.061     .9544037    7.365604
+             |
+smoke_nomiss |
+     Former  |   1.121002   .3174839     0.40   0.687     .6434786    1.952895
+    Current  |   1.533001   .9010328     0.73   0.467     .4844423    4.851126
+             |
+diab_control |
+Controlle..  |     1.2052   .3836304     0.59   0.558     .6458191    2.249093
+Uncontrol..  |   3.278379   1.127204     3.45   0.001     1.671055    6.431725
+             |
+1.myocardi~t |   1.359077   .4496178     0.93   0.354     .7106316    2.599223
+       1.pad |   1.322487   .5558051     0.67   0.506     .5803025    3.013895
+1.hyperten~n |   1.493007   .4944698     1.21   0.226     .7801033    2.857405
+1.heart_f~re |   1.099484   .2988043     0.35   0.727     .6454455    1.872915
+1.stroke_tia |   1.353047   .3615415     1.13   0.258     .8014328    2.284328
+       1.vte |   .8309906   .3702131    -0.42   0.678     .3470395    1.989818
+ 1.oestrogen |   5.173056   5.442058     1.56   0.118     .6580863    40.66414
+1.antiplat~t |   1.366862   .6290661     0.68   0.497     .5545993    3.368761
+1.flu_vac~ne |   .4213468   .1161199    -3.14   0.002      .245502    .7231431
+             |
+         ckd |
+        CKD  |   1.520245   .4199871     1.52   0.129     .8846232    2.612576
+      1.copd |   1.579175   .5573039     1.29   0.195     .7907408    3.153743
+1.other_re~y |   1.336417    .566841     0.68   0.494     .5819757    3.068873
+1.immunode~y |   2.405091   2.491082     0.85   0.397     .3158612    18.31331
+    1.cancer |   1.057967   .3266689     0.18   0.855     .5776256    1.937751
+1.ae_atten~r |   1.398575   .3706276     1.27   0.206     .8319829    2.351026
+1.gp_consult |   .3467652   .1730668    -2.12   0.034     .1303797    .9222762
+1.care_ho~ce |   2.496045   1.073796     2.13   0.033     1.074154    5.800138
+------------------------------------------------------------------------------
+                                                     Stratified by practice_id
+
+.                                    
+. estimates save $tempdir/11b_gi_bleed_ons_multivar3, replace
+(note: file /workspace/output/warfarin_tempdata/11b_gi_bleed_ons_multivar3.ster
+>  not found)
+file /workspace/output/warfarin_tempdata/11b_gi_bleed_ons_multivar3.ster saved
+
+. 
+. /* Outcome: Stroke death=====================================================
+> ==*/
+. 
+. * Open Stata dataset
+. use $tempdir/analysis_dataset_STSET_stroke_ons, clear
+
+. 
+. * Create new diabetes variable, group Diabetes, no hba1c with uncontrolled di
+> abetes
+. clonevar diab_control = diabcat
+
+. recode diab_control 4=3
+(diab_control: 1136 changes made)
+
+. 
+. * Add checks to outcome count in non-exposed group and the parameters that di
+> d not converge
+. safecount if stroke_ons == 1 & exposure == 1 & diabcat == 4
+  0
+
+. 
+. safecount if stroke_ons == 1 & exposure == 1 & immunodef_any == 1
+  0
+
+. 
+. /* Main Model================================================================
+> =*/
+. 
+. /* Multivariable models */ 
+. 
+. * DAG adjusted model
+. * (change to diab_control from main analysis)
+. stcox i.exposure i.male age1 age2 age3 i.imd ///        
+>                                   i.obese4cat                       ///
+>                                   i.smoke_nomiss                    ///
+>                                   i.diab_control                        ///
+>                                   i.myocardial_infarct          ///
+>                                   i.pad                                      
+>    ///
+>                                   i.hypertension                        ///  
+>            
+>                                   i.heart_failure                       ///  
+>            
+>                                   i.stroke_tia              ///
+>                                   i.vte                     ///
+>                                   i.oestrogen                           ///  
+>    
+>                                   i.antiplatelet            ///
+>                                   i.flu_vaccine                         ///
+>                                   i.care_home_residence, strata(practice_id)
+
+         failure _d:  stroke_ons
+   analysis time _t:  (stime_stroke_ons-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -394.28498
+Iteration 1:   log likelihood = -350.25636
+Iteration 2:   log likelihood = -333.65525
+Iteration 3:   log likelihood = -333.55345
+Iteration 4:   log likelihood = -333.55302
+Iteration 5:   log likelihood = -333.55302
+Refining estimates:
+Iteration 0:   log likelihood = -333.55302
+
+Stratified Cox regr. -- no ties
+
+No. of subjects =      372,741                  Number of obs    =     372,741
+No. of failures =           75
+Time at risk    =   76409267.5
+                                                LR chi2(26)      =      121.46
+Log likelihood  =   -333.55302                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+warfarin ..  |   .5841827   .1970256    -1.59   0.111     .3016244    1.131438
+      1.male |   1.136851   .2905383     0.50   0.616     .6889174    1.876032
+        age1 |   1.012898   .0842378     0.15   0.878     .8605486    1.192219
+        age2 |   1.124832   .1390774     0.95   0.341     .8827604    1.433286
+        age3 |   .5196427   .3488771    -0.98   0.330     .1393883     1.93724
+             |
+         imd |
+          2  |   .9703536   .4050688    -0.07   0.943     .4281546    2.199173
+          3  |   1.708445   .6992613     1.31   0.191     .7659614    3.810616
+          4  |   1.281287   .5703209     0.56   0.578     .5355045    3.065699
+5 most de..  |   1.055694   .5206186     0.11   0.912      .401574    2.775304
+             |
+   obese4cat |
+Obese I ..)  |   .7150529   .2687204    -0.89   0.372     .3423359    1.493564
+Obese II..)  |   1.299165   .5880522     0.58   0.563     .5350294    3.154649
+Obese II..)  |   1.535649   .9884412     0.67   0.505     .4349154    5.422247
+             |
+smoke_nomiss |
+     Former  |   1.266769   .3341372     0.90   0.370     .7553962     2.12432
+    Current  |   .7238561   .5489728    -0.43   0.670     .1637196    3.200398
+             |
+diab_control |
+Controlle..  |   1.174954   .3508309     0.54   0.589     .6544247    2.109513
+Uncontrol..  |   2.610244   .8822508     2.84   0.005     1.345794    5.062714
+             |
+1.myocardi~t |   1.878782   .5779304     2.05   0.040     1.028109    3.433316
+       1.pad |   1.073096   .4793712     0.16   0.875     .4470866    2.575642
+1.hyperten~n |   1.465418   .4653657     1.20   0.229     .7864112    2.730697
+1.heart_f~re |   .9432714   .2486011    -0.22   0.825     .5627309    1.581148
+1.stroke_tia |   2.815014   .6746226     4.32   0.000     1.759903    4.502693
+       1.vte |   2.160979   .7055493     2.36   0.018      1.13956    4.097923
+ 1.oestrogen |   6.872812   5.280548     2.51   0.012     1.524529     30.9837
+1.antiplat~t |   .7362106   .3598381    -0.63   0.531     .2824618    1.918865
+1.flu_vac~ne |    .556244   .1581047    -2.06   0.039     .3186567    .9709741
+1.care_ho~ce |   4.246013   1.520577     4.04   0.000     2.104506    8.566682
+------------------------------------------------------------------------------
+                                                     Stratified by practice_id
+
+.                                   
+. estimates save $tempdir/11b_stroke_ons_multivar2, replace       
+(note: file /workspace/output/warfarin_tempdata/11b_stroke_ons_multivar2.ster n
+> ot found)
+file /workspace/output/warfarin_tempdata/11b_stroke_ons_multivar2.ster saved
+
+. 
+. * Fully adjusted model
+. * (change to diab_control, remove immunodef_any from main analysis)
+. stcox i.exposure i.male age1 age2 age3 i.imd ///
+>                                    i.obese4cat                      ///
+>                                    i.smoke_nomiss                   ///
+>                                    i.diab_control                       ///
+>                                    i.myocardial_infarct         ///
+>                                    i.pad                                     
+>    ///
+>                                    i.hypertension                       ///  
+>            
+>                                    i.heart_failure                      ///  
+>            
+>                                    i.stroke_tia             ///
+>                                    i.vte                    ///
+>                                    i.oestrogen                          ///  
+>    
+>                                    i.antiplatelet           ///
+>                                    i.flu_vaccine                        ///
+>                                    i.ckd                                     
+>    ///             
+>                                    i.copd                   ///
+>                                    i.other_respiratory      ///
+>                                    i.cancer                         ///
+>                                    i.ae_attendance_last_year ///
+>                                    i.gp_consult                         ///
+>                                    i.care_home_residence, strata(practice_id)
+
+         failure _d:  stroke_ons
+   analysis time _t:  (stime_stroke_ons-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -394.28498
+Iteration 1:   log likelihood = -345.50025
+Iteration 2:   log likelihood = -328.59324
+Iteration 3:   log likelihood = -328.46139
+Iteration 4:   log likelihood = -328.46099
+Iteration 5:   log likelihood = -328.46099
+Refining estimates:
+Iteration 0:   log likelihood = -328.46099
+
+Stratified Cox regr. -- no ties
+
+No. of subjects =      372,741                  Number of obs    =     372,741
+No. of failures =           75
+Time at risk    =   76409267.5
+                                                LR chi2(32)      =      131.65
+Log likelihood  =   -328.46099                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+warfarin ..  |   .6290838   .2135844    -1.37   0.172     .3233787    1.223786
+      1.male |   1.136847    .290135     0.50   0.615     .6893926    1.874724
+        age1 |   1.017248   .0844054     0.21   0.837     .8645678    1.196891
+        age2 |   1.115314   .1378292     0.88   0.377     .8753998    1.420979
+        age3 |   .5416817    .363918    -0.91   0.361     .1451716    2.021189
+             |
+         imd |
+          2  |   .9635448   .4034433    -0.09   0.929     .4240993    2.189154
+          3  |   1.691377   .6973193     1.27   0.202     .7538894    3.794661
+          4  |   1.254722    .562842     0.51   0.613     .5208545    3.022586
+5 most de..  |   1.098132   .5427663     0.19   0.850     .4168088    2.893158
+             |
+   obese4cat |
+Obese I ..)  |   .7326818   .2768146    -0.82   0.410        .3494    1.536413
+Obese II..)  |    1.38323   .6307973     0.71   0.477     .5658736    3.381191
+Obese II..)  |   1.653011   1.078593     0.77   0.441     .4601137     5.93863
+             |
+smoke_nomiss |
+     Former  |   1.325688   .3551008     1.05   0.293     .7842187    2.241019
+    Current  |   .8383284   .6449929    -0.23   0.819     .1855739    3.787141
+             |
+diab_control |
+Controlle..  |   1.129166   .3395293     0.40   0.686     .6263393    2.035663
+Uncontrol..  |   2.520053   .8608176     2.71   0.007      1.29018    4.922312
+             |
+1.myocardi~t |   1.834574   .5672561     1.96   0.050     1.000785     3.36302
+       1.pad |   1.101602   .4936361     0.22   0.829     .4577145    2.651273
+1.hyperten~n |   1.497112   .4773164     1.27   0.206     .8014384    2.796652
+1.heart_f~re |   .9341886   .2505909    -0.25   0.800     .5522103    1.580391
+1.stroke_tia |   2.691524   .6475089     4.12   0.000     1.679662    4.312952
+       1.vte |   2.047116   .6702723     2.19   0.029     1.077556    3.889065
+ 1.oestrogen |   6.561009   5.163583     2.39   0.017     1.403027     30.6814
+1.antiplat~t |   .6935542   .3406916    -0.74   0.456     .2648186    1.816404
+1.flu_vac~ne |   .5935126   .1706757    -1.81   0.070     .3377932    1.042819
+             |
+         ckd |
+        CKD  |   .8944806   .2308941    -0.43   0.666     .5393225     1.48352
+      1.copd |   .5601323   .2412082    -1.35   0.178     .2408464     1.30269
+1.other_re~y |   2.314499   .8992657     2.16   0.031     1.080774    4.956547
+    1.cancer |   1.162542   .3333492     0.53   0.599     .6627253    2.039311
+1.ae_atten~r |   1.682528   .4266927     2.05   0.040     1.023519    2.765851
+1.gp_consult |   .5505156   .3596485    -0.91   0.361     .1529977    1.980863
+1.care_ho~ce |   3.744292   1.353754     3.65   0.000     1.843387    7.605412
+------------------------------------------------------------------------------
+                                                     Stratified by practice_id
+
+.                                    
+. estimates save $tempdir/11b_stroke_ons_multivar3, replace
+(note: file /workspace/output/warfarin_tempdata/11b_stroke_ons_multivar3.ster n
+> ot found)
+file /workspace/output/warfarin_tempdata/11b_stroke_ons_multivar3.ster saved
+
+. 
+. /* Outcome: MI death=======================================================*/
+. 
+. * Open Stata dataset
+. use $tempdir/analysis_dataset_STSET_mi_ons, clear
+
+. 
+. safecount if mi_ons == 1 & exposure == 1 & oestrogen == 1
+  0
+
+. 
+. /* Main Model================================================================
+> =*/
+. 
+. /* Multivariable models */ 
+. 
+. * DAG adjusted model
+. * (remove oestrogen from main analysis)
+. stcox i.exposure i.male age1 age2 age3 i.imd ///        
+>                                   i.obese4cat                       ///
+>                                   i.smoke_nomiss                    ///
+>                                   i.diabcat                                  
+>    ///
+>                                   i.myocardial_infarct          ///
+>                                   i.pad                                      
+>    ///
+>                                   i.hypertension                        ///  
+>            
+>                                   i.heart_failure                       ///  
+>            
+>                                   i.stroke_tia              ///
+>                                   i.vte                     ///
+>                                   i.antiplatelet            ///
+>                                   i.flu_vaccine                         ///
+>                                   i.care_home_residence, strata(practice_id)
+
+         failure _d:  mi_ons
+   analysis time _t:  (stime_mi_ons-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -2811.7767
+Iteration 1:   log likelihood = -2648.3274
+Iteration 2:   log likelihood = -2613.5045
+Iteration 3:   log likelihood = -2613.2836
+Iteration 4:   log likelihood = -2613.2835
+Refining estimates:
+Iteration 0:   log likelihood = -2613.2835
+
+Stratified Cox regr. -- no ties
+
+No. of subjects =      372,741                  Number of obs    =     372,741
+No. of failures =          542
+Time at risk    =   76409267.5
+                                                LR chi2(26)      =      396.99
+Log likelihood  =   -2613.2835                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+warfarin ..  |   .8861571   .0925553    -1.16   0.247      .722115    1.087465
+      1.male |   1.599668   .1563169     4.81   0.000     1.320845    1.937349
+        age1 |   1.036966   .0282754     1.33   0.183     .9830018    1.093892
+        age2 |   1.036854   .0426072     0.88   0.378     .9566197    1.123818
+        age3 |   .8127596   .1877021    -0.90   0.369     .5168709    1.278033
+             |
+         imd |
+          2  |   .9266281   .1467749    -0.48   0.630     .6793255    1.263959
+          3  |   1.104681   .1753361     0.63   0.531     .8093439    1.507788
+          4  |   1.211997   .1993023     1.17   0.242       .87807    1.672917
+5 most de..  |   1.351392   .2310378     1.76   0.078     .9666238    1.889318
+             |
+   obese4cat |
+Obese I ..)  |   .9156313   .1059277    -0.76   0.446     .7298719    1.148668
+Obese II..)  |   .9131021   .1636469    -0.51   0.612     .6426379    1.297395
+Obese II..)  |   1.067558    .262604     0.27   0.790     .6591861     1.72892
+             |
+smoke_nomiss |
+     Former  |   1.289734   .1344206     2.44   0.015     1.051441    1.582032
+    Current  |   2.132162   .3860383     4.18   0.000     1.495223    3.040425
+             |
+     diabcat |
+Controlle..  |   1.252991   .1307906     2.16   0.031     1.021168    1.537442
+Uncontrol..  |   1.771849   .2359892     4.29   0.000     1.364762    2.300364
+Diabetes,..  |   1.895047   1.139611     1.06   0.288     .5830944    6.158873
+             |
+1.myocardi~t |   2.268167   .2331732     7.97   0.000     1.854255    2.774474
+       1.pad |   1.575954   .2171294     3.30   0.001     1.203006     2.06452
+1.hyperten~n |   1.330704   .1482407     2.56   0.010     1.069689     1.65541
+1.heart_f~re |   1.524919   .1398708     4.60   0.000     1.274007    1.825248
+1.stroke_tia |   1.001481   .1014765     0.01   0.988     .8210951    1.221496
+       1.vte |   1.044458   .1645123     0.28   0.782     .7670409    1.422209
+1.antiplat~t |   1.406695   .1929232     2.49   0.013     1.075129    1.840514
+1.flu_vac~ne |   .9500874    .111728    -0.44   0.663     .7545088    1.196363
+1.care_ho~ce |   1.872141   .3755606     3.13   0.002     1.263523    2.773918
+------------------------------------------------------------------------------
+                                                     Stratified by practice_id
+
+.                                   
+. estimates save $tempdir/11b_mi_ons_multivar2, replace   
+(note: file /workspace/output/warfarin_tempdata/11b_mi_ons_multivar2.ster not f
+> ound)
+file /workspace/output/warfarin_tempdata/11b_mi_ons_multivar2.ster saved
+
+. 
+. * Fully adjusted model
+. * (remove oestrogen from main analysis)
+. stcox i.exposure i.male age1 age2 age3 i.imd ///
+>                                    i.obese4cat                      ///
+>                                    i.smoke_nomiss                   ///
+>                                    i.diabcat                            ///
+>                                    i.myocardial_infarct         ///
+>                                    i.pad                                     
+>    ///
+>                                    i.hypertension                       ///  
+>            
+>                                    i.heart_failure                      ///  
+>            
+>                                    i.stroke_tia             ///
+>                                    i.vte                    ///
+>                                    i.antiplatelet           ///
+>                                    i.flu_vaccine                        ///
+>                                    i.ckd                                     
+>    ///             
+>                                    i.copd                   ///
+>                                    i.other_respiratory      ///
+>                                    i.immunodef_any                      ///
+>                                    i.cancer                         ///
+>                                    i.ae_attendance_last_year ///
+>                                    i.gp_consult                         ///
+>                                    i.care_home_residence, strata(practice_id)
+
+         failure _d:  mi_ons
+   analysis time _t:  (stime_mi_ons-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -2811.7767
+Iteration 1:   log likelihood = -2623.9884
+Iteration 2:   log likelihood = -2589.5193
+Iteration 3:   log likelihood = -2589.3379
+Iteration 4:   log likelihood = -2589.3378
+Refining estimates:
+Iteration 0:   log likelihood = -2589.3378
+
+Stratified Cox regr. -- no ties
+
+No. of subjects =      372,741                  Number of obs    =     372,741
+No. of failures =          542
+Time at risk    =   76409267.5
+                                                LR chi2(33)      =      444.88
+Log likelihood  =   -2589.3378                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+warfarin ..  |   .9408243   .0988751    -0.58   0.562     .7656888    1.156019
+      1.male |   1.642287   .1607404     5.07   0.000     1.355616    1.989579
+        age1 |   1.034377   .0280806     1.25   0.213     .9807787    1.090905
+        age2 |    1.02768    .042132     0.67   0.505     .9483335    1.113666
+        age3 |   .8552188   .1974404    -0.68   0.498     .5439567    1.344591
+             |
+         imd |
+          2  |   .9225214   .1462771    -0.51   0.611     .6760955    1.258766
+          3  |   1.096185   .1741117     0.58   0.563     .8029413    1.496524
+          4  |   1.181211   .1945155     1.01   0.312     .8553738    1.631168
+5 most de..  |   1.302058    .223074     1.54   0.123     .9306767    1.821636
+             |
+   obese4cat |
+Obese I ..)  |   .9059222   .1049623    -0.85   0.394      .721886    1.136876
+Obese II..)  |   .8920482   .1599631    -0.64   0.524     .6276967     1.26773
+Obese II..)  |   1.040056   .2561425     0.16   0.873     .6418375    1.685345
+             |
+smoke_nomiss |
+     Former  |   1.204789    .127745     1.76   0.079     .9787168     1.48308
+    Current  |   1.853062   .3460298     3.30   0.001     1.285114    2.672011
+             |
+     diabcat |
+Controlle..  |   1.230246   .1288453     1.98   0.048     1.001946    1.510565
+Uncontrol..  |   1.690455    .226467     3.92   0.000     1.300079     2.19805
+Diabetes,..  |   1.915113   1.151774     1.08   0.280     .5892104    6.224697
+             |
+1.myocardi~t |   2.198405   .2261435     7.66   0.000     1.796996     2.68948
+       1.pad |   1.509926   .2081404     2.99   0.003     1.152442      1.9783
+1.hyperten~n |   1.305045   .1457575     2.38   0.017     1.048472    1.624405
+1.heart_f~re |   1.392884   .1301871     3.55   0.000      1.15973    1.672912
+1.stroke_tia |   .9791434   .0993454    -0.21   0.835     .8025684    1.194567
+       1.vte |   1.007984   .1590707     0.05   0.960     .7398182    1.373354
+1.antiplat~t |   1.325322   .1822359     2.05   0.041     1.012229    1.735259
+1.flu_vac~ne |    .950036   .1123673    -0.43   0.665     .7534642    1.197892
+             |
+         ckd |
+        CKD  |   1.324372   .1267579     2.94   0.003     1.097842    1.597644
+      1.copd |    1.47719   .1710903     3.37   0.001     1.177196    1.853633
+1.other_re~y |   .9284476   .1602532    -0.43   0.667     .6619682      1.3022
+1.immunode~y |   .6563278   .4671351    -0.59   0.554      .162662    2.648228
+    1.cancer |    .959321   .1072034    -0.37   0.710     .7706244    1.194222
+1.ae_atten~r |   1.578749   .1464982     4.92   0.000     1.316215    1.893648
+1.gp_consult |   .6149338   .1725524    -1.73   0.083     .3547958    1.065806
+1.care_ho~ce |   1.782676   .3625953     2.84   0.004     1.196571    2.655867
+------------------------------------------------------------------------------
+                                                     Stratified by practice_id
+
+.                                    
+. estimates save $tempdir/11b_mi_ons_multivar3, replace
+(note: file /workspace/output/warfarin_tempdata/11b_mi_ons_multivar3.ster not f
+> ound)
+file /workspace/output/warfarin_tempdata/11b_mi_ons_multivar3.ster saved
+
+. 
+. 
+. /* Outcome: VTE death=======================================================*
+> /
+. 
+. * Open Stata dataset
+. use $tempdir/analysis_dataset_STSET_vte_ons, clear
+
+. 
+. safecount if vte_ons == 1 & exposure == 1 & antiplatelet == 1
+  0
+
+. 
+. safecount if vte_ons == 1 & exposure == 1 & immunodef_any == 1
+  0
+
+. 
+. 
+. /* Main Model================================================================
+> =*/
+. 
+. /* Multivariable models */ 
+. 
+. * DAG adjusted model
+. * (remove antiplatelet from main analysis)
+. stcox i.exposure i.male age1 age2 age3 i.imd ///        
+>                                   i.obese4cat                       ///
+>                                   i.smoke_nomiss                    ///
+>                                   i.diabcat                                  
+>    ///
+>                                   i.myocardial_infarct          ///
+>                                   i.pad                                      
+>    ///
+>                                   i.hypertension                        ///  
+>            
+>                                   i.heart_failure                       ///  
+>            
+>                                   i.stroke_tia              ///
+>                                   i.vte                     ///
+>                                   i.oestrogen                           ///  
+>    
+>                                   i.flu_vaccine                         ///
+>                                   i.care_home_residence, strata(practice_id)
+
+         failure _d:  vte_ons
+   analysis time _t:  (stime_vte_ons-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -147.09316
+Iteration 1:   log likelihood = -134.95311
+Iteration 2:   log likelihood =  -124.7932
+Iteration 3:   log likelihood = -124.31157
+Iteration 4:   log likelihood = -124.31079
+Refining estimates:
+Iteration 0:   log likelihood = -124.31079
+
+Stratified Cox regr. -- no ties
+
+No. of subjects =      372,741                  Number of obs    =     372,741
+No. of failures =           27
+Time at risk    =   76409267.5
+                                                LR chi2(26)      =       45.56
+Log likelihood  =   -124.31079                  Prob > chi2      =      0.0102
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+warfarin ..  |   .7629913   .3689006    -0.56   0.576     .2957808      1.9682
+      1.male |   1.150218   .4915671     0.33   0.743     .4977411    2.658013
+        age1 |   .8810014    .046607    -2.39   0.017     .7942297    .9772533
+        age2 |   1.362779   .1653639     2.55   0.011     1.074331    1.728674
+        age3 |   .1789329   .1504638    -2.05   0.041     .0344286    .9299536
+             |
+         imd |
+          2  |   .5510567   .3851458    -0.85   0.394     .1400466    2.168304
+          3  |   1.048524   .6553372     0.08   0.940     .3080136    3.569334
+          4  |   .9636589   .6534336    -0.05   0.956     .2551199    3.640008
+5 most de..  |   .3901804   .3183568    -1.15   0.249     .0788409    1.930988
+             |
+   obese4cat |
+Obese I ..)  |   1.665243   .7990672     1.06   0.288     .6501719    4.265077
+Obese II..)  |   1.226618   .9548736     0.26   0.793     .2667365     5.64074
+Obese II..)  |   2.518939   2.028514     1.15   0.251     .5196855    12.20941
+             |
+smoke_nomiss |
+     Former  |   1.588043   .7290952     1.01   0.314      .645747    3.905369
+    Current  |   2.375172   2.003664     1.03   0.305     .4546033    12.40959
+             |
+     diabcat |
+Controlle..  |   1.254467   .6364593     0.45   0.655     .4640859     3.39094
+Uncontrol..  |   1.949302   1.164122     1.12   0.264     .6047027     6.28371
+Diabetes,..  |   28.81141   34.56626     2.80   0.005     2.743735    302.5428
+             |
+1.myocardi~t |   .7257148   .4668389    -0.50   0.618     .2056855     2.56052
+       1.pad |   .3479786   .3671052    -1.00   0.317     .0440114    2.751314
+1.hyperten~n |   2.477694   1.423103     1.58   0.114     .8037967     7.63746
+1.heart_f~re |    1.74506   .7135149     1.36   0.173     .7830216    3.889082
+1.stroke_tia |   1.618286   .7203161     1.08   0.279     .6763579    3.871988
+       1.vte |   5.686002   2.518062     3.92   0.000     2.386987    13.54453
+ 1.oestrogen |   11.57829   13.10325     2.16   0.030     1.259889    106.4037
+1.flu_vac~ne |   .7706419   .3794016    -0.53   0.597     .2936229    2.022625
+1.care_ho~ce |   5.235891   3.611596     2.40   0.016     1.354726    20.23623
+------------------------------------------------------------------------------
+                                                     Stratified by practice_id
+
+.                                   
+. estimates save $tempdir/11b_vte_ons_multivar2, replace  
+(note: file /workspace/output/warfarin_tempdata/11b_vte_ons_multivar2.ster not 
+> found)
+file /workspace/output/warfarin_tempdata/11b_vte_ons_multivar2.ster saved
+
+. 
+. * Fully adjusted model
+. * (remove antiplatelet & immunodef_any from main analysis)
+. stcox i.exposure i.male age1 age2 age3 i.imd ///
+>                                    i.obese4cat                      ///
+>                                    i.smoke_nomiss                   ///
+>                                    i.diabcat                            ///
+>                                    i.myocardial_infarct         ///
+>                                    i.pad                                     
+>    ///
+>                                    i.hypertension                       ///  
+>            
+>                                    i.heart_failure                      ///  
+>            
+>                                    i.stroke_tia             ///
+>                                    i.vte                    ///
+>                                    i.oestrogen                          ///  
+>    
+>                                    i.flu_vaccine                        ///
+>                                    i.ckd                                     
+>    ///             
+>                                    i.copd                   ///
+>                                    i.other_respiratory      ///
+>                                    i.cancer                         ///
+>                                    i.ae_attendance_last_year ///
+>                                    i.gp_consult                         ///
+>                                    i.care_home_residence, strata(practice_id)
+
+         failure _d:  vte_ons
+   analysis time _t:  (stime_vte_ons-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -147.09316
+Iteration 1:   log likelihood = -133.59508
+Iteration 2:   log likelihood = -121.78043
+Iteration 3:   log likelihood = -121.31195
+Iteration 4:   log likelihood = -121.31111
+Iteration 5:   log likelihood = -121.31111
+Refining estimates:
+Iteration 0:   log likelihood = -121.31111
+
+Stratified Cox regr. -- no ties
+
+No. of subjects =      372,741                  Number of obs    =     372,741
+No. of failures =           27
+Time at risk    =   76409267.5
+                                                LR chi2(32)      =       51.56
+Log likelihood  =   -121.31111                  Prob > chi2      =      0.0157
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+warfarin ..  |   .7960773   .3873357    -0.47   0.639     .3067599    2.065912
+      1.male |   1.075095   .4614129     0.17   0.866     .4635804    2.493265
+        age1 |   .8801657    .046763    -2.40   0.016     .7931224    .9767616
+        age2 |   1.351652   .1653981     2.46   0.014     1.063422    1.718004
+        age3 |   .1833452    .154756    -2.01   0.044     .0350588    .9588316
+             |
+         imd |
+          2  |   .5594166     .39167    -0.83   0.407     .1418323    2.206458
+          3  |   1.157812   .7337996     0.23   0.817     .3343203    4.009716
+          4  |   1.012168   .6922785     0.02   0.986     .2648914     3.86756
+5 most de..  |   .3830433   .3105557    -1.18   0.237      .078186     1.87658
+             |
+   obese4cat |
+Obese I ..)  |   1.649871    .793132     1.04   0.298     .6430686    4.232946
+Obese II..)  |   1.178501   .9270502     0.21   0.835     .2521998    5.506999
+Obese II..)  |   2.552083   2.081289     1.15   0.251      .516081    12.62035
+             |
+smoke_nomiss |
+     Former  |   1.754401   .8212953     1.20   0.230     .7008936    4.391425
+    Current  |   2.741893    2.36662     1.17   0.243     .5050677    14.88508
+             |
+     diabcat |
+Controlle..  |   1.262151   .6471613     0.45   0.650     .4620216    3.447946
+Uncontrol..  |   1.880399   1.132217     1.05   0.294      .577735    6.120284
+Diabetes,..  |   33.79165   40.10581     2.97   0.003     3.300321    345.9893
+             |
+1.myocardi~t |   .6788377   .4369645    -0.60   0.547     .1922436    2.397067
+       1.pad |   .3378873   .3583713    -1.02   0.306     .0422637    2.701322
+1.hyperten~n |   2.509056   1.466462     1.57   0.116     .7980144    7.888784
+1.heart_f~re |   1.658312    .698731     1.20   0.230     .7261261    3.787221
+1.stroke_tia |   1.642723    .731694     1.11   0.265     .6861608    3.932806
+       1.vte |   5.497166   2.449383     3.82   0.000     2.295447    13.16468
+ 1.oestrogen |   10.66002   12.25801     2.06   0.040     1.119327    101.5217
+1.flu_vac~ne |    .807286   .3998939    -0.43   0.666     .3057594     2.13145
+             |
+         ckd |
+        CKD  |   1.332479   .5993775     0.64   0.523     .5517875    3.217725
+      1.copd |    .369469   .2748352    -1.34   0.181     .0859802     1.58766
+1.other_re~y |   3.903002   2.494047     2.13   0.033     1.115513    13.65598
+    1.cancer |    .961658   .5015722    -0.07   0.940     .3459866    2.672896
+1.ae_atten~r |   1.485959   .6123841     0.96   0.337     .6625446    3.332719
+1.gp_consult |   .4707638   .5504874    -0.64   0.519     .0475829    4.657524
+1.care_ho~ce |   5.080441   3.625124     2.28   0.023     1.254673    20.57179
+------------------------------------------------------------------------------
+                                                     Stratified by practice_id
+
+.                                    
+. estimates save $tempdir/11b_vte_ons_multivar3, replace
+(note: file /workspace/output/warfarin_tempdata/11b_vte_ons_multivar3.ster not 
+> found)
+file /workspace/output/warfarin_tempdata/11b_vte_ons_multivar3.ster saved
+
+. 
+. 
+. /* Print table===============================================================
+> =*/ 
+. *  Print the results for the main model 
+. 
+. cap file close tablecontent
+
+. file open tablecontent using $tabfigdir/table7.txt, write text replace
+(note: file /workspace/output/warfarin_tabfig/table7.txt not found)
+
+. 
+. * Column headings 
+. file write tablecontent ("Table 7: Association between current anticoagulant 
+> use and different outcomes") _n
+
+. file write tablecontent _tab ("GI bleed death - DAG adjusted") _tab _tab ///
+>                                                 ("GI bleed death - Fully adju
+> sted") _tab _tab ///
+>                                                 ("Stroke death - DAG Adjusted
+> ") _tab _tab ///
+>                                                 ("Stroke death - Fully adjust
+> ed") _tab _tab ///
+>                                                 ("MI death - DAG Adjusted") _
+> tab _tab ///
+>                                                 ("MI death - Fully adjusted")
+>  _tab _tab ///
+>                                                 ("VTE death - DAG Adjusted") 
+> _tab _tab ///
+>                                                 ("VTE death - Fully adjusted"
+> ) _tab _tab _n
+
+. file write tablecontent _tab _tab _tab _tab ("HR") _tab ("95% CI") _tab ///
+>                                                 ("HR") _tab ("95% CI") _tab /
+> //
+>                                                 ("HR") _tab ("95% CI") _tab /
+> //
+>                                                 ("HR") _tab ("95% CI") _tab /
+> //
+>                                                 ("HR") _tab ("95% CI") _tab /
+> //
+>                                                 ("HR") _tab ("95% CI") _tab /
+> //
+>                                                 ("HR") _tab ("95% CI") _tab /
+> //
+>                                                 ("HR") _tab ("95% CI") _n
+
+. file write tablecontent ("Main Analysis") _n                                 
+>    
+
+. 
+. * Row headings 
+. local lab0: label exposure 0
+
+. local lab1: label exposure 1
+
+.  
+. /* Counts */
+.  
+. * First row, exposure = 0 (reference)
+. 
+.         file write tablecontent ("`lab0'") _tab
+
+.         file write tablecontent ("1.00 (ref)") _tab _tab ("1.00 (ref)") ///
+>         _tab _tab ("1.00 (ref)") _tab _tab ("1.00 (ref)") ///
+>         _tab _tab ("1.00 (ref)") _tab _tab ("1.00 (ref)") ///
+>         _tab _tab ("1.00 (ref)") _tab _tab ("1.00 (ref)") _n
+
+.         
+. * Second row, exposure = 1 
+. 
+. file write tablecontent ("`lab1'") _tab  
+
+. 
+. /* Main Model */ 
+. estimates use $tempdir/11b_gi_bleed_ons_multivar2 
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   1.072292   .3077644     0.24   0.808     .6109495    1.882007
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _tab 
+
+. 
+. estimates use $tempdir/11b_gi_bleed_ons_multivar3
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   1.113757   .3229468     0.37   0.710     .6309207    1.966103
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _tab 
+
+. 
+. estimates use $tempdir/11b_stroke_ons_multivar2 
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .5841827   .1970256    -1.59   0.111     .3016244    1.131438
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _tab 
+
+. 
+. estimates use $tempdir/11b_stroke_ons_multivar3
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .6290838   .2135844    -1.37   0.172     .3233787    1.223786
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _tab 
+
+. 
+. estimates use $tempdir/11b_mi_ons_multivar2 
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .8861571   .0925553    -1.16   0.247      .722115    1.087465
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _tab 
+
+. 
+. estimates use $tempdir/11b_mi_ons_multivar3
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .9408243   .0988751    -0.58   0.562     .7656888    1.156019
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _tab 
+
+. 
+. estimates use $tempdir/11b_vte_ons_multivar2  
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .7629913   .3689006    -0.56   0.576     .2957808      1.9682
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _tab 
+
+. 
+. estimates use $tempdir/11b_vte_ons_multivar3
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .7960773   .3873357    -0.47   0.639     .3067599    2.065912
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _n 
+
+. 
+. file write tablecontent _n
+
+. file close tablecontent
+
+. 
+. 
+. * Close log file 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/11b_an_models.log
+  log type:  text
+ closed on:   3 Mar 2021, 16:15:36
+-------------------------------------------------------------------------------

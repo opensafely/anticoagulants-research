@@ -1,0 +1,48 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/oac_log/flow_chart_af_population.log
+  log type:  text
+ opened on:   1 Mar 2021, 20:27:55
+
+. 
+. /*
+> # AF population
+> registration_history AND
+> af AND
+> (age >=18 AND age <= 110) AND
+> imd >0
+> */
+. safecount
+  31,161,384
+
+. drop if registration_history!=1
+(9,214,801 observations deleted)
+
+. safecount
+  21,946,583
+
+. keep if !missing(af)
+(21,417,481 observations deleted)
+
+. safecount
+  529,102
+
+. drop if age < 18 | age > 110
+(167 observations deleted)
+
+. safecount
+  528,935
+
+. keep if imd>0
+(8,139 observations deleted)
+
+. safecount
+  520,796
+
+. 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/oac_log/flow_chart_af_population.log
+  log type:  text
+ closed on:   1 Mar 2021, 20:28:01
+-------------------------------------------------------------------------------

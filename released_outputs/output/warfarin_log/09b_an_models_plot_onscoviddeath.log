@@ -1,0 +1,235 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/09b_an_models_plot_onscoviddeath.lo
+> g
+  log type:  text
+ opened on:   1 Mar 2021, 20:53:50
+
+. 
+. * Open Stata dataset
+. use $tempdir/analysis_dataset_STSET_`outcome', clear
+
+. 
+. /*===========================================================================
+> ===*/
+. * Fit the stpm2 model 
+. xi i.exposure i.male $fullvarlist
+i.exposure        _Iexposure_0-1      (naturally coded; _Iexposure_0 omitted)
+i.male            _Imale_0-1          (naturally coded; _Imale_0 omitted)
+i.imd             _Iimd_1-5           (naturally coded; _Iimd_1 omitted)
+i.obese4cat       _Iobese4cat_1-4     (naturally coded; _Iobese4cat_1 omitted)
+i.smoke_nomiss    _Ismoke_nom_1-3     (naturally coded; _Ismoke_nom_1 omitted)
+i.diabcat         _Idiabcat_1-4       (naturally coded; _Idiabcat_1 omitted)
+i.myocardial_~t   _Imyocardia_0-1     (naturally coded; _Imyocardia_0 omitted)
+i.pad             _Ipad_0-1           (naturally coded; _Ipad_0 omitted)
+i.hypertension    _Ihypertens_0-1     (naturally coded; _Ihypertens_0 omitted)
+i.heart_failure   _Iheart_fai_0-1     (naturally coded; _Iheart_fai_0 omitted)
+i.stroke_tia      _Istroke_ti_0-1     (naturally coded; _Istroke_ti_0 omitted)
+i.vte             _Ivte_0-1           (naturally coded; _Ivte_0 omitted)
+i.oestrogen       _Ioestrogen_0-1     (naturally coded; _Ioestrogen_0 omitted)
+i.antiplatelet    _Iantiplate_0-1     (naturally coded; _Iantiplate_0 omitted)
+i.flu_vaccine     _Iflu_vacci_0-1     (naturally coded; _Iflu_vacci_0 omitted)
+i.ckd             _Ickd_0-1           (naturally coded; _Ickd_0 omitted)
+i.copd            _Icopd_0-1          (naturally coded; _Icopd_0 omitted)
+i.other_respi~y   _Iother_res_0-1     (naturally coded; _Iother_res_0 omitted)
+i.immunodef_any   _Iimmunodef_0-1     (naturally coded; _Iimmunodef_0 omitted)
+i.cancer          _Icancer_0-1        (naturally coded; _Icancer_0 omitted)
+i.ae_attendan~r   _Iae_attend_0-1     (naturally coded; _Iae_attend_0 omitted)
+i.gp_consult      _Igp_consul_0-1     (naturally coded; _Igp_consul_0 omitted)
+i.care_home_r~e   _Icare_home_0-1     (naturally coded; _Icare_home_0 omitted)
+
+. 
+. stpm2 _I* age1 age2 age3, scale(hazard) df(`df') eform nolog
+
+Log likelihood = -13570.068                     Number of obs     =    372,741
+
+------------------------------------------------------------------------------
+             |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+xb           |
+_Iexposure_1 |   .7920807   .0431544    -4.28   0.000     .7118589    .8813428
+    _Imale_1 |   1.547993   .0712222     9.50   0.000     1.414509    1.694073
+     _Iimd_2 |   1.043477   .0763389     0.58   0.561     .9040874    1.204357
+     _Iimd_3 |   1.133586    .080627     1.76   0.078     .9860801    1.303157
+     _Iimd_4 |   1.161869   .0822243     2.12   0.034      1.01139    1.334738
+     _Iimd_5 |   1.517878   .1019514     6.21   0.000     1.330651    1.731449
+_Iobese4ca~2 |   .9712577   .0568254    -0.50   0.618     .8660306     1.08927
+_Iobese4ca~3 |   1.200352   .1024338     2.14   0.032     1.015477    1.418885
+_Iobese4ca~4 |   1.321797   .1640836     2.25   0.025     1.036333    1.685894
+_Ismoke_no~2 |    1.26176   .0622906     4.71   0.000     1.145393    1.389949
+_Ismoke_no~3 |   1.198408   .1356435     1.60   0.110     .9599755     1.49606
+ _Idiabcat_2 |   1.238286   .0608413     4.35   0.000     1.124601    1.363463
+ _Idiabcat_3 |    1.38315   .0993882     4.51   0.000     1.201448    1.592331
+ _Idiabcat_4 |   .6618642   .2966222    -0.92   0.357     .2749749    1.593107
+_Imyocardi~1 |   1.285642   .0728801     4.43   0.000     1.150449    1.436722
+     _Ipad_1 |   1.328282   .0944091     3.99   0.000     1.155554    1.526829
+_Ihyperten~1 |   1.038829   .0530712     0.75   0.456     .9398496    1.148232
+_Iheart_fa~1 |   1.316347   .0589095     6.14   0.000     1.205805    1.437022
+_Istroke_t~1 |   1.140953   .0529001     2.84   0.004     1.041842    1.249492
+     _Ivte_1 |    1.27278   .0838735     3.66   0.000     1.118565    1.448258
+_Ioestroge~1 |    .645146   .2896689    -0.98   0.329     .2675905    1.555411
+_Iantiplat~1 |   .8308999    .073149    -2.10   0.035     .6992176    .9873815
+_Iflu_vacc~1 |   .8000907   .0431621    -4.13   0.000     .7198134     .889321
+     _Ickd_1 |   1.234043   .0554593     4.68   0.000     1.129995    1.347672
+    _Icopd_1 |   1.269129   .0755872     4.00   0.000       1.1293     1.42627
+_Iother_re~1 |   1.502565   .1050732     5.82   0.000     1.310115    1.723285
+_Iimmunode~1 |   1.608774   .3713814     2.06   0.039     1.023286    2.529256
+  _Icancer_1 |   1.007939   .0532577     0.15   0.881     .9087791    1.117919
+_Iae_atten~1 |   2.067299    .091158    16.47   0.000     1.896136    2.253913
+_Igp_consu~1 |   .7466595   .0677337    -3.22   0.001     .6250364    .8919487
+_Icare_hom~1 |   6.154199   .3493321    32.01   0.000     5.506234    6.878417
+        age1 |   1.052956   .0188465     2.88   0.004     1.016658     1.09055
+        age2 |    1.05389   .0263196     2.10   0.036     1.003546    1.106758
+        age3 |   .6922033   .0892775    -2.85   0.004     .5375875    .8912882
+       _rcs1 |   2.197593   .0365693    47.32   0.000     2.127074    2.270449
+       _rcs2 |   1.604127    .016363    46.33   0.000     1.572375    1.636521
+       _cons |   .0000187    .000022    -9.27   0.000     1.88e-06    .0001868
+------------------------------------------------------------------------------
+Note: Estimates are transformed only in the first equation.
+
+. 
+. * set timevar for time points to be plotted
+. summ _t
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+          _t |    372,741    204.9929    29.43771         .5        211
+
+. local tmax=r(max)
+
+. local tmaxplus1=r(max)+1
+
+. 
+. range timevar 0 `tmax' `tmaxplus1'
+(372,534 missing values generated)
+
+. 
+. * Run stpm2 
+. stpm2_standsurv, at1(_Iexposure 0) at2(_Iexposure 1) timevar(timevar) ci cont
+> rast(difference) fail
+
+. 
+. * list the standardized curves for longest follow-up, followed by their diffe
+> rence.
+. list _at1* if timevar==`tmax', noobs
+
+  +-----------------------------------+
+  |      _at1    _at1_lci    _at1_uci |
+  |-----------------------------------|
+  | .00668134   .00638541   .00699098 |
+  +-----------------------------------+
+
+. list _at2* if timevar==`tmax', noobs
+
+  +----------------------------------+
+  |      _at2   _at2_lci    _at2_uci |
+  |----------------------------------|
+  | .00530974   .0048307   .00583628 |
+  +----------------------------------+
+
+. list _contrast* if timevar==`tmax', noobs ab(16)
+
+  +----------------------------------------------------+
+  | _contrast2_1   _contrast2_1_lci   _contrast2_1_uci |
+  |----------------------------------------------------|
+  |    -.0013716         -.00196136         -.00078184 |
+  +----------------------------------------------------+
+
+. 
+. * Convert them to be expressed in %
+. for var _at1 _at2 _at1_lci _at1_uci _at2_lci _at2_uci ///
+> _contrast2_1 _contrast2_1_lci _contrast2_1_uci: replace X=100*X
+
+->  replace _at1=100*_at1
+(211 real changes made)
+
+->  replace _at2=100*_at2
+(211 real changes made)
+
+->  replace _at1_lci=100*_at1_lci
+(211 real changes made)
+
+->  replace _at1_uci=100*_at1_uci
+(211 real changes made)
+
+->  replace _at2_lci=100*_at2_lci
+(211 real changes made)
+
+->  replace _at2_uci=100*_at2_uci
+(211 real changes made)
+
+->  replace _contrast2_1=100*_contrast2_1
+(211 real changes made)
+
+->  replace _contrast2_1_lci=100*_contrast2_1_lci
+(211 real changes made)
+
+->  replace _contrast2_1_uci=100*_contrast2_1_uci
+(211 real changes made)
+
+. 
+. * Plot the survival curves
+. twoway  (rarea _at1_lci _at1_uci timevar, color(blue%25)) ///
+>                 (rarea _at2_lci _at2_uci timevar, color(red%25)) ///
+>                  (line _at1 timevar, sort lcolor(blue)) ///
+>                  (line _at2  timevar, sort lcolor(red)) ///
+>                  , legend(order(1 "DOAC use" 2 "Warfarin use") ///
+>                                  ring(0) cols(1) pos(4)) ///
+>                  ylabel(0 (`yscale') `cum_ymax' ,angle(h) format(%4.2f)) ///
+>                  ytitle("Cumulative incidence (%)") ///
+>                  xtitle("Days from 1 March 2020") ///
+>                                  saving(adj_curves_`outcome' , replace)
+(note: file adj_curves_onscoviddeath.gph not found)
+(file adj_curves_onscoviddeath.gph saved)
+
+.                                  
+. graph export "$tabfigdir/adj_curves_`outcome'.svg", as(svg) replace
+(note: file /workspace/output/warfarin_tabfig/adj_curves_onscoviddeath.svg not 
+> found)
+(file /workspace/output/warfarin_tabfig/adj_curves_onscoviddeath.svg written in
+>  SVG format)
+
+. 
+. * Close window 
+. graph close
+
+. 
+. * Delete unneeded graphs
+. erase adj_curves_`outcome'.gph
+
+. 
+. * Plot the difference in curves
+. twoway  (rarea _contrast2_1_lci _contrast2_1_uci timevar, color(red%25)) ///
+>                  (line _contrast2_1 timevar, sort lcolor(red)) ///
+>                  , legend(off) ///
+>                  ylabel(,angle(h) format(%4.2f)) ///
+>                  ytitle("Difference in curves (%)") ///
+>                  xtitle("Days from 1 March 2020") ///
+>                                  saving(diff_curves_`outcome' , replace)
+(note: file diff_curves_onscoviddeath.gph not found)
+(file diff_curves_onscoviddeath.gph saved)
+
+.                                  
+. graph export "$tabfigdir/diff_curves_`outcome'.svg", as(svg) replace
+(note: file /workspace/output/warfarin_tabfig/diff_curves_onscoviddeath.svg not
+>  found)
+(file /workspace/output/warfarin_tabfig/diff_curves_onscoviddeath.svg written i
+> n SVG format)
+
+. 
+. * Close window 
+. graph close
+
+. 
+. * Delete unneeded graphs
+. erase diff_curves_`outcome'.gph          
+
+.  
+. * Close log file 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/09b_an_models_plot_onscoviddeath.lo
+> g
+  log type:  text
+ closed on:   1 Mar 2021, 21:08:35
+-------------------------------------------------------------------------------

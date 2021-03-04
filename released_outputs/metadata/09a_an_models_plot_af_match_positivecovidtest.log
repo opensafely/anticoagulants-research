@@ -1,0 +1,17 @@
+
+
+state: succeeded
+commit: c0f1328846bc2d8184c48d405b3941e4498822a3
+docker_image_id: sha256:5a4bb3ecd807de29a18a01ffae01739415778f0b770cbd43d7140bb0017306f1
+job_id: y6urf6mb7qn62cte
+run_by_user: angelwong121
+created_at: 2021-03-01T11:44:57Z
+started_at: 2021-03-02T06:28:04Z
+completed_at: 2021-03-02T06:52:26Z
+
+Completed successfully
+
+outputs:
+  output/oac_match_log/09a_an_models_plot_positivecovidtest.log  - moderately_sensitive
+  output/oac_match_tabfig/adj_curves_positivecovidtest.svg       - moderately_sensitive
+  output/oac_match_tabfig/diff_curves_positivecovidtest.svg      - moderately_sensitive

@@ -1,0 +1,1350 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/oac_match_log/08c_an_model_checks_onscoviddeath.
+> log
+  log type:  text
+ opened on:   2 Mar 2021, 06:08:13
+
+. 
+. /*===========================================================================
+> ===*/
+. * Open Stata dataset
+. use $tempdir/analysis_dataset_STSET_`outcome', clear
+
+. 
+. /* In full cohort*/
+. /* Quietly run models, perform test and store results in local macro=========
+> =*/
+. qui stcox i.exposure , strata(set_id)
+
+. estat phtest, detail
+
+      Test of proportional-hazards assumption
+
+      Time:  Time
+      ----------------------------------------------------------------
+                  |       rho            chi2       df       Prob>chi2
+      ------------+---------------------------------------------------
+      0b.exposure |            .            .        1             .
+      1.exposure  |     -0.00958         0.11        1         0.7456
+      ------------+---------------------------------------------------
+      global test |                      0.11        1         0.7456
+      ----------------------------------------------------------------
+
+. local univar_p = round(r(p),0.001)
+
+. di `univar_p'
+.746
+
+.  
+. estat phtest, plot(1.exposure) ///
+>                           graphregion(fcolor(white)) ///
+>                           ylabel(, nogrid labsize(small)) ///
+>                           xlabel(, labsize(small)) ///
+>                           xtitle("Time", size(small)) ///
+>                           ytitle("Scaled Schoenfeld Residuals", size(small)) 
+> ///
+>                           msize(small) ///
+>                           mcolor(gs6) ///
+>                           msymbol(circle_hollow) ///
+>                           scheme(s1mono) ///
+>                           title ("Schoenfeld residuals against time, univaria
+> ble", position(11) size(medsmall)) 
+
+. 
+. graph export "$tabfigdir/`outcome'_schoenplot1.svg", as(svg) replace
+(note: file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot1.svg no
+> t found)
+(file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot1.svg written 
+> in SVG format)
+
+. 
+. * Close window 
+. graph close  
+
+.                           
+. stcox i.exposure i.male age1 age2 age3 , strata(set_id)
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -2744.1172
+Iteration 1:   log likelihood = -2738.6417
+Iteration 2:   log likelihood = -2738.4585
+Iteration 3:   log likelihood = -2738.4584
+Refining estimates:
+Iteration 0:   log likelihood = -2738.4584
+
+Stratified Cox regr. -- Breslow method for ties
+
+No. of subjects =      563,145                  Number of obs    =     563,145
+No. of failures =        1,165
+Time at risk    =  117577336.5
+                                                LR chi2(4)       =       11.32
+Log likelihood  =   -2738.4584                  Prob > chi2      =      0.0232
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+current use  |    1.70903   .2927296     3.13   0.002     1.221666    2.390821
+      1.male |          1  (omitted)
+        age1 |   .6423284   .1077204    -2.64   0.008     .4623896    .8922904
+        age2 |   1.266476   .1299034     2.30   0.021      1.03583    1.548479
+        age3 |   .8849723   .1703026    -0.64   0.525     .6069122    1.290427
+------------------------------------------------------------------------------
+                                                          Stratified by set_id
+
+. estat phtest, detail
+
+      Test of proportional-hazards assumption
+
+      Time:  Time
+      ----------------------------------------------------------------
+                  |       rho            chi2       df       Prob>chi2
+      ------------+---------------------------------------------------
+      0b.exposure |            .            .        1             .
+      1.exposure  |      0.02003         0.50        1         0.4789
+      0b.male     |            .            .        1             .
+      1.male      |            .            .        1             .
+      age1        |     -0.00303         0.01        1         0.9176
+      age2        |     -0.00205         0.00        1         0.9444
+      age3        |      0.03324         1.16        1         0.2808
+      ------------+---------------------------------------------------
+      global test |                      2.12        4         0.7134
+      ----------------------------------------------------------------
+
+. local multivar1_p = round(r(phtest)[2,4],0.001)
+
+.  
+. estat phtest, plot(1.exposure) ///
+>                           graphregion(fcolor(white)) ///
+>                           ylabel(, nogrid labsize(small)) ///
+>                           xlabel(, labsize(small)) ///
+>                           xtitle("Time", size(small)) ///
+>                           ytitle("Scaled Schoenfeld Residuals", size(small)) 
+> ///
+>                           msize(small) ///
+>                           mcolor(gs6) ///
+>                           msymbol(circle_hollow) ///
+>                           scheme(s1mono) ///
+>                           title ("Schoenfeld residuals against time, age and 
+> sex adjusted", position(11) size(medsmall))                          
+
+. 
+. graph export "$tabfigdir/`outcome'_schoenplot2.svg", as(svg) replace
+(note: file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot2.svg no
+> t found)
+(file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot2.svg written 
+> in SVG format)
+
+. 
+. * Close window 
+. graph close
+
+.                   
+. stcox i.exposure i.male age1 age2 age3 $dagvarlist , strata(set_id)
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -2744.1172
+Iteration 1:   log likelihood = -2600.2274
+Iteration 2:   log likelihood = -2593.0134
+Iteration 3:   log likelihood = -2593.0119
+Refining estimates:
+Iteration 0:   log likelihood = -2593.0119
+
+Stratified Cox regr. -- Breslow method for ties
+
+No. of subjects =      563,145                  Number of obs    =     563,145
+No. of failures =        1,165
+Time at risk    =  117577336.5
+                                                LR chi2(25)      =      302.21
+Log likelihood  =   -2593.0119                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+current use  |   1.757409   .3054582     3.24   0.001     1.250041    2.470709
+      1.male |          1  (omitted)
+        age1 |   .7522484   .1274004    -1.68   0.093     .5397619    1.048384
+        age2 |   1.206004    .125041     1.81   0.071     .9842252    1.477757
+        age3 |   .7568558   .1517028    -1.39   0.165     .5109752    1.121054
+             |
+         imd |
+          2  |   1.038792   .1177667     0.34   0.737     .8318189    1.297264
+          3  |   1.222797   .1395455     1.76   0.078     .9777216    1.529302
+          4  |   1.227404   .1461718     1.72   0.085     .9718915    1.550091
+5 most de..  |   1.987929   .2412093     5.66   0.000     1.567179     2.52164
+             |
+   obese4cat |
+Obese I ..)  |   1.143587   .0974021     1.58   0.115      .967766    1.351351
+Obese II..)  |   1.668145   .2271035     3.76   0.000     1.277468    2.178299
+Obese II..)  |   1.838826   .4071485     2.75   0.006     1.191433    2.837995
+             |
+smoke_nomiss |
+     Former  |    1.32098   .0990192     3.71   0.000     1.140489    1.530034
+    Current  |    1.02284   .1454136     0.16   0.874     .7740973    1.351513
+             |
+     diabcat |
+Controlle..  |   1.350959   .1112853     3.65   0.000     1.149541    1.587669
+Uncontrol..  |   1.784834   .1917612     5.39   0.000     1.445924    2.203181
+Diabetes,..  |   1.396649   .7569447     0.62   0.538     .4827916     4.04031
+             |
+1.myocardi~t |   1.375991   .1466575     2.99   0.003     1.116586    1.695663
+       1.pad |   1.708014   .2226146     4.11   0.000      1.32297    2.205125
+1.hyperten~n |   .9055248   .0636571    -1.41   0.158     .7889728    1.039294
+1.heart_f~re |   1.366809   .1626977     2.63   0.009     1.082394    1.725959
+1.stroke_tia |   2.219458   .2038732     8.68   0.000     1.853779    2.657272
+       1.vte |   1.598793   .2279144     3.29   0.001     1.209066    2.114143
+ 1.oestrogen |   1.562438   .8675253     0.80   0.422     .5262389    4.638979
+1.antiplat~t |   .8911553   .0758138    -1.35   0.176     .7542904    1.052854
+1.flu_vac~ne |   1.014856   .0819892     0.18   0.855     .8662373    1.188974
+------------------------------------------------------------------------------
+                                                          Stratified by set_id
+
+. estat phtest, detail
+
+      Test of proportional-hazards assumption
+
+      Time:  Time
+      ----------------------------------------------------------------
+                  |       rho            chi2       df       Prob>chi2
+      ------------+---------------------------------------------------
+      0b.exposure |            .            .        1             .
+      1.exposure  |      0.03451         1.43        1         0.2312
+      0b.male     |            .            .        1             .
+      1.male      |            .            .        1             .
+      age1        |     -0.00851         0.08        1         0.7713
+      age2        |     -0.00193         0.00        1         0.9467
+      age3        |      0.03139         1.14        1         0.2866
+      1b.imd      |            .            .        1             .
+      2.imd       |     -0.03590         1.59        1         0.2072
+      3.imd       |     -0.06480         4.88        1         0.0271
+      4.imd       |     -0.01329         0.21        1         0.6455
+      5.imd       |     -0.03020         1.11        1         0.2911
+      1b.obese4cat|            .            .        1             .
+      2.obese4cat |     -0.06825         5.72        1         0.0168
+      3.obese4cat |     -0.06875         5.34        1         0.0208
+      4.obese4cat |      0.07503         6.72        1         0.0096
+      1b.smoke_n~s|            .            .        1             .
+      2.smoke_no~s|     -0.03242         1.24        1         0.2647
+      3.smoke_no~s|      0.02091         0.52        1         0.4690
+      1b.diabcat  |            .            .        1             .
+      2.diabcat   |     -0.00725         0.06        1         0.8002
+      3.diabcat   |     -0.01370         0.22        1         0.6375
+      4.diabcat   |      0.11170        13.10        1         0.0003
+      0b.myocard~t|            .            .        1             .
+      1.myocardi~t|      0.01035         0.14        1         0.7122
+      0b.pad      |            .            .        1             .
+      1.pad       |      0.04589         2.45        1         0.1175
+      0b.hyperte~n|            .            .        1             .
+      1.hyperten~n|      0.06296         4.76        1         0.0292
+      0b.heart_~re|            .            .        1             .
+      1.heart_f~re|     -0.01061         0.14        1         0.7085
+      0b.stroke_~a|            .            .        1             .
+      1.stroke_tia|      0.00227         0.01        1         0.9359
+      0b.vte      |            .            .        1             .
+      1.vte       |     -0.04301         2.09        1         0.1483
+      0b.oestrogen|            .            .        1             .
+      1.oestrogen |     -0.00800         0.08        1         0.7712
+      0b.antipla~t|            .            .        1             .
+      1.antiplat~t|      0.00130         0.00        1         0.9627
+      0b.flu_va~ne|            .            .        1             .
+      1.flu_vac~ne|     -0.03301         1.27        1         0.2590
+      ------------+---------------------------------------------------
+      global test |                     55.50       25         0.0004
+      ----------------------------------------------------------------
+
+. local multivar2_p = round(r(phtest)[2,4],0.001)
+
+.  
+. estat phtest, plot(1.exposure) ///
+>                           graphregion(fcolor(white)) ///
+>                           ylabel(, nogrid labsize(small)) ///
+>                           xlabel(, labsize(small)) ///
+>                           xtitle("Time", size(small)) ///
+>                           ytitle("Scaled Schoenfeld Residuals", size(small)) 
+> ///
+>                           msize(small) ///
+>                           mcolor(gs6) ///
+>                           msymbol(circle_hollow) ///
+>                           scheme(s1mono) ///
+>                           title ("Schoenfeld residuals against time, DAG adju
+> sted", position(11) size(medsmall))                  
+
+.                           
+. graph export "$tabfigdir/`outcome'_schoenplot3.svg", as(svg) replace
+(note: file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot3.svg no
+> t found)
+(file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot3.svg written 
+> in SVG format)
+
+. 
+. stcox i.exposure i.male age1 age2 age3 $fullvarlist, strata(set_id)
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -2744.1172
+Iteration 1:   log likelihood = -2454.8295
+Iteration 2:   log likelihood = -2442.9121
+Iteration 3:   log likelihood = -2442.8942
+Refining estimates:
+Iteration 0:   log likelihood = -2442.8942
+
+Stratified Cox regr. -- Breslow method for ties
+
+No. of subjects =      563,145                  Number of obs    =     563,145
+No. of failures =        1,165
+Time at risk    =  117577336.5
+                                                LR chi2(32)      =      602.45
+Log likelihood  =   -2442.8942                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+current use  |   1.487849   .2640525     2.24   0.025     1.050737    2.106803
+      1.male |          1  (omitted)
+        age1 |   .7294163    .126144    -1.82   0.068     .5197208    1.023719
+        age2 |   1.236225   .1322719     1.98   0.047     1.002356    1.524661
+        age3 |   .7237097   .1507114    -1.55   0.120     .4811749    1.088493
+             |
+         imd |
+          2  |   1.015626   .1169869     0.13   0.893     .8103753    1.272861
+          3  |     1.1573   .1344763     1.26   0.209     .9215899    1.453296
+          4  |   1.130824   .1374518     1.01   0.312     .8911101    1.435022
+5 most de..  |   1.731594   .2148955     4.42   0.000     1.357718    2.208424
+             |
+   obese4cat |
+Obese I ..)  |   1.157614   .1008483     1.68   0.093     .9759086     1.37315
+Obese II..)  |   1.702092   .2378943     3.81   0.000     1.294238    2.238473
+Obese II..)  |   1.668711   .3852488     2.22   0.027     1.061372    2.623582
+             |
+smoke_nomiss |
+     Former  |   1.225185   .0947736     2.63   0.009     1.052828    1.425759
+    Current  |   .9137634   .1340201    -0.61   0.539     .6854716    1.218086
+             |
+     diabcat |
+Controlle..  |   1.282575   .1086383     2.94   0.003     1.086383    1.514197
+Uncontrol..  |    1.74499   .1931574     5.03   0.000      1.40466    2.167777
+Diabetes,..  |   1.397292   .7699343     0.61   0.544     .4745251    4.114483
+             |
+1.myocardi~t |   1.249971   .1355978     2.06   0.040     1.010557    1.546104
+       1.pad |   1.579194   .2126651     3.39   0.001     1.212849    2.056194
+1.hyperten~n |    .903304   .0649716    -1.41   0.157     .7845307    1.040059
+1.heart_f~re |   1.168043   .1434295     1.26   0.206     .9181964    1.485873
+1.stroke_tia |    1.99323   .1881446     7.31   0.000     1.656574    2.398302
+       1.vte |   1.415629   .2071478     2.38   0.018     1.062659    1.885841
+ 1.oestrogen |   1.427118   .8067043     0.63   0.529     .4713055    4.321326
+1.antiplat~t |   .8381148   .0723569    -2.05   0.041     .7076472    .9926365
+1.flu_vac~ne |    1.00299   .0826985     0.04   0.971     .8533227    1.178908
+             |
+         ckd |
+        CKD  |    1.32027   .1001732     3.66   0.000     1.137835    1.531956
+      1.copd |   1.293423   .1228751     2.71   0.007     1.073684    1.558133
+1.other_re~y |    1.72485   .2106517     4.46   0.000     1.357677    2.191324
+1.immunode~y |   1.952978   .5674527     2.30   0.021     1.105031      3.4516
+    1.cancer |   1.151039   .0899874     1.80   0.072      .987515    1.341641
+1.ae_atten~r |   2.791584   .1917712    14.94   0.000     2.439924    3.193927
+1.gp_consult |   .2875009   .1614841    -2.22   0.026     .0956169     .864458
+------------------------------------------------------------------------------
+                                                          Stratified by set_id
+
+. estat phtest, detail
+
+      Test of proportional-hazards assumption
+
+      Time:  Time
+      ----------------------------------------------------------------
+                  |       rho            chi2       df       Prob>chi2
+      ------------+---------------------------------------------------
+      0b.exposure |            .            .        1             .
+      1.exposure  |      0.05086         3.07        1         0.0795
+      0b.male     |            .            .        1             .
+      1.male      |            .            .        1             .
+      age1        |     -0.01323         0.20        1         0.6570
+      age2        |     -0.00401         0.02        1         0.8922
+      age3        |      0.04076         1.87        1         0.1715
+      1b.imd      |            .            .        1             .
+      2.imd       |     -0.03393         1.39        1         0.2385
+      3.imd       |     -0.05493         3.45        1         0.0634
+      4.imd       |     -0.00938         0.10        1         0.7467
+      5.imd       |     -0.02550         0.78        1         0.3760
+      1b.obese4cat|            .            .        1             .
+      2.obese4cat |     -0.07056         6.11        1         0.0135
+      3.obese4cat |     -0.06695         5.10        1         0.0239
+      4.obese4cat |      0.07713         6.45        1         0.0111
+      1b.smoke_n~s|            .            .        1             .
+      2.smoke_no~s|     -0.03119         1.18        1         0.2782
+      3.smoke_no~s|      0.02302         0.58        1         0.4446
+      1b.diabcat  |            .            .        1             .
+      2.diabcat   |     -0.00702         0.06        1         0.8060
+      3.diabcat   |     -0.00495         0.03        1         0.8650
+      4.diabcat   |      0.10936        12.43        1         0.0004
+      0b.myocard~t|            .            .        1             .
+      1.myocardi~t|      0.01192         0.17        1         0.6774
+      0b.pad      |            .            .        1             .
+      1.pad       |      0.05046         2.86        1         0.0909
+      0b.hyperte~n|            .            .        1             .
+      1.hyperten~n|      0.05504         3.56        1         0.0593
+      0b.heart_~re|            .            .        1             .
+      1.heart_f~re|      0.00862         0.09        1         0.7642
+      0b.stroke_~a|            .            .        1             .
+      1.stroke_tia|      0.01576         0.31        1         0.5802
+      0b.vte      |            .            .        1             .
+      1.vte       |     -0.04210         1.94        1         0.1641
+      0b.oestrogen|            .            .        1             .
+      1.oestrogen |     -0.00830         0.09        1         0.7648
+      0b.antipla~t|            .            .        1             .
+      1.antiplat~t|      0.00189         0.00        1         0.9463
+      0b.flu_va~ne|            .            .        1             .
+      1.flu_vac~ne|     -0.03223         1.19        1         0.2753
+      0b.ckd      |            .            .        1             .
+      1.ckd       |     -0.01346         0.22        1         0.6363
+      0b.copd     |            .            .        1             .
+      1.copd      |     -0.01776         0.36        1         0.5498
+      0b.other_r~y|            .            .        1             .
+      1.other_re~y|     -0.00803         0.07        1         0.7855
+      0b.immunod~y|            .            .        1             .
+      1.immunode~y|     -0.03219         1.17        1         0.2800
+      0b.cancer   |            .            .        1             .
+      1.cancer    |     -0.00181         0.00        1         0.9504
+      0b.ae_atte~r|            .            .        1             .
+      1.ae_atten~r|     -0.03818         1.72        1         0.1901
+      0b.gp_con~lt|            .            .        1             .
+      1.gp_consult|      0.02370         0.61        1         0.4360
+      ------------+---------------------------------------------------
+      global test |                     58.67       32         0.0028
+      ----------------------------------------------------------------
+
+. local multivar3_p = round(r(phtest)[2,4],0.001)
+
+.  
+. estat phtest, plot(1.exposure) ///
+>                           graphregion(fcolor(white)) ///
+>                           ylabel(, nogrid labsize(small)) ///
+>                           xlabel(, labsize(small)) ///
+>                           xtitle("Time", size(small)) ///
+>                           ytitle("Scaled Schoenfeld Residuals", size(small)) 
+> ///
+>                           msize(small) ///
+>                           mcolor(gs6) ///
+>                           msymbol(circle_hollow) ///
+>                           scheme(s1mono) ///
+>                           title ("Schoenfeld residuals against time, fully ad
+> justed", position(11) size(medsmall))                
+
+.                           
+. graph export "$tabfigdir/`outcome'_schoenplot4.svg", as(svg) replace
+(note: file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot4.svg no
+> t found)
+(file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot4.svg written 
+> in SVG format)
+
+. 
+. * Close window 
+. graph close
+
+. 
+. * Print table of results=====================================================
+> =*/        
+. cap file close tablecontent
+
+. file open tablecontent using $tabfigdir/table5_`outcome'.txt, write text repl
+> ace
+(note: file /workspace/output/oac_match_tabfig/table5_onscoviddeath.txt not fou
+> nd)
+
+. 
+. * Column headings 
+. file write tablecontent ("Table 5: Testing the PH assumption - `outcome' - $p
+> opulation Population in Full cohort") _n
+
+. file write tablecontent _tab ("Univariable") _tab ("Age/Sex Adjusted") _tab /
+> //
+>                                                 ("DAG Adjusted") _tab ("Fully
+>  Adjusted") _tab _n
+
+.                                                 
+. file write tablecontent _tab ("p-value") _tab ("p-value") _tab ("p-value") _t
+> ab ///
+>  ("p-value") _tab _n
+
+. 
+. * Row heading and content  
+. file write tablecontent ("Treatment Exposure") _tab
+
+. file write tablecontent ("`univar_p'") _tab ("`multivar1_p'") ///
+>  _tab ("`multivar2_p'") _tab ("`multivar3_p'")
+
+. 
+. file write tablecontent _n
+
+. file close tablecontent
+
+. 
+. * ===========================================================================
+> ==*/       
+. /* In complete case cohort - restrict to people with known ethnicity*/
+. * Open Stata dataset
+. use $tempdir/analysis_dataset_STSET_`outcome', clear
+
+. 
+. drop if ethnicity == .u
+(129,383 observations deleted)
+
+. 
+. /* Quietly run models, perform test and store results in local macro=========
+> =*/
+. qui stcox i.exposure , strata(set_id)
+
+. estat phtest, detail
+
+      Test of proportional-hazards assumption
+
+      Time:  Time
+      ----------------------------------------------------------------
+                  |       rho            chi2       df       Prob>chi2
+      ------------+---------------------------------------------------
+      0b.exposure |            .            .        1             .
+      1.exposure  |     -0.02996         0.76        1         0.3828
+      ------------+---------------------------------------------------
+      global test |                      0.76        1         0.3828
+      ----------------------------------------------------------------
+
+. local univar_completecase_p = round(r(p),0.001)
+
+. di `univar_p'
+.746
+
+.  
+. estat phtest, plot(1.exposure) ///
+>                           graphregion(fcolor(white)) ///
+>                           ylabel(, nogrid labsize(small)) ///
+>                           xlabel(, labsize(small)) ///
+>                           xtitle("Time", size(small)) ///
+>                           ytitle("Scaled Schoenfeld Residuals", size(small)) 
+> ///
+>                           msize(small) ///
+>                           mcolor(gs6) ///
+>                           msymbol(circle_hollow) ///
+>                           scheme(s1mono) ///
+>                           title ("Schoenfeld residuals against time, univaria
+> ble", position(11) size(medsmall)) 
+
+. 
+. graph export "$tabfigdir/`outcome'_schoenplot1_completecase.svg", as(svg) rep
+> lace
+(note: file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot1_comple
+> tecase.svg not found)
+(file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot1_completecase
+> .svg written in SVG format)
+
+. 
+. * Close window 
+. graph close  
+
+.                           
+. stcox i.exposure i.male age1 age2 age3 , strata(set_id)
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -1780.4987
+Iteration 1:   log likelihood = -1776.4524
+Iteration 2:   log likelihood = -1776.2982
+Iteration 3:   log likelihood = -1776.2981
+Refining estimates:
+Iteration 0:   log likelihood = -1776.2981
+
+Stratified Cox regr. -- no ties
+
+No. of subjects =      433,762                  Number of obs    =     433,762
+No. of failures =          846
+Time at risk    =     90635073
+                                                LR chi2(4)       =        8.40
+Log likelihood  =   -1776.2981                  Prob > chi2      =      0.0779
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+current use  |   1.667641   .3393154     2.51   0.012     1.119201     2.48483
+      1.male |          1  (omitted)
+        age1 |   .6616679   .1319081    -2.07   0.038     .4476588    .9779867
+        age2 |   1.321871   .1643766     2.24   0.025     1.035955    1.686697
+        age3 |   .7636648   .1803928    -1.14   0.254     .4806535    1.213315
+------------------------------------------------------------------------------
+                                                          Stratified by set_id
+
+. estat phtest, detail
+
+      Test of proportional-hazards assumption
+
+      Time:  Time
+      ----------------------------------------------------------------
+                  |       rho            chi2       df       Prob>chi2
+      ------------+---------------------------------------------------
+      0b.exposure |            .            .        1             .
+      1.exposure  |      0.03405         1.09        1         0.2965
+      0b.male     |            .            .        1             .
+      1.male      |            .            .        1             .
+      age1        |     -0.03355         1.00        1         0.3176
+      age2        |      0.01289         0.15        1         0.7014
+      age3        |      0.04472         1.58        1         0.2082
+      ------------+---------------------------------------------------
+      global test |                      5.38        4         0.2502
+      ----------------------------------------------------------------
+
+. local multivar1_completecase_p = round(r(phtest)[2,4],0.001)
+
+.  
+. estat phtest, plot(1.exposure) ///
+>                           graphregion(fcolor(white)) ///
+>                           ylabel(, nogrid labsize(small)) ///
+>                           xlabel(, labsize(small)) ///
+>                           xtitle("Time", size(small)) ///
+>                           ytitle("Scaled Schoenfeld Residuals", size(small)) 
+> ///
+>                           msize(small) ///
+>                           mcolor(gs6) ///
+>                           msymbol(circle_hollow) ///
+>                           scheme(s1mono) ///
+>                           title ("Schoenfeld residuals against time, age and 
+> sex adjusted", position(11) size(medsmall))                          
+
+. 
+. graph export "$tabfigdir/`outcome'_schoenplot2_completecase.svg", as(svg) rep
+> lace
+(note: file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot2_comple
+> tecase.svg not found)
+(file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot2_completecase
+> .svg written in SVG format)
+
+. 
+. * Close window 
+. graph close
+
+.                   
+. stcox i.exposure i.male age1 age2 age3 $dagvarlist i.ethnicity , strata(set_i
+> d)
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -1780.4987
+Iteration 1:   log likelihood =  -1648.719
+Iteration 2:   log likelihood = -1643.7377
+Iteration 3:   log likelihood = -1643.7363
+Refining estimates:
+Iteration 0:   log likelihood = -1643.7363
+
+Stratified Cox regr. -- no ties
+
+No. of subjects =      433,762                  Number of obs    =     433,762
+No. of failures =          846
+Time at risk    =     90635073
+                                                LR chi2(29)      =      273.52
+Log likelihood  =   -1643.7363                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+current use  |   1.668964    .349058     2.45   0.014     1.107698    2.514623
+      1.male |          1  (omitted)
+        age1 |   .8406743   .1710002    -0.85   0.394      .564269    1.252476
+        age2 |   1.211959   .1529165     1.52   0.128     .9464313    1.551981
+        age3 |   .6639902   .1636305    -1.66   0.097     .4096338    1.076286
+             |
+         imd |
+          2  |    1.04081   .1496762     0.28   0.781     .7851672    1.379686
+          3  |   1.182025   .1701886     1.16   0.245     .8913955    1.567412
+          4  |    1.29251    .190283     1.74   0.081     .9685464    1.724836
+5 most de..  |   1.948986   .2918162     4.46   0.000     1.453318    2.613706
+             |
+   obese4cat |
+Obese I ..)  |   1.047791   .1081655     0.45   0.651     .8558611    1.282761
+Obese II..)  |   1.760621   .2815748     3.54   0.000     1.286868    2.408784
+Obese II..)  |   1.917886   .4907104     2.55   0.011      1.16154    3.166732
+             |
+smoke_nomiss |
+     Former  |   1.590468   .1520946     4.85   0.000     1.318637    1.918334
+    Current  |    1.39533   .2284989     2.03   0.042     1.012242      1.9234
+             |
+     diabcat |
+Controlle..  |   1.417907   .1412787     3.50   0.000     1.166366    1.723695
+Uncontrol..  |   1.876886   .2456228     4.81   0.000     1.452257    2.425673
+Diabetes,..  |   1.494895   .9660437     0.62   0.534     .4212501    5.304951
+             |
+1.myocardi~t |   1.307384   .1716841     2.04   0.041     1.010705    1.691149
+       1.pad |    1.93792   .3129608     4.10   0.000     1.412124    2.659495
+1.hyperten~n |   .9376187   .0807952    -0.75   0.455     .7919133    1.110133
+1.heart_f~re |   1.502045   .2185733     2.80   0.005     1.129324    1.997779
+1.stroke_tia |   2.422761   .2730531     7.85   0.000     1.942573    3.021647
+       1.vte |   1.589587   .2793441     2.64   0.008     1.126417    2.243206
+ 1.oestrogen |   2.991851   1.857708     1.76   0.078     .8859511    10.10346
+1.antiplat~t |   .7906802   .0828897    -2.24   0.025      .643823    .9710359
+1.flu_vac~ne |   .9727289   .0939046    -0.29   0.775      .805043    1.175343
+             |
+   ethnicity |
+      Mixed  |   1.102809   .7001165     0.15   0.877     .3177726    3.827227
+Asian or ..  |   2.046567   .4458323     3.29   0.001     1.335355    3.136571
+      Black  |   1.894124   .5515807     2.19   0.028     1.070368    3.351843
+      Other  |   3.033301   1.154369     2.92   0.004     1.438725    6.395186
+------------------------------------------------------------------------------
+                                                          Stratified by set_id
+
+. estat phtest, detail
+
+      Test of proportional-hazards assumption
+
+      Time:  Time
+      ----------------------------------------------------------------
+                  |       rho            chi2       df       Prob>chi2
+      ------------+---------------------------------------------------
+      0b.exposure |            .            .        1             .
+      1.exposure  |      0.04406         1.74        1         0.1874
+      0b.male     |            .            .        1             .
+      1.male      |            .            .        1             .
+      age1        |     -0.03169         0.89        1         0.3462
+      age2        |      0.00847         0.07        1         0.7940
+      age3        |      0.04454         1.77        1         0.1840
+      1b.imd      |            .            .        1             .
+      2.imd       |     -0.05089         2.39        1         0.1222
+      3.imd       |     -0.05256         2.30        1         0.1297
+      4.imd       |     -0.02787         0.66        1         0.4176
+      5.imd       |     -0.03050         0.84        1         0.3602
+      1b.obese4cat|            .            .        1             .
+      2.obese4cat |     -0.03960         1.41        1         0.2354
+      3.obese4cat |     -0.02221         0.40        1         0.5263
+      4.obese4cat |      0.10021         8.86        1         0.0029
+      1b.smoke_n~s|            .            .        1             .
+      2.smoke_no~s|     -0.06042         3.11        1         0.0779
+      3.smoke_no~s|      0.00965         0.08        1         0.7758
+      1b.diabcat  |            .            .        1             .
+      2.diabcat   |      0.00179         0.00        1         0.9574
+      3.diabcat   |     -0.00368         0.01        1         0.9147
+      4.diabcat   |      0.08967         5.42        1         0.0199
+      0b.myocard~t|            .            .        1             .
+      1.myocardi~t|      0.03285         1.01        1         0.3143
+      0b.pad      |            .            .        1             .
+      1.pad       |      0.02772         0.67        1         0.4135
+      0b.hyperte~n|            .            .        1             .
+      1.hyperten~n|      0.03749         1.22        1         0.2691
+      0b.heart_~re|            .            .        1             .
+      1.heart_f~re|     -0.03099         0.83        1         0.3612
+      0b.stroke_~a|            .            .        1             .
+      1.stroke_tia|      0.03262         0.96        1         0.3271
+      0b.vte      |            .            .        1             .
+      1.vte       |     -0.02163         0.37        1         0.5433
+      0b.oestrogen|            .            .        1             .
+      1.oestrogen |     -0.01218         0.17        1         0.6803
+      0b.antipla~t|            .            .        1             .
+      1.antiplat~t|      0.00348         0.01        1         0.9164
+      0b.flu_va~ne|            .            .        1             .
+      1.flu_vac~ne|     -0.04177         1.44        1         0.2307
+      1b.ethnicity|            .            .        1             .
+      2.ethnicity |     -0.02625         0.58        1         0.4465
+      3.ethnicity |     -0.03387         0.97        1         0.3244
+      4.ethnicity |      0.00810         0.06        1         0.8068
+      5.ethnicity |     -0.05407         2.64        1         0.1043
+      ------------+---------------------------------------------------
+      global test |                     42.23       29         0.0535
+      ----------------------------------------------------------------
+
+. local multivar2_completecase_ethn_p = round(r(phtest)[2,4],0.001)
+
+.  
+. estat phtest, plot(1.exposure) ///
+>                           graphregion(fcolor(white)) ///
+>                           ylabel(, nogrid labsize(small)) ///
+>                           xlabel(, labsize(small)) ///
+>                           xtitle("Time", size(small)) ///
+>                           ytitle("Scaled Schoenfeld Residuals", size(small)) 
+> ///
+>                           msize(small) ///
+>                           mcolor(gs6) ///
+>                           msymbol(circle_hollow) ///
+>                           scheme(s1mono) ///
+>                           title ("Schoenfeld residuals against time, DAG adju
+> sted", position(11) size(medsmall))                  
+
+.                           
+. graph export "$tabfigdir/`outcome'_schoenplot3_completecase_ethn.svg", as(svg
+> ) replace
+(note: file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot3_comple
+> tecase_ethn.svg not found)
+(file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot3_completecase
+> _ethn.svg written in SVG format)
+
+. 
+. stcox i.exposure i.male age1 age2 age3 $dagvarlist , strata(set_id)
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -1780.4987
+Iteration 1:   log likelihood = -1658.0721
+Iteration 2:   log likelihood = -1653.0286
+Iteration 3:   log likelihood = -1653.0275
+Refining estimates:
+Iteration 0:   log likelihood = -1653.0275
+
+Stratified Cox regr. -- no ties
+
+No. of subjects =      433,762                  Number of obs    =     433,762
+No. of failures =          846
+Time at risk    =     90635073
+                                                LR chi2(25)      =      254.94
+Log likelihood  =   -1653.0275                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+current use  |    1.62526   .3376258     2.34   0.019     1.081676    2.442016
+      1.male |          1  (omitted)
+        age1 |   .8466531   .1717963    -0.82   0.412     .5688349    1.260157
+        age2 |   1.213945   .1533353     1.53   0.125     .9477254    1.554947
+        age3 |   .6530532    .160929    -1.73   0.084     .4028939    1.058538
+             |
+         imd |
+          2  |   1.028858    .147871     0.20   0.843     .7762792    1.363619
+          3  |   1.169844   .1682235     1.09   0.275     .8825213     1.55071
+          4  |   1.287501   .1893856     1.72   0.086     .9650271    1.717732
+5 most de..  |   1.944537   .2905942     4.45   0.000     1.450813    2.606278
+             |
+   obese4cat |
+Obese I ..)  |   1.034114   .1065947     0.33   0.745     .8449446    1.265637
+Obese II..)  |   1.703032   .2704109     3.35   0.001     1.247577    2.324762
+Obese II..)  |   1.895035   .4828544     2.51   0.012     1.150088    3.122505
+             |
+smoke_nomiss |
+     Former  |   1.527422   .1443658     4.48   0.000     1.269133    1.838278
+    Current  |   1.350489   .2194595     1.85   0.064     .9821272    1.857011
+             |
+     diabcat |
+Controlle..  |   1.462393   .1446795     3.84   0.000     1.204625    1.775319
+Uncontrol..  |   2.009813   .2583097     5.43   0.000     1.562268    2.585566
+Diabetes,..  |    1.48148   .9535612     0.61   0.541     .4195812    5.230889
+             |
+1.myocardi~t |   1.298881   .1702505     2.00   0.046     1.004612    1.679347
+       1.pad |   1.924602   .3095098     4.07   0.000     1.404277    2.637723
+1.hyperten~n |   .9520892   .0818291    -0.57   0.568     .8044879    1.126771
+1.heart_f~re |   1.519066   .2204885     2.88   0.004     1.142949    2.018953
+1.stroke_tia |   2.435154   .2734636     7.93   0.000     1.954061    3.034694
+       1.vte |   1.599231   .2802133     2.68   0.007     1.134399    2.254533
+ 1.oestrogen |   2.958454   1.839402     1.74   0.081     .8746512    10.00679
+1.antiplat~t |   .7909916   .0825983    -2.25   0.025      .644594    .9706384
+1.flu_vac~ne |   .9727328   .0937364    -0.29   0.774     .8053198    1.174948
+------------------------------------------------------------------------------
+                                                          Stratified by set_id
+
+. estat phtest, detail
+
+      Test of proportional-hazards assumption
+
+      Time:  Time
+      ----------------------------------------------------------------
+                  |       rho            chi2       df       Prob>chi2
+      ------------+---------------------------------------------------
+      0b.exposure |            .            .        1             .
+      1.exposure  |      0.04570         1.90        1         0.1679
+      0b.male     |            .            .        1             .
+      1.male      |            .            .        1             .
+      age1        |     -0.03326         0.98        1         0.3211
+      age2        |      0.00960         0.09        1         0.7671
+      age3        |      0.04366         1.70        1         0.1926
+      1b.imd      |            .            .        1             .
+      2.imd       |     -0.05168         2.47        1         0.1158
+      3.imd       |     -0.05207         2.25        1         0.1333
+      4.imd       |     -0.03144         0.84        1         0.3592
+      5.imd       |     -0.03319         0.99        1         0.3204
+      1b.obese4cat|            .            .        1             .
+      2.obese4cat |     -0.03672         1.22        1         0.2686
+      3.obese4cat |     -0.01570         0.20        1         0.6550
+      4.obese4cat |      0.10419         9.50        1         0.0021
+      1b.smoke_n~s|            .            .        1             .
+      2.smoke_no~s|     -0.05711         2.76        1         0.0969
+      3.smoke_no~s|      0.01030         0.09        1         0.7604
+      1b.diabcat  |            .            .        1             .
+      2.diabcat   |     -0.00100         0.00        1         0.9760
+      3.diabcat   |     -0.01443         0.18        1         0.6741
+      4.diabcat   |      0.08925         5.31        1         0.0212
+      0b.myocard~t|            .            .        1             .
+      1.myocardi~t|      0.03384         1.08        1         0.2989
+      0b.pad      |            .            .        1             .
+      1.pad       |      0.02964         0.76        1         0.3845
+      0b.hyperte~n|            .            .        1             .
+      1.hyperten~n|      0.03856         1.30        1         0.2547
+      0b.heart_~re|            .            .        1             .
+      1.heart_f~re|     -0.02906         0.74        1         0.3886
+      0b.stroke_~a|            .            .        1             .
+      1.stroke_tia|      0.02764         0.69        1         0.4066
+      0b.vte      |            .            .        1             .
+      1.vte       |     -0.02221         0.38        1         0.5361
+      0b.oestrogen|            .            .        1             .
+      1.oestrogen |     -0.01130         0.15        1         0.6995
+      0b.antipla~t|            .            .        1             .
+      1.antiplat~t|      0.00431         0.02        1         0.8968
+      0b.flu_va~ne|            .            .        1             .
+      1.flu_vac~ne|     -0.04131         1.41        1         0.2343
+      ------------+---------------------------------------------------
+      global test |                     38.46       25         0.0417
+      ----------------------------------------------------------------
+
+. local multivar2_completecase_p = round(r(phtest)[2,4],0.001)
+
+.  
+. estat phtest, plot(1.exposure) ///
+>                           graphregion(fcolor(white)) ///
+>                           ylabel(, nogrid labsize(small)) ///
+>                           xlabel(, labsize(small)) ///
+>                           xtitle("Time", size(small)) ///
+>                           ytitle("Scaled Schoenfeld Residuals", size(small)) 
+> ///
+>                           msize(small) ///
+>                           mcolor(gs6) ///
+>                           msymbol(circle_hollow) ///
+>                           scheme(s1mono) ///
+>                           title ("Schoenfeld residuals against time, DAG adju
+> sted", position(11) size(medsmall))                  
+
+.                           
+. graph export "$tabfigdir/`outcome'_schoenplot3_completecase.svg", as(svg) rep
+> lace
+(note: file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot3_comple
+> tecase.svg not found)
+(file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot3_completecase
+> .svg written in SVG format)
+
+. 
+. stcox i.exposure i.male age1 age2 age3 $fullvarlist i.ethnicity, strata(set_i
+> d)
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -1780.4987
+Iteration 1:   log likelihood = -1539.7677
+Iteration 2:   log likelihood = -1532.8718
+Iteration 3:   log likelihood =  -1532.857
+Refining estimates:
+Iteration 0:   log likelihood =  -1532.857
+
+Stratified Cox regr. -- no ties
+
+No. of subjects =      433,762                  Number of obs    =     433,762
+No. of failures =          846
+Time at risk    =     90635073
+                                                LR chi2(36)      =      495.28
+Log likelihood  =    -1532.857                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+current use  |   1.466393   .3143088     1.79   0.074     .9633908     2.23202
+      1.male |          1  (omitted)
+        age1 |   .7796333   .1613866    -1.20   0.229     .5196236    1.169747
+        age2 |   1.263547   .1621591     1.82   0.068     .9825423    1.624918
+        age3 |   .6144159   .1557965    -1.92   0.055     .3737874    1.009951
+             |
+         imd |
+          2  |   .9634142   .1411297    -0.25   0.799     .7229716    1.283822
+          3  |    1.07236   .1576158     0.48   0.635     .8039529    1.430376
+          4  |   1.141745   .1728605     0.88   0.381     .8485881    1.536177
+5 most de..  |   1.605958   .2471195     3.08   0.002      1.18783    2.171273
+             |
+   obese4cat |
+Obese I ..)  |   1.090043   .1157352     0.81   0.417     .8852535    1.342209
+Obese II..)  |   1.811592   .2986704     3.60   0.000     1.311372    2.502619
+Obese II..)  |   1.726903   .4662734     2.02   0.043     1.017276    2.931548
+             |
+smoke_nomiss |
+     Former  |   1.436927   .1425289     3.65   0.000     1.183052    1.745281
+    Current  |   1.179622   .2017264     0.97   0.334     .8436833    1.649325
+             |
+     diabcat |
+Controlle..  |    1.36548   .1406057     3.03   0.002     1.115927     1.67084
+Uncontrol..  |   1.798542   .2453049     4.30   0.000     1.376653    2.349724
+Diabetes,..  |   1.579724   1.022108     0.71   0.480     .4444671    5.614653
+             |
+1.myocardi~t |    1.19173   .1606777     1.30   0.193     .9149824    1.552184
+       1.pad |    1.78602   .3018358     3.43   0.001     1.282431     2.48736
+1.hyperten~n |   .9340333   .0831232    -0.77   0.443      .784532    1.112024
+1.heart_f~re |   1.187772    .180566     1.13   0.258     .8817242    1.600049
+1.stroke_tia |   2.181867   .2563315     6.64   0.000     1.733113    2.746817
+       1.vte |   1.440465   .2623406     2.00   0.045     1.008046    2.058379
+ 1.oestrogen |   2.883496   1.786808     1.71   0.087     .8559685    9.713618
+1.antiplat~t |   .7428699   .0802653    -2.75   0.006     .6010941    .9180852
+1.flu_vac~ne |   .9372325   .0935115    -0.65   0.516     .7707607     1.13966
+             |
+         ckd |
+        CKD  |    1.36592    .129178     3.30   0.001     1.134815    1.644088
+      1.copd |   1.415669   .1588491     3.10   0.002     1.136188    1.763896
+1.other_re~y |   1.978736   .2894695     4.67   0.000     1.485475    2.635787
+1.immunode~y |   1.390685   .5305676     0.86   0.387     .6583886    2.937482
+    1.cancer |   1.338571   .1280428     3.05   0.002     1.109733    1.614598
+1.ae_atten~r |   2.761778    .234533    11.96   0.000     2.338319    3.261922
+1.gp_consult |   .2684486   .2035172    -1.73   0.083     .0607499    1.186252
+             |
+   ethnicity |
+      Mixed  |   1.260416    .806828     0.36   0.718     .3594478    4.419693
+Asian or ..  |   2.120293   .4809328     3.31   0.001     1.359325    3.307262
+      Black  |   2.103636    .640881     2.44   0.015     1.157841    3.822016
+      Other  |   3.275066   1.283012     3.03   0.002     1.519709    7.057965
+------------------------------------------------------------------------------
+                                                          Stratified by set_id
+
+. estat phtest, detail
+
+      Test of proportional-hazards assumption
+
+      Time:  Time
+      ----------------------------------------------------------------
+                  |       rho            chi2       df       Prob>chi2
+      ------------+---------------------------------------------------
+      0b.exposure |            .            .        1             .
+      1.exposure  |      0.06836         4.00        1         0.0455
+      0b.male     |            .            .        1             .
+      1.male      |            .            .        1             .
+      age1        |     -0.03862         1.24        1         0.2657
+      age2        |      0.00379         0.01        1         0.9107
+      age3        |      0.06087         3.12        1         0.0772
+      1b.imd      |            .            .        1             .
+      2.imd       |     -0.04156         1.52        1         0.2184
+      3.imd       |     -0.03006         0.74        1         0.3912
+      4.imd       |     -0.02635         0.58        1         0.4470
+      5.imd       |     -0.02401         0.51        1         0.4768
+      1b.obese4cat|            .            .        1             .
+      2.obese4cat |     -0.04337         1.72        1         0.1899
+      3.obese4cat |     -0.02468         0.48        1         0.4880
+      4.obese4cat |      0.10136         7.59        1         0.0059
+      1b.smoke_n~s|            .            .        1             .
+      2.smoke_no~s|     -0.05231         2.33        1         0.1265
+      3.smoke_no~s|      0.01942         0.30        1         0.5822
+      1b.diabcat  |            .            .        1             .
+      2.diabcat   |      0.00044         0.00        1         0.9896
+      3.diabcat   |      0.00290         0.01        1         0.9321
+      4.diabcat   |      0.08504         4.79        1         0.0286
+      0b.myocard~t|            .            .        1             .
+      1.myocardi~t|      0.03052         0.85        1         0.3568
+      0b.pad      |            .            .        1             .
+      1.pad       |      0.02765         0.62        1         0.4308
+      0b.hyperte~n|            .            .        1             .
+      1.hyperten~n|      0.02802         0.67        1         0.4132
+      0b.heart_~re|            .            .        1             .
+      1.heart_f~re|      0.00279         0.01        1         0.9361
+      0b.stroke_~a|            .            .        1             .
+      1.stroke_tia|      0.05039         2.28        1         0.1312
+      0b.vte      |            .            .        1             .
+      1.vte       |     -0.01982         0.29        1         0.5880
+      0b.oestrogen|            .            .        1             .
+      1.oestrogen |     -0.01000         0.09        1         0.7610
+      0b.antipla~t|            .            .        1             .
+      1.antiplat~t|      0.00515         0.02        1         0.8774
+      0b.flu_va~ne|            .            .        1             .
+      1.flu_vac~ne|     -0.04364         1.56        1         0.2121
+      0b.ckd      |            .            .        1             .
+      1.ckd       |     -0.01775         0.30        1         0.5814
+      0b.copd     |            .            .        1             .
+      1.copd      |     -0.02298         0.40        1         0.5249
+      0b.other_r~y|            .            .        1             .
+      1.other_re~y|     -0.02546         0.52        1         0.4694
+      0b.immunod~y|            .            .        1             .
+      1.immunode~y|     -0.02442         0.48        1         0.4898
+      0b.cancer   |            .            .        1             .
+      1.cancer    |     -0.00451         0.02        1         0.8952
+      0b.ae_atte~r|            .            .        1             .
+      1.ae_atten~r|     -0.04364         1.63        1         0.2022
+      0b.gp_con~lt|            .            .        1             .
+      1.gp_consult|      0.02781         0.61        1         0.4344
+      1b.ethnicity|            .            .        1             .
+      2.ethnicity |     -0.02497         0.51        1         0.4761
+      3.ethnicity |     -0.02740         0.67        1         0.4124
+      4.ethnicity |     -0.00045         0.00        1         0.9890
+      5.ethnicity |     -0.05105         2.42        1         0.1199
+      ------------+---------------------------------------------------
+      global test |                     45.55       36         0.1322
+      ----------------------------------------------------------------
+
+. local multivar3_completecase_ethn_p = round(r(phtest)[2,4],0.001)
+
+.  
+. estat phtest, plot(1.exposure) ///
+>                           graphregion(fcolor(white)) ///
+>                           ylabel(, nogrid labsize(small)) ///
+>                           xlabel(, labsize(small)) ///
+>                           xtitle("Time", size(small)) ///
+>                           ytitle("Scaled Schoenfeld Residuals", size(small)) 
+> ///
+>                           msize(small) ///
+>                           mcolor(gs6) ///
+>                           msymbol(circle_hollow) ///
+>                           scheme(s1mono) ///
+>                           title ("Schoenfeld residuals against time, fully ad
+> justed", position(11) size(medsmall))                
+
+.                           
+. graph export "$tabfigdir/`outcome'_schoenplot4_completecase_ethn.svg", as(svg
+> ) replace
+(note: file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot4_comple
+> tecase_ethn.svg not found)
+(file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot4_completecase
+> _ethn.svg written in SVG format)
+
+. 
+. stcox i.exposure i.male age1 age2 age3 $fullvarlist, strata(set_id)
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -1780.4987
+Iteration 1:   log likelihood = -1550.1632
+Iteration 2:   log likelihood = -1542.8866
+Iteration 3:   log likelihood = -1542.8703
+Refining estimates:
+Iteration 0:   log likelihood = -1542.8703
+
+Stratified Cox regr. -- no ties
+
+No. of subjects =      433,762                  Number of obs    =     433,762
+No. of failures =          846
+Time at risk    =     90635073
+                                                LR chi2(32)      =      475.26
+Log likelihood  =   -1542.8703                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+current use  |   1.419443   .3029447     1.64   0.101     .9342226     2.15668
+      1.male |          1  (omitted)
+        age1 |   .7892976   .1629734    -1.15   0.252     .5266057    1.183031
+        age2 |   1.267254   .1628189     1.84   0.065     .9851442    1.630149
+        age3 |   .6021987   .1526374    -2.00   0.045     .3664278    .9896718
+             |
+         imd |
+          2  |   .9563511   .1399327    -0.31   0.760     .7179102    1.273986
+          3  |   1.066859   .1565107     0.44   0.659     .8002648    1.422264
+          4  |   1.145442   .1731743     0.90   0.369     .8516942    1.540503
+5 most de..  |   1.618743   .2483904     3.14   0.002     1.198295    2.186713
+             |
+   obese4cat |
+Obese I ..)  |   1.070071   .1133316     0.64   0.523     .8694844    1.316933
+Obese II..)  |   1.751799   .2872062     3.42   0.001      1.27037    2.415673
+Obese II..)  |   1.681315   .4536506     1.93   0.054     .9907837    2.853116
+             |
+smoke_nomiss |
+     Former  |   1.384425   .1358915     3.31   0.001     1.142136    1.678113
+    Current  |   1.149997   .1948991     0.82   0.410     .8249679    1.603086
+             |
+     diabcat |
+Controlle..  |   1.404695   .1438326     3.32   0.001     1.149275     1.71688
+Uncontrol..  |   1.927243   .2576256     4.91   0.000     1.483036    2.504503
+Diabetes,..  |   1.554131   1.003256     0.68   0.495     .4385319    5.507744
+             |
+1.myocardi~t |   1.173275    .157794     1.19   0.235     .9014081    1.527137
+       1.pad |   1.778205   .2997668     3.41   0.001     1.277873    2.474434
+1.hyperten~n |   .9490631   .0841936    -0.59   0.556      .797596    1.129294
+1.heart_f~re |   1.210217    .183405     1.26   0.208     .8992206    1.628773
+1.stroke_tia |     2.1851   .2555263     6.68   0.000     1.737527    2.747965
+       1.vte |   1.449601    .263252     2.04   0.041     1.015471    2.069328
+ 1.oestrogen |   2.853234   1.769089     1.69   0.091     .8463843    9.618498
+1.antiplat~t |   .7447792   .0800564    -2.74   0.006     .6032978    .9194399
+1.flu_vac~ne |    .936491   .0932516    -0.66   0.510     .7704505    1.138315
+             |
+         ckd |
+        CKD  |   1.377752   .1299411     3.40   0.001     1.145225    1.657491
+      1.copd |   1.401501   .1567076     3.02   0.003     1.125685    1.744897
+1.other_re~y |    1.96109   .2857998     4.62   0.000      1.47383    2.609441
+1.immunode~y |   1.458875   .5426763     1.02   0.310     .7036971    3.024477
+    1.cancer |   1.337546   .1276116     3.05   0.002     1.109425    1.612574
+1.ae_atten~r |   2.744935   .2322629    11.93   0.000     2.325453    3.240086
+1.gp_consult |   .3010227    .231017    -1.56   0.118     .0668887    1.354708
+------------------------------------------------------------------------------
+                                                          Stratified by set_id
+
+. estat phtest, detail
+
+      Test of proportional-hazards assumption
+
+      Time:  Time
+      ----------------------------------------------------------------
+                  |       rho            chi2       df       Prob>chi2
+      ------------+---------------------------------------------------
+      0b.exposure |            .            .        1             .
+      1.exposure  |      0.06791         4.11        1         0.0427
+      0b.male     |            .            .        1             .
+      1.male      |            .            .        1             .
+      age1        |     -0.03987         1.35        1         0.2454
+      age2        |      0.00388         0.01        1         0.9079
+      age3        |      0.06041         3.08        1         0.0793
+      1b.imd      |            .            .        1             .
+      2.imd       |     -0.04232         1.57        1         0.2097
+      3.imd       |     -0.02936         0.70        1         0.4030
+      4.imd       |     -0.02984         0.75        1         0.3878
+      5.imd       |     -0.02778         0.67        1         0.4124
+      1b.obese4cat|            .            .        1             .
+      2.obese4cat |     -0.04001         1.47        1         0.2261
+      3.obese4cat |     -0.01942         0.30        1         0.5854
+      4.obese4cat |      0.10700         8.53        1         0.0035
+      1b.smoke_n~s|            .            .        1             .
+      2.smoke_no~s|     -0.05042         2.16        1         0.1412
+      3.smoke_no~s|      0.01958         0.31        1         0.5770
+      1b.diabcat  |            .            .        1             .
+      2.diabcat   |     -0.00293         0.01        1         0.9297
+      3.diabcat   |     -0.00677         0.04        1         0.8425
+      4.diabcat   |      0.08571         4.86        1         0.0275
+      0b.myocard~t|            .            .        1             .
+      1.myocardi~t|      0.03253         0.96        1         0.3261
+      0b.pad      |            .            .        1             .
+      1.pad       |      0.03143         0.79        1         0.3731
+      0b.hyperte~n|            .            .        1             .
+      1.hyperten~n|      0.02945         0.74        1         0.3898
+      0b.heart_~re|            .            .        1             .
+      1.heart_f~re|      0.00379         0.01        1         0.9126
+      0b.stroke_~a|            .            .        1             .
+      1.stroke_tia|      0.04603         1.89        1         0.1695
+      0b.vte      |            .            .        1             .
+      1.vte       |     -0.01976         0.29        1         0.5924
+      0b.oestrogen|            .            .        1             .
+      1.oestrogen |     -0.00945         0.09        1         0.7704
+      0b.antipla~t|            .            .        1             .
+      1.antiplat~t|      0.00552         0.03        1         0.8691
+      0b.flu_va~ne|            .            .        1             .
+      1.flu_vac~ne|     -0.04287         1.52        1         0.2183
+      0b.ckd      |            .            .        1             .
+      1.ckd       |     -0.01885         0.34        1         0.5586
+      0b.copd     |            .            .        1             .
+      1.copd      |     -0.02471         0.47        1         0.4942
+      0b.other_r~y|            .            .        1             .
+      1.other_re~y|     -0.02308         0.43        1         0.5115
+      0b.immunod~y|            .            .        1             .
+      1.immunode~y|     -0.02451         0.47        1         0.4938
+      0b.cancer   |            .            .        1             .
+      1.cancer    |     -0.00702         0.04        1         0.8379
+      0b.ae_atte~r|            .            .        1             .
+      1.ae_atten~r|     -0.04288         1.57        1         0.2101
+      0b.gp_con~lt|            .            .        1             .
+      1.gp_consult|      0.02551         0.51        1         0.4737
+      ------------+---------------------------------------------------
+      global test |                     43.24       32         0.0887
+      ----------------------------------------------------------------
+
+. local multivar3_completecase_p = round(r(phtest)[2,4],0.001)
+
+.  
+. estat phtest, plot(1.exposure) ///
+>                           graphregion(fcolor(white)) ///
+>                           ylabel(, nogrid labsize(small)) ///
+>                           xlabel(, labsize(small)) ///
+>                           xtitle("Time", size(small)) ///
+>                           ytitle("Scaled Schoenfeld Residuals", size(small)) 
+> ///
+>                           msize(small) ///
+>                           mcolor(gs6) ///
+>                           msymbol(circle_hollow) ///
+>                           scheme(s1mono) ///
+>                           title ("Schoenfeld residuals against time, fully ad
+> justed", position(11) size(medsmall))                
+
+.                           
+. graph export "$tabfigdir/`outcome'_schoenplot4_completecase.svg", as(svg) rep
+> lace
+(note: file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot4_comple
+> tecase.svg not found)
+(file /workspace/output/oac_match_tabfig/onscoviddeath_schoenplot4_completecase
+> .svg written in SVG format)
+
+. 
+. * Close window 
+. graph close
+
+. 
+. * Print table of results=====================================================
+> =*/        
+. 
+. 
+. cap file close tablecontent
+
+. file open tablecontent using $tabfigdir/table6_`outcome'.txt, write text repl
+> ace
+(note: file /workspace/output/oac_match_tabfig/table6_onscoviddeath.txt not fou
+> nd)
+
+. 
+. * Column headings 
+. file write tablecontent ("Table 6: Testing the PH assumption - `outcome' - $p
+> opulation Population in complete case cohort") _n
+
+. file write tablecontent _tab ("Univariable") _tab ("Age/Sex Adjusted") _tab /
+> //
+>                                                 ("DAG Adjusted with ethnicity
+> ") _tab ///
+>                                                 ("DAG Adjusted without ethnic
+> ity") _tab ///
+>                                                 ("Fully Adjusted with ethnici
+> ty") _tab ///
+>                                                 ("Fully Adjusted without ethn
+> icity") _tab _n
+
+.                                                 
+. file write tablecontent _tab ("p-value") _tab ("p-value") _tab ("p-value") _t
+> ab ///
+>  ("p-value") _tab ("p-value") _tab ("p-value") _tab _n
+
+. 
+. * Row heading and content  
+. file write tablecontent ("Treatment Exposure") _tab
+
+. file write tablecontent ("`univar_completecase_p'") _tab ("`multivar1_complet
+> ecase_p'") ///
+>  _tab ("`multivar2_completecase_ethn_p'") _tab ("`multivar2_completecase_p'")
+>  ///
+>  _tab ("`multivar3_completecase_ethn_p'") _tab ("`multivar3_completecase_p'")
+
+. 
+. file write tablecontent _n
+
+. file close tablecontent
+
+. 
+. * Close log file 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/oac_match_log/08c_an_model_checks_onscoviddeath.
+> log
+  log type:  text
+ closed on:   2 Mar 2021, 06:30:50
+-------------------------------------------------------------------------------

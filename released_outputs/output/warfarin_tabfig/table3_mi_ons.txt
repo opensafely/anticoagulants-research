@@ -1,0 +1,7 @@
+Table 3: Association between current anticoagulant use and mi_ons - Obj_2_AF Population, restrict to known ethnicity
+	Number of events	Total person-weeks	Rate per 1,000	Univariable		Age/Sex Adjusted		DAG Adjusted with ethnicity		DAG Adjusted without ethnicity		Fully Adjusted with ethnicity		Fully Adjusted without ethnicity		
+				HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI
+Main Analysis
+DOAC use	292	   6084923	0.05	1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)
+warfarin use	99	   2011890	0.05	1.03	0.82 - 1.29	0.92	0.73 - 1.16	0.97	0.76 - 1.23	0.97	0.76 - 1.23	1.03	0.81 - 1.31	1.03	0.81 - 1.30
+

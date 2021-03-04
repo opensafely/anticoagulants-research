@@ -1,0 +1,25 @@
+
+
+state: succeeded
+commit: 1c7357aaa022e7886056722cba032f3dc923726b
+docker_image_id: sha256:5a4bb3ecd807de29a18a01ffae01739415778f0b770cbd43d7140bb0017306f1
+exit_code: 0
+job_id: fh2jvozokneirfif
+run_by_user: angelwong121
+created_at: 2021-03-03T16:09:03Z
+started_at: 2021-03-03T16:10:24Z
+completed_at: 2021-03-03T16:15:39Z
+
+Completed successfully
+
+outputs:
+  output/warfarin_log/11b_an_models.log                     - moderately_sensitive
+  output/warfarin_tabfig/table7.txt                         - moderately_sensitive
+  output/warfarin_tempdata/11b_gi_bleed_ons_multivar2.ster  - highly_sensitive    
+  output/warfarin_tempdata/11b_gi_bleed_ons_multivar3.ster  - highly_sensitive    
+  output/warfarin_tempdata/11b_mi_ons_multivar2.ster        - highly_sensitive    
+  output/warfarin_tempdata/11b_mi_ons_multivar3.ster        - highly_sensitive    
+  output/warfarin_tempdata/11b_stroke_ons_multivar2.ster    - highly_sensitive    
+  output/warfarin_tempdata/11b_stroke_ons_multivar3.ster    - highly_sensitive    
+  output/warfarin_tempdata/11b_vte_ons_multivar2.ster       - highly_sensitive    
+  output/warfarin_tempdata/11b_vte_ons_multivar3.ster       - highly_sensitive    

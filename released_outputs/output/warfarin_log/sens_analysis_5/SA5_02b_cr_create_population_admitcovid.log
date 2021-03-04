@@ -1,0 +1,404 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/sens_analysis_5/SA5_02b_cr_create_p
+> opulation_admitcovid.log
+  log type:  text
+ opened on:   1 Mar 2021, 22:05:01
+
+. 
+. /* Use the dataset we derived from the 02b program===========================
+> ==*/ 
+. /* This is used to create a dataset consisting of the last date of follow-up 
+> which is needed after stset based on exposure status*/
+. 
+. use $tempdir_main_analysis/analysis_dataset_`outcome', clear
+
+. 
+. safecount
+  372,746
+
+. 
+. keep patient_id stime_`outcome' 
+
+. 
+. rename stime_`outcome' oac_date_after_mar
+
+. 
+. save $tempdir/last_date_`outcome', replace
+(note: file /workspace/output/warfarin_tempdata/sens_analysis_5/last_date_admit
+> covid.dta not found)
+file /workspace/output/warfarin_tempdata/sens_analysis_5/last_date_admitcovid.d
+> ta saved
+
+. 
+. /* Use the dataset we derived from the 02b program===========================
+> ==*/ 
+. 
+. use $tempdir_main_analysis/analysis_dataset_`outcome', clear
+
+. 
+. * Reshape dataset from wide to long (warfarin subsequent exposure)
+. 
+. keep patient_id warfarin*
+
+. 
+. drop warfarin_last_four_months  // remove unnecessary variable
+
+. 
+. * Destring time-updated variable and convert them to date variable
+. 
+. foreach month in march  ///
+>                                  apr    ///
+>                                  may    ///
+>                                  jun    ///
+>                                  jul    ///
+>                                  aug    ///
+>                                  sep    {
+  2.                                         
+.         foreach order in first ///
+>                                          last  {
+  3.                                                 
+.         rename warfarin_`month'_`order' warfarin_`month'_`order'_dstr
+  4.         gen warfarin_`month'_`order' = date(warfarin_`month'_`order'_dstr,
+>  "YMD")
+  5.         drop warfarin_`month'_`order'_dstr
+  6.         format warfarin_`month'_`order' %td 
+  7.         }
+  8.                                  }
+(302,267 missing values generated)
+(302,267 missing values generated)
+(316,943 missing values generated)
+(316,943 missing values generated)
+(320,919 missing values generated)
+(320,919 missing values generated)
+(321,268 missing values generated)
+(321,268 missing values generated)
+(321,853 missing values generated)
+(321,853 missing values generated)
+(324,522 missing values generated)
+(324,522 missing values generated)
+(322,927 missing values generated)
+(322,927 missing values generated)
+
+.                                  
+. reshape long warfarin, i(patient_id) j(month) string
+(note: j = _apr_first _apr_last _aug_first _aug_last _jul_first _jul_last _jun_
+> first _jun_last _march_first _march_last _may_first _may_last _sep_first _sep
+> _last)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                   372746   -> 5.2e+06
+Number of variables                  15   ->       3
+j variable (14 values)                    ->   month
+xij variables:
+warfarin_apr_first warfarin_apr_last ... warfarin_sep_last->warfarin
+-----------------------------------------------------------------------------
+
+. 
+. rename warfarin oac_date_after_mar
+
+. 
+. drop month
+
+. 
+. * remove entries that without subsequent anticoagulant exposure
+. drop if oac_date_after_mar == .
+(4,461,398 observations deleted)
+
+. 
+. * remove duplicates for same date in each patient
+. sort patient_id oac_date_after_mar
+
+. 
+. duplicates drop patient_id oac_date_after_mar, force
+
+Duplicates in terms of patient_id oac_date_after_mar
+
+(329,552 observations deleted)
+
+. 
+. * create a variable indicating warfarin exposure
+. gen oac = 1
+
+. 
+. /* SAVE DATA=================================================================
+> =*/        
+. save $tempdir/warfarin_rx_`outcome', replace
+(note: file /workspace/output/warfarin_tempdata/sens_analysis_5/warfarin_rx_adm
+> itcovid.dta not found)
+file /workspace/output/warfarin_tempdata/sens_analysis_5/warfarin_rx_admitcovid
+> .dta saved
+
+. 
+. /* Use the dataset we derived from the 02b program===========================
+> ==*/ 
+. use $tempdir_main_analysis/analysis_dataset_`outcome', clear
+
+. 
+. * Reshape dataset from wide to long (DOAC subsequent exposure)
+. keep patient_id  doac*
+
+. 
+. drop doac_last_four_months  // remove unnecessary variable
+
+. 
+. * Destring time-updated variable and convert them to date variable
+. 
+. foreach month in march  ///
+>                                  apr    ///
+>                                  may    ///
+>                                  jun    ///
+>                                  jul    ///
+>                                  aug    ///
+>                                  sep    {
+  2.                                         
+.         foreach order in first ///
+>                                          last  {
+  3.                                                 
+.         rename doac_`month'_`order' doac_`month'_`order'_dstr
+  4.         gen doac_`month'_`order' = date(doac_`month'_`order'_dstr, "YMD")
+  5.         drop doac_`month'_`order'_dstr
+  6.         format doac_`month'_`order' %td 
+  7.         }
+  8.                                  }
+(142,153 missing values generated)
+(142,153 missing values generated)
+(160,805 missing values generated)
+(160,805 missing values generated)
+(159,955 missing values generated)
+(159,955 missing values generated)
+(156,326 missing values generated)
+(156,326 missing values generated)
+(153,999 missing values generated)
+(153,999 missing values generated)
+(163,569 missing values generated)
+(163,569 missing values generated)
+(155,263 missing values generated)
+(155,263 missing values generated)
+
+.                                  
+. reshape long doac, i(patient_id) j(month) string
+(note: j = _apr_first _apr_last _aug_first _aug_last _jul_first _jul_last _jun_
+> first _jun_last _march_first _march_last _may_first _may_last _sep_first _sep
+> _last)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                   372746   -> 5.2e+06
+Number of variables                  15   ->       3
+j variable (14 values)                    ->   month
+xij variables:
+doac_apr_first doac_apr_last ... doac_sep_last->doac
+-----------------------------------------------------------------------------
+
+. 
+. rename doac oac_date_after_mar
+
+. 
+. drop month
+
+. 
+. * remove entries that without subsequent anticoagulant exposure
+. drop if oac_date_after_mar == .
+(2,184,140 observations deleted)
+
+. 
+. * remove duplicates for same date in each patient
+. sort patient_id oac_date_after_mar
+
+. 
+. duplicates drop patient_id oac_date_after_mar, force
+
+Duplicates in terms of patient_id oac_date_after_mar
+
+(1,346,450 observations deleted)
+
+. 
+. * create a variable indicating DOAC exposure
+. gen oac = 0
+
+. 
+. /* SAVE DATA=================================================================
+> =*/        
+. save $tempdir/doac_rx_`outcome', replace
+(note: file /workspace/output/warfarin_tempdata/sens_analysis_5/doac_rx_admitco
+> vid.dta not found)
+file /workspace/output/warfarin_tempdata/sens_analysis_5/doac_rx_admitcovid.dta
+>  saved
+
+. 
+. /* CREATE DATASET ==========================================================*
+> /  
+. use $tempdir/doac_rx_`outcome', clear
+
+. 
+. append using $tempdir/warfarin_rx_`outcome'
+
+. 
+. * keep DOAC record if DOAC and warfarin record on the same date (likely to sw
+> itch from warfarin to DOACs)
+. sort patient_id oac_date_after_mar oac
+
+. duplicates drop patient_id oac_date_after_mar, force
+
+Duplicates in terms of patient_id oac_date_after_mar
+
+(517 observations deleted)
+
+. 
+. * remove later records if two records consecutively are the same type of OACs
+. bysort patient_id: gen oac_lag = oac[_n-1]
+(362,783 missing values generated)
+
+. drop if oac == oac_lag
+(1,733,277 observations deleted)
+
+. 
+. drop oac_lag
+
+. 
+. * add one entry - their end of follow-up (i.e. last date) for each person 
+. append using $tempdir/last_date_`outcome'
+
+. 
+. save $tempdir/oac_rx_`outcome', replace
+(note: file /workspace/output/warfarin_tempdata/sens_analysis_5/oac_rx_admitcov
+> id.dta not found)
+file /workspace/output/warfarin_tempdata/sens_analysis_5/oac_rx_admitcovid.dta 
+> saved
+
+. 
+. /* stset the dataset according to exposure status============================
+> ==*/
+. 
+. use $tempdir_main_analysis/analysis_dataset_`outcome', clear
+
+. 
+. merge 1:m patient_id using $tempdir/oac_rx_`outcome', keep(master match) noge
+> n
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                           754,300  
+    -----------------------------------------
+
+. 
+. sort patient_id oac_date_after_mar
+
+. bysort patient_id: gen nid = _n
+
+. 
+. safecount if oac==.
+  372,746
+
+. 
+. * remove if the first record is the same as the exposure group (i.e. no need 
+> to update status)
+. drop if exposure == 1 & oac == 1 & nid == 1
+(86,864 observations deleted)
+
+. 
+. drop if exposure == 0 & oac == 0 & nid == 1
+(271,556 observations deleted)
+
+. 
+. drop nid
+
+. 
+. * keep the record of subsequent anticoagulant exposure if it is on the last d
+> ate
+. sort patient_id oac_date_after_mar oac
+
+. duplicates drop patient_id oac_date_after_mar, force
+
+Duplicates in terms of patient_id oac_date_after_mar
+
+(91 observations deleted)
+
+. 
+. * remove any oac prescription if the date occurred after outcome
+. drop if oac_date_after_mar > stime_`outcome' 
+(450 observations deleted)
+
+. 
+. * reset the outcome status for the time interval fell on the outcome date
+. replace `outcome' = 0 if stime_`outcome' != oac_date_after_mar
+(64 real changes made)
+
+. 
+. * stset the dataset
+. stset oac_date_after_mar, fail(`outcome') id(patient_id) enter(enter_date) or
+> igin(enter_date) exit(stime_`outcome')
+
+                id:  patient_id
+     failure event:  admitcovid != 0 & admitcovid < .
+obs. time interval:  (oac_date_after_mar[_n-1], oac_date_after_mar]
+ enter on or after:  time enter_date
+ exit on or before:  time stime_admitcovid
+    t for analysis:  (time-origin)
+            origin:  time enter_date
+
+------------------------------------------------------------------------------
+    395,339  total observations
+     [redacted]  observations end on or before enter()
+------------------------------------------------------------------------------
+    395,334  observations remaining, representing
+    372,741  subjects
+      2,477  failures in single-failure-per-subject data
+ 76214805.5  total analysis time at risk and under observation
+                                                at risk from t =         0
+                                     earliest observed entry t =         0
+                                          last observed exit t =       211
+
+. 
+. * the exposure status is the one above after stset
+. sort patient_id oac_date_after_mar      
+
+. bysort patient_id: gen oac_after_mar = oac[_n-1]
+(372,746 missing values generated)
+
+. 
+. * the first exposure status is the original assigned exposure group
+. replace oac_after_mar = exposure if oac_after_mar == .
+(372,746 real changes made)
+
+. 
+. * label variable of subsequent anticoagulant exposure
+. label var oac_after_mar "warfarin vs DOACs"
+
+. 
+. drop warfarin* doac* chadsvas* exposure
+
+. 
+. /* RENAME EXPOSURE VARIABLE==================================================
+> =*/
+. 
+. rename oac_after_mar exposure
+
+. cap label drop exposure 
+
+. label define exposure 0 "DOAC use" 1 "warfarin use"
+
+. label values exposure exposure 
+
+. 
+. /* SAVE FINAL DATASET========================================================
+> =*/
+. 
+. save $tempdir/analysis_dataset_STSET_`outcome', replace
+(note: file /workspace/output/warfarin_tempdata/sens_analysis_5/analysis_datase
+> t_STSET_admitcovid.dta not found)
+file /workspace/output/warfarin_tempdata/sens_analysis_5/analysis_dataset_STSET
+> _admitcovid.dta saved
+
+. 
+. * Close log file 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/sens_analysis_5/SA5_02b_cr_create_p
+> opulation_admitcovid.log
+  log type:  text
+ closed on:   1 Mar 2021, 22:06:47
+-------------------------------------------------------------------------------

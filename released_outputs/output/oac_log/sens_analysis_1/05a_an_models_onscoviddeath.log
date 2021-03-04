@@ -1,0 +1,517 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/oac_log/sens_analysis_1/05a_an_models_onscovidde
+> ath.log
+  log type:  text
+ opened on:   1 Mar 2021, 21:22:40
+
+. 
+. * Open Stata dataset
+. use $tempdir/analysis_dataset_STSET_`outcome', clear
+
+. 
+. /* Sense check outcomes======================================================
+> =*/ 
+. 
+. safetab exposure `outcome', missing row
+23
+
++----------------+
+| Key            |
+|----------------|
+|   frequency    |
+| row percentage |
++----------------+
+
+       Oral |   Failure/censoring
+anticoagula |     indicator for
+         nt |  outcome: ONS covid
+  Treatment |         death
+   Exposure |         0          1 |     Total
+------------+----------------------+----------
+    non-use |    14,053         44 |    14,097 
+            |     99.69       0.31 |    100.00 
+------------+----------------------+----------
+current use |    49,992        128 |    50,120 
+            |     99.74       0.26 |    100.00 
+------------+----------------------+----------
+      Total |    64,045        172 |    64,217 
+            |     99.73       0.27 |    100.00 
+
+. 
+. /* Main Model================================================================
+> =*/
+. 
+. /* Univariable model */ 
+. 
+. stcox i.exposure 
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -1902.5849
+Iteration 1:   log likelihood = -1901.9123
+Iteration 2:   log likelihood =   -1901.91
+Iteration 3:   log likelihood =   -1901.91
+Refining estimates:
+Iteration 0:   log likelihood =   -1901.91
+
+Cox regression -- Breslow method for ties
+
+No. of subjects =       64,217                  Number of obs    =      64,217
+No. of failures =          172
+Time at risk    =     13358548
+                                                LR chi2(1)       =        1.35
+Log likelihood  =     -1901.91                  Prob > chi2      =      0.2453
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+current use  |   .8133526   .1421386    -1.18   0.237     .5774654    1.145597
+------------------------------------------------------------------------------
+
+. estimates save $tempdir/`outcome'_univar, replace 
+(note: file /workspace/output/oac_tempdata/sens_analysis_1/onscoviddeath_univar
+> .ster not found)
+file /workspace/output/oac_tempdata/sens_analysis_1/onscoviddeath_univar.ster s
+> aved
+
+. 
+. /* Multivariable models */ 
+. 
+. * Age and Gender 
+. * Age fit as spline in first instance, categorical below 
+. 
+. stcox i.exposure i.male age1 age2 age3 
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -1902.5849
+Iteration 1:   log likelihood = -1859.0909
+Iteration 2:   log likelihood = -1805.5447
+Iteration 3:   log likelihood =  -1801.338
+Iteration 4:   log likelihood = -1801.2358
+Iteration 5:   log likelihood = -1801.2357
+Refining estimates:
+Iteration 0:   log likelihood = -1801.2357
+
+Cox regression -- Breslow method for ties
+
+No. of subjects =       64,217                  Number of obs    =      64,217
+No. of failures =          172
+Time at risk    =     13358548
+                                                LR chi2(5)       =      202.70
+Log likelihood  =   -1801.2357                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+current use  |   .7719628   .1366243    -1.46   0.144     .5456927    1.092055
+      1.male |   1.555869   .4910647     1.40   0.161     .8381393    2.888218
+        age1 |   .9934687   .0280556    -0.23   0.817     .9399748    1.050007
+        age2 |   1.167803    .058383     3.10   0.002     1.058802    1.288025
+        age3 |   .5051141   .1594649    -2.16   0.031     .2720599    .9378093
+------------------------------------------------------------------------------
+
+. estimates save $tempdir/`outcome'_multivar1, replace 
+(note: file /workspace/output/oac_tempdata/sens_analysis_1/onscoviddeath_multiv
+> ar1.ster not found)
+file /workspace/output/oac_tempdata/sens_analysis_1/onscoviddeath_multivar1.ste
+> r saved
+
+. 
+. * DAG adjusted model
+. stcox i.exposure i.male age1 age2 age3 $dagvarlist
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -1902.5849
+Iteration 1:   log likelihood = -1847.8255
+Iteration 2:   log likelihood = -1789.8832
+Iteration 3:   log likelihood = -1784.1864
+Iteration 4:   log likelihood = -1783.9901
+Iteration 5:   log likelihood = -1783.9446
+Iteration 6:   log likelihood = -1783.9278
+Iteration 7:   log likelihood = -1783.9217
+Iteration 8:   log likelihood = -1783.9194
+Iteration 9:   log likelihood = -1783.9186
+Iteration 10:  log likelihood = -1783.9183
+Iteration 11:  log likelihood = -1783.9182
+Iteration 12:  log likelihood = -1783.9181
+Iteration 13:  log likelihood = -1783.9181
+Iteration 14:  log likelihood = -1783.9181
+Iteration 15:  log likelihood = -1783.9181
+Iteration 16:  log likelihood = -1783.9181
+Iteration 17:  log likelihood = -1783.9181
+Iteration 18:  log likelihood = -1783.9181
+Iteration 19:  log likelihood = -1783.9181
+Iteration 20:  log likelihood = -1783.9181
+Iteration 21:  log likelihood = -1783.9181
+Iteration 22:  log likelihood = -1783.9181
+Iteration 23:  log likelihood = -1783.9181
+Iteration 24:  log likelihood = -1783.9181
+Iteration 25:  log likelihood = -1783.9181
+Iteration 26:  log likelihood = -1783.9181
+Iteration 27:  log likelihood = -1783.9181
+Iteration 28:  log likelihood = -1783.9181
+Iteration 29:  log likelihood = -1783.9181
+Iteration 30:  log likelihood = -1783.9181
+Iteration 31:  log likelihood = -1783.9181
+Iteration 32:  log likelihood = -1783.9181
+Iteration 33:  log likelihood = -1783.9181
+Iteration 34:  log likelihood = -1783.9181
+Iteration 35:  log likelihood = -1783.9181
+Iteration 36:  log likelihood = -1783.9181
+Iteration 37:  log likelihood = -1783.9181
+Iteration 38:  log likelihood = -1783.9181
+Iteration 39:  log likelihood = -1783.9181
+Iteration 40:  log likelihood = -1783.9181
+Iteration 41:  log likelihood = -1783.9181
+Iteration 42:  log likelihood = -1783.9181
+Iteration 43:  log likelihood = -1783.9181
+Iteration 44:  log likelihood = -1783.9181
+Iteration 45:  log likelihood = -1783.9181
+Refining estimates:
+Iteration 0:   log likelihood = -1783.9181
+
+Cox regression -- Breslow method for ties
+
+No. of subjects =       64,217                  Number of obs    =      64,217
+No. of failures =          172
+Time at risk    =     13358548
+                                                LR chi2(21)      =      237.33
+Log likelihood  =   -1783.9181                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+current use  |   .7258619   .1303065    -1.78   0.074     .5105598    1.031957
+      1.male |   1.028066   .4807026     0.06   0.953     .4111658    2.570546
+        age1 |   1.025593   .0376614     0.69   0.491     .9543718    1.102129
+        age2 |   1.182955   .0710709     2.80   0.005     1.051547    1.330784
+        age3 |   .4058673    .170756    -2.14   0.032     .1779376    .9257645
+             |
+         imd |
+          2  |   .9453565   .2132969    -0.25   0.803     .6074947    1.471122
+          3  |   .7379192   .1823615    -1.23   0.219     .4546236    1.197749
+          4  |   .7837972   .1988838    -0.96   0.337     .4766685    1.288816
+5 most de..  |   1.542128   .3459892     1.93   0.054     .9934506    2.393837
+             |
+   obese4cat |
+Obese I ..)  |   .9256653    .226515    -0.32   0.752     .5730079    1.495365
+Obese II..)  |   1.508183   .5053383     1.23   0.220     .7820721    2.908448
+Obese II..)  |   1.706414   .7681463     1.19   0.235     .7061777    4.123394
+             |
+smoke_nomiss |
+     Former  |   1.372899   .2359262     1.84   0.065       .98031    1.922709
+    Current  |    .914685   .3754793    -0.22   0.828     .4091215    2.044988
+             |
+     diabcat |
+Controlle..  |   1.352097   .7425857     0.55   0.583     .4608068    3.967314
+Uncontrol..  |   2.549544   1.503363     1.59   0.112     .8026818    8.098072
+Diabetes,..  |   5.00e-19          .        .       .            .           .
+             |
+1.myocardi~t |   3.646287   2.260231     2.09   0.037     1.081969    12.28816
+       1.pad |   1.14e-19          .        .       .            .           .
+1.hyperten~n |    1.07369   .4478458     0.17   0.865     .4740618    2.431771
+1.heart_f~re |   2.556447   1.194252     2.01   0.045     1.023282    6.386724
+1.stroke_tia |   9.72e-20          .        .       .            .           .
+       1.vte |   3.059599   3.841742     0.89   0.373      .261135     35.8479
+ 1.oestrogen |   1.48e-19          .        .       .            .           .
+1.flu_vac~ne |   1.074596   .2052756     0.38   0.706      .738999    1.562596
+------------------------------------------------------------------------------
+
+. estimates save $tempdir/`outcome'_multivar2, replace    
+(note: file /workspace/output/oac_tempdata/sens_analysis_1/onscoviddeath_multiv
+> ar2.ster not found)
+file /workspace/output/oac_tempdata/sens_analysis_1/onscoviddeath_multivar2.ste
+> r saved
+
+. 
+. * Fully adjusted model
+. stcox i.exposure i.male age1 age2 age3 $fullvarlist, strata(practice_id)
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time enter_date
+  enter on or after:  time enter_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -597.83798
+Iteration 1:   log likelihood = -567.23724
+Iteration 2:   log likelihood = -543.33294
+Iteration 3:   log likelihood = -472.85555
+Iteration 4:   log likelihood = -460.21484
+Iteration 5:   log likelihood = -460.11616
+Iteration 6:   log likelihood = -460.10379
+Iteration 7:   log likelihood = -460.09925
+Iteration 8:   log likelihood = -460.09758
+Iteration 9:   log likelihood = -460.09697
+Iteration 10:  log likelihood = -460.09674
+Iteration 11:  log likelihood = -460.09666
+Iteration 12:  log likelihood = -460.09663
+Iteration 13:  log likelihood = -460.09662
+Iteration 14:  log likelihood = -460.09661
+Iteration 15:  log likelihood = -460.09661
+Iteration 16:  log likelihood = -460.09661
+Iteration 17:  log likelihood = -460.09661
+Iteration 18:  log likelihood = -460.09661
+Iteration 19:  log likelihood = -460.09661
+Iteration 20:  log likelihood = -460.09661
+Iteration 21:  log likelihood = -460.09661
+Iteration 22:  log likelihood = -460.09661
+Iteration 23:  log likelihood = -460.09661
+Iteration 24:  log likelihood = -460.09661
+Iteration 25:  log likelihood = -460.09661
+Iteration 26:  log likelihood = -460.09661
+Iteration 27:  log likelihood = -460.09661
+Iteration 28:  log likelihood = -460.09661
+Iteration 29:  log likelihood = -460.09661
+Iteration 30:  log likelihood = -460.09661
+Iteration 31:  log likelihood = -460.09661
+Iteration 32:  log likelihood = -460.09661
+Refining estimates:
+Iteration 0:   log likelihood = -460.09661
+Iteration 1:   log likelihood = -460.09661
+
+Stratified Cox regr. -- Breslow method for ties
+
+No. of subjects =       64,217                  Number of obs    =      64,217
+No. of failures =          172
+Time at risk    =     13358548
+                                                LR chi2(32)      =      275.48
+Log likelihood  =   -460.09661                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+current use  |   .7481449   .1513187    -1.43   0.151     .5032954    1.112112
+      1.male |   .9477738   .4591081    -0.11   0.912     .3667557    2.449247
+        age1 |   1.028372   .0397816     0.72   0.470     .9532844    1.109375
+        age2 |   1.185103   .0767875     2.62   0.009     1.043766    1.345577
+        age3 |   .3820819    .175242    -2.10   0.036      .155508    .9387724
+             |
+         imd |
+          2  |   .8398477   .2189758    -0.67   0.503     .5038073    1.400028
+          3  |   .7558617   .2179806    -0.97   0.332     .4295038    1.330202
+          4  |   .6801947   .2033914    -1.29   0.197     .3785363    1.222247
+5 most de..  |   1.367253   .4258651     1.00   0.315     .7425415    2.517542
+             |
+   obese4cat |
+Obese I ..)  |    .906955   .2337083    -0.38   0.705     .5473237     1.50289
+Obese II..)  |   1.511258   .5311128     1.18   0.240     .7589177     3.00942
+Obese II..)  |   2.015265   .9603964     1.47   0.141     .7919224    5.128395
+             |
+smoke_nomiss |
+     Former  |   1.305041   .2473299     1.40   0.160     .9001301    1.892095
+    Current  |   .7607607   .3393329    -0.61   0.540     .3173763    1.823566
+             |
+     diabcat |
+Controlle..  |   1.241024   .7308732     0.37   0.714     .3912769    3.936191
+Uncontrol..  |   2.431915   1.521919     1.42   0.156     .7132753    8.291626
+Diabetes,..  |   1.19e-14   4.65e-07    -0.00   1.000            0           .
+             |
+1.myocardi~t |   3.131516   2.027179     1.76   0.078     .8805047    11.13724
+       1.pad |   8.21e-15   1.15e-07    -0.00   1.000            0           .
+1.hyperten~n |   1.171318   .5100314     0.36   0.716      .498922    2.749898
+1.heart_f~re |   2.438197   1.197271     1.82   0.070     .9312973     6.38336
+1.stroke_tia |   1.30e-14   1.61e-07    -0.00   1.000            0           .
+       1.vte |   2.872715   3.704618     0.82   0.413        .2294    35.97424
+ 1.oestrogen |   4.11e-15   1.19e-07    -0.00   1.000            0           .
+1.flu_vac~ne |   1.156238   .2461956     0.68   0.495     .7617327     1.75506
+             |
+         ckd |
+        CKD  |   1.299066   .2502658     1.36   0.174     .8905263    1.895028
+      1.copd |   1.947136   .4602654     2.82   0.005     1.225148    3.094596
+1.other_re~y |   1.706496   .5100822     1.79   0.074     .9498957    3.065735
+1.immunode~y |   1.088602   1.150122     0.08   0.936     .1372664    8.633246
+    1.cancer |   1.156898   .2396993     0.70   0.482     .7707857    1.736428
+1.ae_atten~r |    2.21408    .384016     4.58   0.000     1.576009    3.110485
+1.gp_consult |   .3535864   .1340367    -2.74   0.006     .1681993    .7433049
+------------------------------------------------------------------------------
+                                                     Stratified by practice_id
+
+. estimates save $tempdir/`outcome'_multivar3, replace
+(note: file /workspace/output/oac_tempdata/sens_analysis_1/onscoviddeath_multiv
+> ar3.ster not found)
+file /workspace/output/oac_tempdata/sens_analysis_1/onscoviddeath_multivar3.ste
+> r saved
+
+. 
+. /* Print table===============================================================
+> =*/ 
+. *  Print the results for the main model 
+. 
+. cap file close tablecontent
+
+. file open tablecontent using $tabfigdir/table2_`outcome'.txt, write text repl
+> ace
+(note: file /workspace/output/oac_tabfig/sens_analysis_1/table2_onscoviddeath.t
+> xt not found)
+
+. 
+. * Column headings 
+. file write tablecontent ("Table 2: Association between current anticoagulant 
+> use and `outcome' - $population Population") _n
+
+. file write tablecontent _tab ("Number of events") _tab ("Total person-weeks")
+>  _tab ("Rate per 1,000") _tab ("Univariable") _tab _tab ("Age/Sex Adjusted") 
+> _tab _tab ///
+>                                                 ("DAG Adjusted") _tab _tab //
+> /
+>                                                 ("Fully adjusted") _tab _tab 
+> _n
+
+. file write tablecontent _tab _tab _tab _tab ("HR") _tab ("95% CI") _tab ("HR"
+> ) _tab ///
+>                                                 ("95% CI") _tab ("HR") _tab (
+> "95% CI") _tab ("HR") _tab ("95% CI") _n
+
+. file write tablecontent ("Main Analysis") _n                                 
+>    
+
+. 
+. * Row headings 
+. local lab0: label exposure 0
+
+. local lab1: label exposure 1
+
+.  
+. /* Counts */
+.  
+. * First row, exposure = 0 (reference)
+. 
+.         qui safecount if exposure == 0 & `outcome' == 1
+
+.         local event = r(N)
+
+.     bysort exposure: egen total_follow_up = total(_t)
+
+.         qui su total_follow_up if exposure == 0
+
+.         local person_week = r(mean)/7
+
+.         local rate = 1000*(`event'/`person_week')
+
+.         
+.         file write tablecontent ("`lab0'") _tab
+
+.         file write tablecontent (`event') _tab %10.0f (`person_week') _tab %3
+> .2f (`rate') _tab
+
+.         file write tablecontent ("1.00 (ref)") _tab _tab ("1.00 (ref)") ///
+>         _tab _tab ("1.00 (ref)") _tab _tab ("1.00 (ref)") _n
+
+.         
+. * Second row, exposure = 1 
+. file write tablecontent ("`lab1'") _tab  
+
+. 
+.         qui safecount if exposure == 1 & `outcome' == 1
+
+.         local event = r(N)
+
+.         qui su total_follow_up if exposure == 1
+
+.         local person_week = r(mean)/7
+
+.         local rate = 1000*(`event'/`person_week')
+
+.         file write tablecontent (`event') _tab %10.0f (`person_week') _tab %3
+> .2f (`rate') _tab
+
+. 
+. /* Main Model */ 
+. estimates use $tempdir/`outcome'_univar 
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .8133526   .1421386    -1.18   0.237     .5774654    1.145597
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _tab 
+
+. 
+. estimates use $tempdir/`outcome'_multivar1 
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .7719628   .1366243    -1.46   0.144     .5456927    1.092055
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _tab 
+
+. 
+. estimates use $tempdir/`outcome'_multivar2  
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .7258619   .1303065    -1.78   0.074     .5105598    1.031957
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _tab 
+
+. 
+. estimates use $tempdir/`outcome'_multivar3
+
+. lincom 1.exposure, eform
+
+ ( 1)  1.exposure = 0
+
+------------------------------------------------------------------------------
+          _t |     exp(b)   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         (1) |   .7481449   .1513187    -1.43   0.151     .5032954    1.112112
+------------------------------------------------------------------------------
+
+. file write tablecontent %4.2f (r(estimate)) _tab %4.2f (r(lb)) (" - ") %4.2f 
+> (r(ub)) _n 
+
+. 
+. file write tablecontent _n
+
+. file close tablecontent
+
+. 
+. 
+. * Close log file 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/oac_log/sens_analysis_1/05a_an_models_onscovidde
+> ath.log
+  log type:  text
+ closed on:   1 Mar 2021, 21:23:37
+-------------------------------------------------------------------------------

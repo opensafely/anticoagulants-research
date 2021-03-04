@@ -1,0 +1,91 @@
+Table 4: 1 by 1 comorbidity adjustments (after age/sex and strata adjustments) - Obj_2_AF population
+	HR	95% CI
+Index of Multiple Deprivation (IMD)
+DOAC use	1.00 (ref)	
+warfarin use	0.71	0.65 - 0.79
+
+Evidence of obesity (4 categories)
+DOAC use	1.00 (ref)	
+warfarin use	0.71	0.64 - 0.78
+
+Smoking status (missing set to non)
+DOAC use	1.00 (ref)	
+warfarin use	0.72	0.65 - 0.79
+
+Diabetes Severity
+DOAC use	1.00 (ref)	
+warfarin use	0.71	0.64 - 0.78
+
+Myocardial infarction
+DOAC use	1.00 (ref)	
+warfarin use	0.72	0.65 - 0.79
+
+Peripheral arterial disease
+DOAC use	1.00 (ref)	
+warfarin use	0.71	0.64 - 0.79
+
+Diagnosed hypertension
+DOAC use	1.00 (ref)	
+warfarin use	0.71	0.64 - 0.79
+
+Heart Failure
+DOAC use	1.00 (ref)	
+warfarin use	0.71	0.64 - 0.78
+
+Stroke/Transient ischaemic attack
+DOAC use	1.00 (ref)	
+warfarin use	0.72	0.65 - 0.80
+
+Venous thromboembolism
+DOAC use	1.00 (ref)	
+warfarin use	0.71	0.64 - 0.78
+
+Recent Oestrogen
+DOAC use	1.00 (ref)	
+warfarin use	0.71	0.65 - 0.79
+
+Recent antiplatelet
+DOAC use	1.00 (ref)	
+warfarin use	0.72	0.65 - 0.80
+
+Flu vaccine
+DOAC use	1.00 (ref)	
+warfarin use	0.72	0.65 - 0.79
+
+Chronic kidney disease
+DOAC use	1.00 (ref)	
+warfarin use	0.71	0.64 - 0.79
+
+COPD
+DOAC use	1.00 (ref)	
+warfarin use	0.72	0.66 - 0.80
+
+Other Respiratory Diseases
+DOAC use	1.00 (ref)	
+warfarin use	0.73	0.66 - 0.80
+
+Immunosuppressed (combination algorithm)
+DOAC use	1.00 (ref)	
+warfarin use	0.71	0.65 - 0.79
+
+Cancer
+DOAC use	1.00 (ref)	
+warfarin use	0.71	0.65 - 0.79
+
+A&E attendance rate in last year (binary)
+DOAC use	1.00 (ref)	
+warfarin use	0.80	0.72 - 0.88
+
+GP consultation in last year (binary)
+DOAC use	1.00 (ref)	
+warfarin use	0.72	0.65 - 0.79
+
+Care home residence
+DOAC use	1.00 (ref)	
+warfarin use	0.76	0.69 - 0.84
+
+Ethnicity
+DOAC use	1.00 (ref)	
+warfarin use	0.71	0.63 - 0.80
+
+

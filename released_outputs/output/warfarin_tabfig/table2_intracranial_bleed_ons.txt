@@ -1,0 +1,7 @@
+Table 2: Association between current anticoagulant use and intracranial_bleed_ons - Obj_2_AF Population
+	Number of events	Total person-weeks	Rate per 1,000	Univariable		Age/Sex Adjusted		DAG Adjusted		Fully adjusted		
+				HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI
+Main Analysis
+DOAC use	191	   8195719	0.02	1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)
+warfarin use	64	   2719891	0.02	1.01	0.76 - 1.34	0.93	0.70 - 1.24	0.97	0.73 - 1.31	1.01	0.75 - 1.36
+

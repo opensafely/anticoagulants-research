@@ -1,0 +1,7 @@
+Table 2: Association between current anticoagulant use and stroke_ons - Obj_2_AF Population
+	Number of events	Total person-weeks	Rate per 1,000	Univariable		Age/Sex Adjusted		DAG Adjusted		Fully adjusted		
+				HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI
+Main Analysis
+DOAC use	64	   8195719	0.01	1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)
+warfarin use	11	   2719891	0.00	0.52	0.27 - 0.98	0.48	0.25 - 0.91	0.58	0.30 - 1.13	0.63	0.33 - 1.23
+

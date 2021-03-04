@@ -1,0 +1,20 @@
+
+
+state: succeeded
+commit: c0f1328846bc2d8184c48d405b3941e4498822a3
+docker_image_id: sha256:5a4bb3ecd807de29a18a01ffae01739415778f0b770cbd43d7140bb0017306f1
+job_id: 3uiiutiego2jpkpp
+run_by_user: angelwong121
+created_at: 2021-03-01T11:44:56Z
+started_at: 2021-03-01T21:18:19Z
+completed_at: 2021-03-01T21:21:40Z
+
+Completed successfully
+
+outputs:
+  output/warfarin_log/05b_an_models_positivecovidtest.log    - moderately_sensitive
+  output/warfarin_tabfig/table2_positivecovidtest.txt        - moderately_sensitive
+  output/warfarin_tempdata/positivecovidtest_multivar1.ster  - highly_sensitive    
+  output/warfarin_tempdata/positivecovidtest_multivar2.ster  - highly_sensitive    
+  output/warfarin_tempdata/positivecovidtest_multivar3.ster  - highly_sensitive    
+  output/warfarin_tempdata/positivecovidtest_univar.ster     - highly_sensitive    

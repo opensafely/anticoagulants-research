@@ -1,0 +1,209 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/02b_cr_create_population_mi_ons.log
+  log type:  text
+ opened on:   1 Mar 2021, 22:29:46
+
+. 
+. /* APPLY INCLUSION/EXCLUIONS=================================================
+> =*/ 
+. 
+. use $tempdir/cr_dataset_af , clear
+
+. 
+. /* RENAME EXPOSURE VARIABLE FOR THIS SEPCIFIC OBJECTIVE======================
+> ====*/ 
+. drop exposure
+
+. 
+. rename exposure_warfarin exposure
+
+. 
+. label var exposure "warfarin vs DOACs"
+
+. label drop exposure 
+
+. label define exposure 0 "DOAC use" 1 "warfarin use
+
+. label values exposure exposure 
+
+. 
+. /* APPLY INCLUSION/EXCLUIONS=================================================
+> =*/ 
+. noi di "DROP MISSING GENDER:"
+DROP MISSING GENDER:
+
+. drop if inlist(sex,"I", "U")
+(6 observations deleted)
+
+. 
+. noi di "DROP AGE <18:" 
+DROP AGE <18:
+
+. *DONE BY PYTHON
+. 
+. noi di "DROP AGE >110:"
+DROP AGE >110:
+
+. *DONE BY PYTHON
+. 
+. noi di "DROP AGE MISSING:"
+DROP AGE MISSING:
+
+. *DONE BY PYTHON
+. 
+. noi di "DROP IMD MISSING"
+DROP IMD MISSING
+
+. *DONE BY PYTHON
+. 
+. noi di "DROP VALVULAR ATRIAL FIBRILLATION"
+DROP VALVULAR ATRIAL FIBRILLATION
+
+. drop if valvular_af == 1
+(24,790 observations deleted)
+
+. 
+. noi di "KEEP PEOPLE WHO HAD WARFARIN OR DOAC"
+KEEP PEOPLE WHO HAD WARFARIN OR DOAC
+
+. keep if exposure == 1 | exposure == 0
+(120,179 observations deleted)
+
+. 
+. noi di "DROP IF END OF STUDY PERIOD BEFORE INDEX"
+DROP IF END OF STUDY PERIOD BEFORE INDEX
+
+. drop if stime_`outcome' < date("$indexdate", "DMY")
+(0 observations deleted)
+
+. 
+. noi di "DROP PATIENTS WITH ANTIPHOSPHOLIPID SYNDROME"
+DROP PATIENTS WITH ANTIPHOSPHOLIPID SYNDROME
+
+. drop if antiphospholipid_syndrome_date != .
+(326 observations deleted)
+
+. 
+. noi di "DROP PATIENTS WITH END STAGE KIDNEY FAILURE"
+DROP PATIENTS WITH END STAGE KIDNEY FAILURE
+
+. drop if eskf_exclusion == 1
+(1,788 observations deleted)
+
+. 
+. noi di "PEOPLE PRESCRIBED INJECTABLE ANTICOAGULANT"
+PEOPLE PRESCRIBED INJECTABLE ANTICOAGULANT
+
+. drop if lmwh_last_four_months_date != .
+(961 observations deleted)
+
+. 
+. /* CHECK INCLUSION AND EXCLUSION CRITERIA====================================
+> =*/ 
+. 
+. * DATA STRUCTURE: Confirm one row per patient 
+. duplicates tag patient_id, generate(dup_check)
+
+Duplicates in terms of patient_id
+
+. assert dup_check == 0 
+
+. drop dup_check
+
+. 
+. * INCLUSION 1: atrial fibrillation diagnosis before 1 March 2020 (everyone sh
+> ould have a date for this variable)
+. datacheck af_date != . , nol
+
+. 
+. * INCLUSION 2: >=18 and <=110 at 1 March 2020 
+. assert age < .
+
+. datacheck age >= 18, nol
+
+. datacheck age <= 110, nol
+
+.  
+. * INCLUSION 3: M or F gender at 1 March 2020 
+. assert inlist(sex, "M", "F")
+
+. 
+. * INCLUSION 4: PEOPLE PRESCRIBED WARFARIN/DOAC IN THE PAST 4 MONTHS
+. datacheck exposure == . ,nol
+
+ (372746 contradictions)
+
+. 
+. * EXCLUSION 1: 12 months or baseline time 
+. * [VARIABLE NOT EXPORTED, CANNOT QUANTIFY]
+. 
+. * EXCLUSION 2: MISSING IMD
+. assert inlist(imd, 1, 2, 3, 4, 5)
+
+. 
+. * EXCLUSION 3: PATIENTS WITH VALVULAR ATRIAL FIBRILLATION
+. datacheck valvular_af == ., nol
+
+ (372746 contradictions)
+
+. 
+. * EXCLUSION 4: PATIENTS WITH ANTIPHOSPHOLIPID SYNDROME
+. datacheck antiphospholipid_syndrome_date == ., nol
+
+. 
+. * EXCLUSION 5: PATIENTS WITH END STAGE RENAL FAILURE
+. datacheck eskf_exclusion == 0, nol
+
+. 
+. * EXCLUSION 6: EXCLUDE PEOPLE WITH INJECTABLE ANTICOAGULANT
+. datacheck lmwh_last_four_months_date == ., nol
+
+. 
+. /* SAVE DATA=================================================================
+> =*/        
+. 
+. save $tempdir/analysis_dataset_`outcome', replace
+(note: file /workspace/output/warfarin_tempdata/analysis_dataset_mi_ons.dta not
+>  found)
+file /workspace/output/warfarin_tempdata/analysis_dataset_mi_ons.dta saved
+
+. 
+. * Save a version set on outcomes
+. stset stime_`outcome', fail(`outcome') id(patient_id) enter(enter_date) origi
+> n(enter_date)      
+
+                id:  patient_id
+     failure event:  mi_ons != 0 & mi_ons < .
+obs. time interval:  (stime_mi_ons[_n-1], stime_mi_ons]
+ enter on or after:  time enter_date
+ exit on or before:  failure
+    t for analysis:  (time-origin)
+            origin:  time enter_date
+
+------------------------------------------------------------------------------
+    372,746  total observations
+     [redacted]  observations end on or before enter()
+------------------------------------------------------------------------------
+    372,741  observations remaining, representing
+    372,741  subjects
+        542  failures in single-failure-per-subject data
+ 76409267.5  total analysis time at risk and under observation
+                                                at risk from t =         0
+                                     earliest observed entry t =         0
+                                          last observed exit t =       211
+
+. save $tempdir/analysis_dataset_STSET_`outcome', replace
+(note: file /workspace/output/warfarin_tempdata/analysis_dataset_STSET_mi_ons.d
+> ta not found)
+file /workspace/output/warfarin_tempdata/analysis_dataset_STSET_mi_ons.dta save
+> d
+
+. 
+. * Close log file 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/warfarin_log/02b_cr_create_population_mi_ons.log
+  log type:  text
+ closed on:   1 Mar 2021, 22:30:04
+-------------------------------------------------------------------------------

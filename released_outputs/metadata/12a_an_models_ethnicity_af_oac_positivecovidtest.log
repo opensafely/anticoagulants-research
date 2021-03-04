@@ -1,0 +1,21 @@
+
+
+state: succeeded
+commit: 69f0bba39aefab727bf8195bbfdc745e74b13ec7
+docker_image_id: sha256:5a4bb3ecd807de29a18a01ffae01739415778f0b770cbd43d7140bb0017306f1
+exit_code: 0
+job_id: t43qpendfi7xlrse
+run_by_user: angelwong121
+created_at: 2021-03-03T17:23:14Z
+started_at: 2021-03-03T17:23:30Z
+completed_at: 2021-03-03T17:24:00Z
+
+Completed successfully
+
+outputs:
+  output/oac_log/12a_an_models_ethnicity_positivecovidtest.log          - moderately_sensitive
+  output/oac_tabfig/table9_positivecovidtest.txt                        - moderately_sensitive
+  output/oac_tempdata/12a_positivecovidtest_multivar2_ethn.ster         - highly_sensitive    
+  output/oac_tempdata/12a_positivecovidtest_multivar2_withoutethn.ster  - highly_sensitive    
+  output/oac_tempdata/12a_positivecovidtest_multivar3_ethn.ster         - highly_sensitive    
+  output/oac_tempdata/12a_positivecovidtest_multivar3_withoutethn.ster  - highly_sensitive    
