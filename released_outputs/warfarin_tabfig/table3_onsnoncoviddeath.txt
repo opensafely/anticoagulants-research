@@ -1,7 +1,0 @@
-Table 3: Association between current anticoagulant use and onsnoncoviddeath - Obj_2_AF Population, restrict to known ethnicity
-	Number of events	Total person-weeks	Rate per 1,000	Univariable		Age/Sex Adjusted		DAG Adjusted with ethnicity		DAG Adjusted without ethnicity		Fully Adjusted with ethnicity		Fully Adjusted without ethnicity		
-				HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI
-Main Analysis
-DOAC use	7732	   6027645	1.28	1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)
-warfarin use	2082	   1993058	1.04	0.81	0.78 - 0.86	0.76	0.72 - 0.79	0.79	0.75 - 0.83	0.79	0.75 - 0.83	0.89	0.84 - 0.93	0.89	0.84 - 0.93
-

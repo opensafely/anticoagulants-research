@@ -1,4 +1,0 @@
-Table 6: Testing the PH assumption - positivecovidtest - Obj_1_AF Population in complete case cohort
-	Univariable	Age/Sex Adjusted	DAG Adjusted with ethnicity	DAG Adjusted without ethnicity	Fully Adjusted with ethnicity	Fully Adjusted without ethnicity	
-	p-value	p-value	p-value	p-value	p-value	p-value	
-Treatment Exposure	.782	.8170000000000001	.605	.613	.612	.599

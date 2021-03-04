@@ -1,7 +1,0 @@
-Table 3: Association between current anticoagulant use and onscoviddeath - Obj_1_AF Population, restrict to known ethnicity
-	Number of events	Total person-weeks	Rate per 1,000	Univariable		Age/Sex Adjusted		DAG Adjusted with ethnicity		DAG Adjusted without ethnicity		Fully Adjusted with ethnicity		Fully Adjusted without ethnicity		
-				HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI
-Main Analysis
-non-use	35	    396098	0.09	1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)		1.00 (ref)
-current use	92	   1156936	0.08	0.90	0.61 - 1.33	0.86	0.58 - 1.27	0.74	0.49 - 1.12	0.74	0.49 - 1.13	0.69	0.43 - 1.10	0.70	0.44 - 1.11
-
