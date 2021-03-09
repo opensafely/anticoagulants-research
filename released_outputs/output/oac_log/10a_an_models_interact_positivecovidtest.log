@@ -3,7 +3,7 @@
        log:  /workspace/output/oac_log/10a_an_models_interact_positivecovidtest
 > .log
   log type:  text
- opened on:   1 Mar 2021, 22:29:16
+ opened on:   9 Mar 2021, 18:00:42
 
 . 
 . * Open Stata dataset
@@ -37,16 +37,15 @@ anticoagula |     indicator for
   Treatment |  positive covid test
    Exposure |         0          1 |     Total
 ------------+----------------------+----------
-    non-use |    17,700        130 |    
+    non-use |    17,700        130 |  
+            |                      |  
+------------+----------------------+----------
+current use |    51,790        300 |    
             |                      |   
 ------------+----------------------+----------
-current use |    51,790        300 |   
-            |                      |
-------------+----------------------+----------
-      Total |                      |    
-            |                      |  
-
-Figures were corrected to nearest 5
+      Total |                      |   
+            |                      |   
+*Figures corrected to nearest 5
 -------------------------------------------------------------------------------
 -> care_home_residence = 1
 27
@@ -64,16 +63,15 @@ anticoagula |     indicator for
   Treatment |  positive covid test
    Exposure |         0          1 |     Total
 ------------+----------------------+----------
-    non-use |       200         20 |      
-            |                      |    
-------------+----------------------+----------
-current use |       290         30 |      
+    non-use |       200         20 |        
             |                      |  
 ------------+----------------------+----------
-      Total |                      |       
-            |                      |     
-
-Figures were corrected to nearest 5
+current use |       290         30 |  
+            |                      |    
+------------+----------------------+----------
+      Total |                      |   
+            |                      |   
+*Figures corrected to nearest 5
 . 
 . /* Univariable model */ 
 . 
@@ -95,8 +93,8 @@ Iteration 0:   log likelihood = -5269.1756
 
 Cox regression -- Breslow method for ties
 
-No. of subjects =       [redacted]                 Number of obs    =  [redacted]
-No. of failures =       [redacted]
+No. of subjects =       [redacted]                  Number of obs    =   [redacted]
+No. of failures =          481
 Time at risk    =     14615919
                                                 LR chi2(2)       =      187.99
 Log likelihood  =   -5269.1756                  Prob > chi2      =      0.0000
@@ -131,8 +129,8 @@ Iteration 0:   log likelihood = -5268.8991
 
 Cox regression -- Breslow method for ties
 
-No. of subjects =       [redacted]              Number of obs    =   [redacted]
-No. of failures =       [redacted]
+No. of subjects =       [redacted]                 Number of obs    =     [redacted]
+No. of failures =          481
 Time at risk    =     14615919
                                                 LR chi2(3)       =      188.54
 Log likelihood  =   -5268.8991                  Prob > chi2      =      0.0000
@@ -188,8 +186,8 @@ Iteration 0:   log likelihood = -5229.9915
 
 Cox regression -- Breslow method for ties
 
-No. of subjects =       [redacted]              Number of obs    =   [redacted]
-No. of failures =       [redacted]
+No. of subjects =       [redacted]                  Number of obs    =      [redacted]
+No. of failures =          481
 Time at risk    =     14615919
                                                 LR chi2(6)       =      266.36
 Log likelihood  =   -5229.9915                  Prob > chi2      =      0.0000
@@ -228,8 +226,8 @@ Iteration 0:   log likelihood = -5229.4874
 
 Cox regression -- Breslow method for ties
 
-No. of subjects =     [redacted]                Number of obs    =   [redacted]
-No. of failures =     [redacted]
+No. of subjects =       [redacted]                 Number of obs    =   [redacted]
+No. of failures =          481
 Time at risk    =     14615919
                                                 LR chi2(7)       =      267.37
 Log likelihood  =   -5229.4874                  Prob > chi2      =      0.0000
@@ -269,7 +267,7 @@ Likelihood-ratio test                                 LR chi2(1)  =      1.01
 
 . 
 . * DAG adjusted model 
-. stcox i.exposure i.care_home_residence i.male age1 age2 age3 $varlist
+. stcox i.exposure i.care_home_residence i.male age1 age2 age3 $dagvarlist
 
          failure _d:  positivecovidtest
    analysis time _t:  (stime_positivecovidtest-origin)
@@ -278,39 +276,70 @@ Likelihood-ratio test                                 LR chi2(1)  =      1.01
                  id:  patient_id
 
 Iteration 0:   log likelihood = -5363.1699
-Iteration 1:   log likelihood = -5267.0555
-Iteration 2:   log likelihood = -5231.4707
-Iteration 3:   log likelihood = -5229.9982
-Iteration 4:   log likelihood = -5229.9915
+Iteration 1:   log likelihood = -5256.9691
+Iteration 2:   log likelihood =  -5208.681
+Iteration 3:   log likelihood = -5207.2688
+Iteration 4:   log likelihood = -5207.2638
+Iteration 5:   log likelihood = -5207.2638
 Refining estimates:
-Iteration 0:   log likelihood = -5229.9915
+Iteration 0:   log likelihood = -5207.2638
 
 Cox regression -- Breslow method for ties
 
-No. of subjects =       [redacted]                Number of obs    =    [redacted]
-No. of failures =       [redacted]
+No. of subjects =       [redacted]                 Number of obs    =    [redacted]
+No. of failures =          481
 Time at risk    =     14615919
-                                                LR chi2(6)       =      266.36
-Log likelihood  =   -5229.9915                  Prob > chi2      =      0.0000
+                                                LR chi2(27)      =      311.81
+Log likelihood  =   -5207.2638                  Prob > chi2      =      0.0000
 
 ------------------------------------------------------------------------------
           _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
 -------------+----------------------------------------------------------------
     exposure |
-current use  |   .8288458   .0831342    -1.87   0.061     .6809218    1.008905
-1.care_ho~ce |   9.419212   1.617215    13.06   0.000     6.727737    13.18743
-      1.male |   1.255591   .1671234     1.71   0.087     .9672755    1.629844
-        age1 |   .9619822   .0092487    -4.03   0.000     .9440248    .9802813
-        age2 |   1.085876   .0251535     3.56   0.000     1.037678    1.136312
-        age3 |   .8456263   .1480729    -0.96   0.338     .5999697    1.191867
+current use  |   .7747273   .0818307    -2.42   0.016     .6298549    .9529216
+1.care_ho~ce |   8.631841   1.472264    12.64   0.000     6.179036     12.0583
+      1.male |   .9726012   .2052062    -0.13   0.895     .6431945    1.470711
+        age1 |   .9839905   .0118401    -1.34   0.180     .9610559    1.007472
+        age2 |   1.095582   .0331241     3.02   0.003     1.032546    1.162466
+        age3 |   .7254984   .1713232    -1.36   0.174     .4566979    1.152508
+             |
+         imd |
+          2  |   1.015916   .1524213     0.11   0.916     .7570932    1.363222
+          3  |   1.051817   .1585496     0.34   0.738     .7827645    1.413349
+          4  |    1.05483    .161101     0.35   0.727     .7819533    1.422931
+5 most de..  |   1.694484   .2397376     3.73   0.000     1.284129    2.235973
+             |
+   obese4cat |
+Obese I ..)  |   .9615406   .1256521    -0.30   0.764     .7442767    1.242227
+Obese II..)  |   1.015848   .1880963     0.08   0.932     .7066736    1.460289
+Obese II..)  |   1.461832    .297134     1.87   0.062     .9814793    2.177278
+             |
+smoke_nomiss |
+     Former  |   1.101216   .1097516     0.97   0.333     .9058129    1.338772
+    Current  |   .9456154   .1789763    -0.30   0.768     .6525412    1.370317
+             |
+     diabcat |
+Controlle..  |   1.376644   .3181028     1.38   0.167     .8752524    2.165259
+Uncontrol..  |   1.965655   .5079354     2.62   0.009     1.184547    3.261836
+Diabetes,..  |   1.535609   1.561322     0.42   0.673     .2093273    11.26511
+             |
+1.myocardi~t |   1.561625   .4743258     1.47   0.142     .8610611    2.832171
+       1.pad |   1.553836    .732466     0.93   0.350     .6168162    3.914307
+1.hyperten~n |   1.076741   .2087546     0.38   0.703     .7363484    1.574487
+1.heart_f~re |   1.171143   .2754425     0.67   0.502     .7386097    1.856971
+1.stroke_tia |   2.903785   1.120634     2.76   0.006      1.36291    6.186737
+       1.vte |   1.831995   .8252782     1.34   0.179       .75766    4.429697
+ 1.oestrogen |    .994856    .583935    -0.01   0.993     .3148791    3.143233
+1.antiplat~t |   .7425193   .1329531    -1.66   0.096     .5227504    1.054681
+1.flu_vac~ne |   .9371514   .0984457    -0.62   0.537     .7627688    1.151401
 ------------------------------------------------------------------------------
 
 .                                                         
 . estimates store A
 
 . 
-. stcox i.exposure##i.care_home_residence i.male age1 age2 age3 $varlist       
->    
+. stcox i.exposure##i.care_home_residence i.male age1 age2 age3 $dagvarlist    
+>            
 
          failure _d:  positivecovidtest
    analysis time _t:  (stime_positivecovidtest-origin)
@@ -319,38 +348,68 @@ current use  |   .8288458   .0831342    -1.87   0.061     .6809218    1.008905
                  id:  patient_id
 
 Iteration 0:   log likelihood = -5363.1699
-Iteration 1:   log likelihood = -5266.9478
-Iteration 2:   log likelihood = -5230.9592
-Iteration 3:   log likelihood = -5229.4936
-Iteration 4:   log likelihood = -5229.4874
-Iteration 5:   log likelihood = -5229.4874
+Iteration 1:   log likelihood = -5256.8658
+Iteration 2:   log likelihood = -5208.2198
+Iteration 3:   log likelihood = -5206.7976
+Iteration 4:   log likelihood = -5206.7929
+Iteration 5:   log likelihood = -5206.7929
 Refining estimates:
-Iteration 0:   log likelihood = -5229.4874
+Iteration 0:   log likelihood = -5206.7929
 
 Cox regression -- Breslow method for ties
 
-No. of subjects =       [redacted]                Number of obs    =   [redacted]
-No. of failures =       [redacted]
+No. of subjects =      [redacted]                 Number of obs    =    [redacted]
+No. of failures =          481
 Time at risk    =     14615919
-                                                LR chi2(7)       =      267.37
-Log likelihood  =   -5229.4874                  Prob > chi2      =      0.0000
+                                                LR chi2(28)      =      312.75
+Log likelihood  =   -5206.7929                  Prob > chi2      =      0.0000
 
 ------------------------------------------------------------------------------
           _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
 -------------+----------------------------------------------------------------
     exposure |
-current use  |   .7991507   .0847671    -2.11   0.035     .6491432    .9838228
-1.care_ho~ce |   7.795134   2.041912     7.84   0.000     4.665025    13.02547
+current use  |   .7476555   .0831845    -2.61   0.009     .6011688    .9298366
+1.care_ho~ce |   7.192548   1.874727     7.57   0.000     4.315374    11.98801
              |
     exposure#|
 care_home~ce |
 current use #|
-          1  |   1.365232   .4264603     1.00   0.319     .7401415    2.518245
+          1  |   1.351303   .4222915     0.96   0.335     .7323971    2.493212
              |
-      1.male |   1.260281   .1678287     1.74   0.082     .9707666    1.636138
-        age1 |   .9624664   .0092741    -3.97   0.000     .9444601    .9808159
-        age2 |   1.084531   .0251895     3.49   0.000     1.036268    1.135043
-        age3 |   .8545077    .150141    -0.89   0.371     .6055582    1.205802
+      1.male |   .9758415   .2060204    -0.12   0.908     .6451682    1.475997
+        age1 |   .9845022   .0118685    -1.30   0.195     .9615129    1.008041
+        age2 |   1.094263   .0331417     2.97   0.003     1.031197    1.161186
+        age3 |    .732606   .1733688    -1.31   0.189     .4607193    1.164943
+             |
+         imd |
+          2  |   1.015841   .1524107     0.10   0.917     .7570364    1.363123
+          3  |   1.048207   .1580473     0.31   0.755     .7800164    1.408607
+          4  |   1.053438   .1609048     0.34   0.733     .7808977    1.421097
+5 most de..  |   1.689992   .2390995     3.71   0.000     1.280729    2.230039
+             |
+   obese4cat |
+Obese I ..)  |   .9623124   .1257336    -0.29   0.769     .7449034    1.243175
+Obese II..)  |   1.015958   .1880584     0.09   0.932     .7068289    1.460283
+Obese II..)  |    1.46341   .2973868     1.87   0.061     .9826282     2.17943
+             |
+smoke_nomiss |
+     Former  |   1.102319   .1098458     0.98   0.328     .9067451    1.340076
+    Current  |   .9463294   .1790772    -0.29   0.771     .6530803    1.371255
+             |
+     diabcat |
+Controlle..  |   1.375623   .3179137     1.38   0.168      .874545    2.163797
+Uncontrol..  |   1.968213   .5086472     2.62   0.009     1.186028    3.266246
+Diabetes,..  |   1.529253   1.554896     0.42   0.676     .2084513      11.219
+             |
+1.myocardi~t |   1.559025   .4736939     1.46   0.144     .8594568    2.828017
+       1.pad |    1.54565   .7287635     0.92   0.356     .6134444    3.894457
+1.hyperten~n |   1.076691   .2088395     0.38   0.703     .7361873    1.574685
+1.heart_f~re |   1.174191   .2762285     0.68   0.495     .7404462    1.862018
+1.stroke_tia |   2.915295   1.125636     2.77   0.006     1.367796    6.213602
+       1.vte |   1.830916   .8254043     1.34   0.180     .7567182    4.429991
+ 1.oestrogen |   .9948717   .5839885    -0.01   0.993     .3148566    3.143557
+1.antiplat~t |   .7421565   .1329883    -1.66   0.096     .5223567    1.054445
+1.flu_vac~ne |   .9374552   .0985299    -0.61   0.539     .7629327      1.1519
 ------------------------------------------------------------------------------
 
 . 
@@ -364,8 +423,8 @@ file /workspace/output/oac_tempdata/positivecovidtest_multivar2_int.ster saved
 . 
 . lrtest A B
 
-Likelihood-ratio test                                 LR chi2(1)  =      1.01
-(Assumption: A nested in B)                           Prob > chi2 =    0.3153
+Likelihood-ratio test                                 LR chi2(1)  =      0.94
+(Assumption: A nested in B)                           Prob > chi2 =    0.3318
 
 . local multivar2_p = round(r(p),0.001)
 
@@ -391,8 +450,8 @@ Iteration 0:   log likelihood = -1511.2938
 
 Stratified Cox regr. -- Breslow method for ties
 
-No. of subjects =      [redacted]              Number of obs    =     [redacted]
-No. of failures =      [redacted]
+No. of subjects =      [redacted]                 Number of obs    =     [redacted]
+No. of failures =          481
 Time at risk    =     14615919
                                                 LR chi2(34)      =      336.09
 Log likelihood  =   -1511.2938                  Prob > chi2      =      0.0000
@@ -474,8 +533,8 @@ Iteration 0:   log likelihood = -1511.2631
 
 Stratified Cox regr. -- Breslow method for ties
 
-No. of subjects =       [redacted]             Number of obs    =     [redacted]
-No. of failures =       [redacted]
+No. of subjects =      [redacted]                  Number of obs    =  [redacted]
+No. of failures =          481
 Time at risk    =     14615919
                                                 LR chi2(35)      =      336.15
 Log likelihood  =   -1511.2631                  Prob > chi2      =      0.0000
@@ -685,7 +744,7 @@ Likelihood-ratio test                                 LR chi2(1)  =      0.06
 
 . 
 . printinteraction, variable(care_home_residence) outcome(`outcome') min(0) max
-[redacted]
+
 
 . 
 . file write tablecontent _n
@@ -699,5 +758,5 @@ Likelihood-ratio test                                 LR chi2(1)  =      0.06
        log:  /workspace/output/oac_log/10a_an_models_interact_positivecovidtest
 > .log
   log type:  text
- closed on:   1 Mar 2021, 22:30:07
+ closed on:   9 Mar 2021, 18:01:35
 -------------------------------------------------------------------------------

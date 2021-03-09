@@ -1,13 +1,14 @@
 
 
 state: succeeded
-commit: c0f1328846bc2d8184c48d405b3941e4498822a3
+commit: 9b152eaac2b84e1c15a2bdbf32b5a568becb081c
 docker_image_id: sha256:5a4bb3ecd807de29a18a01ffae01739415778f0b770cbd43d7140bb0017306f1
-job_id: 7vk7tb3jk7w5bbw5
+exit_code: 0
+job_id: h5tr25kewlx7cnci
 run_by_user: angelwong121
-created_at: 2021-03-01T11:44:58Z
-started_at: 2021-03-01T22:29:16Z
-completed_at: 2021-03-01T22:34:40Z
+created_at: 2021-03-09T17:57:58Z
+started_at: 2021-03-09T18:00:41Z
+completed_at: 2021-03-09T18:01:41Z
 
 Completed successfully
 
