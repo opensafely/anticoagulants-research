@@ -58,11 +58,11 @@ lrtest A B
 local multivar1_p = round(r(p),0.001)
 
 * DAG adjusted model 
-stcox i.exposure i.care_home_residence i.male age1 age2 age3 $varlist
+stcox i.exposure i.care_home_residence i.male age1 age2 age3 $dagvarlist
 							
 estimates store A
 
-stcox i.exposure##i.care_home_residence i.male age1 age2 age3 $varlist		
+stcox i.exposure##i.care_home_residence i.male age1 age2 age3 $dagvarlist		
 
 estimates store B
 estimates save $tempdir/`outcome'_multivar2_int, replace 
