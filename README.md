@@ -4,7 +4,7 @@ This is the code and configuration of our pre-print paper available on MedRxiv [
 
 * The paper is now under review.
 * Raw model outputs, including charts, crosstabs, etc, are in `released_outputs/`
-- If you are interested in how we defined our variables, take a look at the [study definition for study 1](analysis/study_definition_af.py) and [study definition for study 2](analysis/study_definition_general_population.py); this is written in `python`, but non-programmers should be able to understand what is going on there
+- If you are interested in how we defined our variables, take a look at the [study definition for people with atrial fibrillation](analysis/study_definition_af.py), [study definition for comparison group identified from general population](analysis/study_definition_general_population.py), [how we derive variables](analysis/common_variables.py); this is written in `python`, but non-programmers should be able to understand what is going on there
 * If you are interested in how we defined our code lists, look in the [codelists folder](./codelists/). All codelists are available online at [OpenCodelists](https://codelists.opensafely.org/) for inspection and re-use by anyone 
 * Developers and epidemiologists interested in the framework should review [the OpenSAFELY documentation](https://docs.opensafely.org)
 
