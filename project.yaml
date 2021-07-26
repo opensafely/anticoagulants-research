@@ -3050,6 +3050,16 @@ actions:
         data3: "output/post_hoc_3_af_oac_tempdata/onscoviddeath_multivar2.ster"
         data4: "output/post_hoc_3_af_oac_tempdata/onscoviddeath_multivar3.ster"
 
+  posthoc3_11a_an_models_af_oac_onscoviddeath:
+    run: stata-mp:latest analysis/posthoc3_11a_an_models.do onscoviddeath posthoc3_af_oac
+    needs: [posthoc3_02a_cr_create_population_af_oac_onscoviddeath, 05a_an_models_af_oac_onscoviddeath]
+    outputs:
+      moderately_sensitive:
+        log: output/post_hoc_3_af_oac_log/posthoc3_11a_an_models_.log
+        table: "output/post_hoc_3_af_oac_tabfig/table2_correct_parameter_onscoviddeath.txt"
+      highly_sensitive:
+        data1: "output/post_hoc_3_af_oac_tempdata/onscoviddeath_multivar2_correct.ster"
+
   # Post-hoc analysis: restrict the study cohort to people with positive COVID test
   # Objective 2: Compare warfarin users and DOAC users
 
