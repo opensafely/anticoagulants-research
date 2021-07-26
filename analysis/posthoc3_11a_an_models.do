@@ -64,11 +64,9 @@ file open tablecontent using $tabfigdir/table2_correct_parameter_`outcome'.txt, 
 
 * Column headings 
 file write tablecontent ("Table 2: Association between current anticoagulant use and `outcome' - $population Population") _n
-file write tablecontent _tab ("Number of events") _tab ("Total person-weeks") _tab ("Rate per 1,000") _tab ("Univariable") _tab _tab ("Age/Sex Adjusted") _tab _tab ///
-						("DAG Adjusted") _tab _tab ///
-						("Fully adjusted") _tab _tab _n
+file write tablecontent _tab ("Number of events") _tab ("Total person-weeks") _tab ("Rate per 1,000") _tab	("DAG Adjusted") _tab _tab _n
 file write tablecontent _tab _tab _tab _tab ("HR") _tab ("95% CI") _tab ("HR") _tab ///
-						("95% CI") _tab ("HR") _tab ("95% CI") _tab ("HR") _tab ("95% CI") _n
+						("95% CI") _n
 file write tablecontent ("Main Analysis") _n 					
 
 * Row headings 
@@ -88,8 +86,7 @@ local lab1: label exposure 1
 	
 	file write tablecontent ("`lab0'") _tab
 	file write tablecontent (`event') _tab %10.0f (`person_week') _tab %3.2f (`rate') _tab
-	file write tablecontent ("1.00 (ref)") _tab _tab ("1.00 (ref)") ///
-	_tab _tab ("1.00 (ref)") _tab _tab ("1.00 (ref)") _n
+	file write tablecontent ("1.00 (ref)") _n
 	
 * Second row, exposure = 1 
 file write tablecontent ("`lab1'") _tab  
