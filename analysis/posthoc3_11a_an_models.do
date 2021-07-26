@@ -6,11 +6,10 @@ DATE: 					26 Jul 2021
 DESCRIPTION OF FILE:	program 05a
 						Objective 1: comparing treated and untreated people 
 						with atrial fibrillation
-						univariable regression
 						DAG adjusted regression
-						Fully adjusted regression 
-						model checks are in: 
-							08_an_model_checks
+						After initial run, some parameters didn't converge
+						so further investigation
+
 DATASETS USED:			data in memory ($tempdir/analysis_dataset_STSET_outcome)
 
 DATASETS CREATED: 		none
@@ -43,7 +42,7 @@ safetab exposure `outcome', missing row
 clonevar diab_control = diabcat
 recode diab_control 4=3
 
-* DAG adjusted model (removed PAD, stroke/TIA, oestrogen because these parameters cannot converage)
+* DAG adjusted model (removed PAD, stroke/TIA, oestrogen because these parameters cannot converge)
 stcox i.exposure i.male age1 age2 age3 i.imd ///	
 				  i.obese4cat			    ///
 				  i.smoke_nomiss		    ///
