@@ -3055,7 +3055,7 @@ actions:
     needs: [posthoc3_02a_cr_create_population_af_oac_onscoviddeath, 05a_an_models_af_oac_onscoviddeath]
     outputs:
       moderately_sensitive:
-        log: output/post_hoc_3_af_oac_log/posthoc3_11a_an_models_.log
+        log: output/post_hoc_3_af_oac_log/posthoc3_11a_an_models_onscoviddeath.log
         table: "output/post_hoc_3_af_oac_tabfig/table2_correct_parameter_onscoviddeath.txt"
       highly_sensitive:
         data1: "output/post_hoc_3_af_oac_tempdata/onscoviddeath_multivar2_correct.ster"
