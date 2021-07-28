@@ -1,0 +1,70 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/post_hoc_3_af_oac_log/posthoc3_02a_cr_create_pop
+> ulation_onscoviddeath.log
+  log type:  text
+ opened on:  28 Jul 2021, 13:40:53
+
+. 
+. /* Use the dataset we derived from the 02a program===========================
+> */ 
+. 
+. use $tempdir_main_analysis/analysis_dataset_`outcome' , clear
+
+. 
+. noi di "PEOPLE WITH POSITIVE COVID TESTS"
+PEOPLE WITH POSITIVE COVID TESTS
+
+. keep if positivecovidtest == 1
+(69,983 observations deleted)
+
+. 
+. /* SAVE DATA=================================================================
+> =*/                
+. 
+. save $tempdir/analysis_dataset_`outcome', replace
+(note: file /workspace/output/post_hoc_3_af_oac_tempdata/analysis_dataset_onsco
+> viddeath.dta not found)
+file /workspace/output/post_hoc_3_af_oac_tempdata/analysis_dataset_onscoviddeat
+> h.dta saved
+
+. 
+. * Save a version set on outcomes
+. stset stime_`outcome', fail(`outcome') id(patient_id) enter(first_positive_te
+> st_date) origin(first_positive_test_date)  
+
+                id:  patient_id
+     failure event:  onscoviddeath != 0 & onscoviddeath < .
+obs. time interval:  (stime_onscoviddeath[_n-1], stime_onscoviddeath]
+ enter on or after:  time first_positive_test_date
+ exit on or before:  failure
+    t for analysis:  (time-origin)
+            origin:  time first_positive_test_date
+
+------------------------------------------------------------------------------
+        481  total observations
+         14  observations end on or before enter()
+------------------------------------------------------------------------------
+        467  observations remaining, representing
+        467  subjects
+        120  failures in single-failure-per-subject data
+     44,161  total analysis time at risk and under observation
+                                                at risk from t =         0
+                                     earliest observed entry t =         0
+                                          last observed exit t =       200
+
+. save $tempdir/analysis_dataset_STSET_`outcome', replace
+(note: file /workspace/output/post_hoc_3_af_oac_tempdata/analysis_dataset_STSET
+> _onscoviddeath.dta not found)
+file /workspace/output/post_hoc_3_af_oac_tempdata/analysis_dataset_STSET_onscov
+> iddeath.dta saved
+
+. 
+. * Close log file 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/post_hoc_3_af_oac_log/posthoc3_02a_cr_create_pop
+> ulation_onscoviddeath.log
+  log type:  text
+ closed on:  28 Jul 2021, 13:40:53
+-------------------------------------------------------------------------------
