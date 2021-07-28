@@ -39,7 +39,7 @@ keep if positivecovidtest == 1
 save $tempdir/analysis_dataset_`outcome', replace
 
 * Save a version set on outcomes
-stset stime_`outcome', fail(`outcome') id(patient_id) enter(enter_date) origin(enter_date)	
+stset stime_`outcome', fail(`outcome') id(patient_id) enter(first_positive_test_date) origin(first_positive_test_date)	
 save $tempdir/analysis_dataset_STSET_`outcome', replace
 
 * Close log file 

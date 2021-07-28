@@ -3037,6 +3037,14 @@ actions:
         data1: "output/post_hoc_3_af_oac_tempdata/analysis_dataset_onscoviddeath.dta"
         data2: "output/post_hoc_3_af_oac_tempdata/analysis_dataset_STSET_onscoviddeath.dta"
 
+  posthoc3_04_an_descriptive_table_af_oac_onscoviddeath:
+    run: stata-mp:latest analysis/04_an_descriptive_table.do onscoviddeath posthoc3_af_oac
+    needs: [posthoc3_02a_cr_create_population_af_oac_onscoviddeath]
+    outputs:
+      moderately_sensitive:
+        log: output/post_hoc_3_af_oac_log/04_an_descriptive_table_onscoviddeath.log
+        table: "output/post_hoc_3_af_oac_tabfig/table1_onscoviddeath.txt"
+
   posthoc3_05a_an_models_af_oac_onscoviddeath:
     run: stata-mp:latest analysis/05a_an_models.do onscoviddeath posthoc3_af_oac
     needs: [posthoc3_02a_cr_create_population_af_oac_onscoviddeath, 05a_an_models_af_oac_onscoviddeath]
@@ -3073,6 +3081,14 @@ actions:
       highly_sensitive:
         data1: "output/post_hoc_3_af_warfarin_tempdata/analysis_dataset_onscoviddeath.dta"
         data2: "output/post_hoc_3_af_warfarin_tempdata/analysis_dataset_STSET_onscoviddeath.dta"
+ 
+  posthoc3_04_an_descriptive_table_af_warfarin_onscoviddeath:
+    run: stata-mp:latest analysis/04_an_descriptive_table.do onscoviddeath posthoc3_af_warfarin
+    needs: [posthoc3_02b_cr_create_population_af_warfarin_onscoviddeath]
+    outputs:
+      moderately_sensitive:
+        log: output/post_hoc_3_af_warfarin_log/04_an_descriptive_table_onscoviddeath.log
+        table: "output/post_hoc_3_af_warfarin_tabfig/table1_onscoviddeath.txt"
 
   posthoc3_05b_an_models_af_warfarin_onscoviddeath:
     run: stata-mp:latest analysis/05b_an_models.do onscoviddeath posthoc3_af_warfarin
@@ -3086,3 +3102,4 @@ actions:
         data2: "output/post_hoc_3_af_warfarin_tempdata/onscoviddeath_multivar1.ster"
         data3: "output/post_hoc_3_af_warfarin_tempdata/onscoviddeath_multivar2.ster"
         data4: "output/post_hoc_3_af_warfarin_tempdata/onscoviddeath_multivar3.ster"
+
