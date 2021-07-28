@@ -1,0 +1,518 @@
+Reviewed for redaction
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/post_hoc_3_af_oac_log/05a_an_models_onscoviddeat
+> h.log
+  log type:  text
+ opened on:  28 Jul 2021, 13:41:46
+
+. 
+. * Open Stata dataset
+. use $tempdir/analysis_dataset_STSET_`outcome', clear
+
+. 
+. /* Sense check outcomes======================================================
+> =*/ 
+. 
+. safetab exposure `outcome', missing row
+23
+
++----------------+
+| Key            |
+|----------------|
+|   frequency    |
+| row percentage |
++----------------+
+
+       Oral |   Failure/censoring
+anticoagula |     indicator for
+         nt |  outcome: ONS covid
+  Treatment |         death
+   Exposure |         0          1 |     Total
+------------+----------------------+----------
+    non-use |       116         34 |       150 
+            |     77.33      22.67 |    100.00 
+------------+----------------------+----------
+current use |       239         92 |       331 
+            |     72.21      27.79 |    100.00 
+------------+----------------------+----------
+      Total |       355        126 |       481 
+            |     73.80      26.20 |    100.00 
+
+. 
+. /* Main Model================================================================
+> =*/
+. 
+. /* Univariable model */ 
+. 
+. stcox i.exposure 
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time first_positive_test_date
+  enter on or after:  time first_positive_test_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood =  -713.3138
+Iteration 1:   log likelihood = -712.49486
+Iteration 2:   log likelihood = -712.49291
+Iteration 3:   log likelihood = -712.49291
+Refining estimates:
+Iteration 0:   log likelihood = -712.49291
+
+Cox regression -- Breslow method for ties
+
+No. of subjects =          467                  Number of obs    =         467
+No. of failures =          120
+Time at risk    =        44161
+                                                LR chi2(1)       =        1.64
+Log likelihood  =   -712.49291                  Prob > chi2      =      0.2001
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+current use  |   1.296268   .2676117     1.26   0.209     .8649009     1.94278
+------------------------------------------------------------------------------
+
+. estimates save $tempdir/`outcome'_univar, replace 
+(note: file /workspace/output/post_hoc_3_af_oac_tempdata/onscoviddeath_univar.s
+> ter not found)
+file /workspace/output/post_hoc_3_af_oac_tempdata/onscoviddeath_univar.ster sav
+> ed
+
+. 
+. /* Multivariable models */ 
+. 
+. * Age and Gender 
+. * Age fit as spline in first instance, categorical below 
+. 
+. stcox i.exposure i.male age1 age2 age3 
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time first_positive_test_date
+  enter on or after:  time first_positive_test_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood =  -713.3138
+Iteration 1:   log likelihood = -686.99062
+Iteration 2:   log likelihood =  -685.7205
+Iteration 3:   log likelihood = -685.65714
+Iteration 4:   log likelihood = -685.65674
+Iteration 5:   log likelihood = -685.65674
+Refining estimates:
+Iteration 0:   log likelihood = -685.65674
+
+Cox regression -- Breslow method for ties
+
+No. of subjects =          467                  Number of obs    =         467
+No. of failures =          120
+Time at risk    =        44161
+                                                LR chi2(5)       =       55.31
+Log likelihood  =   -685.65674                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+current use  |   1.349386   .2826894     1.43   0.153     .8949815    2.034504
+      1.male |   1.304178   .5189132     0.67   0.504     .5979384    2.844575
+        age1 |   1.054441   .0448476     1.25   0.213     .9701058    1.146109
+        age2 |    1.04231    .073279     0.59   0.556      .908142      1.1963
+        age3 |   .6432888   .2682527    -1.06   0.290     .2840882    1.456662
+------------------------------------------------------------------------------
+
+. estimates save $tempdir/`outcome'_multivar1, replace 
+(note: file /workspace/output/post_hoc_3_af_oac_tempdata/onscoviddeath_multivar
+> 1.ster not found)
+file /workspace/output/post_hoc_3_af_oac_tempdata/onscoviddeath_multivar1.ster 
+> saved
+
+. 
+. * DAG adjusted model
+. stcox i.exposure i.male age1 age2 age3 $dagvarlist
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time first_positive_test_date
+  enter on or after:  time first_positive_test_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood =  -713.3138
+Iteration 1:   log likelihood = -682.03569
+Iteration 2:   log likelihood = -679.16206
+Iteration 3:   log likelihood = -678.62988
+Iteration 4:   log likelihood = -678.45246
+Iteration 5:   log likelihood = -678.38763
+Iteration 6:   log likelihood = -678.36379
+Iteration 7:   log likelihood = -678.35503
+Iteration 8:   log likelihood = -678.35181
+Iteration 9:   log likelihood = -678.35062
+Iteration 10:  log likelihood = -678.35018
+Iteration 11:  log likelihood = -678.35002
+Iteration 12:  log likelihood = -678.34996
+Iteration 13:  log likelihood = -678.34994
+Iteration 14:  log likelihood = -678.34993
+Iteration 15:  log likelihood = -678.34993
+Iteration 16:  log likelihood = -678.34993
+Iteration 17:  log likelihood = -678.34993
+Iteration 18:  log likelihood = -678.34993
+Iteration 19:  log likelihood = -678.34993
+Iteration 20:  log likelihood = -678.34993
+Iteration 21:  log likelihood = -678.34993
+Iteration 22:  log likelihood = -678.34993
+Iteration 23:  log likelihood = -678.34993
+Iteration 24:  log likelihood = -678.34993
+Iteration 25:  log likelihood = -678.34993
+Iteration 26:  log likelihood = -678.34993
+Iteration 27:  log likelihood = -678.34993
+Iteration 28:  log likelihood = -678.34993
+Iteration 29:  log likelihood = -678.34993
+Iteration 30:  log likelihood = -678.34993
+Iteration 31:  log likelihood = -678.34993
+Iteration 32:  log likelihood = -678.34993
+Iteration 33:  log likelihood = -678.34993
+Iteration 34:  log likelihood = -678.34993
+Refining estimates:
+Iteration 0:   log likelihood = -678.34993
+Iteration 1:   log likelihood = -678.34993
+Iteration 2:   log likelihood = -678.34993
+
+Cox regression -- Breslow method for ties
+
+No. of subjects =          467                  Number of obs    =         467
+No. of failures =          120
+Time at risk    =        44161
+                                                LR chi2(26)      =       69.93
+Log likelihood  =   -678.34993                  Prob > chi2      =      0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. Ratio   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    exposure |
+current use  |   1.234857   .2790186     0.93   0.350     .7930231    1.922859
+      1.male |   1.697051   .9721294     0.92   0.356     .5522007    5.215459
+        age1 |   1.031041   .0525384     0.60   0.549     .9330424    1.139332
+        age2 |    1.04678   .0786666     0.61   0.543     .9034142    1.212898
+        age3 |   .6848952   .3423228    -0.76   0.449     .2571452    1.824189
+             |
+         imd |
+          2  |   1.020281   .2988721     0.07   0.945     .5746141    1.811604
+          3  |   1.205278    .355225     0.63   0.526      .676421    2.147619
+          4  |   .8309181   .2730557    -0.56   0.573     .4363521    1.582266
+5 most de..  |   1.139754   .3221763     0.46   0.644     .6549385    1.983452
+             |
+   obese4cat |
+Obese I ..)  |   1.535146   .4333231     1.52   0.129     .8828409     2.66942
+Obese II..)  |    .693693    .427943    -0.59   0.553      .207041    2.324225
+Obese II..)  |   2.343838   1.283394     1.56   0.120     .8013879    6.855075
+             |
+smoke_nomiss |
+     Former  |   1.060711   .2264434     0.28   0.782     .6980404     1.61181
+    Current  |   1.190035   .4775861     0.43   0.665     .5419443    2.613153
+             |
+     diabcat |
+Controlle..  |   1.020983   .6093104     0.03   0.972     .3169798    3.288557
+Uncontrol..  |   .7713231   .5989208    -0.33   0.738     .1683803    3.533308
+Diabetes,..  |   3.469924   5.66e+08     0.00   1.000            0           .
+             |
+1.myocardi~t |   .8478943   .7111771    -0.20   0.844     .1638289    4.388264
+       1.pad |   2.09e-16   1.26e-08    -0.00   1.000            0           .
+1.hyperten~n |   .5824699   .3011281    -1.05   0.296     .2114537     1.60447
+1.heart_f~re |   1.283273   .6652768     0.48   0.630     .4645557    3.544872
+1.stroke_tia |   3.93e-16   1.35e-08    -0.00   1.000            0           .
+       1.vte |   .8543884   1.148355    -0.12   0.907     .0613173    11.90495
+ 1.oestrogen |   2.44e-16   2.29e-08    -0.00   1.000            0           .
+1.antiplat~t |   .8384552   .3539789    -0.42   0.676     .3665385    1.917962
+1.flu_vac~ne |   1.032998   .2330211     0.14   0.886     .6638767    1.607353
+------------------------------------------------------------------------------
+
+. estimates save $tempdir/`outcome'_multivar2, replace    
+(note: file /workspace/output/post_hoc_3_af_oac_tempdata/onscoviddeath_multivar
+> 2.ster not found)
+file /workspace/output/post_hoc_3_af_oac_tempdata/onscoviddeath_multivar2.ster 
+> saved
+
+. 
+. * Fully adjusted model
+. stcox i.exposure i.male age1 age2 age3 $fullvarlist, strata(practice_id)
+
+         failure _d:  onscoviddeath
+   analysis time _t:  (stime_onscoviddeath-origin)
+             origin:  time first_positive_test_date
+  enter on or after:  time first_positive_test_date
+                 id:  patient_id
+
+Iteration 0:   log likelihood = -25.188865
+Iteration 1:   log likelihood = -11.149663
+Iteration 2:   log likelihood = -6.5952543
+Iteration 3:   log likelihood = -3.2256356
+Iteration 4:   log likelihood = -2.0206377
+Iteration 5:   log likelihood = -1.6152302
+Iteration 6:   log likelihood = -1.4700727
+Iteration 7:   log likelihood = -1.4170776
+Iteration 8:   log likelihood = -1.3976188
+Iteration 9:   log likelihood =  -1.390462
+Iteration 10:  log likelihood = -1.3878283
+Iteration 11:  log likelihood = -1.3868589
+Iteration 12:  log likelihood = -1.3865021
+Iteration 13:  log likelihood =  -1.386371
+Iteration 14:  log likelihood = -1.3863232
+Iteration 15:  log likelihood = -1.3863228
+Iteration 16:  log likelihood = -1.3863123
+Iteration 17:  log likelihood = -1.3863074
+Iteration 18:  log likelihood = -1.3859527
+Iteration 19:  log likelihood =  -1.384645
+Iteration 20:  log likelihood = -1.3841235  (backed up)
+Iteration 21:  log likelihood = -1.3813826
+Iteration 22:  log likelihood = -1.3818277  (backed up)
+Iteration 23:  log likelihood =  -1.382522  (backed up)
+Iteration 24:  log likelihood = -1.3833115  (backed up)
+Iteration 25:  log likelihood = -1.3839898  (backed up)
+Iteration 26:  log likelihood = -1.3828499  (backed up)
+Iteration 27:  log likelihood = -1.3835977  (backed up)
+Iteration 28:  log likelihood =  -1.384058  (backed up)
+Iteration 29:  log likelihood = -1.3834494
+Iteration 30:  log likelihood = -1.3819077
+Iteration 31:  log likelihood = -1.3817819
+Iteration 32:  log likelihood = -1.3823492  (backed up)
+Iteration 33:  log likelihood = -1.3810098
+Iteration 34:  log likelihood = -1.3795083
+Iteration 35:  log likelihood = -1.3799343  (backed up)
+Iteration 36:  log likelihood = -1.3803492  (backed up)
+Iteration 37:  log likelihood = -1.3807293  (backed up)
+Iteration 38:  log likelihood = -1.3812049  (backed up)
+Iteration 39:  log likelihood = -1.3791017  (backed up)
+Iteration 40:  log likelihood =  -1.379678  (backed up)
+Iteration 41:  log likelihood = -1.3803053  (backed up)
+Iteration 42:  log likelihood = -1.3809116  (backed up)
+Iteration 43:  log likelihood = -1.3815234  (backed up)
+Iteration 44:  log likelihood = -1.2446492
+Iteration 45:  log likelihood = -1.2448275  (backed up)
+Iteration 46:  log likelihood = -1.1842866  (backed up)
+Iteration 47:  log likelihood = -1.0035872  (backed up)
+Iteration 48:  log likelihood = -1.0049792  (backed up)
+Iteration 49:  log likelihood = -1.0053418  (backed up)
+Iteration 50:  log likelihood = -1.0064513  (backed up)
+Iteration 51:  log likelihood = -.98607373  (backed up)
+Iteration 52:  log likelihood = -.98670606  (backed up)
+Iteration 53:  log likelihood = -.98814234  (backed up)
+Iteration 54:  log likelihood =  -.9834264  (backed up)
+Iteration 55:  log likelihood = -.98368608  (backed up)
+Iteration 56:  log likelihood = -.98461132  (backed up)
+Iteration 57:  log likelihood = -.98224825  (backed up)
+Iteration 58:  log likelihood = -.98330961  (backed up)
+Iteration 59:  log likelihood = -.98359622  (backed up)
+Iteration 60:  log likelihood = -.98086306  (backed up)
+Iteration 61:  log likelihood = -.98115362  (backed up)
+Iteration 62:  log likelihood = -.98143722  (backed up)
+Iteration 63:  log likelihood = -.98264888  (backed up)
+Iteration 64:  log likelihood = -.98115476  (backed up)
+Iteration 65:  log likelihood = -.98234829  (backed up)
+Iteration 66:  log likelihood = -.98261988  (backed up)
+Iteration 67:  log likelihood = -.98350003  (backed up)
+Iteration 68:  log likelihood =  -.9850476  (backed up)
+Iteration 69:  log likelihood = -.98546943  (backed up)
+Iteration 70:  log likelihood = -.98569219  (backed up)
+Iteration 71:  log likelihood = -.98203751  (backed up)
+Iteration 72:  log likelihood = -.98212714  (backed up)
+Iteration 73:  log likelihood = -.98362649  (backed up)
+Iteration 74:  log likelihood = -.98426152  (backed up)
+Iteration 75:  log likelihood =   -.984455  (backed up)
+Iteration 76:  log likelihood = -.98488682  (backed up)
+Iteration 77:  log likelihood = -.98095025  (backed up)
+Iteration 78:  log likelihood = -1.6718452  (backed up)
+Iteration 79:  log likelihood = -1.3756591
+Iteration 80:  log likelihood = -1.2978654
+Iteration 81:  log likelihood = -1.2808702  (backed up)
+Iteration 82:  log likelihood = -1.2718213  (backed up)
+Iteration 83:  log likelihood = -1.2695497  (backed up)
+Iteration 84:  log likelihood = -1.4909526  (backed up)
+Iteration 85:  log likelihood = -1.4032839
+Iteration 86:  log likelihood = -1.3632319
+Iteration 87:  log likelihood =  -1.362285  (backed up)
+Iteration 88:  log likelihood = -1.4092101  (backed up)
+Iteration 89:  log likelihood = -1.3862314
+Iteration 90:  log likelihood = -1.3825162
+Iteration 91:  log likelihood = -1.3766446
+Iteration 92:  log likelihood = -1.3748202
+Iteration 93:  log likelihood = -1.3734488
+Iteration 94:  log likelihood =  -1.371888
+Iteration 95:  log likelihood = -1.3999087  (backed up)
+Iteration 96:  log likelihood = -1.3918109
+Iteration 97:  log likelihood = -1.3866921
+Iteration 98:  log likelihood = -1.2963325
+Iteration 99:  log likelihood = -1.2607649  (backed up)
+Iteration 100: log likelihood = -1.2623071  (backed up)
+Iteration 101: log likelihood = -1.1671054  (backed up)
+Iteration 102: log likelihood = -1.1511319  (backed up)
+Iteration 103: log likelihood = -1.0285004  (backed up)
+Iteration 104: log likelihood = -1.0286221  (backed up)
+Iteration 105: log likelihood = -1.0319038  (backed up)
+Iteration 106: log likelihood = -1.0273664  (backed up)
+Iteration 107: log likelihood =  -1.025982  (backed up)
+Iteration 108: log likelihood = -1.0261817  (backed up)
+Iteration 109: log likelihood =  -1.023705  (backed up)
+Iteration 110: log likelihood = -1.0240024  (backed up)
+Iteration 111: log likelihood = -1.0215593  (backed up)
+Iteration 112: log likelihood = -1.0218428  (backed up)
+Iteration 113: log likelihood = -1.0213183  (backed up)
+Iteration 114: log likelihood = -1.0228115  (backed up)
+Iteration 115: log likelihood = -1.0220698  (backed up)
+Iteration 116: log likelihood = -1.0209335  (backed up)
+Iteration 117: log likelihood = -1.0218468  (backed up)
+Iteration 118: log likelihood =  -1.022167  (backed up)
+Iteration 119: log likelihood = -1.0223579  (backed up)
+Iteration 120: log likelihood = -1.0229229  (backed up)
+Iteration 121: log likelihood = -1.0221151  (backed up)
+Iteration 122: log likelihood = -1.0224604  (backed up)
+Iteration 123: log likelihood = -1.0225386  (backed up)
+Iteration 124: log likelihood = -1.7154016  (backed up)
+Iteration 125: log likelihood = -1.1123147  (backed up)
+Iteration 126: log likelihood =  -1.044637  (backed up)
+Iteration 127: log likelihood = -.99154393  (backed up)
+Iteration 128: log likelihood = -.98550482  (backed up)
+Iteration 129: log likelihood = -.98073655  (backed up)
+Iteration 130: log likelihood = -.97644943  (backed up)
+Iteration 131: log likelihood = -1.6686663  (backed up)
+Iteration 132: log likelihood = -1.3782256
+Iteration 133: log likelihood = -1.3608377
+Iteration 134: log likelihood = -1.3378873
+Iteration 135: log likelihood = -1.3083655
+Iteration 136: log likelihood = -1.4592718  (backed up)
+Iteration 137: log likelihood = -1.4039566
+Iteration 138: log likelihood =  -1.381121
+Iteration 139: log likelihood = -1.3796117
+Iteration 140: log likelihood = -1.3831214  (backed up)
+Iteration 141: log likelihood = -1.3821827
+Iteration 142: log likelihood = -1.3807965  (backed up)
+Iteration 143: log likelihood = -1.3800675
+Iteration 144: log likelihood = -1.3811997  (backed up)
+Iteration 145: log likelihood = -1.3810961  (backed up)
+Iteration 146: log likelihood = -1.3779743
+Iteration 147: log likelihood = -1.3779438  (backed up)
+Iteration 148: log likelihood = -1.3760811  (backed up)
+Iteration 149: log likelihood = -1.3954154  (backed up)
+Iteration 150: log likelihood =  -1.388836
+Iteration 151: log likelihood = -1.3041868
+Iteration 152: log likelihood = -1.3043586  (backed up)
+Iteration 153: log likelihood =  -1.304532  (backed up)
+Iteration 154: log likelihood = -1.3047051  (backed up)
+Iteration 155: log likelihood = -1.3048764  (backed up)
+Iteration 156: log likelihood = -1.3050476  (backed up)
+Iteration 157: log likelihood = -1.3052179  (backed up)
+Iteration 158: log likelihood =  -1.305389  (backed up)
+Iteration 159: log likelihood = -1.3055611  (backed up)
+Iteration 160: log likelihood = -1.3057328  (backed up)
+Iteration 161: log likelihood = -1.2581707
+Iteration 162: log likelihood =  -1.237758
+Iteration 163: log likelihood = -1.1717663
+Iteration 164: log likelihood = -1.1682392  (backed up)
+Iteration 165: log likelihood = -1.1664774  (backed up)
+Iteration 166: log likelihood = -1.1945657  (backed up)
+Iteration 167: log likelihood = -1.1655383  (backed up)
+Iteration 168: log likelihood =  -1.157246  (backed up)
+Iteration 169: log likelihood = -1.1571832
+Iteration 170: log likelihood = -1.1553767  (backed up)
+Iteration 171: log likelihood = -1.1544661  (backed up)
+Iteration 172: log likelihood = -1.1611789  (backed up)
+Iteration 173: log likelihood = -1.1593761  (backed up)
+Iteration 174: log likelihood = -1.1762643  (backed up)
+Iteration 175: log likelihood = -1.1588241  (backed up)
+Iteration 176: log likelihood = -1.1516608  (backed up)
+Iteration 177: log likelihood = -1.5554712  (backed up)
+Iteration 178: log likelihood = -1.4013761
+Iteration 179: log likelihood = -1.1782337
+Iteration 180: log likelihood = -1.1368554  (backed up)
+Iteration 181: log likelihood = -1.1370909  (backed up)
+Iteration 182: log likelihood = -1.1373282  (backed up)
+Iteration 183: log likelihood = -1.1375646  (backed up)
+Iteration 184: log likelihood = -1.1378028  (backed up)
+Iteration 185: log likelihood = -1.1380357  (backed up)
+Iteration 186: log likelihood = -1.1382675  (backed up)
+Iteration 187: log likelihood = -1.1385012  (backed up)
+Iteration 188: log likelihood = -1.1387339  (backed up)
+Iteration 189: log likelihood = -1.1389686  (backed up)
+Iteration 190: log likelihood = -1.1392022  (backed up)
+Iteration 191: log likelihood = -1.1394334  (backed up)
+Iteration 192: log likelihood = -1.1396638  (backed up)
+Iteration 193: log likelihood = -1.0930891  (backed up)
+Iteration 194: log likelihood = -1.0583237  (backed up)
+Iteration 195: log likelihood =  -1.058549  (backed up)
+Iteration 196: log likelihood = -1.0587733  (backed up)
+Iteration 197: log likelihood = -1.0566136  (backed up)
+Iteration 198: log likelihood = -1.0274916  (backed up)
+Iteration 199: log likelihood = -1.0202353  (backed up)
+Iteration 200: log likelihood = -1.0153148  (backed up)
+Iteration 201: log likelihood = -1.0156944  (backed up)
+Iteration 202: log likelihood = -1.0464507  (backed up)
+Iteration 203: log likelihood = -1.0469055  (backed up)
+Iteration 204: log likelihood = -1.0470778  (backed up)
+Iteration 205: log likelihood = -1.0475454  (backed up)
+Iteration 206: log likelihood = -1.0479543  (backed up)
+Iteration 207: log likelihood = -1.0483699  (backed up)
+Iteration 208: log likelihood = -1.0487959  (backed up)
+Iteration 209: log likelihood = -1.0492342  (backed up)
+Iteration 210: log likelihood = -1.0447968  (backed up)
+Iteration 211: log likelihood = -1.0447922  (backed up)
+Iteration 212: log likelihood = -1.0733196  (backed up)
+Iteration 213: log likelihood = -1.0529794  (backed up)
+Iteration 214: log likelihood = -1.0534618  (backed up)
+Iteration 215: log likelihood = -1.0538126  (backed up)
+Iteration 216: log likelihood = -1.0523046  (backed up)
+Iteration 217: log likelihood = -1.0527264  (backed up)
+Iteration 218: log likelihood = -1.0531534  (backed up)
+Iteration 219: log likelihood = -1.0452973  (backed up)
+Iteration 220: log likelihood = -1.0364656  (backed up)
+Iteration 221: log likelihood = -1.0363708  (backed up)
+Iteration 222: log likelihood = -1.0367648  (backed up)
+Iteration 223: log likelihood = -1.0371445  (backed up)
+Iteration 224: log likelihood = -1.0375257  (backed up)
+Iteration 225: log likelihood =  -1.037909  (backed up)
+Iteration 226: log likelihood = -1.0382914  (backed up)
+Iteration 227: log likelihood = -1.0386756  (backed up)
+Iteration 228: log likelihood = -1.0390584  (backed up)
+Iteration 229: log likelihood = -1.0394464  (backed up)
+Iteration 230: log likelihood =  -1.035604  (backed up)
+Iteration 231: log likelihood = -1.0359044  (backed up)
+Iteration 232: log likelihood = -1.0351671  (backed up)
+Iteration 233: log likelihood = -1.0369443  (backed up)
+Iteration 234: log likelihood = -1.0356731  (backed up)
+Iteration 235: log likelihood = -1.0354896  (backed up)
+Iteration 236: log likelihood = -1.7295841  (backed up)
+Iteration 237: log likelihood = -1.6686246
+Iteration 238: log likelihood = -1.5357414
+Iteration 239: log likelihood = -1.4593421
+Iteration 240: log likelihood =  -1.332755
+Iteration 241: log likelihood = -1.2473405
+Iteration 242: log likelihood = -1.2456053  (backed up)
+Iteration 243: log likelihood =  -1.221467
+Iteration 244: log likelihood = -1.2111788  (backed up)
+Iteration 245: log likelihood = -1.1969586  (backed up)
+Iteration 246: log likelihood = -1.8900831  (backed up)
+Iteration 247: log likelihood = -1.5992717
+Iteration 248: log likelihood =  -1.489613
+Iteration 249: log likelihood = -1.4785809  (backed up)
+Iteration 250: log likelihood = -1.3888928
+Iteration 251: log likelihood = -1.3875821  (backed up)
+Iteration 252: log likelihood = -1.3877414  (backed up)
+Iteration 253: log likelihood = -1.3878921  (backed up)
+Iteration 254: log likelihood = -1.3672745  (backed up)
+Iteration 255: log likelihood = -1.3662462  (backed up)
+Iteration 256: log likelihood = -1.3659403  (backed up)
+Iteration 257: log likelihood = -1.3659014  (backed up)
+Iteration 258: log likelihood =  -2.058844  (backed up)
+Iteration 259: log likelihood = -1.6241758
+Iteration 260: log likelihood = -1.5702199
+Iteration 261: log likelihood =  -1.545994
+Iteration 262: log likelihood = -1.4986355  (backed up)
+Iteration 263: log likelihood = -1.4971851  (backed up)
+Iteration 264: log likelihood = -1.5455915  (backed up)
+Iteration 265: log likelihood = -1.5438976  (backed up)
+Iteration 266: log likelihood = -1.4993483  (backed up)
+flat region resulting in a missing likelihood
+r(430);
+
+end of do-file
+r(430);

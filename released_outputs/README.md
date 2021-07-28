@@ -541,6 +541,8 @@
     * [output/oac_tabfig/table7_positivecovidtest.txt](output/oac_tabfig/table7_positivecovidtest.txt)
     * [output/oac_tabfig/table8.txt](output/oac_tabfig/table8.txt)
     * [output/oac_tabfig/table9_positivecovidtest.txt](output/oac_tabfig/table9_positivecovidtest.txt)
+  * output/post_hoc_3_af_oac_log
+    * [output/post_hoc_3_af_oac_log/05a_an_models_onscoviddeath.log](output/post_hoc_3_af_oac_log/05a_an_models_onscoviddeath.log)
   * output/warfarin_log
     * [output/warfarin_log/00_cr_create_analysis_dataset.log](output/warfarin_log/00_cr_create_analysis_dataset.log)
     * [output/warfarin_log/01_cr_create_exposure_outcome_af.log](output/warfarin_log/01_cr_create_exposure_outcome_af.log)
