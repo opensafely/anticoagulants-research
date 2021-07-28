@@ -3074,7 +3074,7 @@ actions:
   # Primary Outcomes: ONS COVID-19 death
   posthoc3_02b_cr_create_population_af_warfarin_onscoviddeath:
     run: stata-mp:latest analysis/posthoc3_02b_cr_create_population.do onscoviddeath posthoc3_af_warfarin
-    needs: [02b_cr_create_population_af_warfarin_onscoviddeath]
+    needs: [02b_cr_create_population_af_warfarin_onscoviddeath, SA5_02b_cr_create_population_af_warfarin_onscoviddeath]
     outputs:
       moderately_sensitive:
         log: output/post_hoc_3_af_warfarin_log/posthoc3_02b_cr_create_population_onscoviddeath.log
