@@ -49,7 +49,7 @@ drop exposure
 * Merge the time-updated exposure dataset from sensitivity analysis 5 to update exposure
 * See SA5_02b_cr_create_population.do
 
-merge 1:m patient_id using "$projectdir/output/warfarin_tempdata/sens_analysis_5/analysis_dataset_STSET_`outcome'", ///
+merge 1:m patient_id using $tempdir_sens_analysis/analysis_dataset_STSET_`outcome', ///
  keep(match) keepusing(oac_date_after_mar exposure) nogen
 
 * Sort the time sequence of OAC prescription within each patient
