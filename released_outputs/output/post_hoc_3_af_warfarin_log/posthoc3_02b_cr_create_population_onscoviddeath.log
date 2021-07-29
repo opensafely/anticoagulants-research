@@ -1,0 +1,144 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/output/post_hoc_3_af_warfarin_log/posthoc3_02b_cr_creat
+> e_population_onscoviddeath.log
+  log type:  text
+ opened on:  28 Jul 2021, 13:40:37
+
+. 
+. /* Use the dataset we derived from the 02b program===========================
+> ==*/ 
+. 
+. use $tempdir_main_analysis/analysis_dataset_`outcome', clear
+
+. 
+. * Only keep people with positive test result
+. noi di "PEOPLE WITH POSITIVE COVID TESTS"
+PEOPLE WITH POSITIVE COVID TESTS
+
+. keep if positivecovidtest == 1
+(367,974 observations deleted)
+
+. 
+. safecount
+  4,772
+
+. 
+. /* SAVE DATA=================================================================
+> =*/        
+. 
+. save $tempdir/analysis_dataset_`outcome', replace
+(note: file /workspace/output/post_hoc_3_af_warfarin_tempdata/analysis_dataset_
+> onscoviddeath.dta not found)
+file /workspace/output/post_hoc_3_af_warfarin_tempdata/analysis_dataset_onscovi
+> ddeath.dta saved
+
+. 
+. * Save a version set on outcomes
+. stset stime_`outcome', fail(`outcome') id(patient_id) enter(first_positive_te
+> st_date) origin(first_positive_test_date)  
+
+                id:  patient_id
+     failure event:  onscoviddeath != 0 & onscoviddeath < .
+obs. time interval:  (stime_onscoviddeath[_n-1], stime_onscoviddeath]
+ enter on or after:  time first_positive_test_date
+ exit on or before:  failure
+    t for analysis:  (time-origin)
+            origin:  time first_positive_test_date
+
+------------------------------------------------------------------------------
+      4,772  total observations
+        102  observations end on or before enter()
+------------------------------------------------------------------------------
+      4,670  observations remaining, representing
+      4,670  subjects
+      1,635  failures in single-failure-per-subject data
+  405,445.5  total analysis time at risk and under observation
+                                                at risk from t =         0
+                                     earliest observed entry t =         0
+                                          last observed exit t =       201
+
+. 
+. * Update the latest exposure status (closest to positive test date)
+. drop exposure 
+
+. 
+. * Merge the time-updated exposure dataset from sensitivity analysis 5 to upda
+> te exposure
+. * See SA5_02b_cr_create_population.do
+. 
+. merge 1:m patient_id using $tempdir_sens_analysis/analysis_dataset_STSET_`out
+> come', ///
+>  keep(match) keepusing(oac_date_after_mar exposure) nogen
+(label exposure already defined)
+(label diabcat already defined)
+(label hba1ccat already defined)
+(label eskf_exclusion already defined)
+(label ckd already defined)
+(label smoke already defined)
+(label obese4cat already defined)
+(label bmicat already defined)
+(label agegroup already defined)
+(label imd already defined)
+(label ethnicity already defined)
+(label exposure_warfarin already defined)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                             5,112  
+    -----------------------------------------
+
+. 
+. * Sort the time sequence of OAC prescription within each patient
+. 
+. * Generate the prescription start date for each observation of time-updated e
+> xposure
+. sort patient_id oac_date_after_mar
+
+. bysort patient_id: gen rxst = oac_date_after_mar[_n-1]
+(4,772 missing values generated)
+
+. replace rxst = enter_date if rxst == .
+(4,772 real changes made)
+
+. format rxst %td
+
+. 
+. * Drop any prescription received after first positive test date
+. drop if first_positive_test - rxst < 0
+(210 observations deleted)
+
+. 
+. * Generate distance between positive covid test date and the latest date of O
+> AC prescription
+. gen distance = first_positive_test_date - rxst 
+
+. bysort patient_id: egen min_distance = min(distance)
+
+. 
+. * Keep the record of prescription closest to the positive covid test date
+. keep if distance == min_distance
+(130 observations deleted)
+
+. 
+. * Erase unnecessary variables
+. drop distance min_distance
+
+. 
+. * Save final dataset
+. save $tempdir/analysis_dataset_STSET_`outcome', replace
+(note: file /workspace/output/post_hoc_3_af_warfarin_tempdata/analysis_dataset_
+> STSET_onscoviddeath.dta not found)
+file /workspace/output/post_hoc_3_af_warfarin_tempdata/analysis_dataset_STSET_o
+> nscoviddeath.dta saved
+
+. 
+. * Close log file 
+. log close
+      name:  <unnamed>
+       log:  /workspace/output/post_hoc_3_af_warfarin_log/posthoc3_02b_cr_creat
+> e_population_onscoviddeath.log
+  log type:  text
+ closed on:  28 Jul 2021, 13:40:39
+-------------------------------------------------------------------------------

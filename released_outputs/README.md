@@ -549,6 +549,10 @@
   * output/post_hoc_3_af_oac_tabfig
     * [output/post_hoc_3_af_oac_tabfig/table1_onscoviddeath.txt](output/post_hoc_3_af_oac_tabfig/table1_onscoviddeath.txt)
     * [output/post_hoc_3_af_oac_tabfig/table2_correct_parameter_onscoviddeath.txt](output/post_hoc_3_af_oac_tabfig/table2_correct_parameter_onscoviddeath.txt)
+  * output/post_hoc_3_af_warfarin_log
+    * [output/post_hoc_3_af_warfarin_log/04_an_descriptive_table_onscoviddeath.log](output/post_hoc_3_af_warfarin_log/04_an_descriptive_table_onscoviddeath.log)
+    * [output/post_hoc_3_af_warfarin_log/05b_an_models_onscoviddeath.log](output/post_hoc_3_af_warfarin_log/05b_an_models_onscoviddeath.log)
+    * [output/post_hoc_3_af_warfarin_log/posthoc3_02b_cr_create_population_onscoviddeath.log](output/post_hoc_3_af_warfarin_log/posthoc3_02b_cr_create_population_onscoviddeath.log)
   * output/warfarin_log
     * [output/warfarin_log/00_cr_create_analysis_dataset.log](output/warfarin_log/00_cr_create_analysis_dataset.log)
     * [output/warfarin_log/01_cr_create_exposure_outcome_af.log](output/warfarin_log/01_cr_create_exposure_outcome_af.log)
