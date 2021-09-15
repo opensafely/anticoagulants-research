@@ -42,4 +42,3 @@ opensafely/venous-thromboembolism-icd-10/6e25de26
 opensafely/stroke-secondary-care/2020-10-05
 opensafely/cardiovascular-secondary-care/20b63bd4
 opensafely/gastrointestinal-bleeding-icd-10/6b731e30
-opensafely/dementia-complete/48c76cf8
