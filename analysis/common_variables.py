@@ -637,6 +637,15 @@ common_variables = dict(
         date_format="YYYY-MM",
         return_expectations={"date": {"latest": "2020-02-29"}},
     ),
+    # DEMENTIA
+    dementia=patients.with_these_clinical_events(
+        dementia_codes,
+        on_or_before="2020-02-29",
+        returning="date",
+        find_first_match_in_period=True,
+        date_format="YYYY-MM",
+        return_expectations={"date": {"latest": "2020-02-29"}},
+    ),
     # DIABETES
     diabetes=patients.with_these_clinical_events(
         diabetes_codes,
