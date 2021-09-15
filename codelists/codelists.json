@@ -255,20 +255,14 @@
     "opensafely-cardiovascular-secondary-care.csv": {
       "id": "opensafely/cardiovascular-secondary-care/20b63bd4",
       "url": "https://codelists.opensafely.org/codelist/opensafely/cardiovascular-secondary-care/20b63bd4/",
-      "downloaded_at": "2021-09-15 09:06:01.279675Z",
-      "sha": "7c956ed25484f8c03dae29823031c27f2802914a"
+      "downloaded_at": "2021-02-24 16:54:30.456464Z",
+      "sha": "2058b84c281a623ad71793e9b5058aea9079612f"
     },
     "opensafely-gastrointestinal-bleeding-icd-10.csv": {
       "id": "opensafely/gastrointestinal-bleeding-icd-10/6b731e30",
       "url": "https://codelists.opensafely.org/codelist/opensafely/gastrointestinal-bleeding-icd-10/6b731e30/",
       "downloaded_at": "2021-02-24 17:31:19.431871Z",
       "sha": "f77da1d1f4f95a043011e47f267d8d8ba8230180"
-    },
-    "opensafely-dementia-complete.csv": {
-      "id": "opensafely/dementia-complete/48c76cf8",
-      "url": "https://codelists.opensafely.org/codelist/opensafely/dementia-complete/48c76cf8/",
-      "downloaded_at": "2021-09-15 09:06:01.608245Z",
-      "sha": "b73c9363f19a9ee9f4407e34e95e11d3eeb615f4"
     }
   }
 }

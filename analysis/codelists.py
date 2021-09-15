@@ -189,11 +189,6 @@ flu_clinical_not_given_codes = codelist_from_csv(
     column="CTV3ID",
 )
 
-dementia_codes = codelist_from_csv(
-    "codelists/opensafely-dementia-complete.csv",
-    system="ctv3",
-    column="code",
-)
 
 # MEDICATIONS
 warfarin_codes = codelist_from_csv(
